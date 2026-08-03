@@ -161,3 +161,10 @@ bar only goes up), and the newest shipped deck becomes the reference implementat
   the scoping doctrine applied to ourselves. `check-deck.js` now gates Flesch reading
   ease ≥ 60 on teach prose; style-copying from the sister reference deck no longer
   carries its American, em-dash-heavy prose register.
+- 2026-08-04 · Week 1 trainer correction: time estimates ran 3–4× over. This cohort
+  codes daily and moves fast — acts are 30–45 min, hands-ons 10–20 min, capstones
+  ≤ 1.5 h. Estimate for a working dev, never pad.
+- 2026-08-04 · Week 1 trainer correction: Max subscriptions expose no dollar costs and
+  no token counts — only opaque rate limits. Teach `/usage` (percentages + reset times)
+  and relative pressure; never present `/cost` dollars as observable. Frame the topic
+  "usage", not "cost", programme-wide.

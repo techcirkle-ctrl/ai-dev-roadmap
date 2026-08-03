@@ -39,7 +39,7 @@ Upload on this issue before closing:
 
 ## Time Estimate
 
-3 hours.
+2 hours of logging and grading; the 10 tasks themselves are your normal work for the week.
 
 ## Status
 

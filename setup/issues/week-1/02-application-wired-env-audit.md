@@ -37,7 +37,7 @@ Upload on this issue before closing:
 
 ## Time Estimate
 
-1.5 hours (both directions).
+45 minutes (both directions).
 
 ## Status
 

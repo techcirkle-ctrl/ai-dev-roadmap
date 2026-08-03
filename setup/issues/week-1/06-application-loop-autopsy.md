@@ -38,7 +38,7 @@ Upload on this issue before closing:
 
 ## Time Estimate
 
-2 hours.
+1 hour, plus the cold-reader swap.
 
 ## Status
 

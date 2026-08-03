@@ -11,9 +11,14 @@ One week. **Due: end of day Sunday** (all issues inherit this date).
 ## Learning Objectives
 
 - Explain the agentic loop (gather → act → verify) and read any session by its beats.
+- Write well-formed briefs (role, task, constraints, examples, output) that cut
+  round-trips and token burn.
 - Wire the environment to the zero-copy-paste bar: gh CLI authenticated, MCP servers
   connected, permission baseline set at the right scopes.
-- Read and budget token spend on Max 5x: windows, weekly cap, model mix, /cost and /context.
+- Read and budget usage on Max 5x: windows, weekly cap, model mix, /usage and /context
+  (subscriptions show no dollar costs; the readings are relative).
+- Triage heavy sessions: /clear when history is done with, focused /compact at
+  breakpoints, a handoff file when work outlives the session.
 - Name the four disciplines (context, harness, loop, graph) and run one mini-rep of each.
 - Ship one real automation through the wired environment and start the friction log.
 

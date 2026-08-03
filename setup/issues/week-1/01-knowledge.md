@@ -11,9 +11,11 @@ browser only; paper fallbacks live in `weeks/week-1/data/`.
 ## Instructions (in order)
 
 1. **Read through the acts.** Make sure you know the following topics covered in the deck:
-   - Act 1 — The agentic loop: chat vs agent, gather → act → verify, reading a session
+   - Act 1 — The agentic loop: chat vs agent, gather → act → verify, the well-formed
+     brief (role, task, constraints, examples, output), reading a session
    - Act 2 — Wiring day: gh CLI, MCP connectors, the permission baseline
-   - Act 3 — Token economics on Max 5x: windows, weekly cap, model mix, /cost, /context
+   - Act 3 — Token economics on Max 5x: windows, weekly cap, model mix, /usage,
+     /context, session triage (/clear · /compact · hand off)
    - Act 4 — The four disciplines as mini-reps: context, harness, loop, graph
 2. **Do the hands-on exercises** embedded in each act, on your own system:
    - [ ] Act 1: Read a live session (H-O 01)

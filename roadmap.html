@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Dev Roadmap — Plan</title>
+<style>
+:root{
+  --ink:#16202b;
+  --muted:#5c6b7a;
+  --line:#e4e8ec;
+  --paper:#ffffff;
+  --wash:#f6f8fa;
+  --accent:#0b6e6e;
+  --accent-soft:#e2f0ef;
+  --warn:#b06a00;
+  --warn-soft:#fdf3e3;
+  --good:#1c7a4a;
+  --good-soft:#e5f2ea;
+  --bad:#b23b3b;
+  --maxw:820px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--wash);color:var(--ink);
+  font-family:ui-serif,Georgia,"Iowan Old Style",Palatino,serif;
+  line-height:1.6;padding:48px 20px 80px;
+}
+.wrap{max-width:var(--maxw);margin:0 auto}
+.kicker{
+  font-family:ui-sans-serif,system-ui,sans-serif;
+  font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-size:12px;margin-bottom:8px;
+}
+h1{font-size:34px;line-height:1.2;margin-bottom:10px}
+.lede{color:var(--muted);font-size:17px;max-width:60ch;margin-bottom:14px}
+.legend{
+  font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;color:var(--muted);
+  display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:44px;
+}
+.legend .tag{margin:0}
+
+/* timeline */
+.timeline{position:relative;padding-left:34px}
+.timeline::before{
+  content:"";position:absolute;left:10px;top:6px;bottom:6px;
+  width:2px;background:var(--line);
+}
+.phase{
+  position:relative;margin:36px 0 18px;
+  font-family:ui-sans-serif,system-ui,sans-serif;
+  font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  font-size:12px;color:var(--muted);
+}
+.phase:first-child{margin-top:0}
+.phase b{color:var(--ink)}
+.week{position:relative;margin-bottom:28px}
+.week::before{
+  content:"";position:absolute;left:-31px;top:26px;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--paper);border:3px solid var(--accent);
+}
+
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  padding:22px 24px;box-shadow:0 1px 3px rgba(22,32,43,.05);
+}
+.card-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;margin-bottom:6px;
+}
+.week-label{
+  font-family:ui-sans-serif,system-ui,sans-serif;
+  font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-size:12px;
+}
+h2{font-size:21px;line-height:1.3}
+.desc{color:var(--muted);font-size:15.5px;margin:8px 0 12px}
+.topics{margin:0 0 14px 18px;font-size:15.5px}
+.topics li{margin-bottom:3px}
+.topics li.cap b{color:var(--accent)}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{
+  font-family:ui-sans-serif,system-ui,sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 10px;border-radius:999px;
+  background:var(--accent-soft);color:var(--accent);
+}
+.tag.method{background:var(--warn-soft);color:var(--warn)}
+.tag.repo{background:var(--good-soft);color:var(--good)}
+.tag.team{background:var(--wash);color:var(--muted);border:1px solid var(--line)}
+.meta{
+  font-family:ui-sans-serif,system-ui,sans-serif;
+  font-size:13px;color:var(--muted);margin-top:12px;
+  padding-top:12px;border-top:1px solid var(--line);
+}
+.meta b{color:var(--ink);font-weight:600}
+
+.foot{
+  margin-top:48px;color:var(--muted);font-size:14px;
+  font-family:ui-sans-serif,system-ui,sans-serif;
+}
+
+@media print{
+  body{background:#fff;padding:0}
+  .card{box-shadow:none;break-inside:avoid}
+  .timeline::before{display:none}
+  .week::before{display:none}
+  .timeline{padding-left:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">AI Dev Roadmap</div>
+  <h1>The Plan · week by week</h1>
+  <p class="lede">
+    Nine weeks from ad hoc prompting to real engineering with Claude Code, across the
+    whole SDLC: planning, building, verifying, tracking, reviewing. One tool for the
+    whole programme, on the Claude Max 5x plan, at 20–25 hours a week. Week 1 wires your
+    environment to a zero-copy-paste bar; week 8 runs the industry's famous
+    methodologies; week 9 merges everything into your own written SDLC methodology.
+    Every week exits with one named deliverable. Each week is one milestone: work the
+    deck, complete the project issues, add the reinforcement. Everything a week needs
+    lives in its
+    <span style="font-family:ui-monospace,Menlo,monospace;font-size:.92em">weeks/week-N/</span> folder.
+  </p>
+  <div class="legend">
+    <span>Tags:</span>
+    <span class="tag">Craft · master the tool</span>
+    <span class="tag method">Method · your SDLC methodology</span>
+    <span class="tag repo">Real Repo · your own codebase</span>
+    <span class="tag team">Team · leverage beyond yourself</span>
+  </div>
+
+  <div class="timeline">
+
+    <div class="phase">Weeks 1–3 · <b>From prompting to engineering</b></div>
+
+    <div class="week">
+      <div class="card">
+        <div class="card-head">
+          <span class="week-label">Week 1</span>
+        </div>
+        <h2>Setup + the map: wire everything</h2>
+        <p class="desc">The first inefficiency removed is copy-paste. You wire the lot on
+        day one: gh CLI, MCP connectors to GitHub and your team's systems, a permission
+        baseline, and the token economics of the Max plan you are on. Then the programme
+        map: all four disciplines, each experienced as a one-hour mini-rep. Your friction
+        log starts now: two minutes a day.</p>
+        <ul class="topics">
+          <li>The agentic loop: chat vs agent, gather → act → verify, reading a session</li>
+          <li>Wiring day: gh CLI, MCP connectors (GitHub, DB, docs, tickets), permissions</li>
+          <li>Token economics on Max 5x: 5-hour windows, weekly caps, model mix, /cost</li>
+          <li>The four disciplines as mini-reps: context fix · hook · verified loop · parallel run</li>
+          <li class="cap"><b>Capstone:</b> environment built to the zero-copy-paste bar + one real automation shipped through it + loop autopsy on the gym repo</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Craft</span>
+          <span class="tag method">Method</span>
+        </div>
+        <div class="meta">
+          <b>Deliverable:</b> zero-copy-paste environment + first shipped automation ·
+          <b>Deck:</b> weeks/week-1/Knowledge.html · <b>Due:</b> Sunday EOD ·
+          <b>Issues:</b> Knowledge → Application ×5–6 → Reinforcement
+        </div>
+      </div>
+    </div>
+
+    <div class="week">
+      <div class="card">
+        <div class="card-head">
+          <span class="week-label">Week 2</span>
+        </div>
+        <h2>Context engineering: what the model sees, at the right scope</h2>
+        <p class="desc">Every failure you blame on the model is usually a failure of what
+        it was shown. You learn the context window and its attention budget, then the
+        scoping doctrine: global, workspace, project, directory, local. A microservices
+        workspace scopes its docs at the folder spanning the repos; a monorepo scopes at
+        root plus per-package files. The documentation layer (CONTEXT.md, DESIGN.md,
+        guardrails.md) joins CLAUDE.md, and an AGENTS.md symlink keeps your repos
+        agent-portable.</p>
+        <ul class="topics">
+          <li>Context window anatomy + the attention budget (context is spend)</li>
+          <li>CLAUDE.md as the always-on spec: short imperative rules</li>
+          <li>Scoping doctrine: global / workspace / project / directory / local · AGENTS.md symlink</li>
+          <li>The documentation layer: CONTEXT.md, DESIGN.md, guardrails.md</li>
+          <li>Session hygiene: /clear, /compact, @-refs · agentic search vs pasting</li>
+          <li class="cap"><b>Capstone:</b> the scoped docs layer for a real repo or workspace, A/B'd on a 5-task suite, deltas documented</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Craft</span>
+        </div>
+        <div class="meta">
+          <b>Deliverable:</b> scoped CLAUDE.md + docs layer with measured deltas ·
+          <b>Deck:</b> weeks/week-2/Knowledge.html · <b>Due:</b> Sunday EOD ·
+          <b>Issues:</b> Knowledge → Application ×5–6 → Reinforcement
+        </div>
+      </div>
+    </div>
+
+    <div class="week">
+      <div class="card">
+        <div class="card-head">
+          <span class="week-label">Week 3</span>
+        </div>
+        <h2>Harness engineering: encode it, don't repeat it</h2>
+        <p class="desc">The rule of twice: any instruction you have given twice becomes
+        infrastructure, and every piece of it has a correct scope. Allowlists buy safe
+        autonomy, commands capture workflows, hooks enforce guardrails.md, and skills
+        load team knowledge only when relevant. Your harness lands in a codebase you
+        actually work in: the real-repo thread starts here and runs to the end.</p>
+        <ul class="topics">
+          <li>The rule of twice: repeated instructions become infrastructure</li>
+          <li>Settings + permission allowlists at their scopes: user / project / local</li>
+          <li>Custom slash commands · hooks: guarantees the model cannot skip</li>
+          <li>Skills: progressive disclosure, triggering, project vs personal classification</li>
+          <li>The shared harness: checked-in .claude/ as team infrastructure</li>
+          <li class="cap"><b>Capstone:</b> harness v1 in your real repo (settings + 2 commands + 2 hooks + 1 skill, each at its argued scope), raised as a PR</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Craft</span>
+          <span class="tag repo">Real Repo</span>
+          <span class="tag method">Method</span>
+          <span class="tag team">Team</span>
+        </div>
+        <div class="meta">
+          <b>Deliverable:</b> harness v1 PR'd and teammate-reviewed ·
+          <b>Deck:</b> weeks/week-3/Knowledge.html · <b>Due:</b> Sunday EOD ·
+          <b>Issues:</b> Knowledge → Application ×5–6 → Reinforcement
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">Weeks 4–7 · <b>The engine: plan, loop, graph</b></div>
+
+    <div class="week">
+      <div class="card">
+        <div class="card-head">
+          <span class="week-label">Week 4</span>
+        </div>
+        <h2>Planning: spec-driven development</h2>
+        <p class="desc">Execution quality is decided before the first edit. You learn when
+        to make Claude think longer, how to move brainstorm → spec → plan → execute, and
+        how to write a spec a cold session can run without asking you anything. Decisions
+        get memory: ADRs written at decision time become context every future session
+        reads, and DESIGN.md stays honest as the architecture moves.</p>
+        <ul class="topics">
+          <li>Plan mode + extended thinking: when to think longer</li>
+          <li>The pipeline: brainstorm → spec → plan → execute</li>
+          <li>Specs a cold session can run</li>
+          <li>Decision memory: the philosophy of ADRs · DESIGN.md kept honest</li>
+          <li>Plan review beats code review</li>
+          <li class="cap"><b>Capstone:</b> one real feature through the full pipeline: spec first, one ADR recorded, shipped</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Craft</span>
+          <span class="tag repo">Real Repo</span>
+        </div>
+        <div class="meta">
+          <b>Deliverable:</b> feature shipped spec-first + its ADR ·
+          <b>Deck:</b> weeks/week-4/Knowledge.html · <b>Due:</b> Sunday EOD ·
+          <b>Issues:</b> Knowledge → Application ×5–6 → Reinforcement
+        </div>
+      </div>
+    </div>
+
+    <div class="week">
+      <div class="card">
+        <div class="card-head">
+          <span class="week-label">Week 5</span>
+        </div>
+        <h2>Loop engineering I: the verified loop</h2>
+        <p class="desc">The first thing this programme never compresses. An agent is only
+        as good as the feedback signal that closes its loop, so you stop trusting "done"
+        and wire typecheck, lint, tests and build as gates. TDD is the tightest loop an
+        agent can run; debugging gets the same shape. Review joins the loop too: Claude
+        becomes first reviewer on every diff, checking changes against your ADRs and
+        guardrails.md before a human ever looks.</p>
+        <ul class="topics">
+          <li>Never trust "done": typecheck, lint, tests, build as closing signals</li>
+          <li>TDD with an agent: red–green–refactor</li>
+          <li>Debugging as a loop: reproduce → hypothesise → instrument → fix → regression-test</li>
+          <li>Claude as first reviewer: review harness, rubrics, self-review</li>
+          <li class="cap"><b>Capstone:</b> TDD a real feature end to end, test-gated; review harness run on its PR + 2 more live PRs, findings vs human review</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Craft</span>
+          <span class="tag repo">Real Repo</span>
+        </div>
+        <div class="meta">
+          <b>Deliverable:</b> test-gated feature + review harness live on real PRs ·
+          <b>Deck:</b> weeks/week-5/Knowledge.html · <b>Due:</b> Sunday EOD ·
+          <b>Issues:</b> Knowledge → Application ×5–6 → Reinforcement
+        </div>
+      </div>
+    </div>
+
+    <div class="week">
+      <div class="card">
+        <div class="card-head">
+          <span class="week-label">Week 6</span>
+        </div>
+        <h2>Loop engineering II: autonomy</h2>
+        <p class="desc">Once a loop verifies itself, you can let go of it. Headless mode
+        turns Claude into a Unix tool you can schedule and pipe; guardrails plus
+        auto-accept buy unattended hours. The hard lesson is reward hacking: an agent
+        will game a weak signal, so you design signals that cannot be gamed. Autonomy
+        also spends tokens while you sleep, so runs get budgeted against your Max caps.</p>
+        <ul class="topics">
+          <li>Headless mode: Claude as a Unix tool</li>
+          <li>Long-running loops: checkpoints, auto-accept with guardrails</li>
+          <li>Reward hacking: designing signals agents can't game</li>
+          <li>CI loops: the pipeline heals itself</li>
+          <li>Budgeting autonomous runs on Max: caps, model mix for background work</li>
+          <li class="cap"><b>Capstone:</b> an unattended overnight job doing real work, with morning evidence + a cost readout</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Craft</span>
+          <span class="tag repo">Real Repo</span>
+        </div>
+        <div class="meta">
+          <b>Deliverable:</b> overnight autonomous job + budget readout ·
+          <b>Deck:</b> weeks/week-6/Knowledge.html · <b>Due:</b> Sunday EOD ·
+          <b>Issues:</b> Knowledge → Application ×5–6 → Reinforcement
+        </div>
+      </div>
+    </div>
+
+    <div class="week">
+      <div class="card">
+        <div class="card-head">
+          <span class="week-label">Week 7</span>
+        </div>
+        <h2>Graph engineering + tracking</h2>
+        <p class="desc">A feature is a dependency graph pretending to be a queue. You draw
+        the graph, split the independent branches across subagents and git worktrees, and
+        merge with discipline. Tracking joins in: the epic runs as issues, the gh CLI
+        gives Claude hands on the board, and standups and changelogs come from git truth
+        instead of memory.</p>
+        <ul class="topics">
+          <li>Work as a DAG: parallel vs serial branches</li>
+          <li>Subagents: context isolation, custom agents, fan-out/fan-in</li>
+          <li>Git worktrees: N sessions, one repo, no collisions · merge discipline</li>
+          <li>Issue-driven development: issue → branch → PR → review as one loop</li>
+          <li>The self-updating board: standups + changelogs from git truth</li>
+          <li class="cap"><b>Capstone:</b> a real epic decomposed into a graph, opened as issues, executed across 3+ parallel worktrees, merged clean, board maintained by Claude</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Craft</span>
+          <span class="tag repo">Real Repo</span>
+        </div>
+        <div class="meta">
+          <b>Deliverable:</b> epic delivered in parallel, fully issue-tracked ·
+          <b>Deck:</b> weeks/week-7/Knowledge.html · <b>Due:</b> Sunday EOD ·
+          <b>Issues:</b> Knowledge → Application ×5–6 → Reinforcement
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">Weeks 8–9 · <b>Synthesis: the industry's process, then yours</b></div>
+
+    <div class="week">
+      <div class="card">
+        <div class="card-head">
+          <span class="week-label">Week 8</span>
+        </div>
+        <h2>Industry methodologies: run the famous processes</h2>
+        <p class="desc">Before you write your own methodology, you run the industry's.
+        Every named process is the four disciplines arranged differently; once you see
+        that, you can read any of them. You install Superpowers and drive a real feature
+        through its brainstorm → plan → TDD pipeline, work Matt Pocock's plan-artifact
+        workflow, and survey the wider field. The bake-off produces your steal list.</p>
+        <ul class="topics">
+          <li>Methodology anatomy: every named process is the four disciplines, rearranged</li>
+          <li>Superpowers (Jesse Vincent): brainstorm → plan → subagent-driven TDD, worktrees, skills library</li>
+          <li>Matt Pocock's workflow: plan artifacts, context curation, eval-first habits</li>
+          <li>The wider field: Harper Reed's codegen loop · Ralph loops · Kiro-style spec trios · Anthropic's explore → plan → code → commit</li>
+          <li>The bake-off method: same feature, two processes, honest comparison</li>
+          <li class="cap"><b>Capstone:</b> Superpowers end to end on a real feature + one other methodology on comparable work + comparison memo + steal list</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Craft</span>
+          <span class="tag repo">Real Repo</span>
+          <span class="tag method">Method</span>
+        </div>
+        <div class="meta">
+          <b>Deliverable:</b> two industry methodologies run on real work + the steal list ·
+          <b>Deck:</b> weeks/week-8/Knowledge.html · <b>Due:</b> Sunday EOD ·
+          <b>Issues:</b> Knowledge → Application ×5–6 → Reinforcement
+        </div>
+      </div>
+    </div>
+
+    <div class="week">
+      <div class="card">
+        <div class="card-head">
+          <span class="week-label">Week 9</span>
+        </div>
+        <h2>The merge and the proof</h2>
+        <p class="desc">The merge point. Eight weeks of friction log, harness artifacts,
+        specs, loops, rubrics and the steal list become your written methodology: how you
+        plan, build, verify, track and review with Claude Code. Then you prove it twice:
+        onboard a teammate and record what breaks, and ship the proof project, a former
+        fortnight of work delivered in the week, with a retrospective that puts numbers
+        on the change.</p>
+        <ul class="topics">
+          <li>Standing on giants: merging the steal list with the friction log</li>
+          <li>Writing the methodology: plan, build, verify, track, review</li>
+          <li>Rollout: onboarding a teammate, adoption, keeping it alive</li>
+          <li>Measuring yourself: before/after throughput · staying current</li>
+          <li class="cap"><b>Capstone:</b> the methodology + team toolkit pitched to your team, then the proof project shipped with the full stack + retro numbers</li>
+        </ul>
+        <div class="tags">
+          <span class="tag method">Method</span>
+          <span class="tag team">Team</span>
+          <span class="tag repo">Real Repo</span>
+          <span class="tag">Craft</span>
+        </div>
+        <div class="meta">
+          <b>Deliverable:</b> methodology doc + proof project + retro numbers ·
+          <b>Deck:</b> weeks/week-9/Knowledge.html · <b>Due:</b> Sunday EOD ·
+          <b>Issues:</b> Knowledge → Application ×5–6 → Reinforcement
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="foot">
+    This page is the curriculum contract. Milestones and issues live on GitHub — this is
+    your map, GitHub is your to-do list. One tool for the whole programme: Claude Code,
+    on the Max 5x plan. Two things are never compressed: verification loops (weeks 5–6)
+    and real-repo reps (week 3 onward).
+  </p>
+</div>
+</body>
+</html>

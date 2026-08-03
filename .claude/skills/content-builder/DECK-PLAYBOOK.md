@@ -1,0 +1,163 @@
+# DECK-PLAYBOOK — authoring a week's self-teaching deck
+
+The contract for `weeks/week-N/Knowledge.html` — the one deck per week that IS the
+Knowledge pedagogy. **Reference implementation: the sister repo's
+`ai-pm-roadmap/weeks/week-1/Knowledge.html`** until this repo ships its own week 1; from
+then on, the newest shipped deck here. When this file and the reference disagree, open
+the file and copy how it does the thing, then record the correction here. Visual canon
+defers to `setup/DESIGN.md`; operating mechanics to `setup/METHODOLOGY.md`; the
+curriculum (acts, capstone, tags per week) to `roadmap.html`.
+
+---
+
+## 1. The one rule everything else serves
+
+**This program is self-paced. There is no presenter, no room, no live session.** The
+learner navigates alone, so the deck must say everything, on the glass:
+
+- Every slide is a **mini-lesson the learner reads** — full second-person prose, never a
+  cue that assumes a voice-over. If a slide only makes sense with someone talking, it's
+  under-written.
+- **Never hide teaching behind a key or a layer.** No presenter scripts, no
+  hidden speaker notes. The only keys are navigation (`→ ← Home End F`).
+- Guidance a workshop would put in a trainer's mouth goes in **visible furniture**:
+  - `.drive` — the **Drive it** box on every widget: numbered steps, exact controls in
+    order, a "watch for" line carrying the widget's baked-in data and expected outputs.
+    The learner never drives blind.
+  - `.notice` — **What you just saw / What good looks like / What to expect**: the debrief
+    after a widget or hands-on, including expected values, common misreads, and
+    "if it didn't fail, that's a finding too."
+  - `.keep` — a visible **Keep this** band closing every slide (the takeaway; read
+    top-to-bottom they form the week's glossary).
+  - `.read` — the **What you decide** band: the decision the learner now owns.
+  - `.bank` — troubleshooting / borrow-one fallbacks so a stalled install or an
+    unexpected model response never stalls anyone.
+
+## 2. Doctrine (adapted for the dev cohort)
+
+1. **Teach a little, do a lot.** Hands-on blocks outnumber reading blocks; the week-plan
+   slide proves it. Time estimates are visible per hands-on and capstone step.
+2. **Learning by visualising.** One act = one topic; each concept teaches through a
+   **driveable widget** (the interaction is the teaching, never a passive reveal). Widgets
+   are invented fresh per concept — a context-window meter, a loop tracer, a DAG you drag
+   into parallel lanes — self-checking where it helps.
+3. **Measure, don't trust.** The deck's register: sessions are probed, harnesses are
+   A/B'd, loops are graded on what they catch. "It felt faster" is replaced by "same
+   task suite, before and after, here's the delta."
+4. **Use before explain. No false simplifications.** Plain-English analogies are allowed
+   but must survive an expert's eye — this cohort will poke them.
+5. **Dev altitude, no LLM-101.** They know what a token is. Skip capability tourism;
+   every hands-on runs in Claude Code, in a terminal, on a repo (gym repo weeks 1–2,
+   real repo from week 3). Real code on the glass, no toy fizzbuzz.
+6. **One spine example per week** — one codebase/scenario threaded through widgets,
+   prompts, and probes — recognition carries the learner.
+7. **Every movement ends in a judgement the learner owns** — the `.read` band.
+8. **Mnemonics where a list must stick.**
+9. **Writing canon** — the trainer's writing ideology, encoded at project scope so it
+   binds every builder and every headless run; partly machine-enforced by
+   `check-deck.js`:
+   - **British English** (matches `roadmap.html`; the sister repo is American).
+   - **Flesch reading ease 60–70 on teach prose** — the verifier fails a deck below 60
+     (code, promptblocks and pre/code blocks are excluded from scoring). Plain
+     sentences: one idea per sentence, average under 20 words, active voice,
+     contractions welcome, the shorter commoner word (use not utilise, help not
+     facilitate).
+   - **Answer first.** Slide titles and `.keep` bands are full assertions, never
+     topics: "Hooks make guarantees the model can't skip", never "Hooks overview".
+   - **Banned in prose:** puffery and significance inflation (stands as, serves as,
+     plays a vital role, marks a turning point); trailing participial clauses
+     (", ensuring X" / ", reflecting Y"); default triads (vary to two, or four); vague
+     attribution (experts note, studies show — name the source or drop the claim);
+     editorial insertions (it's important to note, notably, crucially); negative
+     parallelism (not X, but Y); end-of-section recaps; elegant variation (same thing,
+     same name, every time); consulting jargon (unlock value, best-in-class, at scale).
+   - **Em dashes:** none in teach prose — use colons, commas, full stops. Structural
+     furniture (band labels, kickers, chrome) is exempt.
+   - Sentence-case headings; no emoji; straight quotes.
+
+## 3. Structure (the fixed skeleton)
+
+```
+Front matter   1 Title (incl. "how this deck works" + keys)
+               2 Week plan (day rows, hands-on tags, "if a day slips" triage)
+               3 Mini-agenda (id="agenda" — Home jumps here; acts × movements + capstone)
+               4 How this works (posture · setup · the GitHub loop · support)
+               5 Cold open — What Is (muted register: chat-driven development, the
+                 status-quo tension)
+               6 Cold open — What Could Be (+ the confidence read: 1–10, persisted,
+                 re-read at the close)
+Acts 1..K      per roadmap.html topics. Each act: an .act divider (orientation: the act's
+               one idea + movement list), then movements.
+                 concept movement = .dark divider (Goal + You'll decide + 1–2 sentence
+                 setup) → paper panel (teach prose → widget → Drive it → notice → read →
+                 keep)
+                 hands-on movement = .dark divider → panel (hobadge + time chip + why-prose
+                 → numbered steps with copy-ready .promptblock prompts/commands → checks →
+                 bank → notice → read → keep)
+Capstone       .act opener (shape + what carries forward + storage note) then 5 steps,
+               each = .dark divider (goal, time) + panel. Canonical shape: set up →
+               baseline → core probes (stepper, one sub-panel per probe) → second
+               opinion / cross-check → verdict + one-click markdown export. Capture
+               fields persist to localStorage; export assembles them; the report is
+               pasted on the Knowledge issue.
+Back matter    Stuck-or-curious (support = the Knowledge issue thread; optional deeper
+               dives named here) · Close (re-read the confidence number, one-sentence
+               commit, hand-off to Application issues / standing habits / next week)
+```
+
+Every `<section>` carries `data-act` + `data-mv` (feeds the chrome label). Movement
+numbers (M1…) appear only beside their titles (agenda, kickers) — reference prior content
+**by name**, never by slide/movement number.
+
+## 4. Engine + canon (reuse, don't reinvent)
+
+- Tokens, four registers (paper / `.isnow` / `.dark` / `.act`), and named components:
+  copy them from the reference deck. New colours go to `setup/DESIGN.md` first.
+- **Keyboard-only slide nav** (`→ ← Space PgUp/PgDn Home End F`); clicks NEVER change
+  slides — the mouse is for widgets, copy buttons, text, capture boxes. In-slide steppers:
+  `→` advances sub-steps first; `.snode` chips are clickable.
+- Chrome: act · movement · `cur / tot` + top progress bar. Helpbar lists the keys.
+- Copy buttons on every `.promptblock` (clipboard API + execCommand fallback). For this
+  cohort promptblocks carry shell commands and Claude Code invocations as often as
+  prompts — mark which is which.
+- **Persistence:** every capture field has `data-persist`; state goes to `localStorage`
+  only (key prefix `wN.`). Say so on the glass, and name the paper fallback template in
+  `weeks/week-N/data/`.
+- Self-contained (inline CSS + vanilla JS, no network), `@media print` flattens registers
+  to white, expands steppers, drops chrome/copy; widgets in defensive IIFEs
+  (`if(!el)return;`), state derived from the DOM.
+
+## 5. Build routine
+
+1. Read the week's `roadmap.html` entry + spec row (acts, capstone, ante) — the contract.
+2. Plan acts → movements → capstone steps; every roadmap topic gets a movement; the
+   capstone produces the artifact the Knowledge issue asks for.
+3. Scaffold from the reference deck's skeleton (engine + furniture), then write each
+   movement **content-first**: teach prose → widget mechanism → Drive it (with the
+   widget's actual data) → notice → read → keep.
+4. Widgets: invent per concept; exercise every path; two-register rule on controls
+   (status-quo = muted, lifted = teal).
+5. Verify: run the bundled verifier — `node .claude/skills/content-builder/check-deck.js
+   weeks/week-N/Knowledge.html` — until CLEAN (one `.keep` per section, `.drive` on every
+   widget, no presenter remnants, no duplicate ids, persist/export wired, JS parses,
+   Flesch reading ease ≥ 60 on teach prose).
+   The browser pass (0 console errors, keys, steppers, copy, export, print) is the
+   user's review at the deck gate — don't drive the preview yourself.
+6. Issues quote the deck: act names in the Knowledge issue, hands-on names in checklists,
+   capstone artifact as proof-of-work.
+
+## 6. Reflection loop
+
+After each week ships, corrections become one-line rules here (replace vaguer ones; the
+bar only goes up), and the newest shipped deck becomes the reference implementation.
+
+**Log:**
+- 2026-08-04 · Repo founded as sister to `ai-pm-roadmap`; playbook inherited with the
+  founding correction already applied (self-teaching on the glass, no presenter layer).
+  Dev-cohort adaptations: dev altitude (rule 5), commands as first-class promptblocks,
+  British English.
+- 2026-08-04 · Writing canon encoded at project scope (§2 rule 9). It was ambient in
+  the trainer's global CLAUDE.md, which never reaches other builders or headless runs —
+  the scoping doctrine applied to ourselves. `check-deck.js` now gates Flesch reading
+  ease ≥ 60 on teach prose; style-copying from the sister reference deck no longer
+  carries its American, em-dash-heavy prose register.

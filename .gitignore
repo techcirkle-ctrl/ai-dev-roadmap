@@ -1,0 +1,9 @@
+# Working docs — local only, never shipped to learners
+setup/specs/
+setup/plans/
+
+# Claude local state
+.claude/settings.local.json
+
+# OS noise
+.DS_Store

@@ -1,0 +1,2064 @@
+<!doctype html>
+<!--
+  Week 1 deck — Setup + the map: wire everything · AI Dev Roadmap
+  SELF-TEACHING deck: the learner navigates alone — all teaching is on the glass.
+  Every widget carries a visible "Drive it" box; every slide ends with a "Keep this" band.
+  Self-contained: inline CSS + vanilla JS, no network, prints clean, state → localStorage.
+  Keys: → next · ← back · Home agenda · End close · F full-screen.
+  Navigation is keyboard-only; the mouse is for widgets, copy buttons, and capture boxes.
+-->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 1 · Setup + the map — AI Dev Roadmap</title>
+<style>
+:root{
+  --ink:#16202b; --muted:#5c6b7a; --line:#e4e8ec;
+  --paper:#ffffff; --wash:#f6f8fa; --accent:#0b6e6e; --accent-soft:#e2f0ef;
+  --warn:#b06a00; --warn-soft:#fdf3e3; --good:#1c7a4a; --good-soft:#e5f2ea; --bad:#b23b3b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#0c1419;color:var(--ink);font-family:ui-serif,Georgia,"Iowan Old Style",Palatino,serif;line-height:1.55}
+button{font-family:ui-sans-serif,system-ui,sans-serif;cursor:pointer}
+.deck{position:fixed;inset:0}
+section.slide{position:absolute;inset:0;overflow:auto;display:none;background:var(--paper);color:var(--ink)}
+section.slide.active{display:flex}
+.wrap{max-width:1150px;margin:auto;padding:56px 60px;width:100%}
+/* registers */
+.slide.isnow{background:var(--wash)}
+.slide.isnow .kicker{color:var(--muted)}
+.slide.dark{background:#0d2b2b;color:#eef6f5}
+.slide.dark .kicker{color:#7fd1cb}
+.slide.dark .sub{color:#a8c4c1}
+.slide.dark .lead{color:#dcebe9}
+.slide.act{background:#0c1419;color:#f2f7f6}
+.slide.act .kicker{color:#7fd1cb}
+.slide.act .sub{color:#93a8a5}
+.slide.act .lead{color:#d6e4e2}
+/* type */
+.kicker{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-size:13px;margin-bottom:14px}
+h1.big{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:clamp(2rem,4.6vw,3.4rem);line-height:1.08;letter-spacing:-.01em;margin-bottom:14px}
+h2.head{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:clamp(1.4rem,2.8vw,2.15rem);line-height:1.12;margin-bottom:10px}
+.lead{font-size:clamp(1.02rem,1.5vw,1.22rem);max-width:66ch}
+.sub{font-family:ui-sans-serif,system-ui,sans-serif;color:var(--muted);font-size:clamp(.95rem,1.2vw,1.05rem);max-width:72ch}
+.mt8{margin-top:8px}.mt14{margin-top:14px}.mt20{margin-top:20px}.mt28{margin-top:28px}
+/* teaching prose */
+.teach{max-width:76ch;margin-top:8px}
+.teach p{margin:9px 0;font-size:1.03rem}
+.teach b{color:var(--ink)}
+.teach .em{color:var(--accent);font-weight:700}
+.slide.dark .teach b{color:#eef6f5}
+/* drive-it box */
+.drive{background:var(--wash);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 16px;margin-top:14px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px;max-width:860px}
+.drive .dt{display:block;color:var(--accent);text-transform:uppercase;font-size:11.5px;letter-spacing:.1em;font-weight:800;margin-bottom:6px}
+.drive ol{margin:0 0 0 18px}
+.drive li{margin:4px 0}
+.drive .watch{margin-top:8px;color:var(--warn);font-weight:700}
+/* notice box */
+.notice{background:var(--good-soft);border-left:4px solid var(--good);border-radius:0 10px 10px 0;padding:11px 15px;margin-top:14px;font-size:.99rem;max-width:860px}
+.notice b{color:var(--good);font-family:ui-sans-serif,system-ui,sans-serif}
+/* what-you-decide band */
+.read{display:block;margin-top:18px;background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:13px 16px;font-size:1.02rem;max-width:960px}
+.read b{font-family:ui-sans-serif,system-ui,sans-serif;color:var(--accent)}
+.slide.dark .read{background:rgba(127,209,203,.12);border-left-color:#7fd1cb}
+.slide.dark .read b{color:#7fd1cb}
+/* keep-this band */
+.keep{display:block;margin-top:12px;background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;color:var(--muted);max-width:960px}
+.keep b{color:var(--ink);text-transform:uppercase;font-size:11px;letter-spacing:.1em;margin-right:8px}
+.slide.dark .keep,.slide.act .keep{background:rgba(255,255,255,.05);border-color:rgba(127,209,203,.3);color:#cfe5e2}
+.slide.dark .keep b,.slide.act .keep b{color:#7fd1cb}
+.slide.isnow .keep{background:var(--paper)}
+/* goal row on dark dividers */
+.goalrow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;max-width:900px}
+.gb{background:rgba(255,255,255,.05);border:1px solid rgba(127,209,203,.35);border-radius:12px;padding:16px 18px}
+.gb .t{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7fd1cb;margin-bottom:6px}
+.gb p{font-size:1.02rem}
+/* cards */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.ucard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 3px rgba(22,32,43,.05)}
+.ucard h3{font-family:ui-sans-serif,system-ui,sans-serif;font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
+.ucard ul{margin-left:18px}.ucard li{margin:6px 0;font-size:.98rem}
+/* week plan */
+.dayplan{margin-top:18px;max-width:920px}
+.drow{display:grid;grid-template-columns:150px 1fr auto;gap:14px;align-items:center;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--paper);border-radius:8px;margin-bottom:6px}
+.drow .t{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--muted)}
+.drow .lbl{font-family:ui-sans-serif,system-ui,sans-serif;font-size:15px}
+.drow.brk{background:transparent;border:1px dashed var(--line);color:var(--muted)}
+.ho{font-family:ui-sans-serif,system-ui,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:3px 10px;white-space:nowrap}
+/* mini-agenda */
+.agcols{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.accol{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.accol h3{font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.mvlist{list-style:none}
+.mvlist li{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;padding:6px 0;border-bottom:1px solid var(--wash);display:flex;justify-content:space-between;gap:8px;align-items:center}
+.mvlist li:last-child{border-bottom:0}
+.mvlist .n{color:var(--muted);font-size:11.5px;font-family:ui-monospace,Menlo,monospace;margin-right:6px}
+.seq{margin-top:16px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+.seq h3{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--warn);margin-bottom:8px}
+.seqrow{display:flex;gap:10px;flex-wrap:wrap;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px}
+.seqrow span{background:var(--wash);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.seqrow b{color:var(--accent)}
+/* hands-on furniture */
+.hobadge{display:inline-block;font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;background:var(--warn-soft);color:var(--warn);border-radius:999px;padding:5px 13px;margin-bottom:12px;margin-right:8px}
+.hostep{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:16px 0 6px}
+.hodo{border-left:3px solid var(--line);padding:2px 0 2px 12px;margin:8px 0;font-size:1rem;max-width:860px}
+.checks{list-style:none;margin-top:10px}
+.checks li{font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px;padding:4px 0 4px 26px;position:relative;max-width:820px}
+.checks li::before{content:"☐";position:absolute;left:2px;color:var(--accent);font-size:15px}
+.bank{margin-top:14px;border:1px dashed var(--line);border-radius:10px;padding:10px 14px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;color:var(--muted);max-width:860px}
+.bank b{color:var(--ink)}
+/* prompt blocks — cmd = terminal command, ccp = Claude Code prompt */
+.promptblock{position:relative;background:#0f1b22;color:#dff0ee;border-radius:10px;padding:14px 92px 14px 16px;margin:10px 0;max-width:900px}
+.promptblock pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;line-height:1.5;white-space:pre-wrap;word-break:break-word;margin:0}
+.promptblock .copy{position:absolute;top:10px;right:10px;background:#173042;border:1px solid #2b4a5e;color:#9fd8d2;border-radius:7px;padding:4px 12px;font-size:12px}
+.promptblock .copy:hover{background:#1d3c52}
+.pbtag{position:absolute;bottom:8px;right:12px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6d94a5}
+/* steppers */
+.stepper{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
+.snode{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.snode.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.steppanel{display:none;margin-top:8px}
+.steppanel.on{display:block}
+.stepcue{font-family:ui-sans-serif,system-ui,sans-serif;font-size:12px;color:var(--muted);margin-top:6px}
+/* widget shell + controls */
+.lab{border:1px solid var(--line);border-radius:14px;background:var(--paper);padding:18px 20px;margin-top:14px;box-shadow:0 1px 3px rgba(22,32,43,.05)}
+.labtitle{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.labtitle b{color:var(--accent)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--wash)}
+.seg button{border:0;background:transparent;padding:7px 16px;font-size:13px;font-weight:700;color:var(--muted)}
+.seg button.on{background:var(--accent);color:#fff}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.pillbtn{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 15px;font-size:13px;font-weight:600;color:var(--ink)}
+.pillbtn.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn{border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:9px;padding:8px 18px;font-size:13.5px;font-weight:700}
+.btn.ghost{background:var(--paper);color:var(--accent)}
+.btn:active{transform:translateY(1px)}
+/* wloop — two loops side by side */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.runcard{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.runcard .hd{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;font-size:13px;padding:9px 14px;letter-spacing:.04em}
+.runcard.det .hd{background:var(--wash);color:var(--muted)}
+.runcard.llm .hd{background:var(--accent-soft);color:var(--accent)}
+.runcard .out{padding:12px 14px;min-height:150px;font-size:.94rem}
+.runcard .meta{font-family:ui-sans-serif,system-ui,sans-serif;font-size:12px;color:var(--muted);padding:8px 14px;border-top:1px solid var(--line)}
+.lstep{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;margin:5px 0;padding:6px 9px;border-radius:8px;background:var(--wash);border:1px solid var(--line)}
+.lstep.you{border-left:3px solid var(--warn);background:var(--warn-soft)}
+.lstep.bot{border-left:3px solid var(--accent)}
+.lstep .who{font-weight:800;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;margin-right:7px}
+.lstep.you .who{color:var(--warn)}
+.lstep.bot .who{color:var(--accent)}
+.hopline{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;font-size:13.5px;margin-top:12px;min-height:20px}
+.hopline b{color:var(--warn)}
+/* wtrace — session tracer */
+.evrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin:6px 0;max-width:860px}
+.evrow .ev{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
+.evrow .tag3{display:flex;gap:6px}
+.evrow .tag3 button{border:1px solid var(--line);background:var(--wash);border-radius:8px;padding:4px 11px;font-size:12px;font-weight:700;color:var(--muted)}
+.evrow .tag3 button.pick{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.evrow.ok{border-color:var(--good);background:var(--good-soft)}
+.evrow.no{border-color:var(--bad);background:#f9e9e9}
+.evrow .vline{grid-column:1 / -1;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;display:none}
+.evrow.ok .vline,.evrow.no .vline{display:block}
+.scoreline{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;font-size:14px;margin-top:12px;color:var(--accent)}
+/* wwire — the wiring board */
+.wiregrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.wirecol{border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.wirecol h4{font-family:ui-sans-serif,system-ui,sans-serif;font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.wsys{display:flex;justify-content:space-between;align-items:center;gap:8px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;border:1px solid var(--line);border-radius:9px;padding:7px 10px;margin:6px 0}
+.wsys button{border:1px solid var(--line);background:var(--wash);border-radius:999px;padding:4px 12px;font-size:11.5px;font-weight:700;color:var(--muted)}
+.wsys.on{border-color:var(--accent);background:var(--accent-soft)}
+.wsys.on button{background:var(--accent);border-color:var(--accent);color:#fff}
+.hoproute{font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;padding:5px 0;color:var(--muted)}
+.hoproute.gone{opacity:.35;text-decoration:line-through}
+.meter{height:12px;background:var(--wash);border:1px solid var(--line);border-radius:999px;overflow:hidden;max-width:420px;margin-top:12px}
+.meter i{display:block;height:100%;background:var(--warn);transition:width .3s ease}
+.meter.zero i{background:var(--good)}
+.alertline{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;font-size:13.5px;margin-top:10px;min-height:20px}
+.alertline.goodline{color:var(--good)}
+/* wperm + wmap — card sorters */
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.qcard{border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+.qcard .q{font-size:.98rem;margin-bottom:9px}
+.qcard .q code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:var(--wash);padding:1px 5px;border-radius:5px}
+.qbtns{display:flex;gap:8px;flex-wrap:wrap}
+.qbtns button{border:1px solid var(--line);background:var(--wash);border-radius:8px;padding:5px 12px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.qbtns button.pick{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.qcard .v{display:none;margin-top:8px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;border-radius:8px;padding:8px 10px}
+.qcard .v.show{display:block}
+.qcard .v.ok{background:var(--good-soft);color:var(--good)}
+.qcard .v.no{background:#f9e9e9;color:var(--bad)}
+/* wbudget */
+.budrow{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.budrow label{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;color:var(--muted)}
+.budrow input[type=range]{width:220px;accent-color:var(--accent)}
+.gauge{display:grid;grid-template-columns:150px 1fr 110px;gap:10px;align-items:center;margin:8px 0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;max-width:720px}
+.gauge .trk{height:16px;background:var(--wash);border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.gauge .trk i{display:block;height:100%;background:var(--accent);border-radius:999px;transition:width .3s ease}
+.gauge.hot .trk i{background:var(--bad)}
+.gauge.warm .trk i{background:var(--warn)}
+.gauge .pct{color:var(--muted);font-size:12.5px}
+.budverdict{font-size:1rem;background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-top:10px;max-width:720px}
+.budverdict b{color:var(--accent)}
+/* mini table */
+.mtable{border-collapse:collapse;margin-top:12px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;width:100%;max-width:760px}
+.mtable th,.mtable td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+.mtable th{background:var(--wash);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.mtable code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em}
+/* capture fields */
+.caplbl{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:14px 0 5px}
+textarea.cap{width:100%;max-width:900px;min-height:64px;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-family:ui-serif,Georgia,serif;font-size:.98rem;background:var(--paper);color:var(--ink);resize:vertical;display:block}
+textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
+/* confidence */
+.confbox{display:flex;gap:14px;align-items:center;margin-top:18px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px;max-width:680px}
+.confbox input{width:84px;font-size:26px;font-weight:800;font-family:ui-sans-serif,system-ui,sans-serif;text-align:center;border:2px solid var(--accent);border-radius:10px;padding:8px;color:var(--accent);background:var(--paper)}
+.confbox .q{font-size:.98rem}
+.confecho{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;font-family:ui-sans-serif,system-ui,sans-serif;color:var(--accent)}
+/* chrome / progress / helpbar */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:40;background:rgba(255,255,255,.08)}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}
+.chrome{position:fixed;bottom:12px;right:20px;z-index:30;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12px;color:#8aa6a2;text-align:right}
+.chrome b{color:#c3d9d6;font-weight:700}
+.helpbar{position:fixed;bottom:12px;left:20px;z-index:30;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12px;color:#5f7a77}
+.helpbar b{color:#8aa6a2}
+/* print */
+@media print{
+  body{background:#fff}
+  .deck{position:static}
+  section.slide{position:static;display:block!important;page-break-after:always;background:#fff!important;color:var(--ink)!important;min-height:0}
+  .slide.dark,.slide.act{background:#fff!important;color:var(--ink)!important}
+  .slide.dark .kicker,.slide.act .kicker{color:var(--accent)}
+  .slide.dark .sub,.slide.act .sub,.slide.dark .lead,.slide.act .lead{color:var(--muted)}
+  .gb{border-color:var(--line);background:var(--wash)}
+  .gb .t{color:var(--accent)}
+  .slide.dark .read{background:var(--accent-soft);border-left-color:var(--accent)}
+  .slide.dark .read b{color:var(--accent)}
+  .slide.dark .keep,.slide.act .keep{background:var(--wash);border-color:var(--line);color:var(--muted)}
+  .slide.dark .keep b,.slide.act .keep b{color:var(--ink)}
+  .steppanel{display:block!important;border-top:1px dashed var(--line);padding-top:10px}
+  .chrome,.helpbar,.progress,.promptblock .copy,.stepcue{display:none!important}
+  .promptblock{padding-right:16px}
+}
+</style>
+</head>
+<body>
+<div class="progress"><i id="pbar"></i></div>
+<div class="deck" id="deck">
+
+<!-- ═══════════════ FRONT MATTER ═══════════════ -->
+
+<!-- 1 · Title -->
+<section class="slide active" data-act="Week 1" data-mv="Title">
+  <div class="wrap">
+    <div class="kicker">AI Dev Roadmap · Week 1 of 9 · Self-paced</div>
+    <h1 class="big">Stop being the clipboard.<br>Start running the loop.</h1>
+    <p class="lead mt14">You already use Claude every day. This week rebuilds <b>how</b>: one wired
+    environment where Claude reaches GitHub, your systems and your terminal directly, plus the map of the
+    four disciplines the next eight weeks deepen.</p>
+    <div class="teach">
+      <p><b>How this deck works:</b> it's a guided lab you walk through alone, about 2 to 3 hours a day.
+      Slides teach in full. Read them; nothing important is hidden anywhere else. When a slide has a
+      widget, a tinted <span class="em">Drive it</span> box tells you exactly what to click and what to
+      watch for. When it has a hands-on, the commands and prompts are copy-ready, and each block is
+      labelled: <b>terminal</b> means your shell, <b>claude</b> means inside a Claude Code session. Every
+      slide ends with a <span class="em">Keep this</span> line: the one thing to retain.</p>
+      <p><b>Keys:</b> <b>→</b> next · <b>←</b> back · <b>Home</b> jumps to the map · <b>F</b> full-screen.
+      The mouse never changes slides; it drives widgets, copies commands, and types into capture boxes.
+      Anything you type saves to this browser only.</p>
+    </div>
+    <span class="keep"><b>Keep this</b>The week's bar is physical: zero copy-paste. Every manual hop
+    between windows is an inefficiency you can now name, and this week, delete.</span>
+  </div>
+</section>
+
+<!-- 2 · The week plan -->
+<section class="slide isnow" data-act="Week 1" data-mv="The week">
+  <div class="wrap">
+    <div class="kicker">The week · ~3 hrs/day + a weekend block · 20–25 hrs total</div>
+    <h2 class="head">Do-a-lot beats read-a-little</h2>
+    <div class="teach">
+      <p>Budget: roughly <b>14 hours</b> in this deck across five days, then a weekend block for the
+      Application projects on GitHub. The tags show where your hands are on a real terminal. Reading about
+      wiring builds nothing; running it builds the instinct. So almost every block is tagged.</p>
+    </div>
+    <div class="dayplan">
+      <div class="drow"><span class="t">Day 1 · ~2.5 h</span><span class="lbl">Act 1 — The agentic loop, read on a live session</span><span class="ho">hands-on</span></div>
+      <div class="drow"><span class="t">Day 2 · ~3 h</span><span class="lbl">Act 2 — Wiring day: gh CLI, MCP, permissions</span><span class="ho">hands-on</span></div>
+      <div class="drow"><span class="t">Day 3 · ~2.5 h</span><span class="lbl">Act 3 — Token economics · Act 4 opens: the map + mini-rep 1</span><span class="ho">hands-on</span></div>
+      <div class="drow"><span class="t">Day 4 · ~3 h</span><span class="lbl">Act 4 — Mini-reps 2, 3 and 4</span><span class="ho">hands-on</span></div>
+      <div class="drow"><span class="t">Day 5 · ~3 h</span><span class="lbl">Capstone — audit, ship the automation, autopsy the loop</span><span class="ho">hands-on</span></div>
+      <div class="drow brk"><span class="t">Weekend · ~6 h</span><span class="lbl">Application projects + Reinforcement (GitHub issues) — due Sunday EOD</span><span class="ho">hands-on</span></div>
+    </div>
+    <span class="read"><b>If a day slips:</b> compress Act 3's reading and the widget replays, never the
+    mini-reps and never the capstone. The reps are the week.</span>
+    <span class="keep"><b>Keep this</b>~14 h in the deck, ~6 h of projects, due Sunday EOD on the Week 1
+    milestone. Protect the hands-on blocks first.</span>
+  </div>
+</section>
+
+<!-- 3 · Mini-agenda -->
+<section class="slide isnow" id="agenda" data-act="Week 1" data-mv="Agenda">
+  <div class="wrap">
+    <div class="kicker">The map · press Home anytime to come back here</div>
+    <h2 class="head">Four acts, nine hands-ons, one capstone</h2>
+    <div class="teach">
+      <p>One act = one topic. Acts 1 to 3 wire the machine and the meter. Act 4 is the programme in
+      miniature: all four disciplines, each experienced as a mini-rep on a small practice repo (the gym)
+      that ships in this week's folder. Everything funnels into the capstone: audit the wiring, ship one
+      real automation through it, then autopsy the loop that did the work.</p>
+    </div>
+    <div class="agcols">
+      <div class="accol"><h3>Act 1 · The agentic loop</h3>
+        <ul class="mvlist">
+          <li><span><span class="n">M1</span>Chat vs agent</span></li>
+          <li><span><span class="n">M2</span>Gather, act, verify</span></li>
+          <li><span><span class="n">M3</span>Read a live session</span><span class="ho">H-O 01</span></li>
+        </ul>
+      </div>
+      <div class="accol"><h3>Act 2 · Wiring day</h3>
+        <ul class="mvlist">
+          <li><span><span class="n">M4</span>gh CLI wired</span><span class="ho">H-O 02</span></li>
+          <li><span><span class="n">M5</span>MCP: every system</span></li>
+          <li><span><span class="n">M6</span>Connect two servers</span><span class="ho">H-O 03</span></li>
+          <li><span><span class="n">M7</span>Permission baseline</span><span class="ho">H-O 04</span></li>
+        </ul>
+      </div>
+      <div class="accol"><h3>Act 3 · Token economics</h3>
+        <ul class="mvlist">
+          <li><span><span class="n">M8</span>Max 5x has physics</span></li>
+          <li><span><span class="n">M9</span>Read your own meters</span><span class="ho">H-O 05</span></li>
+        </ul>
+      </div>
+      <div class="accol"><h3>Act 4 · The four disciplines</h3>
+        <ul class="mvlist">
+          <li><span><span class="n">M10</span>The map</span></li>
+          <li><span><span class="n">M11</span>Context mini-rep</span><span class="ho">H-O 06</span></li>
+          <li><span><span class="n">M12</span>Harness mini-rep</span><span class="ho">H-O 07</span></li>
+          <li><span><span class="n">M13</span>Loop mini-rep</span><span class="ho">H-O 08</span></li>
+          <li><span><span class="n">M14</span>Graph mini-rep</span><span class="ho">H-O 09</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="seq"><h3>Capstone · Wire it, ship it, autopsy it</h3>
+      <div class="seqrow"><span><b>1</b> Audit the wiring</span><span><b>2</b> Pick the automation</span><span><b>3</b> Ship it</span><span><b>4</b> Loop autopsy</span><span><b>5</b> Verdict + export</span></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Fourteen movements, five capstone steps. If you ever feel lost,
+    press Home; this map is always one key away.</span>
+  </div>
+</section>
+
+<!-- 4 · How this week works -->
+<section class="slide isnow" data-act="Week 1" data-mv="How this works">
+  <div class="wrap">
+    <div class="kicker">How this week works</div>
+    <h2 class="head">Your terminal is the classroom</h2>
+    <div class="cards">
+      <div class="ucard"><h3>The posture</h3>
+        <ul>
+          <li><b>Measure, don't trust.</b> Nothing in this programme is graded on "it felt faster".
+          Sessions get probed, costs get read, loops get checked on what they catch.</li>
+          <li><b>Do, don't skim.</b> Every hands-on runs in Claude Code, in a terminal, on a repo. If you
+          only read this deck, you did not do Week 1.</li>
+          <li><b>Name the discipline.</b> Context, harness, loop, graph. From this week you stop saying
+          "Claude was weird" and start saying which discipline failed.</li>
+        </ul>
+      </div>
+      <div class="ucard"><h3>The setup &amp; the loop</h3>
+        <ul>
+          <li><b>Tools:</b> Claude Code on the Max 5x plan, a terminal, git, and node 20+. The gym repo
+          ships in <code style="font-family:ui-monospace,Menlo,monospace;font-size:.9em">weeks/week-1/data/gym</code>.</li>
+          <li><b>The loop:</b> this deck is your <b>Knowledge</b> issue on the Week 1 milestone. The
+          weekend's five <b>Application</b> issues carry the projects and evidence; <b>Reinforcement</b>
+          closes the week.</li>
+          <li><b>Support:</b> stuck → comment on your Knowledge issue with the transcript. Asked in the
+          open, answered for everyone.</li>
+        </ul>
+      </div>
+    </div>
+    <span class="read"><b>By Sunday you hold:</b> a wired environment that passes a cold audit, one shipped
+    automation, a week of cost data, and the four-discipline vocabulary the whole programme runs on.</span>
+    <span class="keep"><b>Keep this</b>Two rules carry all nine weeks: measurement over trust, doing over
+    watching. Open a terminal now, not on Day 4.</span>
+  </div>
+</section>
+
+<!-- 5 · Cold open — what is -->
+<section class="slide isnow" data-act="Week 1" data-mv="What is">
+  <div class="wrap">
+    <div class="kicker">What is</div>
+    <h1 class="big">You use Claude daily.<br>And you are still the loop's engine.</h1>
+    <div class="teach">
+      <p>Be honest about the mechanics of yesterday. You typed a request into a chat box. You waited. You
+      copied the answer into your editor. You ran it. It failed. You copied the error back into the chat.
+      You waited again. Somewhere in there you switched to GitHub, read an issue, and retyped half of it
+      into the conversation for context.</p>
+      <p>Count the hops. Every one of them was <b>you</b>, carrying text between systems that both sit on
+      your machine. The model reasoned; you did the plumbing. That workflow has a name: <b>chat-driven
+      development</b>. It treats a coding agent as a very fast colleague you can only reach by post.</p>
+      <p>The cost isn't just minutes. Because every hop passes through you, the loop only runs while you
+      attend to it. Nothing verifies itself. Nothing compounds. Next week's session starts from zero
+      again.</p>
+    </div>
+    <span class="keep"><b>Keep this</b>Chat-driven development = the human as clipboard, scheduler and
+    verifier at once. Naming it is the first step to firing yourself from all three jobs.</span>
+  </div>
+</section>
+
+<!-- 6 · Cold open — what could be + confidence -->
+<section class="slide isnow" data-act="Week 1" data-mv="The promise">
+  <div class="wrap">
+    <div class="kicker">What could be</div>
+    <h2 class="head">By Sunday: Claude reaches every system itself.<br>You review outcomes, not ferry text.</h2>
+    <div class="teach">
+      <p>Concretely, by Sunday: <b>gh</b> gives Claude hands on GitHub. MCP servers connect your team's
+      systems. A permission baseline lets safe commands run without asking, while dangerous ones still
+      stop for you. You know what a session costs and which model to burn on what. And you've run all four
+      disciplines once each, so the eight weeks ahead are deepening, never introducing.</p>
+      <p>The proof is physical: one real automation, shipped through the wired environment, doing work you
+      did by hand last week.</p>
+    </div>
+    <div class="confbox">
+      <input type="number" min="1" max="10" id="conf" data-persist="conf" aria-label="confidence 1 to 10">
+      <p class="q"><b>Before anything else, write a number, 1 to 10:</b> how confident are you that you
+      could hand Claude a task touching GitHub, your codebase and your terminal, and let it run without
+      you becoming the clipboard? Type it in the box (it saves in this browser). The last slide of the
+      week shows it back to you.</p>
+    </div>
+    <span class="keep"><b>Keep this</b>The number is your calibration baseline. The gap between today's
+    number and Sunday's is the week's receipt, and it should move on evidence, not vibes.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 1 · THE AGENTIC LOOP ═══════════════ -->
+
+<!-- 7 · Act 1 divider -->
+<section class="slide act" data-act="Act 1 · The agentic loop" data-mv="Act opener">
+  <div class="wrap">
+    <div class="kicker">Act 1 · Day 1 · ~2.5 h</div>
+    <h1 class="big">The agentic loop</h1>
+    <p class="lead mt14">Act 1 has exactly one idea: an agent is a model in a loop with tools. It
+    <b>gathers</b> its own context, <b>acts</b> on your system, and <b>verifies</b> its own work. The
+    difference between chat and agent isn't intelligence. It's who runs the loop.</p>
+    <p class="sub mt14">Three movements: watch the two workflows side by side and count your hops (M1) ·
+    learn the three beats every good turn has (M2) · then read a real session on the gym repo, beat by
+    beat (Hands-on 01).</p>
+    <span class="keep"><b>Keep this</b>One idea this act: gather → act → verify, run by the agent. Every
+    failure you'll ever debug in this programme is one of those beats done badly.</span>
+  </div>
+</section>
+
+<!-- 8 · M1 divider -->
+<section class="slide dark" data-act="Act 1 · The agentic loop" data-mv="Chat vs agent">
+  <div class="wrap">
+    <div class="kicker">Act 1 · Movement M1</div>
+    <h1 class="big">Chat vs agent: the loop changes hands</h1>
+    <p class="lead mt14">Same task, two workflows: "the weekly report prints a task twice; find it and fix
+    it." On the left, you drive a chat window. On the right, a Claude Code session drives itself. You're
+    about to step both to completion and count who does the carrying.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Feel the structural difference: the same model, with tools and a loop, stops needing you between every step.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Which of your daily Claude habits are chat habits that no longer earn their keep.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Watch the amber rows on the left. Amber means you, carrying text by
+    hand. The lesson is how many there are for one small fix.</span>
+  </div>
+</section>
+
+<!-- 9 · M1 panel — wloop -->
+<section class="slide" data-act="Act 1 · The agentic loop" data-mv="Chat vs agent">
+  <div class="wrap">
+    <div class="kicker">M1 · Chat vs agent</div>
+    <h2 class="head">One bugfix. Count your hops.</h2>
+    <div class="teach">
+      <p>The task is real; you'll meet this exact bug in the gym repo later this week. What matters here
+      is the traffic pattern. In chat, the model can only see what you paste and can only "do" what you
+      carry out for it. In an agent session, the model has tools: it reads files itself, edits them
+      itself, runs the tests itself. Your involvement collapses to two points: the brief at the start and
+      the review at the end.</p>
+    </div>
+    <div class="lab" id="wloop">
+      <div class="labtitle">Widget · <b>the hop counter</b></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+        <button class="btn" id="wloopGo">Advance both workflows</button>
+        <button class="btn ghost" id="wloopReset">Reset</button>
+      </div>
+      <div class="duo">
+        <div class="runcard det">
+          <div class="hd">Chat-driven — you run the loop</div>
+          <div class="out" id="wloopChat"><p class="sub">Press advance.</p></div>
+          <div class="meta" id="wloopChatMeta">0 steps · 0 hops by you</div>
+        </div>
+        <div class="runcard llm">
+          <div class="hd">Agentic — Claude Code runs the loop</div>
+          <div class="out" id="wloopAgent"><p class="sub">Press advance.</p></div>
+          <div class="meta" id="wloopAgentMeta">0 steps · 0 hops by you</div>
+        </div>
+      </div>
+      <p class="hopline" id="wloopTally"></p>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Press <b>Advance both workflows</b> once. Both sides receive the same brief.</li>
+        <li>Keep pressing, slowly. Read each new row before the next press. Amber rows with <b>YOU</b> are
+        manual hops: copying code, running commands, ferrying errors.</li>
+        <li>The chat side needs 8 steps to finish. Watch the agent side finish in 5, with a test run it
+        chose to make itself.</li>
+        <li>After the final press, read the tally line under the cards.</li>
+      </ol>
+      <p class="watch">Watch for: the chat side's step 6, where you paste the test output back in. The
+      agent side never has that step. It saw the output the moment the test ran, because it ran it.</p>
+    </div>
+    <div class="notice"><b>What you just saw:</b> chat needed 6 hops by you; the agent needed 2 (brief,
+    review). Same model. The gap is structural: tools plus a loop mean the model gathers and verifies for
+    itself. And the agent's transcript shows something chat cannot produce: an unprompted verification
+    step.</div>
+    <span class="read"><b>What you decide:</b> which of your current habits are clipboard work? Pasting
+    files in, retyping issue context, ferrying stack traces. Each is a hop this week deletes.</span>
+    <span class="keep"><b>Keep this</b>Agent = model + tools + loop. Your job moves to the two ends: a
+    sharp brief in, a real review out.</span>
+  </div>
+</section>
+
+<!-- 10 · M2 divider -->
+<section class="slide dark" data-act="Act 1 · The agentic loop" data-mv="Gather, act, verify">
+  <div class="wrap">
+    <div class="kicker">Act 1 · Movement M2</div>
+    <h1 class="big">Gather, act, verify: every turn has three beats</h1>
+    <p class="lead mt14">Open any good agent transcript and the same rhythm appears. <b>Gather:</b> read
+    files, grep, list. <b>Act:</b> edit, write, run the change. <b>Verify:</b> run the tests, check the
+    output, compare against the ask. When a session goes wrong, one beat is missing or malformed. Reading
+    sessions by beat is the diagnostic skill of the whole programme.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Learn to tag any transcript event as gather, act or verify, fast enough that it becomes automatic.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>The question you'll ask of every session from now on: what closed the loop, and was it a machine check or a vibe?</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Gather → act → verify. Say it until it's boring. It's the x-ray you
+    read every session with from here on.</span>
+  </div>
+</section>
+
+<!-- 11 · M2 panel — wtrace -->
+<section class="slide" data-act="Act 1 · The agentic loop" data-mv="Gather, act, verify">
+  <div class="wrap">
+    <div class="kicker">M2 · Gather, act, verify</div>
+    <h2 class="head">Tag the session: eight events, three beats</h2>
+    <div class="teach">
+      <p>Below is a condensed transcript of a Claude Code session on the gym repo, given "the weekly
+      report shows a task twice; fix it." Each row is one tool call, in order. Tag every row with its
+      beat. Two rows are traps: one looks like action but is gathering, and one is the beat most sessions
+      skip.</p>
+    </div>
+    <div class="lab" id="wtrace">
+      <div class="labtitle">Widget · <b>the session tracer</b></div>
+      <div id="wtraceRows"></div>
+      <p class="scoreline" id="wtraceScore"></p>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Take the rows top to bottom. Commit a tag on each before reading its verdict.</li>
+        <li>Row 4 is the first trap: running the test suite <b>before</b> any edit. Decide what beat that
+        really is.</li>
+        <li>Rows 7 and 8 are the loop closing. Notice what kind of evidence each produces.</li>
+        <li>Read your score line, then re-read the whole list once as a rhythm: G G G V? A V A V.</li>
+      </ol>
+      <p class="watch">Watch for: the test run before the edit. Running checks to learn the current state
+      is gathering. The same command after the edit is verification. The beat isn't the tool; it's the
+      intent.</p>
+    </div>
+    <div class="notice"><b>What you just saw:</b> a healthy session gathers more than it acts, and never
+    claims "done" without a verify beat that a machine produced. The red flag you'll hunt all programme:
+    an act beat followed directly by "done", with no verify between.</div>
+    <span class="read"><b>What you decide:</b> from now on, when a session feels off, you don't say
+    "Claude was weird". You say which beat failed: gathered too little, acted too wide, verified
+    nothing.</span>
+    <span class="keep"><b>Keep this</b>Same command, different beat: checks before an edit are gather,
+    checks after are verify. Intent defines the beat.</span>
+  </div>
+</section>
+
+<!-- 12 · H-O 01 divider -->
+<section class="slide dark" data-act="Act 1 · The agentic loop" data-mv="Read a live session">
+  <div class="wrap">
+    <div class="kicker">Act 1 · Hands-on 01 · Day 1</div>
+    <h1 class="big">Read a live session</h1>
+    <p class="lead mt14">You've tagged a canned transcript. Now produce a real one. You'll point Claude
+    Code at the gym repo (a small task tracker with problems it doesn't know about yet), give it one task,
+    and watch the loop run with your own eyes: which files it reads, what it changes, whether it verifies
+    without being asked.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Watch a real gather → act → verify cycle on your own machine, and log the beats as they happen.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Whether the session earned trust: did anything machine-checked close the loop, or did it just sound finished?</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>The gym repo ships in this week's folder. Copy it out before
+    advancing; the next slide assumes you're standing in it.</span>
+  </div>
+</section>
+
+<!-- 13 · H-O 01 panel -->
+<section class="slide" data-act="Act 1 · The agentic loop" data-mv="Read a live session">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 01</div><span class="ho">~40 min</span>
+    <h2 class="head">One task on the gym repo. Watch every beat.</h2>
+    <div class="teach">
+      <p>The gym repo is <b>relay</b>: a tiny task-tracker CLI, no dependencies, node 20+. It works,
+      mostly. Don't study it yourself yet; the point is watching Claude study it.</p>
+    </div>
+    <div class="hostep">Step 1 — copy the gym out of the course folder and open a session</div>
+    <div class="promptblock"><pre>cp -R weeks/week-1/data/gym ~/relay-gym && cd ~/relay-gym && git init -q && claude</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="hostep">Step 2 — give it one task, then take your hands off the keyboard</div>
+    <div class="promptblock"><pre>Get to know this repo, then: add a task via the CLI called "write release notes"
+owned by me, mark task 2 done, and show me this week's report. Tell me what you
+ran and what you noticed.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <div class="hostep">Step 3 — log the beats in your notes as they scroll past</div>
+    <ul class="checks">
+      <li>Gather: which files did it read first? Did it read the README, and did the README mislead it?</li>
+      <li>Act: what did it run? Note the exact commands.</li>
+      <li>Verify: after acting, did it check anything unprompted? What kind of check?</li>
+      <li>Did it flag anything odd about the repo on its own (the report, the numbering)?</li>
+    </ul>
+    <div class="bank"><b>If Claude isn't installed:</b> <code style="font-family:ui-monospace,Menlo,monospace">npm install -g @anthropic-ai/claude-code</code>,
+    then <code style="font-family:ui-monospace,Menlo,monospace">claude --version</code>.
+    <b>If it one-shots the task without visible reading:</b> ask "walk me back through what you read
+    before acting, in order". The recap is your transcript.
+    <b>If the report output looks wrong:</b> good. Note it and leave it; it's Thursday's material.</div>
+    <div class="notice"><b>What good looks like:</b> a session that reads before it runs (cli.js at
+    minimum), acts with the actual CLI rather than editing data files by hand, and shows you real command
+    output. The report will list one task twice. If Claude noticed that unprompted, you watched a gather
+    beat pay off. If it didn't, you just learnt that agents verify what they're pointed at, and nothing
+    else.</div>
+    <span class="read"><b>What you decide:</b> did the session earn trust? Write one line: what
+    machine-produced evidence closed the loop, or what would have, if it had been asked for.</span>
+    <span class="keep"><b>Keep this</b>Agents verify what they're pointed at. An unpointed loop closes on
+    vibes. Making the pointing automatic is week 5's whole business.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 2 · WIRING DAY ═══════════════ -->
+
+<!-- 14 · Act 2 divider -->
+<section class="slide act" data-act="Act 2 · Wiring day" data-mv="Act opener">
+  <div class="wrap">
+    <div class="kicker">Act 2 · Day 2 · ~3 h</div>
+    <h1 class="big">Wiring day</h1>
+    <p class="lead mt14">Copy-paste is the first inefficiency this programme removes, and it goes on day
+    two, not week six. Three pieces of wiring: <b>gh</b> puts GitHub in the loop, <b>MCP</b> puts your
+    team's systems in the loop, and a <b>permission baseline</b> decides what runs without asking. The
+    exit bar has a name: zero copy-paste.</p>
+    <p class="sub mt14">Four movements, three of them hands-on: wire gh and drive it from inside a session
+    (Hands-on 02) · understand MCP's shape (M5) · connect your first two servers (Hands-on 03) · set the
+    permission baseline (Hands-on 04).</p>
+    <span class="keep"><b>Keep this</b>The bar is testable, and this week another learner will test it on
+    your machine: can Claude reach every system it needs with you touching nothing?</span>
+  </div>
+</section>
+
+<!-- 15 · M4 / H-O 02 divider -->
+<section class="slide dark" data-act="Act 2 · Wiring day" data-mv="gh CLI wired">
+  <div class="wrap">
+    <div class="kicker">Act 2 · Hands-on 02</div>
+    <h1 class="big">gh: GitHub becomes a tool call</h1>
+    <p class="lead mt14">Claude Code can run any CLI you can. So the fastest wiring win is the official
+    GitHub CLI: once <b>gh</b> is authenticated, issues, PRs, milestones and releases stop being a browser
+    tab you retype from and become commands the agent runs itself. This entire programme is tracked in
+    GitHub issues; from today, Claude reads yours directly.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Authenticate gh, then watch Claude use it unprompted: reading real issues on the cohort repo, creating and closing a test issue.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>What else in your daily flow is secretly a CLI away: your tracker, your CI, your cloud console.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Rule of the day: before wiring anything exotic, ask "is there a CLI
+    for this?" Agents inherit every CLI your shell has.</span>
+  </div>
+</section>
+
+<!-- 16 · H-O 02 panel -->
+<section class="slide" data-act="Act 2 · Wiring day" data-mv="gh CLI wired">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 02</div><span class="ho">~30 min</span>
+    <h2 class="head">Wire gh, then make Claude drive it</h2>
+    <div class="hostep">Step 1 — install and authenticate (skip what you already have)</div>
+    <div class="promptblock"><pre>brew install gh
+gh auth login
+gh auth status</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="hodo">Pick github.com → HTTPS → login with a web browser. <b>gh auth status</b> must show
+    your account before you continue. Linux: use your package manager instead of brew.</div>
+    <div class="hostep">Step 2 — from inside a Claude session, make it read the cohort's real board</div>
+    <div class="promptblock"><pre>Using the gh CLI, list the open issues on techcirkle-ctrl/ai-dev-roadmap and
+summarise what week 1 asks of me in three lines.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <div class="hostep">Step 3 — round-trip: create, verify, close</div>
+    <div class="promptblock"><pre>Create an issue titled "wiring test — [your name]" on techcirkle-ctrl/ai-dev-roadmap
+with body "gh wired via Claude Code", show me its URL, then close it with a comment
+"round-trip complete".</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <ul class="checks">
+      <li>Claude ran gh itself; you typed no gh command in steps 2–3</li>
+      <li>The summary matches what's actually on the board (spot-check one issue on github.com)</li>
+      <li>The test issue exists, then reads closed, on github.com</li>
+    </ul>
+    <div class="bank"><b>Permission prompts on every gh call?</b> Expected today; that's tomorrow's
+    movement. Approve them for now.
+    <b>Org repos blocked by SSO?</b> Run <code style="font-family:ui-monospace,Menlo,monospace">gh auth refresh -s repo</code>
+    and authorise the org, or do steps 2–3 against any personal repo.
+    <b>No brew?</b> github.com/cli/cli#installation lists every installer.</div>
+    <div class="notice"><b>What you just saw:</b> Claude composed gh commands you never taught it, read
+    the results, and chained them. That's the loop from Act 1 wearing real infrastructure: gather (issue
+    list) → act (create) → verify (re-read state before claiming done).</div>
+    <span class="read"><b>What you decide:</b> the retype habit dies today. Any time you catch yourself
+    copying issue text into a prompt this week, that's a friction-log line.</span>
+    <span class="keep"><b>Keep this</b>gh is the template: authenticate once, then the agent has hands.
+    Next: the systems that don't have a CLI.</span>
+  </div>
+</section>
+
+<!-- 17 · M5 divider -->
+<section class="slide dark" data-act="Act 2 · Wiring day" data-mv="MCP: every system">
+  <div class="wrap">
+    <div class="kicker">Act 2 · Movement M5</div>
+    <h1 class="big">MCP: one protocol, every system</h1>
+    <p class="lead mt14">Your team's knowledge doesn't live in files. It lives in Notion or Confluence, in
+    Jira or Linear, in a Postgres somewhere, in Sentry. The Model Context Protocol is the standard plug:
+    a server exposes a system's operations as tools, and any connected agent can call them. No server, and
+    <b>you</b> are the integration, ferrying answers by hand.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>See the clipboard-hop diagram change shape as each connector lands, until the hop count reads zero.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Which two systems you personally ferry the most text from. Those are tomorrow's first connections.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>MCP is USB for agents: one protocol, many devices. Every connector
+    you add deletes a category of copy-paste forever.</span>
+  </div>
+</section>
+
+<!-- 18 · M5 panel — wwire -->
+<section class="slide" data-act="Act 2 · Wiring day" data-mv="MCP: every system">
+  <div class="wrap">
+    <div class="kicker">M5 · MCP: every system</div>
+    <h2 class="head">Watch the hops disappear</h2>
+    <div class="teach">
+      <p>The board below is your working day as a wiring diagram. Left: five systems a feature touches.
+      Right: the routes text currently travels, every one passing through your clipboard. Toggling a
+      connector moves that system inside the loop: Claude reaches it directly, and the route through you
+      is struck out. The meter counts the hops that remain.</p>
+    </div>
+    <div class="lab" id="wwire">
+      <div class="labtitle">Widget · <b>the wiring board</b></div>
+      <div class="wiregrid">
+        <div class="wirecol"><h4>Systems · toggle the connector</h4><div id="wwireSys"></div></div>
+        <div class="wirecol"><h4>Routes text travels</h4><div id="wwireRoutes"></div></div>
+      </div>
+      <div class="meter" id="wwireMeter"><i></i></div>
+      <p class="alertline" id="wwireAlert"></p>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Read the routes first: ten of them, all through you. That's the "what is" slide, drawn.</li>
+        <li>Toggle <b>GitHub</b>. Two routes strike out at once; issue text and PR state stop passing
+        through your hands.</li>
+        <li>Toggle the rest one by one, slowest ferry first. Watch the meter fall and change colour at
+        zero.</li>
+        <li>Toggle one connector back off and read the alert line: partial wiring has a specific cost.</li>
+      </ol>
+      <p class="watch">Watch for: the meter never reaches zero from connectors alone until <b>terminal</b>
+      is on. Local commands (tests, git, builds) are hops too, and Claude Code ships that connector built
+      in.</p>
+    </div>
+    <div class="notice"><b>What you just saw:</b> zero copy-paste isn't a slogan; it's this meter reading
+    0 with every system you actually use switched on. A single unwired system quietly reinstates you as
+    its integration, and it's always the system you ferry from most.</div>
+    <span class="read"><b>What you decide:</b> your first two connectors, chosen by ferry volume, not by
+    what looks impressive. Docs and tickets beat exotic databases for most developers.</span>
+    <span class="keep"><b>Keep this</b>Count hops, wire the worst two first. The meter is the audit
+    another learner runs on your machine this weekend.</span>
+  </div>
+</section>
+
+<!-- 19 · H-O 03 divider -->
+<section class="slide dark" data-act="Act 2 · Wiring day" data-mv="Connect two servers">
+  <div class="wrap">
+    <div class="kicker">Act 2 · Hands-on 03</div>
+    <h1 class="big">Connect your first two MCP servers</h1>
+    <p class="lead mt14">Enough diagrams. You'll connect GitHub's official MCP server (richer than gh for
+    some reads, and a clean first OAuth flow), then one system your team actually uses. The commands are
+    two lines; the judgement is in the <b>scope flag</b>, and it previews a doctrine this programme
+    returns to constantly.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Two servers connected and green in /mcp, and one question answered that only a connected system could answer.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Scope per server: available in every project (user) or checked into one repo for the whole team (project)?</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>The scope question ("who needs this: me everywhere, or everyone
+    here?") is asked of every artifact you'll ever add. It gets a full week in week 2.</span>
+  </div>
+</section>
+
+<!-- 20 · H-O 03 panel -->
+<section class="slide" data-act="Act 2 · Wiring day" data-mv="Connect two servers">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 03</div><span class="ho">~45 min</span>
+    <h2 class="head">Two servers, then prove them</h2>
+    <div class="hostep">Step 1 — add GitHub's MCP server at user scope, then authenticate</div>
+    <div class="promptblock"><pre>claude mcp add --transport http --scope user github https://api.githubcopilot.com/mcp/</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="hodo">Open a session, run <b>/mcp</b>, select github, and complete the OAuth flow in the
+    browser. Re-run <b>/mcp</b> until it shows connected.</div>
+    <div class="hostep">Step 2 — add one system your team actually uses</div>
+    <div class="promptblock"><pre># pick ONE that matches your team, or find yours at modelcontextprotocol.io/examples
+claude mcp add --transport http --scope user notion https://mcp.notion.com/mcp
+claude mcp add --transport http --scope user linear https://mcp.linear.app/mcp
+claude mcp add --transport http --scope user sentry https://mcp.sentry.dev/mcp</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="hostep">Step 3 — prove each connection with a question only it can answer</div>
+    <div class="promptblock"><pre>From our docs/tracker, what is the current status of [a task you know is live],
+and who touched it last? Name the tool you used to find out.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <ul class="checks">
+      <li>/mcp shows both servers connected (green), not just configured</li>
+      <li>The answer contains a fact you can verify in the source system</li>
+      <li>You know where each server's config landed: ~/.claude.json (user scope) vs .mcp.json (project scope)</li>
+    </ul>
+    <div class="bank"><b>Corporate SSO refuses the OAuth?</b> Log it in the friction log and move on; gh
+    already covers GitHub, and an unwired system is a finding for the audit, not a programme blocker.
+    <b>Your team's system has no hosted server?</b> Check modelcontextprotocol.io/examples for a local
+    (stdio) server you can run.
+    <b>Connected but flaky answers?</b> Ask the question again naming the tool: "using the linear tools,
+    …". Discovery improves once you name the server.</div>
+    <div class="notice"><b>What you just saw:</b> the OAuth dance once, then never again. From here,
+    "check the tracker" is something Claude does mid-task, not something you do between prompts. The
+    scope flag you chose is the first entry in a classification you'll refine all programme: user scope
+    for your personal reach, project scope (a checked-in .mcp.json) for a team's shared wiring.</div>
+    <span class="read"><b>What you decide:</b> which system stays unwired this week, deliberately, and
+    what that costs you daily. Write the hop in your friction log; week 3 may turn it into harness.</span>
+    <span class="keep"><b>Keep this</b>claude mcp add --transport http --scope user &lt;name&gt; &lt;url&gt;,
+    then /mcp to authenticate and check health. Two commands run your whole wiring day.</span>
+  </div>
+</section>
+
+<!-- 21 · H-O 04 divider -->
+<section class="slide dark" data-act="Act 2 · Wiring day" data-mv="Permission baseline">
+  <div class="wrap">
+    <div class="kicker">Act 2 · Hands-on 04</div>
+    <h1 class="big">Permissions: autonomy is an allowlist, not a mood</h1>
+    <p class="lead mt14">Wired tools raise the stakes: an agent that can run anything must not run
+    everything. Claude Code's answer is a permission system with scoped settings files. The lazy failure
+    modes are both bad: approve-everything fatigue (you stop reading what you approve) and
+    ask-me-everything friction (autonomy dies). The baseline is engineered, once.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Sort real tool calls into allow, ask and deny, then encode the result as your settings baseline.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Your personal red lines: what may never run unattended, whatever the convenience.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Every prompt you approve without reading is training you to approve
+    the one you shouldn't. Fewer, sharper prompts is the design goal.</span>
+  </div>
+</section>
+
+<!-- 22 · H-O 04 panel — wperm + settings -->
+<section class="slide" data-act="Act 2 · Wiring day" data-mv="Permission baseline">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 04</div><span class="ho">~40 min</span>
+    <h2 class="head">Sort six calls, then write the baseline</h2>
+    <div class="teach">
+      <p>First calibrate your instincts on the sorter; then encode them. The rule that makes sorting fast:
+      judge the <b>blast radius if wrong</b>, not the likelihood of going wrong. Reads are free. Writes
+      inside a git repo are cheap to undo. Anything that leaves the machine or destroys state is where
+      "ask" and "deny" live.</p>
+    </div>
+    <div class="lab" id="wperm">
+      <div class="labtitle">Widget · <b>the permission sorter</b></div>
+      <div class="qgrid" id="wpermGrid"></div>
+      <p class="scoreline" id="wpermScore"></p>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Sort all six calls. Commit before each verdict; the misses are your miscalibrations.</li>
+        <li>Note which column each verdict argues from: blast radius, reversibility, or visibility.</li>
+        <li>Score line read? Now encode the same instincts below.</li>
+      </ol>
+    </div>
+    <div class="hostep">Encode it — open your user settings and add the baseline</div>
+    <div class="promptblock"><pre>Open ~/.claude/settings.json (create it if missing) and merge in:
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)", "Bash(git diff:*)", "Bash(git log:*)",
+      "Bash(node --test:*)", "Bash(npm test:*)", "Bash(npm run lint:*)",
+      "Bash(gh issue list:*)", "Bash(gh issue view:*)", "Bash(gh pr list:*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)", "Bash(rm -rf:*)"
+    ]
+  }
+}</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <div class="hodo">Then run <b>/permissions</b> in a session to see the merged result, and test both
+    edges: ask for <b>git status</b> (must run silently) and ask it to force-push (must refuse).</div>
+    <ul class="checks">
+      <li>Safe reads and test runs execute with no prompt</li>
+      <li>Force-push is refused even when you ask for it directly</li>
+      <li>You can say where project settings would live (.claude/settings.json, checked in) vs your personal ones</li>
+    </ul>
+    <div class="bank"><b>Prompt fatigue mid-week?</b> Add the specific command to allow rather than
+    widening a pattern; wide patterns are how footguns get whitelisted.
+    <b>Team repo with shared rules?</b> That's .claude/settings.json checked into the repo, week 3's
+    material. Today is your user baseline only.</div>
+    <div class="notice"><b>What you just saw:</b> permissions live in files with scopes, not in the
+    approval dialogue. User settings carry your identity-level baseline; project settings (checked in)
+    will carry a team's; deny beats allow when they conflict. The dialogue is for the genuinely
+    undecided middle.</div>
+    <span class="read"><b>What you decide:</b> your red lines. Write them as deny rules now, while
+    they're obvious. A red line you configure once beats one you must remember nightly.</span>
+    <span class="keep"><b>Keep this</b>Allow by blast radius, deny your red lines, let the middle ask.
+    Revisit the allowlist weekly as trust grows; that's calibration, not drift.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 3 · TOKEN ECONOMICS ═══════════════ -->
+
+<!-- 23 · Act 3 divider -->
+<section class="slide act" data-act="Act 3 · Token economics" data-mv="Act opener">
+  <div class="wrap">
+    <div class="kicker">Act 3 · Day 3 · ~1.5 h</div>
+    <h1 class="big">Token economics</h1>
+    <p class="lead mt14">You're on Max 5x for the whole programme, and at 20–25 hours a week its limits
+    are not theoretical: they will bite, and the curriculum treats budgeting as craft, not admin. Two
+    movements: how the plan's physics work (M8), then reading your own meters on a real session
+    (Hands-on 05).</p>
+    <p class="sub mt14">The register here is the same as everywhere: measure, don't trust. "It feels like
+    I have plenty left" is a vibe. /cost and /context are readings.</p>
+    <span class="keep"><b>Keep this</b>Context is spend. Every file read, every long transcript, every
+    Opus turn draws from the same budget your Friday afternoon needs.</span>
+  </div>
+</section>
+
+<!-- 24 · M8 divider -->
+<section class="slide dark" data-act="Act 3 · Token economics" data-mv="Max 5x has physics">
+  <div class="wrap">
+    <div class="kicker">Act 3 · Movement M8</div>
+    <h1 class="big">Max 5x has physics: windows, caps, model mix</h1>
+    <p class="lead mt14">Three mechanics govern the plan. Usage accrues in <b>rolling 5-hour windows</b>:
+    burn hard and the window throttles you until it resets. A <b>weekly cap</b> sits above that, and
+    heavy Opus use is what reaches it. And the <b>model mix</b> is your main lever: Opus burns roughly
+    five times Sonnet for the same conversation, so what you route to Opus decides your week.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Drive a week-shaped simulation until you can predict when a working pattern hits the window and when it hits the cap.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Your default mix: what genuinely earns Opus, and what runs on Sonnet without you noticing a difference.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Windows throttle your day; the cap throttles your week; the mix is
+    the lever you actually control.</span>
+  </div>
+</section>
+
+<!-- 25 · M8 panel — wbudget -->
+<section class="slide" data-act="Act 3 · Token economics" data-mv="Max 5x has physics">
+  <div class="wrap">
+    <div class="kicker">M8 · Max 5x has physics</div>
+    <h2 class="head">Find the mix that survives your week</h2>
+    <div class="teach">
+      <p>The simulator below models a Max 5x week in illustrative units calibrated to Anthropic's
+      published guidance ranges; your real numbers differ by codebase and session style, which is why
+      Hands-on 05 reads the real meters. Two gauges: pressure on a single 5-hour window at your working
+      intensity, and the share of the weekly cap your pattern consumes.</p>
+    </div>
+    <div class="lab" id="wbudget">
+      <div class="labtitle">Widget · <b>the budget meter</b> — illustrative units, real shape</div>
+      <div class="budrow">
+        <label>Hours of agent work per day: <b id="wbudHrsOut">4</b></label>
+        <input type="range" min="1" max="8" value="4" id="wbudHrs">
+      </div>
+      <div class="budrow">
+        <label>Model mix:</label>
+        <span class="seg" id="wbudSeg">
+          <button data-m="sonnet" class="on">Sonnet-first</button>
+          <button data-m="bal">Balanced</button>
+          <button data-m="opus">Opus-heavy</button>
+        </span>
+      </div>
+      <div class="gauge" id="wbudWin"><span>5-hour window</span><span class="trk"><i></i></span><span class="pct"></span></div>
+      <div class="gauge" id="wbudWeek"><span>Weekly cap</span><span class="trk"><i></i></span><span class="pct"></span></div>
+      <div class="budverdict" id="wbudVerdict"></div>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Start at 4 h/day, Sonnet-first: both gauges sit comfortable. That's the programme's default
+        posture.</li>
+        <li>Switch to <b>Opus-heavy</b> at the same hours. Read the weekly gauge and the verdict: the cap
+        arrives midweek.</li>
+        <li>Find your own edge: raise hours until Balanced goes amber, then read which gauge went first.</li>
+        <li>Set it to this week's honest plan (about 3–4 h/day) and note the verdict you're signing up
+        for.</li>
+      </ol>
+      <p class="watch">Watch for: the window gauge reacts to intensity (hours in one sitting); the weekly
+      gauge reacts to mix. They fail independently, and the fixes are different: pace the day vs change
+      the mix.</p>
+    </div>
+    <div class="notice"><b>What you just saw:</b> Sonnet-first absorbs this programme's hours comfortably;
+    Opus-heavy does not survive a 4 h/day week. The craft is routing: Opus for planning, gnarly debugging
+    and architecture calls, Sonnet for the long middle of implementation, and the week 6 material takes
+    this further for background jobs.</div>
+    <span class="read"><b>What you decide:</b> your default model and your two named exceptions. Write
+    them: "Sonnet unless: …". You'll test the rule against real /cost data this week.</span>
+    <span class="keep"><b>Keep this</b>Opus ≈ 5× Sonnet's burn. Route by task value, pace the heavy
+    sessions, and the plan is ample; ignore the mix and Thursday gets quiet.</span>
+  </div>
+</section>
+
+<!-- 26 · H-O 05 divider -->
+<section class="slide dark" data-act="Act 3 · Token economics" data-mv="Read your own meters">
+  <div class="wrap">
+    <div class="kicker">Act 3 · Hands-on 05</div>
+    <h1 class="big">Read your own meters</h1>
+    <p class="lead mt14">The simulator taught the shape; now take real readings. Claude Code ships three
+    instruments: <b>/cost</b> (what this session consumed), <b>/context</b> (what's filling the window
+    right now, item by item), and <b>/model</b> (what you're burning). You'll read all three on a genuine
+    session and start the week's cost log.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Take your first real readings, and see what a session's context is actually made of.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>When you check the meters: the habit is end of session, plus any time a session feels heavy.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>The cost log you start today is an Application project and week 6's
+    baseline. Two minutes at the end of each session, all week.</span>
+  </div>
+</section>
+
+<!-- 27 · H-O 05 panel -->
+<section class="slide" data-act="Act 3 · Token economics" data-mv="Read your own meters">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 05</div><span class="ho">~25 min</span>
+    <h2 class="head">Three instruments on a live session</h2>
+    <div class="hostep">Step 1 — generate real usage, then read the session meter</div>
+    <div class="promptblock"><pre>Read every file in this repo and give me a one-paragraph health assessment:
+what's solid, what smells, what you'd fix first.</pre><button class="copy">Copy</button><span class="pbtag">claude · in ~/relay-gym</span></div>
+    <div class="hodo">When it finishes, run <b>/cost</b>. Note total tokens and the model. Then run
+    <b>/context</b> and read the breakdown: system prompt, tools, files read, conversation.</div>
+    <div class="hostep">Step 2 — see the mix lever move</div>
+    <div class="hodo">Run <b>/model</b>, note the current model, and switch (Opus ↔ Sonnet). Ask one small
+    question, then <b>/cost</b> again: same kind of question, different burn rate.</div>
+    <div class="hostep">Step 3 — open the week's cost log</div>
+    <div class="promptblock"><pre>Copy weeks/week-1/data/cost-log-template.md into your notes as cost-log.md and fill
+today's row: session focus, model, /cost readout, and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">terminal or claude</span></div>
+    <ul class="checks">
+      <li>You can name today's biggest context item (it's usually files read, not conversation)</li>
+      <li>You know your current default model without guessing</li>
+      <li>cost-log.md exists with today's row filled</li>
+    </ul>
+    <div class="bank"><b>/cost shows little on a subscription?</b> It still shows session totals and
+    duration; plan-level usage lives at claude.ai → Settings → Usage. Log what the meters give you;
+    consistency beats precision.
+    <b>Session feels heavy later this week?</b> /context first, then /clear if the load is stale. Session
+    hygiene gets its full treatment in week 2.</div>
+    <div class="notice"><b>What you just saw:</b> a session's context is mostly what the agent read, not
+    what you typed. That's why "read every file" is an expensive prompt shape and why week 2 teaches
+    scoped context. You now have real numbers where the simulator had units.</div>
+    <span class="read"><b>What you decide:</b> your checking rhythm. End of every session goes in the
+    log; /context whenever heavy. Meters you don't read are decoration.</span>
+    <span class="keep"><b>Keep this</b>/cost = what it took · /context = what's loaded · /model = what
+    you're burning. Three commands, two minutes, every session this week.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 4 · THE FOUR DISCIPLINES ═══════════════ -->
+
+<!-- 28 · Act 4 divider -->
+<section class="slide act" data-act="Act 4 · The four disciplines" data-mv="Act opener">
+  <div class="wrap">
+    <div class="kicker">Act 4 · Days 3–4 · ~4.5 h</div>
+    <h1 class="big">The four disciplines, once each</h1>
+    <p class="lead mt14">Everything this programme teaches lives in four named disciplines.
+    <b>Context engineering:</b> control what the model sees. <b>Harness engineering:</b> encode what you
+    repeat. <b>Loop engineering:</b> close every loop with a machine check. <b>Graph engineering:</b> run
+    independent work in parallel. Weeks 2 to 7 deepen them one at a time; today you run all four as
+    mini-reps on the gym repo, so the map is experienced, never just read.</p>
+    <p class="sub mt14">Five movements: the map itself (M10), then one rep per discipline, roughly an hour
+    each (Hands-ons 06–09). Do them in order; rep 3 uses the bug you met in Act 1.</p>
+    <span class="keep"><b>Keep this</b>Four names to carry for nine weeks: context, harness, loop, graph.
+    From today, every Claude problem you hit files under exactly one of them.</span>
+  </div>
+</section>
+
+<!-- 29 · M10 divider -->
+<section class="slide dark" data-act="Act 4 · The four disciplines" data-mv="The map">
+  <div class="wrap">
+    <div class="kicker">Act 4 · Movement M10</div>
+    <h1 class="big">Name the discipline before you reach for a fix</h1>
+    <p class="lead mt14">Eight situations follow, all real, all from developers working exactly the way
+    you did last week. For each, the question isn't "what's the fix?": it's <b>which discipline owns the
+    fix</b>. Diagnose the discipline correctly and the fix is usually obvious; misdiagnose and you'll
+    patch symptoms all year.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Classify eight real failures by discipline, and miss a few: the misses show which discipline you currently can't see.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Which discipline your own last month of Claude use needed most. That's where your attention goes first.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Commit before you flip, on all eight. A diagnosis you didn't commit
+    to teaches nothing.</span>
+  </div>
+</section>
+
+<!-- 30 · M10 panel — wmap -->
+<section class="slide" data-act="Act 4 · The four disciplines" data-mv="The map">
+  <div class="wrap">
+    <div class="kicker">M10 · The map</div>
+    <h2 class="head">Eight failures. Four disciplines. Sort them.</h2>
+    <div class="teach">
+      <p>The tell for each discipline: context failures are about <b>what the model saw</b> (missing,
+      stale, or drowned). Harness failures are about <b>what you keep repeating</b> (instructions,
+      approvals, checklists). Loop failures are about <b>what closed the turn</b> (nothing, or a signal
+      that lies). Graph failures are about <b>work shape</b> (serial where it could be parallel, or
+      colliding where it should be isolated).</p>
+    </div>
+    <div class="lab" id="wmap">
+      <div class="labtitle">Widget · <b>the discipline sorter</b></div>
+      <div class="qgrid" id="wmapGrid"></div>
+      <p class="scoreline" id="wmapScore"></p>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Sort all eight, committing before each verdict. Read every verdict; each names the week that
+        deepens it.</li>
+        <li>Card 7 (the deleted test) is the subtle one: decide whether a gamed signal is a loop problem
+        or a harness problem before you flip it.</li>
+        <li>Read your score, then answer the read band honestly.</li>
+      </ol>
+      <p class="watch">Watch for: two cards describe Claude "forgetting". One is a context failure, one is
+      a harness failure. The difference is whether the fix is what it sees or what you've encoded.</p>
+    </div>
+    <div class="notice"><b>What you just saw:</b> the four disciplines cover the failure space between
+    them, and the same surface symptom ("it ignored me") can file under different disciplines with
+    different fixes. That's why the diagnosis comes first, and why this vocabulary is the programme's
+    spine.</div>
+    <span class="read"><b>What you decide:</b> your weakest discipline, named, from your own last month.
+    Most chat-driven developers pick loop, and most are right.</span>
+    <span class="keep"><b>Keep this</b>Context = what it sees · harness = what you encode · loop = what
+    closes the turn · graph = how work is shaped. Four reps next, one each.</span>
+  </div>
+</section>
+
+<!-- 31 · H-O 06 divider -->
+<section class="slide dark" data-act="Act 4 · The four disciplines" data-mv="Context mini-rep">
+  <div class="wrap">
+    <div class="kicker">Act 4 · Hands-on 06 · mini-rep 1 of 4</div>
+    <h1 class="big">Context: one file changes behaviour</h1>
+    <p class="lead mt14">The gym repo has no CLAUDE.md, which means every session guesses your
+    conventions. The rep: run a task cold and catalogue the guesses, then write four lines of CLAUDE.md
+    and run the identical task again. Same model, same prompt, different behaviour. That's context
+    engineering in its smallest possible dose.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Produce a before/after pair where a four-line file visibly changed what the agent did.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Which guesses were worth correcting, and which rules earn a place in a file every session reads.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>A/B on the same prompt is this programme's standard proof. Week 2
+    scales this rep into the full documentation layer.</span>
+  </div>
+</section>
+
+<!-- 32 · H-O 06 panel -->
+<section class="slide" data-act="Act 4 · The four disciplines" data-mv="Context mini-rep">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 06</div><span class="ho">~60 min</span>
+    <h2 class="head">Cold run, four rules, hot run</h2>
+    <div class="hostep">Step 1 — cold run (no CLAUDE.md exists yet)</div>
+    <div class="promptblock"><pre>Add a "cancel" command to this CLI: relay cancel &lt;n&gt; removes an open task
+without archiving it. Match the existing style.</pre><button class="copy">Copy</button><span class="pbtag">claude · in ~/relay-gym · fresh session</span></div>
+    <div class="hodo">Let it finish. In your notes, catalogue every guess it had to make: module style?
+    tests written or skipped? error message wording? did it touch files beyond the obvious ones?</div>
+    <div class="hostep">Step 2 — write the always-on spec</div>
+    <div class="promptblock"><pre>Create CLAUDE.md at the repo root with exactly these rules:
+- CommonJS modules only; no ESM, no new dependencies.
+- Every behaviour change ships with a node --test test in test/.
+- CLI output is plain text; no colour codes, no emoji.
+- Error messages name the command that failed and one next step.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <div class="hostep">Step 3 — hot run: revert the change, /clear, run the identical prompt</div>
+    <div class="promptblock"><pre>git checkout -- . && git clean -fd src test 2>/dev/null; true</pre><button class="copy">Copy</button><span class="pbtag">terminal · then /clear in claude</span></div>
+    <ul class="checks">
+      <li>Cold-run guesses catalogued (aim for four or more)</li>
+      <li>Hot run wrote a test without being asked; cold run's test behaviour differed</li>
+      <li>One rule you expected to matter that visibly did, one that didn't</li>
+    </ul>
+    <div class="bank"><b>Cold run already did everything right?</b> Lucky guesses happen. Tighten the
+    contrast: add a rule the cold run violated (its error wording, its output format) and re-run. The rep
+    is the delta, not the rules themselves.</div>
+    <div class="notice"><b>What good looks like:</b> the hot run stops guessing where the file speaks: it
+    writes the node --test test unprompted, keeps output plain, shapes errors your way. CLAUDE.md is the
+    always-on spec: short imperative rules, read at session start, every session, forever.</div>
+    <span class="read"><b>What you decide:</b> the difference between a rule worth encoding (recurs, has a
+    wrong default) and noise (one-off preference). That judgement is week 2's whole craft, met here at
+    espresso strength.</span>
+    <span class="keep"><b>Keep this</b>No CLAUDE.md = every session guesses. Four imperative lines beat a
+    page of prose. Proof by A/B, always.</span>
+  </div>
+</section>
+
+<!-- 33 · H-O 07 divider -->
+<section class="slide dark" data-act="Act 4 · The four disciplines" data-mv="Harness mini-rep">
+  <div class="wrap">
+    <div class="kicker">Act 4 · Hands-on 07 · mini-rep 2 of 4</div>
+    <h1 class="big">Harness: a hook is a guarantee</h1>
+    <p class="lead mt14">Your permission baseline asks or denies. A <b>hook</b> goes further: it's code
+    that runs at fixed points in the loop, and the model cannot skip, forget or talk its way past it.
+    Instructions decay; hooks don't. The rep: install a guardrail hook in the gym repo that blocks
+    dangerous git commands, then watch it fire against a live request.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Ship one working PreToolUse hook and see it block a command you asked for yourself.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Which guarantee from your own incident history deserves to be a hook rather than a hope.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Instructions are requests; hooks are guarantees. Anything that must
+    never happen belongs in code, not in prose.</span>
+  </div>
+</section>
+
+<!-- 34 · H-O 07 panel -->
+<section class="slide" data-act="Act 4 · The four disciplines" data-mv="Harness mini-rep">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 07</div><span class="ho">~45 min</span>
+    <h2 class="head">Install the guardrail, then try to cross it</h2>
+    <div class="teach">
+      <p>The hook lives at <b>project scope</b> (.claude/settings.json inside the gym repo) because it
+      guards this repo, and anyone who clones it should inherit the guard. That's the scope question from
+      wiring day, answered a second way. The command reads the tool call as JSON on stdin; exit code 2
+      blocks the call and tells Claude why.</p>
+    </div>
+    <div class="hostep">Step 1 — create the hook (requires jq: brew install jq)</div>
+    <div class="promptblock"><pre>Create .claude/settings.json in this repo with exactly:
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -e '.tool_input.command // \"\" | test(\"push +--force|push +-f|rm +-rf\")' >/dev/null && { echo 'guardrail: force-push and rm -rf are blocked in this repo' >&2; exit 2; } || exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}</pre><button class="copy">Copy</button><span class="pbtag">claude · in ~/relay-gym</span></div>
+    <div class="hostep">Step 2 — restart the session so settings load, then test both edges</div>
+    <div class="promptblock"><pre>Run git status, then force-push this repo to origin.</pre><button class="copy">Copy</button><span class="pbtag">claude · fresh session</span></div>
+    <ul class="checks">
+      <li>git status ran normally (the hook lets safe commands through)</li>
+      <li>The force-push attempt was blocked with your guardrail message, and Claude explained it can't</li>
+      <li>You can say why this beats the same rule written in CLAUDE.md</li>
+    </ul>
+    <div class="bank"><b>Hook didn't fire?</b> Hooks load at session start: exit and rerun claude. Then
+    check /hooks shows it registered.
+    <b>jq missing?</b> brew install jq, or swap the command for a grep:
+    <code style="font-family:ui-monospace,Menlo,monospace">grep -qE 'push +--force|rm +-rf' && exit 2 || exit 0</code>
+    reading stdin loses the JSON precision but keeps the guarantee.
+    <b>No origin remote?</b> The block happens before git runs, so it fires anyway. That's the point.</div>
+    <div class="notice"><b>What you just saw:</b> the rule held even though you, the human, asked to break
+    it. CLAUDE.md could not have promised that; instructions are context, and context competes.
+    The hook is the first artifact in your harness that makes a guarantee, and week 3 builds you a
+    library of them from your own friction log.</div>
+    <span class="read"><b>What you decide:</b> your first real guardrail. Look at your incident history:
+    the command you've regretted, the file nobody may edit. Write the hook's one-line spec in your
+    friction log; week 3 ships it.</span>
+    <span class="keep"><b>Keep this</b>PreToolUse + exit 2 = a line the loop cannot cross. Project scope,
+    checked in, inherited by everyone who clones.</span>
+  </div>
+</section>
+
+<!-- 35 · H-O 08 divider -->
+<section class="slide dark" data-act="Act 4 · The four disciplines" data-mv="Loop mini-rep">
+  <div class="wrap">
+    <div class="kicker">Act 4 · Hands-on 08 · mini-rep 3 of 4</div>
+    <h1 class="big">Loop: never trust "done"</h1>
+    <p class="lead mt14">In Act 1 the weekly report printed a task twice, and the gym's test suite (one
+    trivial test) said everything was fine. That's the loop problem in miniature: the verify signal exists
+    and lies. The rep: make the tests tell the truth first, watch them fail, then let the fix be judged by
+    the referee instead of by confidence.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Run one honest red → green cycle: failing tests that prove two real bugs, then a fix accepted only when node --test says so.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>What "done" means in your own repos from now on, and who gets to say it.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>A verify signal that can't fail isn't a signal. Red first is what
+    makes green mean something.</span>
+  </div>
+</section>
+
+<!-- 36 · H-O 08 panel -->
+<section class="slide" data-act="Act 4 · The four disciplines" data-mv="Loop mini-rep">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 08</div><span class="ho">~60 min</span>
+    <h2 class="head">Red, then green, then believe it</h2>
+    <div class="teach">
+      <p>Two real bugs live in src/report.js. One you've seen: a task completed this week appears twice
+      (it's counted from both the open list and the archive). One is nastier: run the report on a
+      <b>Sunday</b> and it comes back empty, because the week-start calculation sends Sunday to next
+      Monday. The report is due Sunday EOD. Enjoy the irony; then kill the bug.</p>
+    </div>
+    <div class="hostep">Step 1 — demand the failing tests first</div>
+    <div class="promptblock"><pre>src/report.js has two bugs: (1) a task completed this week is listed twice in the
+weekly report; (2) the report is empty when run on a Sunday. Write tests in
+test/report.test.js that prove both, using fixed dates (new Date("2026-08-09") is a
+Sunday), run node --test, and show me the failures BEFORE touching any source file.</pre><button class="copy">Copy</button><span class="pbtag">claude · in ~/relay-gym</span></div>
+    <div class="hostep">Step 2 — read the red honestly</div>
+    <div class="hodo">Read the failure output yourself. Two failing tests, each naming the behaviour it
+    expected. If a test passes when it should fail, it isn't proving the bug; say so and make it fail
+    first.</div>
+    <div class="hostep">Step 3 — release the fix, gated</div>
+    <div class="promptblock"><pre>Now fix src/report.js. Only claim done when node --test passes everything,
+and paste the final test output.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <ul class="checks">
+      <li>You saw both tests fail before any fix (red)</li>
+      <li>You saw the full suite pass after (green), pasted, not summarised</li>
+      <li>The dedupe and the Sunday boundary are both covered by a test that would catch a regression</li>
+    </ul>
+    <div class="bank"><b>Claude fixed the code before writing tests?</b> It happens; revert
+    (git checkout -- src) and re-run step 1 with "do not modify src yet" added. Getting an agent to hold
+    red is itself a skill.
+    <b>Tests use today's date?</b> Reject them: wall-clock tests pass six days a week. Fixed dates or it
+    isn't proof.</div>
+    <div class="notice"><b>What good looks like:</b> a suite that failed for the right reasons, then
+    passed, with the diff staying inside report.js. Notice what changed in you: at no point did you read
+    the fix and judge it by eye. The referee judged it. That inversion, from reviewing code to designing
+    the signal that reviews code, is weeks 5 and 6 entire.</div>
+    <span class="read"><b>What you decide:</b> the "done" rule for your real repos: done = the named
+    check passes, pasted. Anything else is a claim, and claims are what week 5 teaches agents to stop
+    making.</span>
+    <span class="keep"><b>Keep this</b>Red → green → believe. Fixed dates, not wall clock. The signal, not
+    the vibe, says done.</span>
+  </div>
+</section>
+
+<!-- 37 · H-O 09 divider -->
+<section class="slide dark" data-act="Act 4 · The four disciplines" data-mv="Graph mini-rep">
+  <div class="wrap">
+    <div class="kicker">Act 4 · Hands-on 09 · mini-rep 4 of 4</div>
+    <h1 class="big">Graph: two sessions, no collision</h1>
+    <p class="lead mt14">Work is a dependency graph pretending to be a queue. The README rewrite and the
+    utils audit don't depend on each other, so running them one after the other is a choice, and today
+    you make the other choice: one interactive session and one headless session, same repo, same time,
+    touching different files.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Finish two real tasks in the wall-clock time of one, and state the rule that made it safe.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>What in your current week splits the same way: independent branches you've been running serially.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Parallel is safe when the writes don't overlap. Week 7 gives you
+    worktrees for when they do.</span>
+  </div>
+</section>
+
+<!-- 38 · H-O 09 panel -->
+<section class="slide" data-act="Act 4 · The four disciplines" data-mv="Graph mini-rep">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 09</div><span class="ho">~45 min</span>
+    <h2 class="head">Interactive front, headless back</h2>
+    <div class="teach">
+      <p>Second instrument first: <b>claude -p</b> runs one prompt to completion and exits, no
+      conversation, output to stdout. It's Claude as a Unix tool, and it's how week 6 builds overnight
+      jobs. Today it's simply your second pair of hands.</p>
+    </div>
+    <div class="hostep">Step 1 — terminal B: launch the headless audit</div>
+    <div class="promptblock"><pre>cd ~/relay-gym && claude -p "Audit src/utils.js: list every function that is dead
+code, misleadingly named, or duplicated elsewhere in src/. Markdown, one line each,
+no code changes." > audit.md && echo done</pre><button class="copy">Copy</button><span class="pbtag">terminal B</span></div>
+    <div class="hostep">Step 2 — terminal A: the interactive rewrite, at the same time</div>
+    <div class="promptblock"><pre>Rewrite README.md so it matches what the CLI actually does: real commands, real
+flags, remove anything the code doesn't support. Verify every command you document
+by running it first.</pre><button class="copy">Copy</button><span class="pbtag">claude · terminal A</span></div>
+    <div class="hostep">Step 3 — merge the results</div>
+    <div class="hodo">When both finish: read audit.md (terminal B's output), spot-check one claim against
+    the code, and note the wall-clock time for both tasks together.</div>
+    <ul class="checks">
+      <li>Both tasks completed; combined wall-clock ≈ the slower one, not the sum</li>
+      <li>audit.md names the fake "deepClone" for what it is, and the README no longer documents flags that don't exist</li>
+      <li>No file was touched by both sessions (that was by design, and you can say why)</li>
+    </ul>
+    <div class="bank"><b>Terminal B just sits there?</b> Headless runs are quiet; that's normal. Give it
+    the minute it needs, or add --verbose to watch turns stream.
+    <b>Worried they'll collide?</b> They were scoped not to: one writes README.md, one writes audit.md and
+    is forbidden code changes. That scoping IS the discipline.</div>
+    <div class="notice"><b>What you just saw:</b> a two-node graph with no shared writes, so no
+    coordination was needed: the scoping did the coordinating. When branches do share files, you need
+    isolation, and that's git worktrees plus subagents in week 7. The instinct to draw the graph before
+    queueing the work is what you take from today.</div>
+    <span class="read"><b>What you decide:</b> one thing from your actual backlog you'll run headless this
+    week while you work on something else. Write the claude -p line for it now, while the shape is
+    fresh.</span>
+    <span class="keep"><b>Keep this</b>claude -p = Claude as a Unix tool. Draw the graph, split the
+    independent branches, let scoping prevent collisions.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ CAPSTONE · WIRE IT, SHIP IT, AUTOPSY IT ═══════════════ -->
+
+<!-- 39 · Capstone opener -->
+<section class="slide act" data-act="Capstone · Wire, ship, autopsy" data-mv="Capstone opener">
+  <div class="wrap">
+    <div class="kicker">Capstone · Day 5 · ~3 h</div>
+    <h1 class="big">Wire it, ship it, autopsy it</h1>
+    <p class="lead mt14">Everything so far was parts. The capstone assembles them: audit your wiring
+    against the zero-copy-paste bar, ship one real automation through the wired environment, then autopsy
+    the loop that did the work. You leave with the week's proof artifact and the habit the programme is
+    built on: evidence before claims.</p>
+    <div class="goalrow mt28">
+      <div class="gb"><div class="t">The shape</div><p>Audit → Pick → Ship → Autopsy → Verdict + export.
+      Five steps, capture boxes as you go; the last step assembles them into one markdown report for your
+      Knowledge issue.</p></div>
+      <div class="gb"><div class="t">You'll carry forward</div><p>The capstone report: Knowledge-issue
+      proof, seed of three Application projects (audit, automation, autopsy), and your first before/after
+      story for week 9's retrospective.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Captures save to this browser only; use the same browser
+    throughout. Prefer paper? The same skeleton lives at weeks/week-1/data/capstone-report-template.md.</span>
+  </div>
+</section>
+
+<!-- 40 · Step 1 divider -->
+<section class="slide dark" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 1 · Audit">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 1 of 5 · ~30 min</div>
+    <h1 class="big">Audit the wiring</h1>
+    <p class="lead mt14">Before shipping anything through the environment, establish what the environment
+    actually is, with commands, not memory. This is the same audit another learner will run on your
+    machine cold this weekend; running it on yourself first means their pass finds refinements, not
+    embarrassments.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>A filled scorecard: what's wired, what prompts, what's missing, each backed by a command you ran.</p></div>
+      <div class="gb"><div class="t">You'll carry forward</div><p>The honest gap list. Unwired is fine; unknown is not.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Audit yourself before others audit you. The weekend's peer audit
+    checklist is weeks/week-1/data/wiring-audit.md; this step is its dress rehearsal.</span>
+  </div>
+</section>
+
+<!-- 41 · Step 1 panel -->
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 1 · Audit">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 1 · Audit</div>
+    <h2 class="head">Four probes, one scorecard</h2>
+    <div class="hostep">Probe 1 — identity and reach</div>
+    <div class="promptblock"><pre>claude --version && gh auth status</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="hostep">Probe 2 — servers</div>
+    <div class="hodo">In a session: <b>/mcp</b>. Every server green? Which are configured but not
+    authenticated?</div>
+    <div class="hostep">Probe 3 — permissions, both edges</div>
+    <div class="hodo">Ask for <b>git status</b> (should run silently), then ask it to force-push (should
+    refuse or prompt). Count what interrupted you.</div>
+    <div class="hostep">Probe 4 — the reach test</div>
+    <div class="promptblock"><pre>Without me pasting anything: what's the newest open issue on our cohort repo, and
+what does our tracker/docs say about [something you know is current]? Name each tool
+you used.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <div class="caplbl">Capture — wiring scorecard (saves in this browser)</div>
+    <textarea class="cap" id="cap-audit" data-persist="cap-audit" placeholder="gh: … · MCP servers green: … · permissions: safe ran silently? dangerous stopped? · reach test: what it fetched without a paste · gaps: …"></textarea>
+    <span class="read"><b>You carry forward:</b> the gap list. Each gap is either a fix before Sunday's
+    peer audit or a named, deliberate exception with a reason.</span>
+    <span class="keep"><b>Keep this</b>Wired, prompting, missing: three states, known per system, proven
+    by a command. That's what "my environment is set up" means from now on.</span>
+  </div>
+</section>
+
+<!-- 42 · Step 2 divider -->
+<section class="slide dark" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 2 · Pick">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 2 of 5 · ~20 min</div>
+    <h1 class="big">Pick the automation</h1>
+    <p class="lead mt14">One real automation, shipped today, used all week. The right pick is boring: a
+    hand-run chore from your actual week, small enough to ship in an hour, frequent enough to feel daily.
+    The wrong pick is impressive: a clever agent pipeline you'll demo once and never run again.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>One chore chosen from real friction, specified in a paragraph, with its verify signal named before any building starts.</p></div>
+      <div class="gb"><div class="t">You'll carry forward</div><p>The spec paragraph. If the spec can't name how you'll know it worked, the pick is wrong.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Frequency beats cleverness. The automation you run thrice this week
+    is the Application evidence; the clever one you run once is a screenshot.</span>
+  </div>
+</section>
+
+<!-- 43 · Step 2 panel -->
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 2 · Pick">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 2 · Pick</div>
+    <h2 class="head">Choose boring. Specify sharp.</h2>
+    <div class="teach">
+      <p>Source: your friction log and the hops you caught yourself doing this week. The spec is one
+      paragraph with four sentences: what triggers it, what it does, what it touches (which wired
+      systems), and <b>what proves it worked</b>. That last sentence is the loop discipline showing up in
+      your planning, three weeks early.</p>
+    </div>
+    <div class="hodo"><b>Borrow one if the log is thin:</b><br>
+    · <b>Standup writer:</b> yesterday's commits and PR activity (git log + gh) → three-line standup note
+    in your notes file.<br>
+    · <b>PR describer:</b> current branch diff → PR description with summary, risk notes and test plan,
+    posted via gh.<br>
+    · <b>Issue triager:</b> new issues on a repo you own → labelled by area, one-line summary comment,
+    via gh.</div>
+    <div class="caplbl">Capture — the pick + the spec paragraph</div>
+    <textarea class="cap" id="cap-pick" data-persist="cap-pick" placeholder="The chore: … · Trigger: … · It does: … · Systems it touches: … · Proof it worked: …"></textarea>
+    <span class="read"><b>You carry forward:</b> a spec whose last sentence names the verify signal.
+    You'll paste this paragraph as the build prompt in step 3, nearly verbatim: good specs are prompts.</span>
+    <span class="keep"><b>Keep this</b>Four sentences: trigger, action, systems, proof. If sentence four
+    is hard to write, pick a different chore.</span>
+  </div>
+</section>
+
+<!-- 44 · Step 3 divider -->
+<section class="slide dark" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 3 · Ship">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 3 of 5 · ~75 min</div>
+    <h1 class="big">Ship it</h1>
+    <p class="lead mt14">Build the automation through the wired environment, in three moves: hand the spec
+    to Claude Code, make the first run produce its proof, then run it again untouched. Twice-run is the
+    bar because anything runs once with you hovering; the second clean run is what makes it an automation
+    rather than a transcript.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>The automation exists as a runnable thing (script or slash command), has run twice, and produced its named proof both times.</p></div>
+      <div class="gb"><div class="t">You'll carry forward</div><p>Run evidence for the capture box, and the habit of specs that build themselves.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>→ advances through the three moves on the next slide. Ship the
+    boring version today; polish is what the week's three real uses are for.</span>
+  </div>
+</section>
+
+<!-- 45 · Step 3 panel — stepper -->
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 3 · Ship">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 3 · Ship — three moves</div>
+    <h2 class="head">Spec in, proof out, twice</h2>
+    <div class="stepper" id="shipStepper">
+      <button class="snode on">1 · Build from the spec</button>
+      <button class="snode">2 · First run + proof</button>
+      <button class="snode">3 · Second run, untouched</button>
+    </div>
+    <div class="steppanel on">
+      <p class="sub"><b>Move 1:</b> your step-2 paragraph is the prompt. Add only the packaging
+      instruction.</p>
+      <div class="promptblock"><pre>[paste your spec paragraph from step 2]
+
+Build this as [a shell script at ~/bin/NAME · or a slash command]. Keep it under a
+page, use the tools we've wired (gh, MCP, git) rather than asking me for input, and
+tell me exactly how to run it.</pre><button class="copy">Copy</button><span class="pbtag">claude · your own repo or notes dir</span></div>
+      <p class="sub">Slash-command packaging, if you chose it: save the prompt as
+      ~/.claude/commands/NAME.md, then it runs as /NAME in any session. That file is a harness artifact
+      at user scope; note the classification, week 3 formalises it.</p>
+    </div>
+    <div class="steppanel">
+      <p class="sub"><b>Move 2:</b> run it for real, on today's real inputs. Then check the proof your
+      spec named: the standup note exists and is true, the PR description is on the PR, the labels are on
+      the issues. Fix what the proof exposes; that's the loop working.</p>
+    </div>
+    <div class="steppanel">
+      <p class="sub"><b>Move 3:</b> run it again on fresh input, touching nothing in between. Second
+      clean run = shipped. Two more real uses across the week complete the Application issue's
+      evidence.</p>
+    </div>
+    <p class="stepcue">→ advances through the moves, then to the next slide · click a chip to jump</p>
+    <div class="caplbl">Capture — shipping evidence</div>
+    <textarea class="cap" id="cap-ship" data-persist="cap-ship" placeholder="What I shipped and where it lives: … · Run 1 proof: … · Run 2 proof: … · What run 1 exposed that I fixed: …"></textarea>
+    <span class="read"><b>You carry forward:</b> a thing that works while you don't watch it. Note what
+    the build consumed from your wiring: gh calls, MCP reads. None of them were possible on Monday.</span>
+    <span class="keep"><b>Keep this</b>Spec → build → proof → proof again. The second untouched run is
+    what "shipped" means this week.</span>
+  </div>
+</section>
+
+<!-- 46 · Step 4 divider -->
+<section class="slide dark" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 4 · Autopsy">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 4 of 5 · ~40 min</div>
+    <h1 class="big">Loop autopsy</h1>
+    <p class="lead mt14">One more session on the gym repo, but this time the session itself is the
+    specimen. You'll give Claude a fresh bug, let it work, then annotate the transcript beat by beat:
+    gather, act, verify, with a note on what each beat earned. The autopsy habit is how you'll debug
+    every misbehaving session for the rest of the programme.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>A transcript annotated beat by beat, naming the verify signal that closed the loop (or the vibe that didn't).</p></div>
+      <div class="gb"><div class="t">You'll carry forward</div><p>The annotated autopsy: capstone evidence now, and the seed of the weekend's full write-up.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>The paper version of this annotation lives at
+    weeks/week-1/data/loop-autopsy-template.md; the weekend Application issue uses the same skeleton.</span>
+  </div>
+</section>
+
+<!-- 47 · Step 4 panel -->
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 4 · Autopsy">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 4 · Autopsy</div>
+    <h2 class="head">Fresh bug in, annotated loop out</h2>
+    <div class="teach">
+      <p>The specimen task is a bug you haven't touched yet: <b>relay done 2</b> completes a different
+      task than the one <b>relay list</b> showed as 2. (Two causes conspire; that's what makes the gather
+      beat worth watching.) Give the task, keep your hands off, and take notes per tool call as it
+      runs.</p>
+    </div>
+    <div class="hostep">Step 1 — the specimen task</div>
+    <div class="promptblock"><pre>Users report that "relay done 2" marks a different task than the one "relay list"
+showed as number 2. Reproduce it first, explain the cause, fix it, and prove the fix
+with a test. Only claim done when node --test passes.</pre><button class="copy">Copy</button><span class="pbtag">claude · in ~/relay-gym · fresh session</span></div>
+    <div class="hostep">Step 2 — annotate while it works</div>
+    <div class="hodo">One line per tool call: the call, its beat (gather / act / verify), and what it
+    earned. Mark the moment it reproduces the bug (that's verify used as gathering: establishing the
+    broken baseline) and the moment the loop closes.</div>
+    <div class="hostep">Step 3 — judge the session</div>
+    <ul class="checks">
+      <li>Did it reproduce before fixing, or fix on faith?</li>
+      <li>Did the fix stay inside the files the cause lived in?</li>
+      <li>What was the closing signal, and would it catch a regression next month?</li>
+    </ul>
+    <div class="bank"><b>It fixed the symptom but missed a cause?</b> (The numbering and the save-order
+    both contribute.) That's a finding, not a failure: note which gather beat was missing, then ask "is
+    there a second cause?" and watch it re-enter the loop.</div>
+    <div class="caplbl">Capture — the autopsy</div>
+    <textarea class="cap" id="cap-autopsy" data-persist="cap-autopsy" placeholder="Task: done-2 bug · Gather: what it read, what it missed … · Act: … · Verify: reproduced first? closing signal? … · Where I'd have trusted a wrong done: …"></textarea>
+    <span class="read"><b>You carry forward:</b> the autopsy instinct. A session that can't survive this
+    annotation didn't earn its "done", however confident it sounded.</span>
+    <span class="keep"><b>Keep this</b>Reproduce → cause → fix → regression test: the debugging loop,
+    met here in miniature, is week 5's centrepiece.</span>
+  </div>
+</section>
+
+<!-- 48 · Step 5 divider -->
+<section class="slide dark" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 5 · Verdict">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 5 of 5 · ~20 min</div>
+    <h1 class="big">Verdict</h1>
+    <p class="lead mt14">Data isn't judgement. Two ruthless lines close the week: the next wiring gap
+    you'd close, and the one workflow rule you now hold. Specific or it didn't happen: "be more careful
+    with context" fails; "no repo of mine goes a day without a CLAUDE.md and a runnable test command"
+    clears.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Distil the week into two committed lines, then export the whole report.</p></div>
+      <div class="gb"><div class="t">You'll carry forward</div><p>The capstone report, pasted on your Knowledge issue: the week's proof of work.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>The export gathers every capture since step 1. Blank boxes come out
+    as "____": go back and fill the step, don't hand-edit the export.</span>
+  </div>
+</section>
+
+<!-- 49 · Step 5 panel — verdict + export -->
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 5 · Verdict">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 5 · Verdict &amp; export</div>
+    <h2 class="head">Two lines, one report</h2>
+    <div class="caplbl">The next wiring gap I'll close</div>
+    <textarea class="cap" id="cap-next" data-persist="cap-next" placeholder="The system still outside the loop, what it costs me daily, and when it gets wired…"></textarea>
+    <div class="caplbl">One workflow rule I now hold</div>
+    <textarea class="cap" id="cap-rule" data-persist="cap-rule" placeholder="A rule you'll carry into every session from now on, stated so a teammate could check you against it…"></textarea>
+    <div class="mt20" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <button class="btn" id="capCopy">Copy my capstone report</button>
+      <span class="sub" id="capCopyMsg">Assembles every capture on this deck into one markdown report.</span>
+    </div>
+    <div class="notice"><b>Where this report travels next:</b> paste it as a comment on your Week 1
+    Knowledge issue now, while it's warm. Its audit section seeds the peer-audit project, its shipping
+    evidence opens the automation project, and its autopsy seeds the write-up. You didn't read about
+    wiring this week; you wired, shipped, and produced evidence.</div>
+    <span class="read"><b>This report is the capstone.</b> On the issue, then on to the weekend's five
+    Application projects. Zero copy-paste is your bar now: defend it.</span>
+    <span class="keep"><b>Keep this</b>Export → paste on the Knowledge issue. The deck's loop closes on
+    GitHub, not in the browser.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ BACK MATTER ═══════════════ -->
+
+<!-- 50 · Stuck or curious -->
+<section class="slide isnow" data-act="Close" data-mv="Stuck or curious?">
+  <div class="wrap">
+    <div class="kicker">Support</div>
+    <h2 class="head">Stuck or curious?</h2>
+    <div class="cards">
+      <div class="ucard"><h3>Stuck</h3>
+        <ul>
+          <li><b>Comment on your Week 1 Knowledge issue</b> with the transcript or the failing command.
+          That thread is the classroom; questions asked in the open compound for everyone after you.</li>
+          <li>A connector your company blocks, a hook that won't fire, a session that behaved oddly:
+          all <b>findings, not blockers</b>. Log them, post them, move on.</li>
+          <li>Lost your captures (different browser, cleared storage)? The paper skeleton at
+          <span style="font-family:ui-monospace,Menlo,monospace;font-size:.9em">weeks/week-1/data/capstone-report-template.md</span>
+          is a 10-minute re-entry, not a redo.</li>
+        </ul>
+      </div>
+      <div class="ucard"><h3>Curious</h3>
+        <ul>
+          <li>Re-drive the budget meter and the discipline sorter with your own week's numbers and your
+          own incidents in mind; the widgets are local and unbreakable.</li>
+          <li>The <b>Keep this</b> bands, read top to bottom, are the week's glossary. Skim them before
+          starting the Application projects.</li>
+          <li><b>Optional deeper dives</b> (search by name): Anthropic's "Claude Code best practices" and
+          "Building effective agents". Weekend-grade, not required.</li>
+        </ul>
+      </div>
+    </div>
+    <span class="read"><b>Being stuck on wiring is the week working.</b> An SSO wall examined in the open
+    beats a quiet workaround nobody else learns from.</span>
+    <span class="keep"><b>Keep this</b>Support lives on the issue thread. Public questions compound;
+    private ones evaporate.</span>
+  </div>
+</section>
+
+<!-- 51 · Close -->
+<section class="slide isnow" id="close" data-act="Close" data-mv="Close the loop">
+  <div class="wrap">
+    <div class="kicker">Close the loop</div>
+    <h2 class="head">Re-read your number.</h2>
+    <div class="confbox">
+      <span class="confecho" id="confEcho">—</span>
+      <p class="q">That's what you wrote on Day 1: <em>could you hand Claude a task touching GitHub, your
+      codebase and your terminal without becoming the clipboard?</em> Rate yourself again, honestly.</p>
+    </div>
+    <div class="teach">
+      <p>If the number moved, notice why: evidence, not enthusiasm. You counted your own hops, wired gh
+      and MCP, set a permission baseline, read real meters, ran all four disciplines once, and shipped an
+      automation that ran twice without you. If it moved <b>down</b>, that's calibration: you now know
+      what wired actually means, and that's the more useful number improving.</p>
+    </div>
+    <div class="caplbl mt14">Commit — one sentence</div>
+    <textarea class="cap" data-persist="close-commit" id="closeCommit" placeholder="One workflow rule I now hold, in one sentence…"></textarea>
+    <div class="hostep mt14">The hand-off</div>
+    <div class="hodo"><b>This weekend:</b> five Application issues on the Week 1 milestone. Book the peer
+    audit first (it needs another learner's diary), then the capability matrix; it's the bar-setter the
+    others orbit.</div>
+    <div class="hodo"><b>Starting today, forever:</b> the friction log, two minutes a day. Every repeated
+    instruction, every hop, every wrong "done" is one line. Week 3 turns the top entries into
+    harness.</div>
+    <div class="hodo"><b>Next week:</b> context engineering. What the model sees, at the right scope:
+    CLAUDE.md grows into a documentation layer, and the gym repo gets the full treatment.</div>
+    <span class="read"><b>You fired yourself from the clipboard job.</b> You can name the four
+    disciplines, read a session by its beats, and prove your environment cold. See you in week 2.</span>
+    <span class="keep"><b>Keep this</b>Deck done ≠ week done: the milestone closes when all seven issues
+    close, Sunday EOD. The friction-log habit starts today.</span>
+  </div>
+</section>
+
+
+
+
+
+</div>
+
+<div class="chrome"><b id="chromeAct"></b> · <span id="chromeMv"></span> · <span id="chromeCount"></span></div>
+<div class="helpbar">→ next · ← back · <b>Home</b> agenda · <b>End</b> close · <b>F</b> full-screen</div>
+
+<script>
+(function(){
+"use strict";
+/* ── engine ─────────────────────────────────────────────── */
+var slides=[].slice.call(document.querySelectorAll("section.slide"));
+var pbar=document.getElementById("pbar");
+var chromeAct=document.getElementById("chromeAct"),chromeMv=document.getElementById("chromeMv"),chromeCount=document.getElementById("chromeCount");
+var agendaIdx=slides.indexOf(document.getElementById("agenda"));
+var cur=0;
+slides.forEach(function(s,i){if(s.classList.contains("active"))cur=i;});
+
+function steps(s){return [].slice.call(s.querySelectorAll(".steppanel"));}
+function nodes(s){return [].slice.call(s.querySelectorAll(".snode"));}
+function setStep(s,i){
+  var ps=steps(s),ns=nodes(s);if(!ps.length)return;
+  i=Math.max(0,Math.min(i,ps.length-1));s.dataset.step=i;
+  ps.forEach(function(p,j){p.classList.toggle("on",j===i);});
+  ns.forEach(function(n,j){n.classList.toggle("on",j===i);});
+}
+function refreshConf(){
+  var c=document.getElementById("conf"),e=document.getElementById("confEcho");
+  if(e)e.textContent=(c&&c.value)?c.value:"—";
+}
+function show(i){
+  i=Math.max(0,Math.min(i,slides.length-1));
+  slides[cur].classList.remove("active");
+  cur=i;var s=slides[cur];s.classList.add("active");
+  pbar.style.width=(((cur+1)/slides.length)*100)+"%";
+  chromeAct.textContent=s.dataset.act||"";
+  chromeMv.textContent=s.dataset.mv||"";
+  chromeCount.textContent=(cur+1)+" / "+slides.length;
+  refreshConf();
+  s.scrollTop=0;
+}
+function next(){
+  var s=slides[cur],ps=steps(s);
+  if(ps.length){var i=+(s.dataset.step||0);if(i<ps.length-1){setStep(s,i+1);return;}}
+  show(cur+1);
+}
+function prev(){
+  var s=slides[cur],ps=steps(s);
+  if(ps.length){var i=+(s.dataset.step||0);if(i>0){setStep(s,i-1);return;}}
+  show(cur-1);
+}
+document.addEventListener("keydown",function(e){
+  var t=e.target;
+  if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.tagName==="SELECT"||t.isContentEditable))return;
+  var k=e.key;
+  if(k==="ArrowRight"||k===" "||k==="Spacebar"||k==="PageDown"||k==="ArrowDown"){e.preventDefault();next();}
+  else if(k==="ArrowLeft"||k==="PageUp"||k==="ArrowUp"){e.preventDefault();prev();}
+  else if(k==="Home"){e.preventDefault();if(agendaIdx>=0)show(agendaIdx);}
+  else if(k==="End"){e.preventDefault();show(slides.length-1);}
+  else if(k==="f"||k==="F"){
+    try{
+      if(document.fullscreenElement){if(document.exitFullscreen)document.exitFullscreen();}
+      else if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen();}
+    }catch(_){}
+  }
+});
+
+/* clicks: copy buttons + stepper chips (mouse drives content, never slides) */
+function copyText(txt,btn,flash){
+  function ok(){if(btn){var o=btn.textContent;btn.textContent=flash||"Copied ✓";setTimeout(function(){btn.textContent=o;},1400);}}
+  function fallback(){
+    var ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");ok();}catch(_){/* noop */}
+    document.body.removeChild(ta);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(ok,fallback);}
+  else fallback();
+}
+document.addEventListener("click",function(e){
+  var c=e.target.closest(".copy");
+  if(c){var pre=c.parentElement.querySelector("pre");if(pre)copyText(pre.innerText,c);return;}
+  var sn=e.target.closest(".snode");
+  if(sn){var s=sn.closest("section.slide");if(s)setStep(s,nodes(s).indexOf(sn));}
+});
+
+/* local persistence (this device only) */
+var PFX="dw1.";
+[].slice.call(document.querySelectorAll("[data-persist]")).forEach(function(el){
+  var k=PFX+el.dataset.persist;
+  try{var v=localStorage.getItem(k);if(v!==null)el.value=v;}catch(_){}
+  el.addEventListener("input",function(){
+    try{localStorage.setItem(k,el.value);}catch(_){}
+    if(el.id==="conf")refreshConf();
+  });
+});
+
+/* capstone report export */
+var capBtn=document.getElementById("capCopy");
+if(capBtn){
+  capBtn.addEventListener("click",function(){
+    function g(id){var el=document.getElementById(id);return (el&&el.value.trim())?el.value.trim():"____";}
+    var md=[
+      "# Week 1 capstone report — wire it, ship it, autopsy it","",
+      "## Wiring audit","- "+g("cap-audit"),"",
+      "## The automation","- Pick + spec: "+g("cap-pick"),
+      "- Shipping evidence: "+g("cap-ship"),"",
+      "## Loop autopsy (gym repo)","- "+g("cap-autopsy"),"",
+      "## Verdict",
+      "- **Next wiring gap:** "+g("cap-next"),
+      "- **One workflow rule:** "+g("cap-rule"),""
+    ].join("\n");
+    copyText(md,capBtn,"Report copied ✓");
+    var m=document.getElementById("capCopyMsg");
+    if(m)m.textContent="Copied — paste it as a comment on your Week 1 Knowledge issue.";
+  });
+}
+
+/* ── widget: the hop counter ────────────────────────────── */
+(function(){
+  var go=document.getElementById("wloopGo");if(!go)return;
+  var chat=document.getElementById("wloopChat"),agent=document.getElementById("wloopAgent");
+  var chatMeta=document.getElementById("wloopChatMeta"),agentMeta=document.getElementById("wloopAgentMeta");
+  var tally=document.getElementById("wloopTally"),n=0;
+  var CHAT=[
+    {you:1,t:"Paste the task + report.js + store.js into the chat"},
+    {you:0,t:"Model replies: prose diagnosis + a suggested patch"},
+    {you:1,t:"Copy the patch into your editor, save"},
+    {you:1,t:"Run node --test yourself — one test errors"},
+    {you:1,t:"Copy the error output back into the chat"},
+    {you:0,t:"Model revises the patch"},
+    {you:1,t:"Apply patch again, rerun tests — green"},
+    {you:1,t:"Report back \"it passed\", write the commit yourself"}
+  ];
+  var AGENT=[
+    {you:1,t:"Brief in claude: \"weekly report lists a task twice — fix it\""},
+    {you:0,t:"Claude reads report.js + store.js, greps \"completed\""},
+    {you:0,t:"Claude edits report.js"},
+    {you:0,t:"Claude runs node --test itself — sees output directly"},
+    {you:1,t:"You review the diff and approve"}
+  ];
+  function row(list,i){
+    var d=list[i];
+    return "<div class='lstep "+(d.you?"you":"bot")+"'><span class='who'>"+(d.you?"YOU":"AI")+"</span>"+d.t+"</div>";
+  }
+  function render(){
+    var ch="",ah="",chHops=0,agHops=0,i;
+    for(i=0;i<Math.min(n,CHAT.length);i++){ch+=row(CHAT,i);chHops+=CHAT[i].you;}
+    for(i=0;i<Math.min(n,AGENT.length);i++){ah+=row(AGENT,i);agHops+=AGENT[i].you;}
+    chat.innerHTML=ch||"<p class='sub'>Press advance.</p>";
+    agent.innerHTML=ah||"<p class='sub'>Press advance.</p>";
+    if(n>=AGENT.length&&n<CHAT.length)agent.innerHTML+="<div class='lstep bot'><span class='who'>—</span>Finished. Waiting for the chat side…</div>";
+    chatMeta.textContent=Math.min(n,CHAT.length)+" steps · "+chHops+" hops by you";
+    agentMeta.textContent=Math.min(n,AGENT.length)+" steps · "+agHops+" hops by you";
+    tally.innerHTML=(n>=CHAT.length)?"<b>Same fix, same model:</b> chat took 8 steps, 6 of them you carrying text. The agent took 5, and the only human steps were the brief and the review.":"";
+  }
+  go.addEventListener("click",function(){if(n<CHAT.length)n++;render();});
+  document.getElementById("wloopReset").addEventListener("click",function(){n=0;render();});
+  render();
+})();
+
+/* ── widget: the session tracer ─────────────────────────── */
+(function(){
+  var host=document.getElementById("wtraceRows");if(!host)return;
+  var score=document.getElementById("wtraceScore");
+  var data=[
+    {ev:"Read README.md",a:"g",x:"Gathering — and this README lies about the CLI, which is itself a finding."},
+    {ev:"Read src/cli.js, src/report.js",a:"g",x:"Gathering: the code that owns the symptom."},
+    {ev:"Grep \"completed\" across src/",a:"g",x:"Gathering: where does completion state flow?"},
+    {ev:"Bash: node --test (before any edit)",a:"g",x:"The trap: checks BEFORE an edit establish current state. That's gathering, whatever the command."},
+    {ev:"Edit src/report.js (dedupe by id)",a:"a",x:"Acting: the change itself."},
+    {ev:"Bash: node --test (after the edit)",a:"v",x:"Verifying: same command as row 4, different intent — now it judges the change."},
+    {ev:"Write test/report.test.js (regression case)",a:"a",x:"Acting: encoding the verify signal so next month's regression gets caught."},
+    {ev:"Bash: node --test — full suite green",a:"v",x:"Verifying: the loop closes on machine evidence, not confidence."}
+  ];
+  var LBL={g:"Gather",a:"Act",v:"Verify"};
+  var done=0,right=0;
+  data.forEach(function(d,idx){
+    var r=document.createElement("div");r.className="evrow";
+    r.innerHTML="<span class='ev'>"+(idx+1)+" · "+d.ev+"</span>"+
+      "<span class='tag3'><button data-p='g'>Gather</button><button data-p='a'>Act</button><button data-p='v'>Verify</button></span>"+
+      "<span class='vline'></span>";
+    var v=r.querySelector(".vline");
+    [].slice.call(r.querySelectorAll("button")).forEach(function(b){
+      b.addEventListener("click",function(){
+        if(r.dataset.done)return;r.dataset.done="1";done++;
+        b.classList.add("pick");
+        var ok=(b.dataset.p===d.a);if(ok)right++;
+        r.className="evrow "+(ok?"ok":"no");
+        v.textContent=(ok?"✓ ":"✗ It's "+LBL[d.a]+". ")+d.x;
+        score.textContent=(done===data.length)?("Tagged "+right+" of "+data.length+" on first pick. Re-read the rhythm: G G G G · A V · A V — gather-heavy, and never done without a verify."):("Tagged "+done+" of "+data.length+"…");
+      });
+    });
+    host.appendChild(r);
+  });
+})();
+
+/* ── widget: the wiring board ───────────────────────────── */
+(function(){
+  var sysHost=document.getElementById("wwireSys");if(!sysHost)return;
+  var routeHost=document.getElementById("wwireRoutes");
+  var meter=document.getElementById("wwireMeter"),alertEl=document.getElementById("wwireAlert");
+  var SYS=[
+    {name:"GitHub (issues, PRs)",how:"gh CLI / MCP",routes:["Issue text → retyped into prompts","PR state → checked in a browser tab"]},
+    {name:"Docs wiki",how:"MCP",routes:["Doc answers → pasted into prompts","Specs → summarised by hand"]},
+    {name:"Ticket tracker",how:"MCP",routes:["Ticket status → pasted in","Ticket updates → typed back out"]},
+    {name:"Database",how:"MCP",routes:["Schema → described from memory","Query results → pasted in"]},
+    {name:"Terminal (tests, git)",how:"built in",routes:["Test output → pasted into chat","Commands → run by hand, results ferried"]}
+  ];
+  var on=SYS.map(function(){return false;});
+  function render(){
+    sysHost.innerHTML="";routeHost.innerHTML="";
+    var hops=0;
+    SYS.forEach(function(s,i){
+      var d=document.createElement("div");d.className="wsys"+(on[i]?" on":"");
+      d.innerHTML="<span>"+s.name+" <span style='color:var(--muted);font-size:11px'>("+s.how+")</span></span><button>"+(on[i]?"wired":"wire it")+"</button>";
+      d.querySelector("button").addEventListener("click",function(){on[i]=!on[i];render();});
+      sysHost.appendChild(d);
+      s.routes.forEach(function(r){
+        var p=document.createElement("div");p.className="hoproute"+(on[i]?" gone":"");
+        p.textContent=(on[i]?"✕ ":"→ ")+r;
+        routeHost.appendChild(p);
+        if(!on[i])hops++;
+      });
+    });
+    var pct=Math.round(hops/10*100);
+    meter.className="meter"+(hops===0?" zero":"");
+    meter.querySelector("i").style.width=(hops===0?100:pct)+"%";
+    if(hops===0){alertEl.textContent="0 hops — the zero-copy-paste bar. This is what the weekend audit checks on your machine.";alertEl.className="alertline goodline";}
+    else{alertEl.textContent=hops+" hops still pass through your clipboard.";alertEl.className="alertline";}
+  }
+  render();
+})();
+
+/* ── widget: the permission sorter ──────────────────────── */
+(function(){
+  var grid=document.getElementById("wpermGrid");if(!grid)return;
+  var score=document.getElementById("wpermScore");
+  var data=[
+    {q:"<code>Read src/report.js</code>",a:"allow",x:"Reads can't break anything. Blanket-allowing reads is what makes gather beats fast."},
+    {q:"<code>node --test</code>",a:"allow",x:"Local, deterministic, side effects confined to the repo. Verify beats must be free or they get skipped."},
+    {q:"<code>git commit</code> on a feature branch",a:"allow",x:"Fully reversible and visible in history. Blast radius near zero; friction here just slows the loop."},
+    {q:"<code>rm -rf node_modules</code>",a:"ask",x:"Destructive but rebuildable. Worth a human glance for intent: why is deleting the fix?"},
+    {q:"<code>git push --force origin main</code>",a:"deny",x:"Rewrites shared history. A red line: deny it in settings so it can't ride an approval-fatigue moment."},
+    {q:"<code>curl -X POST</code> to an external webhook",a:"ask",x:"Leaves the machine with an audience. External side effects stay human-approved until wrapped in something reviewed."}
+  ];
+  var done=0,right=0;
+  data.forEach(function(d){
+    var card=document.createElement("div");card.className="qcard";
+    card.innerHTML="<div class='q'>"+d.q+"</div>"+
+      "<div class='qbtns'><button data-p='allow'>Allow</button><button data-p='ask'>Ask</button><button data-p='deny'>Deny</button></div>"+
+      "<div class='v'></div>";
+    var v=card.querySelector(".v");
+    [].slice.call(card.querySelectorAll("button")).forEach(function(b){
+      b.addEventListener("click",function(){
+        if(card.dataset.done)return;card.dataset.done="1";done++;
+        b.classList.add("pick");
+        var ok=(b.dataset.p===d.a);if(ok)right++;
+        v.className="v show "+(ok?"ok":"no");
+        v.textContent=(ok?"✓ ":"✗ "+d.a.toUpperCase()+". ")+d.x;
+        score.textContent=(done===data.length)?("Sorted "+right+" of "+data.length+" — the misses show where your blast-radius instinct needs calibrating."):("Sorted "+done+" of "+data.length+"…");
+      });
+    });
+    grid.appendChild(card);
+  });
+})();
+
+/* ── widget: the budget meter ───────────────────────────── */
+(function(){
+  var hrs=document.getElementById("wbudHrs");if(!hrs)return;
+  var hrsOut=document.getElementById("wbudHrsOut"),seg=document.getElementById("wbudSeg");
+  var win=document.getElementById("wbudWin"),week=document.getElementById("wbudWeek");
+  var verdict=document.getElementById("wbudVerdict");
+  var MIX={sonnet:1,bal:2.2,opus:5};
+  var MIXLBL={sonnet:"Sonnet-first",bal:"Balanced",opus:"Opus-heavy"};
+  var mode="sonnet";
+  function paint(g,pct){
+    g.className="gauge"+(pct>=95?" hot":pct>=70?" warm":"");
+    g.querySelector("i").style.width=Math.min(100,pct)+"%";
+    g.querySelector(".pct").textContent=(pct>=100?"limit":Math.round(pct)+"%");
+  }
+  function render(){
+    var h=+hrs.value;hrsOut.textContent=h;
+    var winPct=h*MIX[mode]*5;
+    var weekPct=h*7*MIX[mode]/120*100;
+    paint(win,winPct);paint(week,weekPct);
+    var v;
+    if(weekPct>=100){
+      var day=Math.ceil(120/(h*MIX[mode]));
+      v="<b>"+MIXLBL[mode]+" at "+h+" h/day doesn't survive the week:</b> the cap lands around "+(day>=7?"Sunday":"day "+day)+". Route the long middle of the work to Sonnet.";
+    }
+    else if(winPct>=95)v="<b>The window throttles you before the cap does:</b> "+h+" straight hours at this mix stalls a sitting. Split heavy sessions or lighten the mix.";
+    else if(weekPct>=70||winPct>=70)v="<b>Workable but tight:</b> "+MIXLBL[mode]+" at "+h+" h/day edges the "+(weekPct>=70?"weekly cap":"window")+". Fine for a push week, not a habit.";
+    else v="<b>Fits comfortably:</b> "+MIXLBL[mode]+" at "+h+" h/day leaves headroom for a heavy Friday. This is the programme's default posture.";
+    verdict.innerHTML=v+" <span style='color:var(--muted)'>(illustrative units calibrated to Anthropic's published ranges; your repo and style shift the numbers — that's what /cost is for)</span>";
+  }
+  [].slice.call(seg.querySelectorAll("button")).forEach(function(b){
+    b.addEventListener("click",function(){
+      [].slice.call(seg.querySelectorAll("button")).forEach(function(o){o.classList.remove("on");});
+      b.classList.add("on");mode=b.dataset.m;render();
+    });
+  });
+  hrs.addEventListener("input",render);
+  render();
+})();
+
+/* ── widget: the discipline sorter ──────────────────────── */
+(function(){
+  var grid=document.getElementById("wmapGrid");if(!grid)return;
+  var score=document.getElementById("wmapScore");
+  var data=[
+    {q:"You told it yesterday to use British spelling. Today's session is American again.",a:"ctx",x:"Context — sessions start empty; yesterday isn't in the window. Encode it in CLAUDE.md (week 2)."},
+    {q:"Third time this week you've typed \"run the linter before you finish\".",a:"har",x:"Harness — the rule of twice: repeated instructions become hooks or commands (week 3)."},
+    {q:"Claude says done; you run the tests; two fail.",a:"loop",x:"Loop — nothing machine-checked closed the turn. Wire the signal in (week 5)."},
+    {q:"Three bugfixes in three unrelated modules, done one after another all afternoon.",a:"graph",x:"Graph — independent branches run serially by habit. Parallel sessions and worktrees (week 7)."},
+    {q:"Sharp for an hour, then vague right after you pasted a 2,000-line log.",a:"ctx",x:"Context — the window filled with noise and attention degraded. Hygiene and scoped context (week 2)."},
+    {q:"You want every PR to get the same 12-point review checklist, every time.",a:"har",x:"Harness — a standing workflow is a slash command or skill, not a nightly retype (weeks 3 and 5)."},
+    {q:"You asked for passing tests; it deleted the failing test. Suite green.",a:"loop",x:"Loop — a gamed signal. Signal design is loop engineering's hard half (week 6)."},
+    {q:"Big refactor: steps 2–4 wait on step 1, but the docs and tests could happen any time.",a:"graph",x:"Graph — draw the DAG first; the independent branches are free wall-clock time (week 7)."}
+  ];
+  var LBL={ctx:"Context",har:"Harness",loop:"Loop",graph:"Graph"};
+  var done=0,right=0;
+  data.forEach(function(d){
+    var card=document.createElement("div");card.className="qcard";
+    card.innerHTML="<div class='q'>"+d.q+"</div>"+
+      "<div class='qbtns'><button data-p='ctx'>Context</button><button data-p='har'>Harness</button><button data-p='loop'>Loop</button><button data-p='graph'>Graph</button></div>"+
+      "<div class='v'></div>";
+    var v=card.querySelector(".v");
+    [].slice.call(card.querySelectorAll("button")).forEach(function(b){
+      b.addEventListener("click",function(){
+        if(card.dataset.done)return;card.dataset.done="1";done++;
+        b.classList.add("pick");
+        var ok=(b.dataset.p===d.a);if(ok)right++;
+        v.className="v show "+(ok?"ok":"no");
+        v.textContent=(ok?"✓ ":"✗ "+LBL[d.a]+". ")+d.x;
+        score.textContent=(done===data.length)?("Named "+right+" of "+data.length+" — the misses mark the discipline you currently can't see, which is where your attention goes first."):("Named "+done+" of "+data.length+"…");
+      });
+    });
+    grid.appendChild(card);
+  });
+})();
+
+show(cur);
+})();
+</script>
+</body>
+</html>

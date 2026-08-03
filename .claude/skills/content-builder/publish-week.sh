@@ -35,7 +35,7 @@ for f in "$ISSUEDIR"/*.md; do
   body=$(mktemp)
   tail -n +2 "$f" | sed '/./,$!d' > "$body"
   gh issue create -R "$R" --title "$title" --body-file "$body" \
-    --milestone "$MS" --assignee "@me"
+    --milestone "$MS"
   rm -f "$body"
 done
 

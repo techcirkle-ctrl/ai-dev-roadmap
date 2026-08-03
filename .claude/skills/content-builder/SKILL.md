@@ -102,7 +102,8 @@ question you may ask before going dark.
 2. Publish to GitHub:
    `bash .claude/skills/content-builder/publish-week.sh <N> <YYYY-MM-DD>`
    — due date = the upcoming Sunday (EOD). The script is idempotent (skips existing
-   milestone/issue titles), creates issues in file order, assigns @me.
+   milestone/issue titles), creates issues in file order, no assignee — per-learner
+   state is `<name>:done` labels per `setup/METHODOLOGY.md`.
 3. Report the milestone + issue links.
 
 ## Working style

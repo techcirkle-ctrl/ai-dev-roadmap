@@ -138,12 +138,15 @@ Every issue carries: milestone, **due date (Sunday EOD)**, per-learner labels �
 ### Multiple learners share one issue
 
 An issue is written **once** and serves the whole cohort. It is never duplicated per
-learner and never assigned to one. Per-learner state lives in **labels**:
+learner and never assigned to one. Per-learner state lives in **labels**.
+
+**Current cohort: Shubham, Akash, Atishay.** Their labels exist on the repo:
 
 | Label | Set by | Means |
 | --- | --- | --- |
-| `alex:done` | Alex | evidence uploaded in a comment, ready for review |
-| `sam:done` | Sam | evidence uploaded in a comment, ready for review |
+| `shubham:done` | Shubham | evidence uploaded in a comment, ready for review |
+| `akash:done` | Akash | evidence uploaded in a comment, ready for review |
+| `atishay:done` | Atishay | evidence uploaded in a comment, ready for review |
 
 One label per learner. Add a new learner → add one label, change nothing else.
 
@@ -164,7 +167,7 @@ never commits. (Their real work lives in their own repos; evidence links point t
 bar reflects the cohort, not the individual. Per-learner progress comes from label counts:
 
 ```bash
-gh issue list --milestone "Week 1 — …" --label "alex:done" --state all
+gh issue list --milestone "Week 1 — …" --label "shubham:done" --state all
 ```
 
 **Between cohorts.** Delete the `<name>:done` labels and republish issues from

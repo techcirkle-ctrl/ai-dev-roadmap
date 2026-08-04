@@ -5,8 +5,8 @@ How a week of this program runs on GitHub. This is the operating contract; templ
 `.claude/skills/content-builder/` (`SKILL.md` + `DECK-PLAYBOOK.md`); visual canon defers
 to `setup/DESIGN.md`.
 
-**Repo layout rule:** the root stays learner-facing only — `README.md`, `CLAUDE.md`,
-`roadmap.html`, `weeks/`, `.claude/`. Everything operational (this file, DESIGN, templates, fallback
+**Repo layout rule:** the root stays learner-facing only — `README.md`,
+`START-HERE.html`, `CLAUDE.md`, `roadmap.html`, `weeks/`, `.claude/`. Everything operational (this file, DESIGN, templates, fallback
 copies of issues/milestones/progress) lives under `setup/`.
 
 ---
@@ -124,18 +124,23 @@ roadmap.html agreed (once, up front)
    8. Trainer accepts evidence → closes issues → milestone closed → Week N+1
 ```
 
-## The front door — `README.md`
+## The front door — `README.md` + `START-HERE.html`
 
-`README.md` is the only document written for a learner who has just been given repo
-access and does not know where to look. It carries: the first 30 minutes (clone, open
-`roadmap.html`, open the current deck, open the milestone), how a week runs, how to
-submit evidence (comment + `<name>:done` label, trainer closes), where things live, and a
-status table of all nine weeks.
+Two documents written for a learner who has just been given repo access and does not know
+where to look. Same content, two lengths:
 
-**It is updated every time a week goes live**: flip that week's row from *Not open yet*
-to *Live* and point the deck-opening command at the current week. Nothing else in the
-README changes week to week — if a week needs the README rewritten, the week has broken
-the contract.
+- **`README.md`** — the short version, so it renders on the GitHub landing page. First 30
+  minutes (clone, open `roadmap.html`, open the current deck, open the milestone), how a
+  week runs, how to submit evidence, where things live, the nine-week status table.
+- **`START-HERE.html`** — the long version in the program's visual language (`DESIGN.md`
+  tokens, reading-column layout, self-contained, print-friendly). Adds the four
+  disciplines, the ground rules, a FAQ, and a `localStorage` setup checklist. Opened
+  locally after cloning, like every other HTML artifact here.
+
+**Both are updated every time a week goes live**: flip that week's row from *Not open
+yet* to *Live* and point the deck-opening command at the current week. Nothing else in
+either changes week to week — if a week needs the front door rewritten, the week has
+broken the contract.
 
 ## Tracking — GitHub is the source of truth
 

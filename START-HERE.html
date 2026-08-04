@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start here — AI Dev Roadmap</title>
+<style>
+:root{
+  --ink:#16202b;
+  --muted:#5c6b7a;
+  --line:#e4e8ec;
+  --paper:#ffffff;
+  --wash:#f6f8fa;
+  --accent:#0b6e6e;
+  --accent-soft:#e2f0ef;
+  --warn:#b06a00;
+  --warn-soft:#fdf3e3;
+  --good:#1c7a4a;
+  --good-soft:#e5f2ea;
+  --bad:#b23b3b;
+  --maxw:820px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--wash);color:var(--ink);
+  font-family:ui-serif,Georgia,"Iowan Old Style",Palatino,serif;
+  line-height:1.65;padding:48px 20px 90px;
+}
+.wrap{max-width:var(--maxw);margin:0 auto}
+.kicker{
+  font-family:ui-sans-serif,system-ui,sans-serif;
+  font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-size:12px;margin-bottom:8px;
+}
+h1{font-size:34px;line-height:1.2;margin-bottom:12px}
+h2{font-size:22px;line-height:1.3;margin-bottom:10px}
+h3{font-size:16.5px;line-height:1.35;margin-bottom:6px}
+.lede{color:var(--muted);font-size:17px;max-width:62ch}
+p{margin-bottom:12px}
+p:last-child{margin-bottom:0}
+
+/* nav */
+.pills{
+  display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 40px;
+  font-family:ui-sans-serif,system-ui,sans-serif;
+}
+.pill{
+  font-size:12.5px;font-weight:600;letter-spacing:.04em;
+  padding:6px 13px;border-radius:999px;text-decoration:none;
+  background:var(--paper);color:var(--muted);border:1px solid var(--line);
+}
+.pill:hover{color:var(--accent);border-color:var(--accent)}
+
+section{margin-bottom:44px;scroll-margin-top:20px}
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  padding:22px 24px;box-shadow:0 1px 3px rgba(22,32,43,.05);margin-top:14px;
+}
+.why{
+  background:var(--accent-soft);border:1px solid #cfe4e2;border-radius:14px;
+  padding:18px 22px;margin-top:14px;
+}
+.why .kicker{margin-bottom:6px}
+.note{
+  background:var(--warn-soft);border:1px solid #f0dfc0;border-radius:14px;
+  padding:18px 22px;margin-top:14px;
+}
+.note .kicker{color:var(--warn)}
+.tag{
+  display:inline-block;
+  font-family:ui-sans-serif,system-ui,sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 10px;border-radius:999px;
+  background:var(--accent-soft);color:var(--accent);
+}
+.tag.warn{background:var(--warn-soft);color:var(--warn)}
+.tag.good{background:var(--good-soft);color:var(--good)}
+.tag.muted{background:var(--wash);color:var(--muted);border:1px solid var(--line)}
+a{color:var(--accent)}
+code,.mono{
+  font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:.9em;background:var(--wash);border:1px solid var(--line);
+  border-radius:5px;padding:1px 5px;
+}
+pre{
+  font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:13px;line-height:1.6;background:var(--wash);
+  border:1px solid var(--line);border-radius:10px;
+  padding:12px 14px;margin:10px 0 0;overflow-x:auto;
+}
+pre code{background:none;border:none;padding:0;font-size:13px}
+ul,ol{margin:0 0 12px 20px}
+li{margin-bottom:6px}
+ul:last-child,ol:last-child{margin-bottom:0}
+
+/* three stages */
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.stage{
+  background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  padding:18px 18px 20px;box-shadow:0 1px 3px rgba(22,32,43,.05);
+}
+.stage .num{
+  font-family:ui-sans-serif,system-ui,sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;
+}
+.stage p{font-size:14.5px;color:var(--muted);margin:0}
+@media (max-width:640px){.stages{grid-template-columns:1fr}}
+
+/* disciplines */
+.disc{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+.disc .card{margin-top:0}
+.disc p{font-size:14.5px;color:var(--muted)}
+@media (max-width:640px){.disc{grid-template-columns:1fr}}
+
+/* map */
+table{border-collapse:collapse;width:100%;font-size:15px;margin-top:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{
+  font-family:ui-sans-serif,system-ui,sans-serif;font-size:11.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+}
+td:first-child{white-space:nowrap}
+table.weeks td:first-child{width:56px;color:var(--muted)}
+
+/* steps */
+.steps{counter-reset:step;list-style:none;margin:0}
+.steps > li{
+  counter-increment:step;position:relative;padding-left:44px;margin-bottom:22px;
+}
+.steps > li::before{
+  content:counter(step);position:absolute;left:0;top:1px;
+  width:28px;height:28px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+}
+.steps h3{margin-bottom:4px}
+.steps p{font-size:15.5px;color:var(--muted);margin-bottom:6px}
+
+/* checklist */
+.check{list-style:none;margin:0}
+.check li{
+  display:flex;gap:11px;align-items:flex-start;
+  padding:9px 0;border-bottom:1px solid var(--line);margin:0;
+}
+.check li:last-child{border-bottom:none}
+.check input{margin-top:5px;width:16px;height:16px;accent-color:var(--accent);flex:none}
+.check label{font-size:15.5px;cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.reset{
+  font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;
+  color:var(--muted);background:none;border:none;cursor:pointer;
+  padding:0;margin-top:12px;text-decoration:underline;
+}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding:12px 0}
+details:last-of-type{border-bottom:none}
+summary{
+  cursor:pointer;font-size:16px;font-weight:600;list-style:none;
+}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+ ";color:var(--accent);font-weight:700}
+details[open] summary::before{content:"– "}
+details p{margin-top:8px;color:var(--muted);font-size:15.5px}
+
+.foot{
+  margin-top:52px;padding-top:18px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:14px;
+  font-family:ui-sans-serif,system-ui,sans-serif;
+}
+
+@media print{
+  body{background:#fff;padding:0;font-size:11.5pt}
+  .pills,.reset{display:none}
+  .card,.stage{box-shadow:none;break-inside:avoid}
+  section{break-inside:avoid}
+  details{break-inside:avoid}
+  details > summary{display:block}
+  details:not([open]) > *:not(summary){display:block}
+  pre{white-space:pre-wrap}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">AI Dev Roadmap</div>
+  <h1>Start here</h1>
+  <p class="lede">
+    Nine weeks from prompting Claude Code ad hoc to engineering with it across the whole
+    SDLC. This page tells you where everything lives, what a week looks like, and exactly
+    what to do first. Read it once, end to end. It takes about eight minutes.
+  </p>
+
+  <nav class="pills">
+    <a class="pill" href="#what">What this is</a>
+    <a class="pill" href="#week">How a week works</a>
+    <a class="pill" href="#map">Where things live</a>
+    <a class="pill" href="#first">Your first hour</a>
+    <a class="pill" href="#evidence">Submitting work</a>
+    <a class="pill" href="#rules">Ground rules</a>
+    <a class="pill" href="#plan">The nine weeks</a>
+    <a class="pill" href="#faq">Stuck?</a>
+  </nav>
+
+  <!-- ─────────────────────────────── -->
+  <section id="what">
+    <div class="kicker">Section 1 of 8</div>
+    <h2>You already code — the gap is method, not syntax</h2>
+    <p>
+      Nothing here teaches you a language, a framework, or what an LLM is. You use Claude
+      Code every day and you are stuck at chat-driven development: type a request, read a
+      wall of output, paste, repeat. Nine weeks turns that into an engineered loop you
+      design, verify and reuse.
+    </p>
+    <p>
+      One tool the whole way: Claude Code. Mastery over sampling. Every week ends with
+      artefacts on your own machine — harness files, specs, subagents, transcripts — not
+      notes.
+    </p>
+    <div class="why">
+      <div class="kicker">Four disciplines are the spine</div>
+      <p>
+        Week 1 gives you an hour on each; later weeks go deep on one at a time. Learn the
+        names now, because we use them constantly and you will be expected to speak them.
+      </p>
+    </div>
+
+    <div class="disc">
+      <div class="card">
+        <h3>Context engineering <span class="tag">wk 2</span></h3>
+        <p>What the model sees, at the right scope — global, workspace, project, directory, local.</p>
+      </div>
+      <div class="card">
+        <h3>Harness engineering <span class="tag">wk 3</span></h3>
+        <p>Encode it once instead of repeating it: commands, skills, hooks, permissions.</p>
+      </div>
+      <div class="card">
+        <h3>Loop engineering <span class="tag">wk 5–6</span></h3>
+        <p>Verification that closes the loop, then autonomy you can actually leave running.</p>
+      </div>
+      <div class="card">
+        <h3>Graph engineering <span class="tag">wk 7</span></h3>
+        <p>Work split across agents and sessions, tracked instead of hoped for.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── -->
+  <section id="week">
+    <div class="kicker">Section 2 of 8</div>
+    <h2>Every week runs through the same three stages, in order</h2>
+    <p>
+      Same shape, nine times. Once you have done week 1, you know how every other week
+      works.
+    </p>
+
+    <div class="stages">
+      <div class="stage">
+        <div class="num">1 · Knowledge</div>
+        <h3>Work through the deck</h3>
+        <p>
+          One self-contained HTML deck per week, split into acts. You read an act, then do
+          its hands-on exercise in Claude Code on a real repo. It ends with a capstone you
+          build yourself.
+        </p>
+      </div>
+      <div class="stage">
+        <div class="num">2 · Application</div>
+        <h3>Ship five or six projects</h3>
+        <p>
+          One GitHub issue per project, with detailed instructions. Each needs evidence
+          uploaded on the issue before it counts — repo links, PRs, harness files,
+          transcripts.
+        </p>
+      </div>
+      <div class="stage">
+        <div class="num">3 · Reinforcement</div>
+        <h3>Wire it into your daily Claude</h3>
+        <p>
+          The last issue hands you a paragraph for your global
+          <code>~/.claude/CLAUDE.md</code>. It makes Claude re-surface the week's ideology
+          as TIL lines in your normal work, for months.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>The rhythm</h3>
+      <p style="color:var(--muted);font-size:15.5px">
+        A week opens with its deck already on <code>main</code> and its issues already
+        created under one milestone. Do the Knowledge issue first — the project issues
+        assume the deck. Everything is due
+        <strong style="color:var(--ink)">Sunday, end of day</strong>. Your trainer reviews
+        the evidence and closes the issues.
+      </p>
+    </div>
+
+    <div class="note">
+      <div class="kicker">Two things never get compressed</div>
+      <p>
+        Verification loops and reps on a real repo. If you are short on time in a week, cut
+        polish, never those two.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── -->
+  <section id="map">
+    <div class="kicker">Section 3 of 8</div>
+    <h2>One repo, cloned locally, plus the Issues tab</h2>
+    <p>
+      You clone this repo and read the decks from your own disk. You submit work in the
+      browser. That is the whole workflow.
+    </p>
+
+    <pre><code>git clone https://github.com/techcirkle-ctrl/ai-dev-roadmap.git
+cd ai-dev-roadmap
+open weeks/week-1/Knowledge.html</code></pre>
+
+    <table>
+      <tr>
+        <th>Where</th>
+        <th>What it is</th>
+      </tr>
+      <tr>
+        <td><a href="https://github.com/techcirkle-ctrl/ai-dev-roadmap/issues">Issues</a></td>
+        <td>
+          Your to-do list. Every piece of work you owe is an issue. This is where you upload
+          evidence and mark yourself done. Most of your GitHub time is here.
+        </td>
+      </tr>
+      <tr>
+        <td><a href="https://github.com/techcirkle-ctrl/ai-dev-roadmap/milestones">Milestones</a></td>
+        <td>
+          One milestone per week, carrying the Sunday deadline. Click one to see only that
+          week's issues.
+        </td>
+      </tr>
+      <tr>
+        <td><code>weeks/week-N/</code></td>
+        <td>
+          Everything the week needs: <code>Knowledge.html</code> and any data or practice
+          repos under <code>data/</code>. One week, one folder — you never hunt across the
+          repo.
+        </td>
+      </tr>
+      <tr>
+        <td><code>roadmap.html</code></td>
+        <td>
+          The full nine-week plan. Read it once for the shape; you do not need it day to day.
+        </td>
+      </tr>
+      <tr>
+        <td><code>README.md</code></td>
+        <td>
+          The short text version of this page, so it renders on the GitHub landing page.
+        </td>
+      </tr>
+      <tr>
+        <td><code>CLAUDE.md</code></td>
+        <td>
+          This repo's own instructions to Claude. Not required reading, but it is a worked
+          example of week 2's craft — read it once you have done week 2.
+        </td>
+      </tr>
+      <tr>
+        <td><code>setup/</code>, <code>.claude/</code></td>
+        <td>
+          Trainer machinery: the methodology contract, issue templates, the week-building
+          skill. Nothing is hidden from you, but you do not need it.
+        </td>
+      </tr>
+    </table>
+
+    <div class="note">
+      <div class="kicker">Opening a deck</div>
+      <p>
+        Do not read decks on GitHub — it renders HTML as raw source. Open the local file
+        after cloning: <code>open weeks/week-1/Knowledge.html</code> on macOS,
+        <code>xdg-open</code> on Linux, or just double-click it. The deck works offline and
+        remembers your progress in that browser on that machine.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── -->
+  <section id="first">
+    <div class="kicker">Section 4 of 8</div>
+    <h2>Your first hour, in order</h2>
+
+    <ol class="steps">
+      <li>
+        <h3>Accept the GitHub invitation</h3>
+        <p>
+          Check the email from GitHub and accept. Tell your trainer your username if you
+          have not already. You get the Triage role — comment and label, no push.
+        </p>
+      </li>
+      <li>
+        <h3>Turn on notifications for the repo</h3>
+        <p>
+          On the repo page click <strong>Watch</strong> and choose
+          <strong>All Activity</strong>. New issues and trainer feedback then reach you
+          instead of sitting unread.
+        </p>
+      </li>
+      <li>
+        <h3>Check your prerequisites</h3>
+        <p>
+          node 20+, git, a GitHub account, and Claude Code on the Max 5x plan. Confirm the
+          first two now: <code>node -v &amp;&amp; git --version</code>. Week 1 wires the
+          rest, including the <code>gh</code> CLI and MCP connectors.
+        </p>
+      </li>
+      <li>
+        <h3>Clone the repo and skim the roadmap</h3>
+        <p>
+          Clone it, then <code>open roadmap.html</code>. Five minutes. You are looking for
+          the shape of the nine weeks, not the detail.
+        </p>
+      </li>
+      <li>
+        <h3>Open the week 1 milestone</h3>
+        <p>
+          Go to <a href="https://github.com/techcirkle-ctrl/ai-dev-roadmap/milestones">Milestones</a>
+          and click week 1. Those issues, and only those, are your week.
+        </p>
+      </li>
+      <li>
+        <h3>Start with the Knowledge issue</h3>
+        <p>
+          The one titled <em>[Week 1] Knowledge</em>. It points at
+          <code>weeks/week-1/Knowledge.html</code>. Read each act, do its hands-on as you
+          hit it, then build the capstone. Do not skip ahead to the project issues.
+        </p>
+      </li>
+      <li>
+        <h3>Then work the Application issues</h3>
+        <p>
+          Five projects in week 1: wire your environment and have a peer audit it cold,
+          build a capability matrix over ten real tasks, ship one automation and use it
+          three times, annotate a week of your own usage, and write up a loop autopsy.
+          Upload evidence as you go, not on Sunday night.
+        </p>
+      </li>
+      <li>
+        <h3>Finish with the Reinforcement issue</h3>
+        <p>
+          Paste the week's paragraph into your global <code>~/.claude/CLAUDE.md</code>,
+          exactly as the issue describes. This is the step people skip, and it is the one
+          that makes the learning outlast the week.
+        </p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ─────────────────────────────── -->
+  <section id="evidence">
+    <div class="kicker">Section 5 of 8</div>
+    <h2>You finish an issue by commenting and labelling, never by closing it</h2>
+    <p>
+      An issue is written once and shared by the whole cohort. It is not assigned to you and
+      it does not close when you are done. Your progress is a label.
+    </p>
+
+    <div class="card">
+      <h3>Three steps, every time</h3>
+      <ol>
+        <li><strong>Do the work</strong> on your own machine, on a real repo.</li>
+        <li>
+          <strong>Comment on the issue with your evidence.</strong> Links to your repo or
+          PR, session transcripts, the harness files you wrote, screenshots, output
+          artefacts. Drag attachments straight into the comment box. Two sentences on what
+          you did and what surprised you, plus the artefacts.
+        </li>
+        <li>
+          <strong>Add your own label</strong> — <code>shubham:done</code>,
+          <code>akash:done</code> or <code>atishay:done</code> — from the Labels panel on
+          the right of the issue.
+        </li>
+      </ol>
+    </div>
+
+    <div class="why">
+      <div class="kicker">What good evidence looks like</div>
+      <p>
+        Specific and yours. The actual <code>.claude/</code> files you committed, the actual
+        PR the loop produced, the actual transcript where it failed and what you changed.
+        Generic answers get the label removed with a comment saying what is missing. Redo
+        and re-add it; nobody is keeping score of rework.
+      </p>
+    </div>
+
+    <p style="margin-top:14px">
+      Only your trainer closes issues, once every learner's label is on and accepted. An
+      open issue does not mean you are behind — check your own label. To list what you have
+      cleared:
+    </p>
+    <pre><code>gh issue list --state all --label "shubham:done"</code></pre>
+  </section>
+
+  <!-- ─────────────────────────────── -->
+  <section id="rules">
+    <div class="kicker">Section 6 of 8</div>
+    <h2>Four ground rules</h2>
+
+    <div class="card">
+      <h3>You cannot push to this repo, and that is the design</h3>
+      <p style="color:var(--muted);font-size:15.5px">
+        Triage role: comment and label only. Your real work lives in your own repos and your
+        evidence links to it. Clone this one read-only and pull each week for new material.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Sunday, end of day</h3>
+      <p style="color:var(--muted);font-size:15.5px">
+        Every issue in a week inherits that deadline. If you will miss it, say so on the
+        issue before Sunday rather than going quiet.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Use real repos</h3>
+      <p style="color:var(--muted);font-size:15.5px">
+        Week 1 gives you a deliberately flawed practice repo at
+        <code>weeks/week-1/data/gym</code>. From week 3 the projects run on a real codebase
+        you actually work on. Toy examples teach nothing and are obvious to review.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Ask in the open</h3>
+      <p style="color:var(--muted);font-size:15.5px">
+        Stuck on an issue? Comment on that issue. The rest of the cohort is stuck on the
+        same thing and the answer is then useful to all of them.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── -->
+  <section id="plan">
+    <div class="kicker">Section 7 of 8</div>
+    <h2>The nine weeks</h2>
+    <p>
+      Detail is in <code>roadmap.html</code>. A week is live once its milestone is open;
+      until then its folder may not exist yet.
+    </p>
+
+    <table class="weeks">
+      <tr><th>Week</th><th>Topic</th><th>Status</th></tr>
+      <tr><td>1</td><td>Setup + the map: wire everything</td><td><span class="tag good">Live</span></td></tr>
+      <tr><td>2</td><td>Context engineering: what the model sees, at the right scope</td><td><span class="tag muted">Not open yet</span></td></tr>
+      <tr><td>3</td><td>Harness engineering: encode it, don't repeat it</td><td><span class="tag muted">Not open yet</span></td></tr>
+      <tr><td>4</td><td>Planning: spec-driven development</td><td><span class="tag muted">Not open yet</span></td></tr>
+      <tr><td>5</td><td>Loop engineering I: the verified loop</td><td><span class="tag muted">Not open yet</span></td></tr>
+      <tr><td>6</td><td>Loop engineering II: autonomy</td><td><span class="tag muted">Not open yet</span></td></tr>
+      <tr><td>7</td><td>Graph engineering + tracking</td><td><span class="tag muted">Not open yet</span></td></tr>
+      <tr><td>8</td><td>Industry methodologies: run the famous processes</td><td><span class="tag muted">Not open yet</span></td></tr>
+      <tr><td>9</td><td>The merge and the proof</td><td><span class="tag muted">Not open yet</span></td></tr>
+    </table>
+
+    <p style="margin-top:14px;color:var(--muted);font-size:15.5px">
+      Weeks 8 and 9 are where it lands: you run the named industry methodologies, then merge
+      what you stole from them with your own friction log into a methodology that is yours.
+    </p>
+  </section>
+
+  <!-- ─────────────────────────────── -->
+  <section id="faq">
+    <div class="kicker">Section 8 of 8</div>
+    <h2>Stuck?</h2>
+
+    <details>
+      <summary>The deck shows as a wall of code on GitHub. What did I do wrong?</summary>
+      <p>
+        Nothing. GitHub previews HTML as source. Clone the repo and open the local file, or
+        use <strong>Download raw file</strong> on the file page and open the download in
+        your browser.
+      </p>
+    </details>
+
+    <details>
+      <summary>I closed my browser mid-deck. Did I lose my progress?</summary>
+      <p>
+        No. Decks persist progress to <code>localStorage</code> on that device. Reopen the
+        same file on the same machine and you pick up where you left off. A different
+        laptop starts fresh.
+      </p>
+    </details>
+
+    <details>
+      <summary>Can I use Cursor, Copilot or another agent instead?</summary>
+      <p>
+        Not for the projects. The programme is one tool for nine weeks on purpose — the
+        depth comes from not sampling. Use whatever you like outside the projects.
+      </p>
+    </details>
+
+    <details>
+      <summary>Do I need the Max 5x plan?</summary>
+      <p>
+        Yes. Weeks 1 and 6 treat usage budgeting on that plan as curriculum — windows,
+        weekly caps, model mix, <code>/usage</code> and <code>/context</code>. On a
+        different plan the readings will not match the deck.
+      </p>
+    </details>
+
+    <details>
+      <summary>My real repo is confidential. Can I still do the real-repo projects?</summary>
+      <p>
+        Yes. Do the work there and submit redacted evidence: describe the change, share the
+        harness files and the session shape, screenshot with names blurred. Never paste
+        client code into an issue. If in doubt, ask on the issue before uploading.
+      </p>
+    </details>
+
+    <details>
+      <summary>Someone already commented the answer. Can I just agree with it?</summary>
+      <p>
+        No. The projects run on your own environment and your own repos, so two people's
+        evidence should not match. Read theirs after you post yours.
+      </p>
+    </details>
+
+    <details>
+      <summary>I missed a week. What now?</summary>
+      <p>
+        Do the missed week's Knowledge issue before starting the new week, then catch its
+        projects up in parallel. Say so on the issue so your trainer knows where you are.
+        The weeks stack — week 5 assumes the harness you built in week 3.
+      </p>
+    </details>
+  </section>
+
+  <!-- ─────────────────────────────── -->
+  <section id="checklist">
+    <div class="kicker">Before you start week 1</div>
+    <h2>Tick these off</h2>
+    <div class="card">
+      <ul class="check" id="cl">
+        <li><input type="checkbox" id="c1"><label for="c1">GitHub invitation accepted, username sent to my trainer</label></li>
+        <li><input type="checkbox" id="c2"><label for="c2">Watching the repo, set to All Activity</label></li>
+        <li><input type="checkbox" id="c3"><label for="c3">node 20+ and git installed (<code>node -v</code>, <code>git --version</code>)</label></li>
+        <li><input type="checkbox" id="c4"><label for="c4">Claude Code installed and signed in on the Max 5x plan</label></li>
+        <li><input type="checkbox" id="c5"><label for="c5">Repo cloned locally</label></li>
+        <li><input type="checkbox" id="c6"><label for="c6">Skimmed <code>roadmap.html</code> in my browser</label></li>
+        <li><input type="checkbox" id="c7"><label for="c7">Found the week 1 milestone and its seven issues</label></li>
+        <li><input type="checkbox" id="c8"><label for="c8">Confirmed I can apply my <code>name:done</code> label on an issue</label></li>
+        <li><input type="checkbox" id="c9"><label for="c9">Opened <code>weeks/week-1/Knowledge.html</code> in my browser</label></li>
+      </ul>
+      <button class="reset" id="rs">Clear</button>
+    </div>
+  </section>
+
+  <p class="foot">
+    Save this page: print it to PDF from your browser if you want it offline. Questions
+    about the programme itself go to your trainer; questions about a specific piece of work
+    go on that issue.
+  </p>
+
+</div>
+
+<script>
+(function(){
+  var KEY = 'aidev-start-here-v1';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#cl input'));
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) {}
+  boxes.forEach(function(b){
+    b.checked = !!saved[b.id];
+    b.addEventListener('change', save);
+  });
+  function save(){
+    var s = {};
+    boxes.forEach(function(b){ if(b.checked) s[b.id] = 1; });
+    try { localStorage.setItem(KEY, JSON.stringify(s)); } catch(e) {}
+  }
+  document.getElementById('rs').addEventListener('click', function(){
+    boxes.forEach(function(b){ b.checked = false; });
+    save();
+  });
+})();
+</script>
+</body>
+</html>

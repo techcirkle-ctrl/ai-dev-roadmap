@@ -8,6 +8,9 @@ Each week gives you three things: a deck to work through, five or six projects t
 with evidence, and a paragraph to paste into your own `~/.claude/CLAUDE.md`. GitHub
 Issues track all of it.
 
+Prefer the long version? Clone the repo and open `START-HERE.html` in a browser — same
+guidance with a prerequisite checklist you can tick off.
+
 ## Your first 30 minutes
 
 1. **Clone the repo.** You have Triage access, so you can label and comment but not
@@ -80,6 +83,7 @@ gh issue list --state all --label "shubham:done"
 
 | Path | What it is |
 | --- | --- |
+| `START-HERE.html` | This page, longer, with a setup checklist. Open in a browser. |
 | `roadmap.html` | The nine-week plan. Open in a browser. |
 | `weeks/week-N/Knowledge.html` | That week's deck — acts, hands-ons, capstone. |
 | `weeks/week-N/data/` | Everything the week's projects need: repos, templates, data. |

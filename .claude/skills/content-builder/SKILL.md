@@ -92,12 +92,14 @@ question you may ask before going dark.
      uses it as the GitHub issue title; the rest becomes the body).
 2. Issues quote the deck by act/hands-on **name**, never slide number. The Knowledge
    issue's proof-of-work = the deck's capstone export artifact.
-3. STOP. Ask the user to review the local files. Iterate until confirmed.
+3. Update `README.md`: flip week N's row in the status table to **Live** and point the
+   deck-opening command at `weeks/week-N/Knowledge.html`. Nothing else in it changes.
+4. STOP. Ask the user to review the local files. Iterate until confirmed.
 
 ### Phase 5 — Publish (only after every gate is cleared)
 
 1. Commit + push the week's content to main: `weeks/week-N/`, `setup/milestones/`,
-   `setup/issues/week-N/`, and any doc updates. (If the user prefers to push
+   `setup/issues/week-N/`, `README.md`, and any other doc updates. (If the user prefers to push
    themselves, stage and say so — follow whatever they did last week.)
 2. Publish to GitHub:
    `bash .claude/skills/content-builder/publish-week.sh <N> <YYYY-MM-DD>`

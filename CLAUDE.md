@@ -7,6 +7,8 @@ file is the repo's ideology in brief; the full operating contract is
 
 ## Repo layout
 
+- `README.md` — the learner's front door: how to navigate, how a week runs, how to submit
+  evidence, and a status table of the nine weeks. Update it whenever a week goes live.
 - `roadmap.html` — the curriculum contract. Self-contained HTML timeline: one entry per
   week (topics, track tags, description). Learner-facing; tracks exist ONLY here as tags.
 - `weeks/week-N/` — everything the learner needs for week N: the deck
@@ -56,4 +58,5 @@ file is the repo's ideology in brief; the full operating contract is
   no network, print-friendly, local-only state.
 - New issues come from `setup/templates/` (Knowledge / Application / Reinforcement).
 - British English throughout (this repo's canon; the sister repo is American).
-- Keep the root clean: only `CLAUDE.md`, `roadmap.html`, `weeks/`, `.claude/`, `setup/`.
+- Keep the root clean: only `README.md`, `CLAUDE.md`, `roadmap.html`, `weeks/`,
+  `.claude/`, `setup/`.

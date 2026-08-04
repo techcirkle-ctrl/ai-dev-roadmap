@@ -5,8 +5,8 @@ How a week of this program runs on GitHub. This is the operating contract; templ
 `.claude/skills/content-builder/` (`SKILL.md` + `DECK-PLAYBOOK.md`); visual canon defers
 to `setup/DESIGN.md`.
 
-**Repo layout rule:** the root stays learner-facing only — `CLAUDE.md`, `roadmap.html`,
-`weeks/`, `.claude/`. Everything operational (this file, DESIGN, templates, fallback
+**Repo layout rule:** the root stays learner-facing only — `README.md`, `CLAUDE.md`,
+`roadmap.html`, `weeks/`, `.claude/`. Everything operational (this file, DESIGN, templates, fallback
 copies of issues/milestones/progress) lives under `setup/`.
 
 ---
@@ -123,6 +123,19 @@ roadmap.html agreed (once, up front)
    7. Every learner labels each issue `<name>:done` + uploads evidence
    8. Trainer accepts evidence → closes issues → milestone closed → Week N+1
 ```
+
+## The front door — `README.md`
+
+`README.md` is the only document written for a learner who has just been given repo
+access and does not know where to look. It carries: the first 30 minutes (clone, open
+`roadmap.html`, open the current deck, open the milestone), how a week runs, how to
+submit evidence (comment + `<name>:done` label, trainer closes), where things live, and a
+status table of all nine weeks.
+
+**It is updated every time a week goes live**: flip that week's row from *Not open yet*
+to *Live* and point the deck-opening command at the current week. Nothing else in the
+README changes week to week — if a week needs the README rewritten, the week has broken
+the contract.
 
 ## Tracking — GitHub is the source of truth
 

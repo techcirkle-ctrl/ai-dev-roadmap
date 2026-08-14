@@ -30,8 +30,18 @@ learner navigates alone, so the deck must say everything, on the glass:
   - `.keep` — a visible **Keep this** band closing every slide (the takeaway; read
     top-to-bottom they form the week's glossary).
   - `.read` — the **What you decide** band: the decision the learner now owns.
-  - `.bank` — troubleshooting / borrow-one fallbacks so a stalled install or an
-    unexpected model response never stalls anyone.
+  - `details.fold` — the **optional-depth layer**: collapsible, colour-coded strips
+    (see DESIGN.md for the six types). `.plain` "In plain words" unpacks the concept
+    with an analogy or worked example; `.hood` "Under the hood" gives the mechanism;
+    `.industry` "How industry does it" grounds the practice in what real teams do;
+    `.btw` "By the way" holds the practical tangent; `.dyk` "Did you know" the memorable
+    fact; `.trouble` "Stuck?" the troubleshooting (this replaces the old `.bank` div —
+    the verifier now rejects `class="bank"`). Hard rule: **core teaching never lives
+    inside a fold** — a learner who opens none still gets the full lesson. Facts in
+    `.dyk`/`.industry` must be ones the builder is certain of; no invented numbers.
+  - `.soon` — the **taught-later chip**: inline grey chip ("taught in Act 4") on any
+    term used before its act teaches it, so a learner never mistakes a forward
+    reference for assumed knowledge.
 
 ## 2. Doctrine (adapted for the dev cohort)
 
@@ -46,13 +56,31 @@ learner navigates alone, so the deck must say everything, on the glass:
    task suite, before and after, here's the delta."
 4. **Use before explain. No false simplifications.** Plain-English analogies are allowed
    but must survive an expert's eye — this cohort will poke them.
-5. **Dev altitude, no LLM-101.** They know what a token is. Skip capability tourism;
-   every hands-on runs in Claude Code, in a terminal, on a repo (gym repo weeks 1–2,
-   real repo from week 3). Real code on the glass, no toy fizzbuzz.
+5. **Dev altitude on code; zero altitude on agent vocabulary.** They code daily — skip
+   capability tourism, no toy fizzbuzz; every hands-on runs in Claude Code, in a
+   terminal, on a repo (gym repo weeks 1–2, real repo from week 3). But do NOT assume
+   the agent domain's vocabulary (token, context window, MCP, harness, hook, headless):
+   the 2026-08-14 cohort feedback proved they don't have it. Every term of art gets a
+   plain-words definition at first use — the keyword stays (they must learn to speak
+   it), the explainer backs it.
 6. **One spine example per week** — one codebase/scenario threaded through widgets,
    prompts, and probes — recognition carries the learner.
 7. **Every movement ends in a judgement the learner owns** — the `.read` band.
 8. **Mnemonics where a list must stick.**
+8b. **Self-explanatory bar** (from the 2026-08-14 cohort feedback: learners were
+   decoding slides with another LLM — that is the failure state). Four mechanics:
+   - **Takeaway then expansion.** The title asserts the point in one line; the prose
+     below re-explains it in plain English, at whatever length it needs, with a
+     concrete example. Verbose-and-clear beats compressed-and-clever in teach prose.
+   - **Keyword kept, explainer backed.** First use of any term of art: bold the term,
+     define it in plain words in the same sentence, put the longer version in a fold.
+   - **No idiom-carried meaning.** A metaphor may open a point, never carry it alone —
+     follow it with the literal statement ("a colleague you can only reach by post:
+     every message travels by hand, one exchange at a time").
+   - **Punchlines state their chain.** Never just the conclusion ("briefs are token
+     economics"); include the middle ("every missing part becomes a question, every
+     question re-sends the conversation, and re-sending is what you pay for").
+   Forward references carry a `.soon` chip; optional depth goes to the fold layer.
 9. **Writing canon** — the trainer's writing ideology, encoded at project scope so it
    binds every builder and every headless run; partly machine-enforced by
    `check-deck.js`:
@@ -168,3 +196,18 @@ bar only goes up), and the newest shipped deck becomes the reference implementat
   no token counts — only opaque rate limits. Teach `/usage` (percentages + reset times)
   and relative pressure; never present `/cost` dollars as observable. Frame the topic
   "usage", not "cost", programme-wide.
+- 2026-08-14 · Cohort correction (Shubham, Akash, Atishay): week 1 deck read "like a
+  tech spec, not a learning module" — learners decoded slides with another LLM. Flesch
+  passed (~71); the failures were undefined terms of art, idiom-carried meaning, and
+  conclusion-only punchlines. Fixes now canon: rule 5 rewritten (zero altitude on agent
+  vocabulary), rule 8b added (self-explanatory bar), fold layer + `.soon` chip added to
+  the furniture (§1, DESIGN.md), `.bank` retired into `fold.trouble`, verifier extended
+  (fold types, summary/fbody pairing, beforeprint expander, bank remnant). Reference
+  implementation: the revised week 1 deck.
+- 2026-08-14 · Trainer correction (rep parity): the capstone is the programme's only
+  hand-held rep — deliberately over-guided, because every Application issue re-runs its
+  problem classes solo at the same difficulty. Author each capstone step as the worked
+  example of a nameable problem class, and seed the week's gym/data with fresh problems
+  of each class for the issues to draw on (week 1's gym already carries spare seeded
+  bugs; keep that pattern). Issue doctrine lives in METHODOLOGY + SKILL.md; the deck's
+  job is the guided rep and the class naming.

@@ -18,7 +18,7 @@ Every week moves the learner through the same three stages, in order:
 | Stage | What it is | GitHub artifact |
 |---|---|---|
 | **Knowledge** | Absorb the week's concepts by reading + doing inside the deck. | Issue #1 (the deck issue) |
-| **Application** | Apply the concepts on real guided projects, with evidence. | Issues #2–#k (5–6 project issues) |
+| **Application** | Solve fresh problems of the capstone's classes, solo, with evidence. | Issues #2–#k (4–6 project issues) |
 | **Reinforcement** | Internalise the ideology so it compounds after the week ends. | Final issue (the CLAUDE.md issue) |
 
 ## The curriculum contract — `roadmap.html`
@@ -64,10 +64,22 @@ before the week opens. Deck ideology:
   terminal, on a real repo.
 - **Capstone last** — after the final act, the deck closes with a **capstone project**:
   a guided build the learner follows end-to-end on their own system, synthesising the
-  week's acts.
+  week's acts. The capstone is the week's **worked example** — the one place the
+  learner's hand is held through each problem class. It is deliberately over-guided,
+  because it is the last guidance the learner gets: Application issues re-run the same
+  classes solo (the rep-parity rule, below).
 - Self-contained HTML (inline CSS/JS, no network), per the content-builder skill's
   `DECK-PLAYBOOK.md` and `DESIGN.md`. Self-teaching: all teaching on the glass — the
   learner navigates alone.
+- **Self-explanatory or failed** (the two-altitude rule, cohort correction 14 Aug
+  2026). The learner is senior at code and novice in the agent domain, so teach prose
+  runs takeaway → plain-English expansion → concrete example. Every term of art is
+  kept (vocabulary is curriculum) and defined in plain words at first use; forward
+  references carry a taught-later chip; optional depth lives in the deck's
+  colour-coded fold layer (In plain words / Under the hood / How industry does it /
+  By the way / Did you know / Stuck?). The acceptance test for every learner-facing
+  artifact is the **another-LLM test**: a learner who needs a second LLM to decode a
+  slide means the artifact failed, not the learner.
 
 ## The issues
 
@@ -83,13 +95,43 @@ Success criteria checklist mirrors those three. → `setup/templates/ISSUE_KNOWL
 
 ### Issues #2–#k — Application (project issues)
 
-Once the deck issue is complete, **5–6 project issues** open. Each one:
+Once the deck issue is complete, **4–6 project issues** open. They obey the
+**rep-parity rule**, the pedagogy's core doctrine:
 
-- Gives **detailed instructions** for one project applying the week's concepts.
-- Requires the learner to **upload evidence** of completion (repo/PR links, session
-  transcripts, harness files, screenshots, output artifacts) on the issue before closing.
+- **The capstone hand-holds; issues don't.** The capstone walked the learner through
+  one real problem per class and built the acumen. Each Application issue is a fresh
+  problem of one of those classes, at comparable difficulty, navigated from the issue
+  text alone. That derivation — reading a ticket and working out what the problem
+  actually is — is itself the skill being trained.
+- **Ticket-shaped, problem first.** The body opens with the problem as a real ticket
+  would state it — a symptom or a goal — then constraints, evidence required, success
+  criteria. It never walks the solution; the walk lived in the capstone and lives on
+  in `/guide-me`.
+- **Evidence is a by-product of solving, never the task.** Learners upload proof
+  (repo/PR links, session transcripts, harness files, output artifacts) on the issue
+  before closing. An issue whose only work is logging, annotating or writing up other
+  work is not an Application issue — fold it into another issue's evidence or drop it.
+- **Count follows reps.** One issue per problem class the capstone taught, 4–6 total.
+  Never pad to a number.
+
+The test before any Application issue opens: *does the learner solve a fresh problem
+here, at capstone difficulty, without the deck holding their hand?* If not, rewrite it.
 
 → `setup/templates/ISSUE_APPLICATION.md`
+
+### The safety net — `/guide-me`
+
+Issues stay lean because help is opt-in. A learner who can't navigate an issue runs
+the **`guide-me` skill** (`.claude/skills/guide-me/`) with the issue link, pasted text
+or a tagged file. It restates the problem, maps the steps and coaches one step at a
+time — the learner does each step in their own work session and reports back with
+evidence before it advances. It refuses to produce any part of the deliverable, and
+its close asks the learner to note "guided" in their evidence comment. Scaffolding
+lives in the skill, never in issue text.
+
+The skill ships in this repo, so it works in any session opened inside the clone;
+learners may copy it to `~/.claude/skills/` to invoke it anywhere — a harness artifact
+promoted to user scope, in week 3's vocabulary.
 
 ### Final issue — Reinforcement (the CLAUDE.md issue)
 
@@ -118,7 +160,7 @@ roadmap.html agreed (once, up front)
    2. Milestone "Week N" created            (due Sunday EOD)
    3. Issue #1 Knowledge opened             (read acts → hands-ons → capstone)
    4. Learner completes #1
-   5. Issues #2–#k Application opened       (5–6 projects, evidence uploaded)
+   5. Issues #2–#k Application opened       (4–6 fresh problems, evidence uploaded)
    6. Final issue Reinforcement opened      (CLAUDE.md paragraph added)
    7. Every learner labels each issue `<name>:done` + uploads evidence
    8. Trainer accepts evidence → closes issues → milestone closed → Week N+1

@@ -1,39 +1,43 @@
-# [Week 1] Application — Wired-environment audit, passed cold
+# [Week 1] Application — Your environment, audited cold by a peer
 
 **Pedagogy:** Application · **Milestone:** Week 1 · **Due:** Sunday EOD
-**Prerequisite:** Week 1 Knowledge issue complete (your self-audit in capstone step 1).
+**Prerequisite:** Week 1 Knowledge issue complete.
+**Capstone class:** audit — capstone step 1 (you ran this audit on yourself; now it runs on you, cold).
 
-## Project
+## The Problem
 
-Another learner drives YOUR setup, cold, against the zero-copy-paste checklist. You
-watch and say nothing; every prompt they need from you is a finding. This is the week's
-deliverable made falsifiable: "my environment is wired" becomes a claim someone else
-verified on your machine. Applies: wiring day (gh, MCP, permissions) and the audit
-discipline.
+You've claimed all week that your environment is wired. This weekend another learner
+sits at your machine and drives it against the 10-check audit, cold, while you watch
+in silence. Every prompt they need from you — a password walk, a "no, use the other
+terminal", a copy-paste — is a finding. By Sunday, "my setup is wired" is either a
+claim someone else verified on your machine, or an honest gap list with fixes agreed.
 
-## Detailed Instructions
+## Constraints
 
-1. Pair up (Shubham ↔ Akash ↔ Atishay — arrange so everyone audits and is audited once).
-2. Auditor opens `weeks/week-1/data/wiring-audit.md` and runs all 10 checks on the
-   owner's machine, filling the checklist. The owner stays silent.
-3. Log every failure and every human hop in the findings table, agree the fix.
-4. Owner fixes; auditor re-runs the failed checks the same day.
-5. Both sides upload: the filled checklist, the findings table, and a line on what the
-   re-run showed.
+- Pairs: Shubham ↔ Akash ↔ Atishay — arrange so everyone audits once and is audited once.
+- The checklist is `weeks/week-1/data/wiring-audit.md`; the auditor runs all 10 checks.
+- The owner stays silent for the whole run.
+- Failed checks: agree the fix, owner fixes, auditor re-runs them the same day.
 
 ## Evidence Required
 
 Upload on this issue before closing:
 
-- [ ] The filled `wiring-audit.md` (as a comment or gist), auditor named
-- [ ] Findings table with agreed fixes, plus the re-run result
-- [ ] Short note: the one gap that surprised you, and what it cost daily before this week
+- [ ] The filled `wiring-audit.md` (comment or gist), auditor named
+- [ ] Findings table with agreed fixes, plus what the re-run showed
+- [ ] Short note: the gap that surprised you, and what it cost you daily before this week
 
 ## Success Criteria
 
 - [ ] All 10 checks pass cold, or the exceptions are named with reasons (SSO walls count)
 - [ ] You audited someone else's environment too
 - [ ] Evidence uploaded, `<name>:done` label added
+
+## Stuck?
+
+Run `/guide-me` with this issue's link (or paste its text). It coaches you through the
+problem one step at a time; it won't solve it for you. If you used it, say "guided" in
+your evidence comment — using the net is fine, hiding it isn't.
 
 ## Time Estimate
 

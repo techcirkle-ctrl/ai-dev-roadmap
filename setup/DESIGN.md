@@ -30,6 +30,8 @@ without adding them here first.
   --good:#1c7a4a;       /* success, "done", Real Repo track */
   --good-soft:#e5f2ea;
   --bad:#b23b3b;        /* wrong, failure mode */
+  --deep:#5b4a9e;       /* violet — mechanism depth ("Under the hood" folds) */
+  --deep-soft:#eceaf6;
 }
 ```
 
@@ -53,6 +55,8 @@ Reuse these named patterns; don't invent parallel ones.
 | Lab shell | `.lab` | An interactive widget's container. |
 | Kicker | `.kicker` | The uppercase teal eyebrow above a title. |
 | Tag | `.tag` | Small uppercase metadata chip (track, duration). Variants: default=Craft, `.method`, `.repo`, `.team`. |
+| Fold | `details.fold` | Optional-depth collapsible strip; core teaching never lives inside one. Colour-coded by the question it answers: `.plain` "In plain words" (teal, `--accent`), `.hood` "Under the hood" (violet, `--deep`), `.industry` "How industry does it" (green, `--good`), `.btw` "By the way" (slate, `--muted`), `.dyk` "Did you know" (amber, `--warn`), `.trouble` "Stuck?" (slate, dashed — replaces the old `.bank`). Body in `.fbody`; a beforeprint handler opens all folds so print carries the layer. |
+| Taught-later chip | `.soon` | Inline grey chip marking a term previewed now and taught in a later act ("taught in Act 4"). Kills the am-I-supposed-to-know-this moment on forward references. |
 
 ## The two registers (Sparkline rule)
 

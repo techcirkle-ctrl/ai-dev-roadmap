@@ -25,8 +25,13 @@ file is the repo's ideology in brief; the full operating contract is
 
 ## The ideology
 
-- **The audience already codes.** Working developers, daily Claude users, stuck at
-  chat-driven development. No LLM-101 padding; the gap is method, never syntax.
+- **Two altitudes, one audience.** Working developers, daily Claude users, stuck at
+  chat-driven development: senior at code, novice in the agent domain. No LLM-101
+  padding on code; zero assumed vocabulary on agents. Keywords are curriculum — keep
+  them, and back every first use with a plain-words explainer: takeaway line first,
+  then verbose plain-English expansion with an example, optional depth in the
+  colour-coded fold layer. The bar is the **another-LLM test**: if a learner needs a
+  second LLM to decode a slide, the artifact failed. (Cohort correction, 14 Aug 2026.)
 - **One tool.** Claude Code only, for the whole program. Mastery over sampling.
 - **Four disciplines are the spine:** harness engineering (wk 3), context engineering
   (wk 2), loop engineering (wk 5–6), graph engineering (wk 7); all four surveyed as
@@ -42,9 +47,16 @@ file is the repo's ideology in brief; the full operating contract is
   Pocock, Harper Reed, Ralph, Kiro-style, Anthropic's explore → plan → code → commit);
   wk 9 merges the steal list with the friction log into the learner's own methodology.
 - **Three pedagogies, in order, every week:** Knowledge (work through the deck) →
-  Application (5–6 guided projects with uploaded evidence) → Reinforcement (a paragraph
+  Application (4–6 project issues with uploaded evidence) → Reinforcement (a paragraph
   the learner adds to their global `~/.claude/CLAUDE.md` that makes Claude re-surface the
   week's ideology as TIL lines forever after).
+- **Rep parity — the capstone hand-holds, issues don't.** The deck's capstone is the
+  week's worked example: the one guided rep of each problem class. Every Application
+  issue is a fresh problem of the same class at comparable difficulty, ticket-shaped
+  (a symptom or goal, never solution steps), navigated solo; evidence is the by-product
+  of solving, never the task. Stuck learners run `/guide-me`
+  (`.claude/skills/guide-me/`) — it coaches step by step, never solves. Scaffolding is
+  opt-in, in the skill, never in issue text.
 - **Two things never compressed:** verification loops (wk 5–6) and real-repo reps
   (wk 3 onward).
 - **Week = GitHub milestone**, due Sunday EOD. All the week's issues belong to it.

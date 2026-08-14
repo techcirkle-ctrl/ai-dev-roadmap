@@ -7,7 +7,12 @@ argument-hint: "Optional: the week to build, plus 'afk' for a no-gates autonomou
 You are the content-building engine for the **AI Dev Roadmap** — a nine-week self-paced
 program taking working developers from ad hoc prompting to engineering with Claude Code
 across the whole SDLC. No live sessions: every artifact must teach on its own. The
-audience already codes; the gap is method, never syntax. No LLM-101 padding.
+audience is senior at code and novice in the agent domain — the **two-altitude rule**:
+no LLM-101 padding on code, zero assumed vocabulary on agents. Keywords are curriculum:
+keep every term of art and back its first use with a plain-words explainer (takeaway →
+expansion → example; depth in the fold layer). The bar for every artifact is the
+**another-LLM test** — a learner who needs a second LLM to decode a slide means the
+artifact failed. Mechanics: DECK-PLAYBOOK rules 5 and 8b.
 
 Companion files in this folder: `DECK-PLAYBOOK.md` (deck authoring canon — read before
 building any deck), `check-deck.js` (structural verifier), `publish-week.sh` (idempotent
@@ -61,8 +66,10 @@ question you may ask before going dark.
    - **Hands-ons** — the embedded exercises (what the learner runs, in Claude Code, on
      which repo — gym repo through week 2, real repo from week 3).
    - **Capstone** — the steps and the artifact it produces (must match roadmap.html).
-   - **Application issues** — 5–6 titles + one line each, anchored to the spec's ante
-     row for that week (bar: survives a staff engineer's review).
+   - **Application issues** — 4–6 titles + one line each, anchored to the spec's ante
+     row for that week; each line names its **capstone class**. The rep-parity rule
+     (METHODOLOGY) governs: fresh problem, ticket-shaped, capstone difficulty, no
+     logging-only issues (bar: survives a staff engineer's review).
    - **Reinforcement** — the ideology paragraph's theme (who I am / aspiring to / TIL rule).
    - **Data files** — what goes in `weeks/week-N/data/`.
 3. STOP. Iterate on feedback until the user approves the plan.
@@ -78,10 +85,14 @@ question you may ask before going dark.
 
 ### Phase 3 — Issues plan → HARD GATE 3
 
-1. Present the issue set in detail (still no files): for each of the ~8 issues —
-   pedagogy, title, instructions outline, evidence required, success criteria; the
-   milestone's learning objectives + success metrics.
-2. STOP. Wait for input; iterate.
+1. Present the issue set in detail (still no files): for each of the ~6–8 issues —
+   pedagogy, title, capstone class, the ticket-shaped problem statement, evidence
+   required, success criteria; the milestone's learning objectives + success metrics.
+2. Self-test every Application issue against rep parity before presenting: fresh
+   problem? capstone-step class and difficulty? solvable from the body alone, with
+   `/guide-me` as the only scaffold? evidence a by-product, never the task? Rewrite
+   what fails; drop logging-only issues rather than padding the count.
+3. STOP. Wait for input; iterate.
 
 ### Phase 4 — Local files → HARD GATE 4
 
@@ -128,13 +139,21 @@ question you may ask before going dark.
 
 - **Self-paced means self-teaching.** No presenter exists. All teaching on the glass —
   this is DECK-PLAYBOOK rule №1; never regress to cue-slides.
-- **Dev altitude.** Hands-ons run in Claude Code on real repos and real terminals.
-  Every claim about the tool is demonstrable on the learner's own machine that day.
+- **Two altitudes.** Dev altitude on code: hands-ons run in Claude Code on real repos
+  and real terminals, and every claim about the tool is demonstrable on the learner's
+  own machine that day. Zero altitude on agent vocabulary: terms of art are taught at
+  first use, never assumed — the self-explanatory bar (DECK-PLAYBOOK rules 5 + 8b)
+  applies to decks, issues and every learner-facing sentence.
 - One week, one folder — the learner never hunts across the repo.
 - Naming is fixed: `weeks/week-N/Knowledge.html`. British English (this repo's canon;
   matches roadmap.html — the sister repo is American).
 - Keep the repo root clean; operational files live under `setup/`; local-only working
   docs (specs, plans) stay gitignored.
 - GitHub is the source of truth for tracking; `setup/` copies are fallback only.
+- **Rep parity.** The capstone is the programme's only hand-held rep. Application
+  issues are fresh problems of the capstone's classes at the same difficulty,
+  ticket-shaped, never instruction walks; `/guide-me` is the scaffold, issue text
+  never is. Deck consequence: seed the week's gym/data with enough fresh problems of
+  each class for the issues to draw on.
 - Corrections from each week become one-line rules — log deck rules in
   DECK-PLAYBOOK §6, workflow rules here.

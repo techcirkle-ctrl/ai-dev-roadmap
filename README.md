@@ -4,9 +4,11 @@ Read this once, then live in the Issues tab. This repo is a nine-week programme 
 takes you from prompting Claude Code ad hoc to engineering with it across the whole
 SDLC. You already code; nothing here teaches syntax.
 
-Each week gives you three things: a deck to work through, five or six projects to ship
+Each week gives you three things: a deck to work through, four to six projects to ship
 with evidence, and a paragraph to paste into your own `~/.claude/CLAUDE.md`. GitHub
-Issues track all of it.
+Issues track all of it. Projects arrive ticket-shaped — a problem to navigate, at the
+difficulty the deck's capstone rehearsed with you. Stuck, run `/guide-me` with the
+issue link: it coaches step by step and never solves.
 
 Prefer the long version? Clone the repo and open `START-HERE.html` in a browser — same
 guidance with a prerequisite checklist you can tick off.

@@ -31,9 +31,27 @@ sections.forEach((body, i) => {
 });
 console.log(`drive boxes: ${(html.match(/class="drive"/g) || []).length} · notices: ${(html.match(/class="notice"/g) || []).length}`);
 
-// presenter-era remnants must never return
-for (const rem of ['class="script"', 'class="note"', "scriptpanel", "script-open", "@@MORE@@"])
+// presenter-era remnants must never return; class="bank" retired in favour of fold.trouble
+for (const rem of ['class="script"', 'class="note"', "scriptpanel", "script-open", "@@MORE@@", 'class="bank"'])
   if (html.includes(rem)) bad("presenter-era remnant / stray marker: " + rem);
+
+// fold layer: every fold declares a known type and carries a summary + .fbody; print expander wired
+const FOLD_TYPES = ["plain", "hood", "industry", "btw", "dyk", "trouble"];
+const foldTypes = [...html.matchAll(/<details class="fold ([a-z]+)">/g)].map(m => m[1]);
+const badFold = [...new Set(foldTypes.filter(t => !FOLD_TYPES.includes(t)))];
+if (badFold.length) bad("fold with unknown type: " + badFold.join(", "));
+const detOpen = (html.match(/<details\b/g) || []).length;
+const detClose = (html.match(/<\/details>/g) || []).length;
+if (detOpen !== detClose) bad(`unbalanced <details>: ${detOpen} open / ${detClose} close`);
+if (detOpen !== foldTypes.length) bad(`details without a "fold <type>" class: ${detOpen} details / ${foldTypes.length} typed`);
+const sumCount = (html.match(/<summary>/g) || []).length;
+if (sumCount !== detOpen) bad(`details/summary mismatch: ${detOpen} details / ${sumCount} summaries`);
+const fbodyCount = (html.match(/class="fbody"/g) || []).length;
+if (fbodyCount !== detOpen) bad(`details/.fbody mismatch: ${detOpen} details / ${fbodyCount} fbody`);
+if (detOpen && !html.includes("beforeprint")) bad("folds present but no beforeprint expander in the JS");
+const foldCounts = {};
+foldTypes.forEach(t => foldCounts[t] = (foldCounts[t] || 0) + 1);
+console.log(`folds: ${foldTypes.length} (${FOLD_TYPES.filter(t => foldCounts[t]).map(t => t + " " + foldCounts[t]).join(" · ") || "none"})`);
 
 // duplicate ids
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);

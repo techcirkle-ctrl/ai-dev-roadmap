@@ -1,6 +1,6 @@
-# Capability matrix — 10 tasks from your own backlog
+# Capability matrix — 6–8 tasks from your own backlog
 
-Pick 10 real tasks from your current work: mix sizes, mix kinds (bugfix, feature,
+Pick 6–8 real tasks from your current work: mix sizes, mix kinds (bugfix, feature,
 refactor, test-writing, docs, ops). Run each through Claude Code properly (context
 given, loop closed). Grade honestly.
 
@@ -22,8 +22,6 @@ The scale, used programme-wide:
 | 6 | | | | | |
 | 7 | | | | | |
 | 8 | | | | | |
-| 9 | | | | | |
-| 10 | | | | | |
 
 ## Failure taxonomy
 

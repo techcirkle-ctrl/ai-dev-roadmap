@@ -30,15 +30,16 @@ live in `weeks/week-1/`: the gym repo (`data/gym`) and six paper templates.
 ## Issues (in order)
 
 1. **Knowledge** — work through the deck (acts → hands-ons → capstone). → `01-knowledge.md`
-2. **Application ×5** — wired-env audit · capability matrix · first automation ·
-   cost week · loop autopsy. → `02..06-application-*.md`
-3. **Reinforcement** — CLAUDE.md ideology paragraph. → `07-reinforcement.md`
+2. **Application ×4** (rep parity: each a fresh ticket-shaped problem of a capstone
+   class) — peer audit · verdict matrix · second automation · report-overcount bug.
+   → `02..05-application-*.md`
+3. **Reinforcement** — CLAUDE.md ideology paragraph. → `06-reinforcement.md`
 
 ## Success Metrics
 
-- All 7 issues carry every learner's `<name>:done` label with evidence, and are closed by the trainer.
+- All 6 issues carry every learner's `<name>:done` label with evidence, and are closed by the trainer.
 - Each environment passed a cold peer audit (or has named, justified exceptions).
-- Each learner shipped an automation used at least 3 times during the week.
+- Each learner shipped a second automation solo, used at least 3 times on real inputs.
 
 ## Gate/Prerequisites
 

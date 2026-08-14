@@ -20,16 +20,26 @@ learner navigates alone, so the deck must say everything, on the glass:
   under-written.
 - **Never hide teaching behind a key or a layer.** No presenter scripts, no
   hidden speaker notes. The only keys are navigation (`→ ← Home End F`).
-- Guidance a workshop would put in a trainer's mouth goes in **visible furniture**:
-  - `.drive` — the **Drive it** box on every widget: numbered steps, exact controls in
-    order, a "watch for" line carrying the widget's baked-in data and expected outputs.
-    The learner never drives blind.
-  - `.notice` — **What you just saw / What good looks like / What to expect**: the debrief
-    after a widget or hands-on, including expected values, common misreads, and
-    "if it didn't fail, that's a finding too."
-  - `.keep` — a visible **Keep this** band closing every slide (the takeaway; read
-    top-to-bottom they form the week's glossary).
-  - `.read` — the **What you decide** band: the decision the learner now owns.
+- Guidance a workshop would put in a trainer's mouth goes in **visible furniture**.
+  Furniture discipline (2026-08-14 trainer correction): **one name per band, forever**;
+  bands are conditional, not ritual — a band with nothing non-redundant to say is
+  omitted, and the typical widget slide shows at most two tinted bands after the widget:
+  - `.drive` — the **Drive it** box on every widget: numbered steps (≤ 4), exact
+    controls in order, a "watch for" line carrying the widget's baked-in data and
+    expected outputs. The learner never drives blind. Needed MORE in self-serve, not
+    less — an interactive without operating cues is a toy.
+  - `.notice` — the **Check your read** band (this exact label, never variants): the
+    self-assessment after a widget or hands-on — expected values, common misreads,
+    "if it didn't fail, that's a finding too." **Self-checking widgets (per-click
+    verdicts + score line) carry no notice band**: their score line absorbs the one
+    non-redundant insight; feedback lives inside the interaction.
+  - `.keep` — a visible **Keep this** band closing every slide (read top-to-bottom
+    they form the week's glossary). Hard cap: one line — a single thought, ≤ 25
+    words; two short sentences only when the second is the action.
+  - `.read` — the **What you decide** band: the decision the learner now owns. Only
+    where a genuine decision exists — never manufactured. When both it and Check
+    your read are short (≤ 3 sentences combined), merge them into ONE `.notice` box
+    with the two bold mini-leads.
   - `details.fold` — the **optional-depth layer**: collapsible, colour-coded strips
     (see DESIGN.md for the six types). `.plain` "In plain words" unpacks the concept
     with an analogy or worked example; `.hood` "Under the hood" gives the mechanism;
@@ -204,6 +214,16 @@ bar only goes up), and the newest shipped deck becomes the reference implementat
   the furniture (§1, DESIGN.md), `.bank` retired into `fold.trouble`, verifier extended
   (fold types, summary/fbody pairing, beforeprint expander, bank remnant). Reference
   implementation: the revised week 1 deck.
+- 2026-08-14 · Trainer correction (furniture grammar): the band stack had drifted into
+  presenter-era ritual — the debrief band wore three labels ("What you just saw" /
+  "What good looks like" / "What to expect"), every slide carried every band, and
+  notice/read/keep often said one idea three ways. Now canon: one name per band
+  (`.notice` = "Check your read"); bands conditional, never ritual; self-checking
+  widgets debrief via their own score line and carry no notice band; short notice +
+  read merge into one box with two mini-leads; keeps capped at one line (≤ 25 words).
+  Load lives in label variants, redundancy and verbosity — never in the existence of
+  the safety net (the 2026-08-14 cohort correction pushed scaffolding UP; do not
+  respond to density complaints by deleting functions).
 - 2026-08-14 · Trainer correction (rep parity): the capstone is the programme's only
   hand-held rep — deliberately over-guided, because every Application issue re-runs its
   problem classes solo at the same difficulty. Author each capstone step as the worked

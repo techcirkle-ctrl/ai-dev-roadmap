@@ -56,6 +56,10 @@ Reuse these named patterns; don't invent parallel ones.
 | Kicker | `.kicker` | The uppercase teal eyebrow above a title. |
 | Tag | `.tag` | Small uppercase metadata chip (track, duration). Variants: default=Craft, `.method`, `.repo`, `.team`. |
 | Fold | `details.fold` | Optional-depth collapsible strip; core teaching never lives inside one. Colour-coded by the question it answers: `.plain` "In plain words" (teal, `--accent`), `.hood` "Under the hood" (violet, `--deep`), `.industry` "How industry does it" (green, `--good`), `.btw` "By the way" (slate, `--muted`), `.dyk` "Did you know" (amber, `--warn`), `.trouble` "Stuck?" (slate, dashed — replaces the old `.bank`). Body in `.fbody`; a beforeprint handler opens all folds so print carries the layer. |
+| Drive it | `.drive` | Widget operating cues: numbered steps (≤ 4) + a "watch for" line. Required on every widget. |
+| Check your read | `.notice` | The self-assessment band after a widget or hands-on. This exact label — never "What you just saw" / "What good looks like" / other variants (retired 2026-08-14). Omitted on self-checking widgets, whose score line carries the debrief. May absorb a short What-you-decide as a second bold mini-lead. |
+| What you decide | `.read` | The decision the learner owns. Conditional: only where a genuine decision exists. |
+| Keep this | `.keep` | One-line takeaway closing every slide (≤ 25 words); the keeps read in order are the week's glossary. |
 | Taught-later chip | `.soon` | Inline grey chip marking a term previewed now and taught in a later act ("taught in Act 4"). Kills the am-I-supposed-to-know-this moment on forward references. |
 
 ## The two registers (Sparkline rule)

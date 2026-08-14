@@ -1,0 +1,16 @@
+{
+  "tasks": [
+    { "id": 1, "title": "Fix login redirect loop", "owner": "alice", "done": true, "created": "2026-07-27", "completed": "2026-07-30" },
+    { "id": 2, "title": "Add rate limiting to /api/search", "owner": "ben", "done": false, "created": "2026-07-28" },
+    { "id": 3, "title": "Upgrade node to 22 on CI", "owner": "alice", "done": true, "created": "2026-07-29", "completed": "2026-08-02" },
+    { "id": 4, "title": "Write onboarding doc for support tooling", "owner": "priya", "done": false, "created": "2026-07-30" },
+    { "id": 5, "title": "Patch CSV export encoding bug", "owner": "ben", "done": true, "created": "2026-08-01", "completed": "2026-08-04" },
+    { "id": 6, "title": "Spike: move image resize to worker", "owner": "priya", "done": false, "created": "2026-08-03" }
+  ],
+  "archive": [
+    { "id": 1, "title": "Fix login redirect loop", "owner": "alice", "done": true, "created": "2026-07-27", "completed": "2026-07-30" },
+    { "id": 3, "title": "Upgrade node to 22 on CI", "owner": "alice", "done": true, "created": "2026-07-29", "completed": "2026-08-02" },
+    { "id": 3, "title": "Upgrade node to 22 on CI", "owner": "alice", "done": true, "created": "2026-07-29", "completed": "2026-08-02" },
+    { "id": 5, "title": "Patch CSV export encoding bug", "owner": "ben", "done": true, "created": "2026-08-01", "completed": "2026-08-04" }
+  ]
+}

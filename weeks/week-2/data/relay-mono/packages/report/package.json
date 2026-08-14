@@ -1,0 +1,10 @@
+{
+  "name": "@relay/report",
+  "version": "0.4.0",
+  "description": "Weekly report as markdown. Pure functions: data comes in as arguments, no fs, no network.",
+  "main": "src/report.js",
+  "dependencies": {
+    "@relay/core": "*"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,2564 @@
+<!doctype html>
+<!--
+  Week 2 deck — Context engineering: what the model sees, at the right scope · AI Dev Roadmap
+  SELF-TEACHING deck: the learner navigates alone — all teaching is on the glass.
+  Every widget carries a visible "Drive it" box; every slide ends with a "Keep this" band.
+  Self-contained: inline CSS + vanilla JS, no network, prints clean, state → localStorage.
+  Keys: → next · ← back · Home agenda · End close · F full-screen.
+  Navigation is keyboard-only; the mouse is for widgets, copy buttons, and capture boxes.
+-->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 2 · Context engineering — AI Dev Roadmap</title>
+<style>
+:root{
+  --ink:#16202b; --muted:#5c6b7a; --line:#e4e8ec;
+  --paper:#ffffff; --wash:#f6f8fa; --accent:#0b6e6e; --accent-soft:#e2f0ef;
+  --warn:#b06a00; --warn-soft:#fdf3e3; --good:#1c7a4a; --good-soft:#e5f2ea; --bad:#b23b3b;
+  --deep:#5b4a9e; --deep-soft:#eceaf6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#0c1419;color:var(--ink);font-family:ui-serif,Georgia,"Iowan Old Style",Palatino,serif;line-height:1.55}
+button{font-family:ui-sans-serif,system-ui,sans-serif;cursor:pointer}
+.deck{position:fixed;inset:0}
+section.slide{position:absolute;inset:0;overflow:auto;display:none;background:var(--paper);color:var(--ink)}
+section.slide.active{display:flex}
+.wrap{max-width:1150px;margin:auto;padding:56px 60px;width:100%}
+/* registers */
+.slide.isnow{background:var(--wash)}
+.slide.isnow .kicker{color:var(--muted)}
+.slide.dark{background:#0d2b2b;color:#eef6f5}
+.slide.dark .kicker{color:#7fd1cb}
+.slide.dark .sub{color:#a8c4c1}
+.slide.dark .lead{color:#dcebe9}
+.slide.act{background:#0c1419;color:#f2f7f6}
+.slide.act .kicker{color:#7fd1cb}
+.slide.act .sub{color:#93a8a5}
+.slide.act .lead{color:#d6e4e2}
+/* type */
+.kicker{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-size:13px;margin-bottom:14px}
+h1.big{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:clamp(2rem,4.6vw,3.4rem);line-height:1.08;letter-spacing:-.01em;margin-bottom:14px}
+h2.head{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:clamp(1.4rem,2.8vw,2.15rem);line-height:1.12;margin-bottom:10px}
+.lead{font-size:clamp(1.02rem,1.5vw,1.22rem);max-width:66ch}
+.sub{font-family:ui-sans-serif,system-ui,sans-serif;color:var(--muted);font-size:clamp(.95rem,1.2vw,1.05rem);max-width:72ch}
+.mt8{margin-top:8px}.mt14{margin-top:14px}.mt20{margin-top:20px}.mt28{margin-top:28px}
+/* teaching prose */
+.teach{max-width:76ch;margin-top:8px}
+.teach p{margin:9px 0;font-size:1.03rem}
+.teach b{color:var(--ink)}
+.teach .em{color:var(--accent);font-weight:700}
+.slide.dark .teach b{color:#eef6f5}
+/* drive-it box */
+.drive{background:var(--wash);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 16px;margin-top:14px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px;max-width:860px}
+.drive .dt{display:block;color:var(--accent);text-transform:uppercase;font-size:11.5px;letter-spacing:.1em;font-weight:800;margin-bottom:6px}
+.drive ol{margin:0 0 0 18px}
+.drive li{margin:4px 0}
+.drive .watch{margin-top:8px;color:var(--warn);font-weight:700}
+/* notice box */
+.notice{background:var(--good-soft);border-left:4px solid var(--good);border-radius:0 10px 10px 0;padding:11px 15px;margin-top:14px;font-size:.99rem;max-width:860px}
+.notice b{color:var(--good);font-family:ui-sans-serif,system-ui,sans-serif}
+/* what-you-decide band */
+.read{display:block;margin-top:18px;background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:13px 16px;font-size:1.02rem;max-width:960px}
+.read b{font-family:ui-sans-serif,system-ui,sans-serif;color:var(--accent)}
+.slide.dark .read{background:rgba(127,209,203,.12);border-left-color:#7fd1cb}
+.slide.dark .read b{color:#7fd1cb}
+/* keep-this band */
+.keep{display:block;margin-top:12px;background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;color:var(--muted);max-width:960px}
+.keep b{color:var(--ink);text-transform:uppercase;font-size:11px;letter-spacing:.1em;margin-right:8px}
+.slide.dark .keep,.slide.act .keep{background:rgba(255,255,255,.05);border-color:rgba(127,209,203,.3);color:#cfe5e2}
+.slide.dark .keep b,.slide.act .keep b{color:#7fd1cb}
+.slide.isnow .keep{background:var(--paper)}
+/* goal row on dark dividers */
+.goalrow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;max-width:900px}
+.gb{background:rgba(255,255,255,.05);border:1px solid rgba(127,209,203,.35);border-radius:12px;padding:16px 18px}
+.gb .t{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7fd1cb;margin-bottom:6px}
+.gb p{font-size:1.02rem}
+/* cards */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.ucard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 3px rgba(22,32,43,.05)}
+.ucard h3{font-family:ui-sans-serif,system-ui,sans-serif;font-size:15px;font-weight:700;margin-bottom:8px;color:var(--accent)}
+.ucard ul{margin-left:18px}.ucard li{margin:6px 0;font-size:.98rem}
+/* week plan */
+.dayplan{margin-top:18px;max-width:920px}
+.drow{display:grid;grid-template-columns:150px 1fr auto;gap:14px;align-items:center;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--paper);border-radius:8px;margin-bottom:6px}
+.drow .t{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--muted)}
+.drow .lbl{font-family:ui-sans-serif,system-ui,sans-serif;font-size:15px}
+.drow.brk{background:transparent;border:1px dashed var(--line);color:var(--muted)}
+.ho{font-family:ui-sans-serif,system-ui,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:3px 10px;white-space:nowrap}
+/* mini-agenda */
+.agcols{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.agcols.five{grid-template-columns:repeat(5,1fr)}
+.accol{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.accol h3{font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.mvlist{list-style:none}
+.mvlist li{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;padding:6px 0;border-bottom:1px solid var(--wash);display:flex;justify-content:space-between;gap:8px;align-items:center}
+.mvlist li:last-child{border-bottom:0}
+.mvlist .n{color:var(--muted);font-size:11.5px;font-family:ui-monospace,Menlo,monospace;margin-right:6px}
+.seq{margin-top:16px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+.seq h3{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--warn);margin-bottom:8px}
+.seqrow{display:flex;gap:10px;flex-wrap:wrap;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px}
+.seqrow span{background:var(--wash);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.seqrow b{color:var(--accent)}
+/* hands-on furniture */
+.hobadge{display:inline-block;font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;background:var(--warn-soft);color:var(--warn);border-radius:999px;padding:5px 13px;margin-bottom:12px;margin-right:8px}
+.hostep{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:16px 0 6px}
+.hodo{border-left:3px solid var(--line);padding:2px 0 2px 12px;margin:8px 0;font-size:1rem;max-width:860px}
+.checks{list-style:none;margin-top:10px}
+.checks li{font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px;padding:4px 0 4px 26px;position:relative;max-width:820px}
+.checks li::before{content:"☐";position:absolute;left:2px;color:var(--accent);font-size:15px}
+/* fold layer — optional depth, colour-coded by the question it answers; core teaching never lives inside a fold */
+details.fold{margin-top:12px;max-width:860px;border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:0 10px 10px 0;background:var(--paper)}
+details.fold summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:9px;padding:9px 14px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+details.fold summary::-webkit-details-marker{display:none}
+details.fold summary::before{content:"+";flex:none;width:15px;text-align:center;font-size:14px}
+details.fold[open] summary::before{content:"−"}
+details.fold .fbody{padding:0 16px 12px 38px;font-size:.99rem}
+details.fold .fbody p{margin:8px 0}
+details.fold .fbody b{color:var(--ink)}
+details.fold .fbody code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:var(--wash);padding:1px 5px;border-radius:5px}
+.fold.plain{border-left-color:var(--accent)}.fold.plain summary{color:var(--accent)}
+.fold.hood{border-left-color:var(--deep)}.fold.hood summary{color:var(--deep)}
+.fold.industry{border-left-color:var(--good)}.fold.industry summary{color:var(--good)}
+.fold.btw{border-left-color:var(--muted)}.fold.btw summary{color:var(--muted)}
+.fold.dyk{border-left-color:var(--warn)}.fold.dyk summary{color:var(--warn)}
+.fold.trouble{border-style:dashed;border-left-style:solid;border-left-color:var(--muted)}.fold.trouble summary{color:var(--muted)}
+.slide.isnow details.fold{background:var(--paper)}
+.slide.dark details.fold,.slide.act details.fold{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.2)}
+.slide.dark details.fold .fbody,.slide.act details.fold .fbody{color:#dcebe9}
+.slide.dark details.fold .fbody b,.slide.act details.fold .fbody b{color:#eef6f5}
+.slide.dark details.fold .fbody code,.slide.act details.fold .fbody code{background:rgba(255,255,255,.1);color:#dff0ee}
+.slide.dark .fold.plain summary,.slide.act .fold.plain summary{color:#7fd1cb}
+.slide.dark .fold.hood summary,.slide.act .fold.hood summary{color:#bcaef0}
+.slide.dark .fold.industry summary,.slide.act .fold.industry summary{color:#93d8b0}
+.slide.dark .fold.btw summary,.slide.act .fold.btw summary,.slide.dark .fold.trouble summary,.slide.act .fold.trouble summary{color:#a8c0cc}
+.slide.dark .fold.dyk summary,.slide.act .fold.dyk summary{color:#eac37f}
+/* taught-later chip — marks a term used before its act teaches it */
+.soon{display:inline-block;font-family:ui-sans-serif,system-ui,sans-serif;font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--wash);border:1px solid var(--line);border-radius:999px;padding:1px 9px;vertical-align:middle;white-space:nowrap}
+.slide.isnow .soon{background:var(--paper)}
+.slide.dark .soon,.slide.act .soon{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25);color:#a8c4c1}
+/* prompt blocks — cmd = terminal command, ccp = Claude Code prompt */
+.promptblock{position:relative;background:#0f1b22;color:#dff0ee;border-radius:10px;padding:14px 92px 14px 16px;margin:10px 0;max-width:900px}
+.promptblock pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;line-height:1.5;white-space:pre-wrap;word-break:break-word;margin:0}
+.promptblock .copy{position:absolute;top:10px;right:10px;background:#173042;border:1px solid #2b4a5e;color:#9fd8d2;border-radius:7px;padding:4px 12px;font-size:12px}
+.promptblock .copy:hover{background:#1d3c52}
+.pbtag{position:absolute;bottom:8px;right:12px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6d94a5}
+/* steppers */
+.stepper{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
+.snode{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.snode.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.steppanel{display:none;margin-top:8px}
+.steppanel.on{display:block}
+.stepcue{font-family:ui-sans-serif,system-ui,sans-serif;font-size:12px;color:var(--muted);margin-top:6px}
+/* widget shell + controls */
+.lab{border:1px solid var(--line);border-radius:14px;background:var(--paper);padding:18px 20px;margin-top:14px;box-shadow:0 1px 3px rgba(22,32,43,.05)}
+.labtitle{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.labtitle b{color:var(--accent)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--wash)}
+.seg button{border:0;background:transparent;padding:7px 16px;font-size:13px;font-weight:700;color:var(--muted)}
+.seg button.on{background:var(--accent);color:#fff}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.pillbtn{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 15px;font-size:13px;font-weight:600;color:var(--ink)}
+.pillbtn.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn{border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:9px;padding:8px 18px;font-size:13.5px;font-weight:700}
+.btn.ghost{background:var(--paper);color:var(--accent)}
+.btn:active{transform:translateY(1px)}
+/* transcript rows (cold open + timeline) */
+.lstep{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;margin:5px 0;padding:6px 9px;border-radius:8px;background:var(--wash);border:1px solid var(--line);max-width:860px}
+.lstep.you{border-left:3px solid var(--warn);background:var(--warn-soft)}
+.lstep.bot{border-left:3px solid var(--accent)}
+.lstep .who{font-weight:800;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;margin-right:7px}
+.lstep.you .who{color:var(--warn)}
+.lstep.bot .who{color:var(--accent)}
+/* tag-the-row widget rows */
+.evrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin:6px 0;max-width:860px}
+.evrow .ev{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
+.evrow .tag3{display:flex;gap:6px;flex-wrap:wrap}
+.evrow .tag3 button{border:1px solid var(--line);background:var(--wash);border-radius:8px;padding:4px 11px;font-size:12px;font-weight:700;color:var(--muted)}
+.evrow .tag3 button.pick{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.evrow.ok{border-color:var(--good);background:var(--good-soft)}
+.evrow.no{border-color:var(--bad);background:#f9e9e9}
+.evrow .vline{grid-column:1 / -1;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;display:none}
+.evrow.ok .vline,.evrow.no .vline{display:block}
+.scoreline{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;font-size:14px;margin-top:12px;color:var(--accent)}
+/* card sorters */
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.qcard{border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+.qcard .q{font-size:.98rem;margin-bottom:9px}
+.qcard .q code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:var(--wash);padding:1px 5px;border-radius:5px}
+.qbtns{display:flex;gap:8px;flex-wrap:wrap}
+.qbtns button{border:1px solid var(--line);background:var(--wash);border-radius:8px;padding:5px 12px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.qbtns button.pick{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.qcard .v{display:none;margin-top:8px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;border-radius:8px;padding:8px 10px}
+.qcard .v.show{display:block}
+.qcard .v.ok{background:var(--good-soft);color:var(--good)}
+.qcard .v.no{background:#f9e9e9;color:var(--bad)}
+/* sliders + gauges (re-send ledger) */
+.budrow{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.budrow label{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;color:var(--muted)}
+.budrow input[type=range]{width:220px;accent-color:var(--accent)}
+.gauge{display:grid;grid-template-columns:150px 1fr 110px;gap:10px;align-items:center;margin:8px 0;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;max-width:720px}
+.gauge .trk{height:16px;background:var(--wash);border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.gauge .trk i{display:block;height:100%;background:var(--accent);border-radius:999px;transition:width .3s ease}
+.gauge.hot .trk i{background:var(--bad)}
+.gauge.warm .trk i{background:var(--warn)}
+.gauge .pct{color:var(--muted);font-size:12.5px}
+.budverdict{font-size:1rem;background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-top:10px;max-width:720px}
+.budverdict b{color:var(--accent)}
+/* window meter */
+.wmbar{display:flex;height:36px;border:1px solid var(--line);border-radius:9px;overflow:hidden;max-width:880px;background:var(--wash)}
+.wmbar i{display:block;height:100%;transition:width .25s ease}
+.wmlegend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:var(--muted)}
+.wmlegend span{display:inline-flex;align-items:center;gap:6px}
+.wmlegend b{width:12px;height:12px;border-radius:3px;display:inline-block}
+.wmline{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:700;font-size:13.5px;margin-top:10px;min-height:20px}
+/* position probe */
+.posbar{position:relative;height:12px;background:var(--wash);border:1px solid var(--line);border-radius:999px;max-width:640px;margin:16px 0 8px}
+.posdot{position:absolute;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:var(--accent);border:3px solid #fff;box-shadow:0 0 0 1px var(--line)}
+/* tree walker */
+.treewrap{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+.ftree{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--wash);overflow-x:auto}
+.trow{padding:2.5px 8px;border-radius:6px;white-space:pre}
+.trow.load{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.trow.demand{background:var(--warn-soft);color:var(--warn);font-weight:700}
+.trow.cwdmark{outline:2px solid var(--accent)}
+.loadlist{border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.loadlist .lrow{display:flex;gap:8px;align-items:baseline;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;padding:5px 0;border-bottom:1px solid var(--wash)}
+.loadlist .lrow:last-child{border-bottom:0}
+.loadlist .lrow b{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:600}
+.scopechip{flex:none;font-family:ui-sans-serif,system-ui,sans-serif;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:2px 8px;background:var(--accent-soft);color:var(--accent)}
+.scopechip.od{background:var(--warn-soft);color:var(--warn)}
+/* mini table */
+.mtable{border-collapse:collapse;margin-top:12px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;width:100%;max-width:860px}
+.mtable th,.mtable td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+.mtable th{background:var(--wash);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.mtable code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em}
+/* capture fields */
+.caplbl{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:14px 0 5px}
+textarea.cap{width:100%;max-width:900px;min-height:64px;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-family:ui-serif,Georgia,serif;font-size:.98rem;background:var(--paper);color:var(--ink);resize:vertical;display:block}
+textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
+/* confidence */
+.confbox{display:flex;gap:14px;align-items:center;margin-top:18px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px;max-width:680px}
+.confbox input{width:84px;font-size:26px;font-weight:800;font-family:ui-sans-serif,system-ui,sans-serif;text-align:center;border:2px solid var(--accent);border-radius:10px;padding:8px;color:var(--accent);background:var(--paper)}
+.confbox .q{font-size:.98rem}
+.confecho{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;font-family:ui-sans-serif,system-ui,sans-serif;color:var(--accent)}
+/* chrome / progress / helpbar */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:40;background:rgba(255,255,255,.08)}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}
+.chrome{position:fixed;bottom:12px;right:20px;z-index:30;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12px;color:#8aa6a2;text-align:right}
+.chrome b{color:#c3d9d6;font-weight:700}
+.helpbar{position:fixed;bottom:12px;left:20px;z-index:30;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12px;color:#5f7a77}
+.helpbar b{color:#8aa6a2}
+/* print */
+@media print{
+  body{background:#fff}
+  .deck{position:static}
+  section.slide{position:static;display:block!important;page-break-after:always;background:#fff!important;color:var(--ink)!important;min-height:0}
+  .slide.dark,.slide.act{background:#fff!important;color:var(--ink)!important}
+  .slide.dark .kicker,.slide.act .kicker{color:var(--accent)}
+  .slide.dark .sub,.slide.act .sub,.slide.dark .lead,.slide.act .lead{color:var(--muted)}
+  .gb{border-color:var(--line);background:var(--wash)}
+  .gb .t{color:var(--accent)}
+  .slide.dark .read{background:var(--accent-soft);border-left-color:var(--accent)}
+  .slide.dark .read b{color:var(--accent)}
+  .slide.dark .keep,.slide.act .keep{background:var(--wash);border-color:var(--line);color:var(--muted)}
+  .slide.dark .keep b,.slide.act .keep b{color:var(--ink)}
+  .steppanel{display:block!important;border-top:1px dashed var(--line);padding-top:10px}
+  details.fold{break-inside:avoid;background:#fff;border-color:var(--line)}
+  details.fold .fbody{color:var(--ink)!important}
+  .chrome,.helpbar,.progress,.promptblock .copy,.stepcue{display:none!important}
+  .promptblock{padding-right:16px}
+}
+</style>
+</head>
+<body>
+<div class="progress"><i id="pbar"></i></div>
+<div class="deck" id="deck">
+
+<!-- ═══════════════ FRONT MATTER ═══════════════ -->
+
+<!-- 1 · Title -->
+<section class="slide active" data-act="Week 2" data-mv="Title">
+  <div class="wrap">
+    <div class="kicker">AI Dev Roadmap · Week 2 of 9 · Self-paced</div>
+    <h1 class="big">What the model sees<br>is what you get.</h1>
+    <p class="lead mt14">Last week you wired the environment. This week you take control of the one thing
+    every session runs on: the <b>context window</b> — the model's working memory, the finite block of
+    text it can see while answering you. Every failure you blamed on the model last month was usually a
+    failure of what it was shown. By Sunday you'll control what it's shown, on purpose, at the right
+    <b>scope</b> — the level a rule or doc lives at, from your whole machine down to one folder.</p>
+    <div class="teach">
+      <p><b>How this deck works</b> (same contract as week 1): slides teach in full; nothing you need is
+      hidden. Widgets carry a tinted <span class="em">Drive it</span> box that says exactly what to click,
+      and a green <span class="em">Check your read</span> box confirms what you should have seen; widgets
+      that grade your clicks skip the box and debrief in their own score line. Copy-ready blocks are
+      labelled <b>terminal</b> (your shell) or <b>claude</b> (inside a Claude Code session). Colour-coded
+      fold strips hold optional depth; skip them all and you still get the full lesson. A grey chip like
+      <span class="soon">taught in Act 3</span> marks a term previewed before its act. Every slide ends
+      with a <span class="em">Keep this</span> line.</p>
+      <p><b>Keys:</b> <b>→</b> next · <b>←</b> back · <b>Home</b> jumps to the map · <b>F</b> full-screen.
+      The mouse never changes slides. Anything you type saves to this browser only.</p>
+    </div>
+    <details class="fold plain"><summary>In plain words · "context" and "the window"</summary><div class="fbody">
+      <p><b>Context</b> is everything the model can read while producing its next reply: your messages,
+      its own replies, file contents it has opened, command output, and the standing instructions loaded
+      at start-up. Not your repo, not its training data, not yesterday's session: just this text.</p>
+      <p><b>The window</b> is the hard limit on how much of that text fits: a fixed budget of
+      <b>tokens</b> (word-pieces, roughly three-quarters of an English word each; code runs denser).
+      When the window is full, something must be dropped or squashed before anything new fits. Every
+      session you'll ever run lives inside that budget.</p>
+    </div></details>
+    <span class="keep"><b>Keep this</b>The model never sees your repo or last week's chat: one window of text. Engineering that window is context engineering, this week's discipline.</span>
+  </div>
+</section>
+
+<!-- 2 · The week plan -->
+<section class="slide isnow" data-act="Week 2" data-mv="The week">
+  <div class="wrap">
+    <div class="kicker">The week · ~1 h/day in the deck + a weekend block</div>
+    <h2 class="head">Five days in the deck, one A/B on your real repo</h2>
+    <div class="teach">
+      <p>Budget: roughly <b>4.5 hours</b> in this deck across five days, then the weekend block for the
+      Application projects. Drills run on the gym repo and two new gym variants shipped in this week's
+      data folder. The capstone leaves the gym: you author a docs layer for a repo you actually work in
+      and measure it, same five tasks, with and without. Evidence over vibes, as always.</p>
+    </div>
+    <div class="dayplan">
+      <div class="drow"><span class="t">Day 1 · ~50 min</span><span class="lbl">Act 1 — The window: what the model actually sees</span><span class="ho">hands-on</span></div>
+      <div class="drow"><span class="t">Day 2 · ~45 min</span><span class="lbl">Act 2 — CLAUDE.md, the always-on spec · Act 3 opens: five scopes</span><span class="ho">hands-on</span></div>
+      <div class="drow"><span class="t">Day 3 · ~50 min</span><span class="lbl">Act 3 — Scope sorter · the two architecture cases · AGENTS.md</span><span class="ho">hands-on</span></div>
+      <div class="drow"><span class="t">Day 4 · ~55 min</span><span class="lbl">Act 4 — The documentation layer · Act 5 — Hygiene, search, handoff</span><span class="ho">hands-on</span></div>
+      <div class="drow"><span class="t">Day 5 · ~1.5 h</span><span class="lbl">Capstone — baseline, author the layer, A/B, verdict</span><span class="ho">hands-on</span></div>
+      <div class="drow brk"><span class="t">Weekend · ~6 h</span><span class="lbl">Application projects + Reinforcement (GitHub issues) — due Sunday EOD</span><span class="ho">hands-on</span></div>
+    </div>
+    <span class="read"><b>If a day slips:</b> compress Act 1's widget replays and Act 4's reading, never
+    the hands-ons and never the capstone. The A/B is the week.</span>
+    <span class="keep"><b>Keep this</b>~4.5 h in the deck, ~6 h of projects, due Sunday EOD. Pick the real repo your capstone runs on today.</span>
+  </div>
+</section>
+
+<!-- 3 · Mini-agenda -->
+<section class="slide isnow" id="agenda" data-act="Week 2" data-mv="Agenda">
+  <div class="wrap">
+    <div class="kicker">The map · press Home anytime to come back here</div>
+    <h2 class="head">Five acts, six hands-ons, one measured capstone</h2>
+    <div class="teach">
+      <p>Same grammar as week 1: an <b>act</b> is one topic, a <b>movement</b> (M numbers) is one lesson,
+      <b>H-O</b> is a hands-on in a real terminal. Act 1 shows you the window itself. Acts 2 to 4 build
+      the standing context: the always-on spec, the scoping doctrine, the documentation layer. Act 5 is
+      the session craft: hygiene, search, the handoff. The capstone measures the lot on your own repo.</p>
+    </div>
+    <div class="agcols five">
+      <div class="accol"><h3>Act 1 · The window</h3>
+        <ul class="mvlist">
+          <li><span><span class="n">M1</span>Window anatomy</span></li>
+          <li><span><span class="n">M2</span>The attention budget</span></li>
+          <li><span><span class="n">M3</span>Context is spend</span></li>
+          <li><span><span class="n">M4</span>/context autopsy</span><span class="ho">H-O 01</span></li>
+        </ul>
+      </div>
+      <div class="accol"><h3>Act 2 · CLAUDE.md</h3>
+        <ul class="mvlist">
+          <li><span><span class="n">M5</span>Rules that get followed</span></li>
+          <li><span><span class="n">M6</span>Author + A/B one</span><span class="ho">H-O 02</span></li>
+        </ul>
+      </div>
+      <div class="accol"><h3>Act 3 · Scoping</h3>
+        <ul class="mvlist">
+          <li><span><span class="n">M7</span>Five scopes, one walk</span></li>
+          <li><span><span class="n">M8</span>Classify artifacts</span></li>
+          <li><span><span class="n">M9</span>The two architectures</span><span class="ho">H-O 03</span></li>
+          <li><span><span class="n">M10</span>AGENTS.md symlink</span><span class="ho">H-O 04</span></li>
+        </ul>
+      </div>
+      <div class="accol"><h3>Act 4 · The docs layer</h3>
+        <ul class="mvlist">
+          <li><span><span class="n">M11</span>Docs written for agents</span></li>
+          <li><span><span class="n">M12</span>ADRs: decision memory</span></li>
+          <li><span><span class="n">M13</span>Author the layer</span><span class="ho">H-O 05</span></li>
+        </ul>
+      </div>
+      <div class="accol"><h3>Act 5 · Session craft</h3>
+        <ul class="mvlist">
+          <li><span><span class="n">M14</span>Clear, compact, hand off</span></li>
+          <li><span><span class="n">M15</span>Search beats pasting</span></li>
+          <li><span><span class="n">M16</span>The handoff</span></li>
+          <li><span><span class="n">M17</span>Poison + recover</span><span class="ho">H-O 06</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="seq"><h3>Capstone · The scoped docs layer, measured</h3>
+      <div class="seqrow"><span><b>1</b> Target + suite</span><span><b>2</b> Baseline runs</span><span><b>3</b> Author the layer</span><span><b>4</b> A/B reruns</span><span><b>5</b> Verdict + export</span></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Seventeen movements, five capstone steps. Everything funnels into
+    one number-backed claim: the same five tasks went better because of files you wrote.</span>
+  </div>
+</section>
+
+<!-- 4 · How this week works -->
+<section class="slide isnow" data-act="Week 2" data-mv="How this works">
+  <div class="wrap">
+    <div class="kicker">How this week works</div>
+    <h2 class="head">Copy the gym variants out before you start</h2>
+    <div class="cards">
+      <div class="ucard"><h3>The posture</h3>
+        <ul>
+          <li><b>Measure, don't trust.</b> The week's shape is an A/B: same task suite, with and without
+          your docs layer. "It felt smarter" doesn't clear the bar; a delta you can point at does.</li>
+          <li><b>Blame the window first.</b> When a session goes wrong this week, your first question is
+          no longer "why is Claude weird" but "what did the model see?" Almost every answer lives
+          there.</li>
+          <li><b>The friction log continues.</b> Two minutes a day, same file. From this week, note
+          which entries are really context failures. Most are.</li>
+        </ul>
+      </div>
+      <div class="ucard"><h3>The setup</h3>
+        <ul>
+          <li><b>You need:</b> week 1's environment (gh + MCP wired, permissions set), the gym repo at
+          <code style="font-family:ui-monospace,Menlo,monospace;font-size:.9em">~/relay-gym</code>, and
+          this week's two gym variants.</li>
+          <li><b>Copy the variants out now</b> — outside any folder that already contains a CLAUDE.md,
+          because parent folders leak context downwards. Act 3 teaches why; the drills depend on it:
+          <code style="font-family:ui-monospace,Menlo,monospace;font-size:.9em">cp -R weeks/week-2/data/relay-workspace ~/relay-ws</code>
+          and
+          <code style="font-family:ui-monospace,Menlo,monospace;font-size:.9em">cp -R weeks/week-2/data/relay-mono ~/relay-mono</code></li>
+          <li><b>Captures</b> save to this browser; the paper fallback is
+          <code style="font-family:ui-monospace,Menlo,monospace;font-size:.9em">weeks/week-2/data/capstone-report-template.md</code>.</li>
+        </ul>
+      </div>
+    </div>
+    <span class="read"><b>Support:</b> stuck for more than 20 minutes, comment on your Week 2 Knowledge
+    issue with the transcript. On the Application issues, <b>/guide-me</b> coaches without solving.</span>
+    <span class="keep"><b>Keep this</b>Two commands to run before Day 1 ends: copy relay-workspace to
+    ~/relay-ws and relay-mono to ~/relay-mono. Both must sit outside any repo that has a CLAUDE.md.</span>
+  </div>
+</section>
+
+<!-- 5 · Cold open — what is -->
+<section class="slide isnow" data-act="Week 2" data-mv="What is">
+  <div class="wrap">
+    <div class="kicker">What is · the session you ran last month</div>
+    <h2 class="head">You re-explain your codebase every single day</h2>
+    <div class="teach">
+      <p>Monday: you tell Claude the test command, the date format, the module that must never be edited
+      by hand. It does good work. Tuesday: new session, blank window, and you type it all again — or you
+      don't, and it guesses wrong. By Thursday the session is four hours old and sluggish: you pasted two
+      logs and a schema dump somewhere around lunch, and now it's confusing the old error with the new
+      one and calling functions that stopped existing an hour ago.</p>
+      <p>None of that is the model being dumb. Sessions start empty because the window starts empty.
+      Old pastes never leave; they sit in the window and mislead. The instructions you gave yesterday
+      aren't "known"; they were text in a window that no longer exists. You've been running a system
+      whose working memory you never looked at, and paying for it in repeated typing and derailed
+      afternoons.</p>
+    </div>
+    <div class="lstep you"><span class="who">You · Monday</span>"Tests run with node --test. Dates are YYYY-MM-DD. Never edit tasks.json by hand."</div>
+    <div class="lstep you"><span class="who">You · Tuesday</span>"Tests run with node --test. Dates are YYYY-MM-DD. Never edit…" — same speech, new window.</div>
+    <div class="lstep bot"><span class="who">Claude · Thursday, hour 4</span>"I'll fix the CSV bug by editing tasks.json directly…" — the rule was three windows ago.</div>
+    <span class="read"><b>Name your version:</b> which instruction have you typed most often this month?
+    That sentence is this week's raw material.</span>
+    <span class="keep"><b>Keep this</b>Re-explaining isn't a tool quirk: it's the absence of engineered context, and the fix takes a week to build.</span>
+  </div>
+</section>
+
+<!-- 6 · Cold open — what could be + confidence -->
+<section class="slide" data-act="Week 2" data-mv="The promise">
+  <div class="wrap">
+    <div class="kicker">What could be · Sunday evening</div>
+    <h2 class="head">Sessions that start knowing, stay sharp, and hand off clean</h2>
+    <div class="teach">
+      <p>The engineered version: every session on your repo opens already knowing the test command, the
+      conventions, and the red lines, because a short <b>CLAUDE.md</b> — a standing-orders file the tool
+      loads at start-up, taught in Act 2 — rides along at exactly the right scope. Cold questions land
+      because the repo carries a documentation layer written for a reader with no memory. Long work
+      stays sharp because you clear, compact and hand off deliberately. And you can prove the difference:
+      five tasks, run before and after, deltas written down.</p>
+      <p>The claim is measurable, so this week measures it. Nothing here asks you to believe; it asks
+      you to run the suite twice.</p>
+    </div>
+    <div class="confbox">
+      <input id="conf" data-persist="conf" maxlength="2" inputmode="numeric" placeholder="?">
+      <p class="q"><b>Before we start, rate yourself 1–10:</b> for a repo you own, could you state
+      exactly what Claude sees at turn one of a fresh session — and change it deliberately? Type the
+      honest number. You'll meet it again at the close.</p>
+    </div>
+    <span class="keep"><b>Keep this</b>The week's promise is control: you decide what the model sees, at every scope, in every session.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 1 · THE WINDOW ═══════════════ -->
+
+<!-- 7 · Act 1 divider -->
+<section class="slide act" data-act="Act 1 · The window" data-mv="Act opener">
+  <div class="wrap">
+    <div class="kicker">Act 1 · Day 1 · ~50 min</div>
+    <h1 class="big">The window: what the model actually sees</h1>
+    <p class="lead mt14">Act 1 has one idea: the model's entire world is a single block of text with a
+    hard size limit, and you are its editor. Everything competes for that space: the tool's own
+    instructions, your wiring from week 1, your standing rules, your questions, every file it reads,
+    every paste you drop in. Space is the first constraint. Attention is the second: the fuller the
+    window, the worse the model uses any one part of it. And the meter from week 1 is the third: every
+    token in the window is work the system does again and again, all session long.</p>
+    <p class="sub mt14">Four movements: see the window's parts and their sizes (M1) · learn where
+    attention goes as it fills (M2) · connect window discipline to your Max limits (M3) · then open
+    /context on your own machine and read your real numbers (Hands-on 01).</p>
+    <details class="fold plain"><summary>In plain words · "attention" without the maths</summary><div class="fbody">
+      <p>When the model answers, it doesn't read the window the way you read a page, start to finish
+      with equal care. It weighs every piece of text against every other piece and decides what matters
+      for the next word. That weighing is <b>attention</b>. It's a budget: more text in the window means
+      the weighing is spread thinner, so any single fact gets less of it. A sharp question in a lean
+      window gets concentrated attention; the same question after two pasted logs is fighting 40,000
+      other tokens for notice.</p>
+    </div></details>
+    <span class="keep"><b>Keep this</b>One block of text, three costs: space fills, attention thins, spend compounds per turn. Every context decision trades against those three.</span>
+  </div>
+</section>
+
+<!-- 8 · M1 divider -->
+<section class="slide dark" data-act="Act 1 · The window" data-mv="Window anatomy">
+  <div class="wrap">
+    <div class="kicker">Act 1 · Movement M1</div>
+    <h1 class="big">Your window is never empty, even before you type</h1>
+    <p class="lead mt14">A fresh Claude Code session looks blank. It isn't. Before your first word, the
+    window already carries the system prompt (the tool's own standing instructions), the definitions of
+    every built-in tool, the schemas of every MCP server you wired last week, and every CLAUDE.md your
+    scopes load. You start every day paying rent you've never itemised. Time to itemise it.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Know the window's standing occupants and their rough sizes, so a full window is a diagnosis, never a mystery.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Which of week 1's connectors earn their idle rent in every session, and which should ride only where they're used.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Wiring is not free. Every MCP server you connect ships its tool
+    catalogue into every session's window, used or not.</span>
+  </div>
+</section>
+
+<!-- 9 · M1 panel — the window meter -->
+<section class="slide" data-act="Act 1 · The window" data-mv="Window anatomy">
+  <div class="wrap">
+    <div class="kicker">M1 · Window anatomy</div>
+    <h2 class="head">Load the window yourself, part by part</h2>
+    <div class="teach">
+      <p>The meter below is a 200,000-token window, the standard size you work in. The sizes are
+      <b>illustrative shapes</b>, rounded from real sessions, so you can feel the proportions; Hands-on
+      01 replaces them with your machine's true numbers. Two families live in the window. <b>Standing
+      context</b> loads before you type: system prompt, tool definitions, MCP schemas, CLAUDE.md files.
+      <b>Session context</b> accumulates as you work: your messages, file reads, command output, pastes.
+      Standing context is engineered once and rides every session; session context is yours to manage
+      hour by hour.</p>
+    </div>
+    <div class="lab" id="wmeter">
+      <div class="labtitle">Widget · <b>the window meter</b> · 200k budget, illustrative sizes</div>
+      <div class="pills" id="wmeterPills">
+        <button class="pillbtn" data-k="md" data-sz="2">CLAUDE.md chain · 2k</button>
+        <button class="pillbtn" data-k="turns" data-sz="12">a morning of turns · 12k</button>
+        <button class="pillbtn" data-k="reads" data-sz="15">file reads + test output · 15k</button>
+        <button class="pillbtn" data-k="paste1" data-sz="25">one pasted log · 25k</button>
+        <button class="pillbtn" data-k="paste2" data-sz="25">a second pasted log · 25k</button>
+      </div>
+      <div class="budrow"><label>MCP servers connected (idle):</label>
+        <div class="seg" id="wmeterMcp">
+          <button data-n="0">0</button><button data-n="2" class="on">2</button><button data-n="5">5</button>
+        </div>
+        <span class="sub" id="wmeterMcpNote"></span>
+      </div>
+      <div class="wmbar" id="wmeterBar"></div>
+      <div class="wmlegend">
+        <span><b style="background:var(--muted)"></b>system prompt + built-in tools</span>
+        <span><b style="background:var(--deep)"></b>MCP schemas</span>
+        <span><b style="background:var(--accent)"></b>CLAUDE.md</span>
+        <span><b style="background:var(--good)"></b>your turns</span>
+        <span><b style="background:var(--warn)"></b>reads + output</span>
+        <span><b style="background:var(--bad)"></b>pastes</span>
+      </div>
+      <p class="wmline" id="wmeterLine"></p>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Start: everything off, MCP at 2. The bar already shows ~34k used. That's your quietest
+        possible session, and it's a sixth of the window gone.</li>
+        <li>Set MCP to <b>5</b>. Idle rent jumps to ~58k before you've typed a word. Set it back to 2.</li>
+        <li>Switch on <b>CLAUDE.md chain</b>. Barely visible: 2k. Now switch on <b>one pasted log</b>:
+        25k. One lazy paste outweighs your entire standing spec twelve times over.</li>
+        <li>Add the morning of turns, the reads, and the second paste. Read the pressure label as it
+        crosses 60%, then 80%.</li>
+      </ol>
+      <p class="watch">Watch for: the ratio between the teal sliver (CLAUDE.md) and the red blocks
+      (pastes). The always-on layer you'll write this week is tiny. The habits you'll break this week
+      are huge.</p>
+    </div>
+    <div class="notice"><b>Check your read:</b> the window starts a sixth full on a modest setup, every
+    idle MCP server adds rent, and pasted bulk dwarfs engineered context; Hands-on 01 reads your real
+    numbers with /context. <b>What you decide:</b> your wiring's rent. Servers that serve a single
+    project move to that project's scope, in Act 3's terms.</div>
+    <details class="fold hood"><summary>Under the hood · why connected servers cost tokens while idle</summary><div class="fbody">
+      <p>The model can only call a tool it can see. So every session, Claude Code writes the full
+      catalogue of available tools into the window as text: name, description, parameters, for every
+      tool of every connected MCP server. A server with 30 tools ships 30 schemas, every session,
+      whether you call one of them or none. That's why the meter charges you at "connected", not at
+      "used". The fix isn't to unwire your week 1 work; it's scope: a server used by one project
+      belongs in that project's config, not in your user-level config where it taxes every session on
+      the machine.</p>
+    </div></details>
+    <details class="fold dyk"><summary>Did you know · the window is why "it forgot" is usually "it never saw"</summary><div class="fbody">
+      <p>Sessions don't share memory. Yesterday's session was a different window that no longer exists
+      anywhere. When today's Claude "forgets" your date format, it isn't forgetting: that instruction
+      was never in today's window. The only things every session sees are the standing layers, which
+      is exactly why this week puts your rules there.</p>
+    </div></details>
+    <span class="keep"><b>Keep this</b>Standing context is engineered once and rides forever; session
+    context is managed hourly. Know which family a token belongs to and you know whose job it is to
+    fix.</span>
+  </div>
+</section>
+
+<!-- 10 · M2 divider -->
+<section class="slide dark" data-act="Act 1 · The window" data-mv="The attention budget">
+  <div class="wrap">
+    <div class="kicker">Act 1 · Movement M2</div>
+    <h1 class="big">A fuller window isn't just smaller. It's dumber about its middle.</h1>
+    <p class="lead mt14">200k tokens of capacity does not mean 200k tokens of equal recall. Research on
+    long-context models keeps finding the same shape: content at the start and the end of the window is
+    used well, and content buried in the middle is used worst. As a session grows, everything you said
+    two hours ago migrates toward that middle. The practical name for the slow decay you feel in hour
+    four is <b>context rot</b>: the window still contains the fact; the model just weights it less than
+    the 40,000 fresher tokens sitting on top of it.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Feel where attention goes as position changes, so you place load-bearing facts where they hold.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Which facts in your sessions deserve a stable position (the standing layer) instead of a lucky one.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Position is not neutral. Start and end hold; the middle sags; and
+    everything drifts middle-ward as the session grows.</span>
+  </div>
+</section>
+
+<!-- 11 · M2 panel — the position probe -->
+<section class="slide" data-act="Act 1 · The window" data-mv="The attention budget">
+  <div class="wrap">
+    <div class="kicker">M2 · The attention budget</div>
+    <h2 class="head">Place one load-bearing fact. Watch what position does to it.</h2>
+    <div class="teach">
+      <p>The fact is real, from this week's gym: <b>"the archive is append-only; never dedupe it in
+      place."</b> Miss it, and a session will cheerfully destroy data while tidying up. The probe below
+      places that one sentence at three positions in a long, busy session and tells you what tends to
+      happen. It's a model of the published long-context results, not a live model call; the point is
+      the shape, and you'll feel the real thing the first time a four-hour session ignores something
+      you said at 9am.</p>
+    </div>
+    <div class="lab" id="wpos">
+      <div class="labtitle">Widget · <b>the position probe</b> · one rule, three placements</div>
+      <div class="pills">
+        <button class="pillbtn" data-pos="early">Early · in the standing layer</button>
+        <button class="pillbtn" data-pos="mid">Middle · said at 10am, it's now 2pm</button>
+        <button class="pillbtn" data-pos="late">Late · just repeated it</button>
+      </div>
+      <div class="posbar"><span class="posdot" id="wposDot" style="left:8%"></span></div>
+      <p class="sub" id="wposCue">Pick a placement.</p>
+      <div class="budverdict" id="wposOut">The bar is the window, start on the left. Place the rule.</div>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Place the rule <b>early</b>. Read why the start of the window is privileged ground, and
+        which files get to live there.</li>
+        <li>Place it in the <b>middle</b>. This is where every mid-session instruction ends up, given
+        time. Read what the research calls this.</li>
+        <li>Place it <b>late</b>. Strong now; note what happens to "now" after another hour of
+        work.</li>
+      </ol>
+      <p class="watch">Watch for: only one of the three placements is stable across a whole session,
+      and it's the one you configure rather than type.</p>
+    </div>
+    <div class="notice"><b>Check your read:</b> repeating a rule mid-session buys minutes; the only
+    placement that survives a long session is the standing layer, which is what CLAUDE.md is and why
+    Act 2 exists. <b>What you decide:</b> the three facts about your repo that must never depend on
+    position: your first CLAUDE.md rules, one act from now.</div>
+    <details class="fold industry"><summary>How industry does it · "lost in the middle" is a named result</summary><div class="fbody">
+      <p>The middle sag isn't cohort folklore. Liu et al. published "Lost in the Middle: How Language
+      Models Use Long Contexts" in 2023, showing retrieval accuracy dropping sharply for facts placed
+      mid-context across several long-context models, with the ends holding up. Model vendors have
+      chipped at it since, and newer models sag less, but the operational advice hasn't changed:
+      put load-bearing constraints where position is guaranteed, and keep the window lean so there is
+      less middle to get lost in.</p>
+    </div></details>
+    <details class="fold btw"><summary>By the way · headroom: don't start big work at 80%</summary><div class="fbody">
+      <p>A corollary worth a habit: check the window before starting anything substantial. Kicking off
+      a refactor at 80% full means the plan, the diffs and the test output all land in the wobbliest
+      part of a nearly full window, and an automatic squeeze is coming mid-task. Big work starts in
+      fresh or freshly compacted sessions. The /context command you meet in Hands-on 01 is how you
+      check; "start heavy work above 60%? no" is a rule worth writing down.</p>
+    </div></details>
+    <span class="keep"><b>Keep this</b>Mid-session instructions decay; standing instructions don't.
+    If a rule matters for longer than an hour, it belongs in a file, not a message.</span>
+  </div>
+</section>
+
+<!-- 12 · M3 divider -->
+<section class="slide dark" data-act="Act 1 · The window" data-mv="Context is spend">
+  <div class="wrap">
+    <div class="kicker">Act 1 · Movement M3</div>
+    <h1 class="big">The window travels with every turn. That's the bill.</h1>
+    <p class="lead mt14">Here's the mechanism week 1's meters were hinting at. The model is stateless
+    between turns: each time it answers, the system hands it the conversation again and it reads the
+    window afresh. Ask 30 questions in a 100k-token session and the system has processed something like
+    30 windows' worth of text, not one. Caching softens this: the unchanged start of the window is
+    reprocessed at a steep discount. But nothing makes a fat window free, and on Max the observable
+    consequence is blunt: dirty, long sessions drain your weekly limits several times faster than clean
+    ones doing the same work.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>See how window size compounds across turns, and what keeps the cache discount alive.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Whether your marathon single-session habit survives contact with the ledger.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>You see the window; the meter sees the window × every turn.
+    That multiplication is why hygiene shows up in /usage.</span>
+  </div>
+</section>
+
+<!-- 13 · M3 panel — the re-send ledger -->
+<section class="slide" data-act="Act 1 · The window" data-mv="Context is spend">
+  <div class="wrap">
+    <div class="kicker">M3 · Context is spend</div>
+    <h2 class="head">Two sessions, same work. Read the ledger.</h2>
+    <div class="teach">
+      <p>The ledger below models an afternoon: you choose how much standing-plus-junk context the
+      session carries and how many turns you run. It shows two numbers. <b>The window</b> is what you
+      see in /context: linear, bounded, calm-looking. <b>The ledger</b> is what the system processed:
+      every turn re-reads everything before it, so the ledger compounds. The toggle models the cache:
+      a session that only appends (new turns on a stable start) keeps the discount; a session whose
+      early context keeps changing breaks it and pays closer to full price. Units are abstract on
+      purpose: Max shows you no token bills, only limits that run out. The ratio is the lesson.</p>
+    </div>
+    <div class="lab" id="wledger">
+      <div class="labtitle">Widget · <b>the re-send ledger</b> · one afternoon, modelled</div>
+      <div class="budrow"><label>Standing + junk carried (k tokens):</label><input type="range" id="wledCarry" min="10" max="80" step="5" value="20"><span class="sub" id="wledCarryVal">20k</span></div>
+      <div class="budrow"><label>Turns this session:</label><input type="range" id="wledTurns" min="5" max="40" step="5" value="20"><span class="sub" id="wledTurnsVal">20</span></div>
+      <div class="budrow"><label>Session shape:</label>
+        <div class="seg" id="wledShape">
+          <button data-s="stable" class="on">lean start, append-only</button>
+          <button data-s="broken">early context churns</button>
+        </div>
+      </div>
+      <div class="gauge" id="wledWinG"><span>window at end</span><div class="trk"><i id="wledWinBar"></i></div><span class="pct" id="wledWinVal"></span></div>
+      <div class="gauge" id="wledLedG"><span>ledger (processed)</span><div class="trk"><i id="wledLedBar"></i></div><span class="pct" id="wledLedVal"></span></div>
+      <div class="budverdict" id="wledOut"></div>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Baseline: 20k carried, 20 turns, append-only. Note the ledger vs the window: the ledger is
+        already an order of magnitude bigger.</li>
+        <li>Drag carried context to <b>60k</b> (two pasted logs and five idle servers, per M1). The
+        window grew 3×; watch what the ledger did.</li>
+        <li>Flip the shape to <b>early context churns</b>. Same work, cache discount gone; read the
+        verdict line's multiple.</li>
+        <li>Now halve the turns at 60k carried: even a shorter session can't undo a bloated start.</li>
+      </ol>
+      <p class="watch">Watch for: the ledger moves multiplicatively when the window moves linearly.
+      Carrying 40k of junk isn't a 40k mistake; it's 40k × every remaining turn.</p>
+    </div>
+    <div class="notice"><b>Check your read:</b> week 1's meter responds to the ledger, not the window:
+    start lean, and keep the start stable, because that's what the cache discount is priced on.
+    <b>What you decide:</b> your session shape. One task per session, lean start, append forward:
+    Act 5 gives you the tools to hold it.</div>
+    <details class="fold hood"><summary>Under the hood · what the cache actually caches</summary><div class="fbody">
+      <p>Serving systems cache the internal computation for a <b>prefix</b>: the window's unchanged
+      opening run of tokens. If turn 12 arrives and the first 90k tokens are byte-identical to turn
+      11's first 90k, that stretch is a cheap cache read, and only the new tail is processed at full
+      price. Anything that rewrites early content (editing an old message, reordering context)
+      changes the prefix, and everything after the change point is full price again. Claude Code
+      manages this for you; your lever is behavioural: sessions that accumulate forward keep the
+      discount, sessions that thrash don't.</p>
+    </div></details>
+    <span class="keep"><b>Keep this</b>Window linear, ledger compounding: every token of standing junk is re-paid each turn. Lean starts are the cheapest optimisation you own.</span>
+  </div>
+</section>
+
+<!-- 14 · H-O 01 divider -->
+<section class="slide dark" data-act="Act 1 · The window" data-mv="/context autopsy">
+  <div class="wrap">
+    <div class="kicker">Act 1 · Hands-on 01</div>
+    <h1 class="big">Open the bonnet: read your real window</h1>
+    <p class="lead mt14">The meter was illustrative; your machine is not. Claude Code ships a
+    <b>/context</b> command that itemises the live window: system prompt, tools, MCP schemas, memory
+    files (that's the CLAUDE.md family), messages, free space. You'll read it three times: empty, after
+    an inventory, after real work, and you'll leave knowing your personal number for "what a session
+    costs before I type".</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Your real standing overhead, in tokens, attributed per occupant, plus one observed jump from a single file read.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Which occupant surprises you most, and whether it stays.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>/context is the window's dashboard. From today, "the session
+    feels off" gets answered with /context before it gets answered with vibes.</span>
+  </div>
+</section>
+
+<!-- 15 · H-O 01 panel -->
+<section class="slide" data-act="Act 1 · The window" data-mv="/context autopsy">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 01</div><span class="ho">~15 min</span>
+    <h2 class="head">Three readings of your own window</h2>
+    <div class="hostep">Reading 1 — the empty session that isn't</div>
+    <div class="promptblock"><pre>cd ~/relay-gym && claude</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="hodo">First command in the session: <b>/context</b>. Read every line of the breakdown.
+    Note the total in use before you've asked anything, and the three biggest occupants. That total is
+    your machine's idle rent.</div>
+    <div class="hostep">Reading 2 — attribute the MCP share</div>
+    <div class="hodo">Run <b>/mcp</b> to list your connected servers, then <b>/context</b> again. The
+    MCP tools line is the sum of their catalogues. Ask yourself the M1 question: which of these serve
+    every project I touch, and which serve exactly one?</div>
+    <div class="hostep">Reading 3 — watch work arrive in the window</div>
+    <div class="promptblock"><pre>Read src/store.js, src/report.js and src/cli.js, then explain how a task travels
+from "add" to the weekly report. Two paragraphs.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <div class="hodo">Then <b>/context</b> once more. The messages line just absorbed three file reads
+    and an answer. That's the session-context family growing in real time.</div>
+    <ul class="checks">
+      <li>You can state your idle rent as a number, and name its biggest line item</li>
+      <li>You know which MCP server costs you most per session, and whether it earns it everywhere</li>
+      <li>You watched the messages line grow from one prompt's worth of reads</li>
+    </ul>
+    <details class="fold trouble"><summary>Stuck? · /context looks different, numbers seem huge, no MCP line</summary><div class="fbody">
+      <p><b>Layout differs from this description?</b> The command evolves; the categories (system,
+      tools, MCP, memory files, messages, free) survive relabelling. Read categories, not pixels.</p>
+      <p><b>MCP share seems enormous?</b> Believe it. Some servers ship very large catalogues; that
+      is the finding, not an error. It goes in your friction log with the server's name on it.</p>
+      <p><b>No MCP line at all?</b> Nothing is connected in this project's scope. Run /mcp to
+      confirm, and note the contrast with your other projects.</p>
+    </div></details>
+    <div class="notice"><b>Check your read:</b> you're no longer estimating: idle rent, biggest
+    occupant, price of a read, on your hardware, today. Week 6's run budgeting starts from these
+    numbers. <b>What you decide:</b> one friction-log line: "my sessions start at __k; the surprise
+    was __". A server renting space it doesn't earn moves scope in Act 3.</div>
+    <span class="keep"><b>Keep this</b>Idle rent, biggest occupant, price of a read: three numbers you
+    now own. /context turns window talk from theory into your machine's facts.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 2 · CLAUDE.MD ═══════════════ -->
+
+<!-- 16 · Act 2 divider -->
+<section class="slide act" data-act="Act 2 · CLAUDE.md" data-mv="Act opener">
+  <div class="wrap">
+    <div class="kicker">Act 2 · Day 2 · ~35 min</div>
+    <h1 class="big">CLAUDE.md: the always-on spec</h1>
+    <p class="lead mt14">One file changes the physics of Act 1. <b>CLAUDE.md</b> is a markdown file
+    Claude Code loads into the window at the start of every session, before your first word. Put a rule
+    in it and the rule holds tomorrow, next week, and in the session a teammate opens on their machine
+    from the same repo. It's the only place where "I told it once" is actually true. The catch is the
+    rent: every line rides every session forever, at the window's privileged start. So this act is
+    about earning that position: rules that change behaviour, stated so a machine can follow them, and
+    nothing else.</p>
+    <p class="sub mt14">Two movements: learn to tell a rule that works from a rule that's decoration
+    (M5) · then author the gym repo's CLAUDE.md and prove one rule with an A/B (Hands-on 02).</p>
+    <span class="keep"><b>Keep this</b>CLAUDE.md is standing orders, loaded every session, position
+    guaranteed. It's also always-on rent. Both halves of that sentence discipline what goes in.</span>
+  </div>
+</section>
+
+<!-- 17 · M5 divider -->
+<section class="slide dark" data-act="Act 2 · CLAUDE.md" data-mv="Rules that get followed">
+  <div class="wrap">
+    <div class="kicker">Act 2 · Movement M5</div>
+    <h1 class="big">A rule earns its place or it poisons the file</h1>
+    <p class="lead mt14">The failure mode of CLAUDE.md is not absence; it's the 200-line manifesto.
+    Aspirational prose ("write clean code") spends attention and changes nothing. Stale rules are
+    worse: one instruction that contradicts the code teaches the model to distrust the whole file. The
+    anatomy of a rule that works has three parts: a <b>trigger</b> (when it applies), an
+    <b>imperative</b> (do this, never that), and a <b>check</b> (a way to tell it was followed). "Run
+    node --test before claiming done" has all three. "Prioritise quality" has none.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Calibrate your editor's eye on six candidate rules before you write your own.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>The bar a sentence must clear to ride every session you'll ever run on a repo.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Trigger, imperative, check. A rule missing all three is a wish,
+    and wishes cost rent too.</span>
+  </div>
+</section>
+
+<!-- 18 · M5 panel — the rule linter -->
+<section class="slide" data-act="Act 2 · CLAUDE.md" data-mv="Rules that get followed">
+  <div class="wrap">
+    <div class="kicker">M5 · Rules that get followed</div>
+    <h2 class="head">Six candidate rules for relay. Keep or cut.</h2>
+    <div class="teach">
+      <p>These six were "collected from the team" for the gym repo's CLAUDE.md. Judge each: does it
+      clear the trigger-imperative-check bar, or is it rent without power? Commit before you reveal.
+      Your score matters less than your reasons converging on the anatomy.</p>
+    </div>
+    <div class="lab" id="wrules">
+      <div class="labtitle">Widget · <b>the rule linter</b></div>
+      <div class="qgrid" id="wrulesGrid"></div>
+      <p class="scoreline" id="wrulesScore"></p>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Verdict all six, in order. Rules 1 and 4 test whether politeness fools you.</li>
+        <li>Rule 6 is the interesting one: a true, important fact stated uncheckably. Read its verdict
+        for the rewrite that saves it.</li>
+        <li>Read the tally line: it prices the file you'd have shipped.</li>
+      </ol>
+      <p class="watch">Watch for: every cut rule is cut for the same reason in different clothes: no
+      way to tell, from a transcript, whether it was followed.</p>
+    </div>
+    <details class="fold industry"><summary>How industry does it · Anthropic's own guidance is "short"</summary><div class="fbody">
+      <p>Anthropic's Claude Code best-practices guidance says to keep CLAUDE.md concise and
+      human-readable: document the commands, the style points that differ from defaults, the things
+      the model gets wrong without help, and refine it like any prompt rather than accreting a wiki.
+      Teams that treat the file as an onboarding doc for a very fast, very literal new hire get the
+      behaviour; teams that treat it as a policy archive get the rent.</p>
+    </div></details>
+    <details class="fold hood"><summary>Under the hood · @imports: depth on demand from the standing layer</summary><div class="fbody">
+      <p>CLAUDE.md supports imports: a line like <code>@docs/testing.md</code> pulls that file into
+      the standing context too. Used well, it keeps the spine file short while wiring in depth that
+      genuinely belongs everywhere. Used badly, it's how a 30-line file secretly becomes a 3,000-token
+      one: everything imported rides every session, same as if pasted. Price an import exactly like a
+      rule: does the whole file earn always-on placement, or should Claude just read it when the task
+      touches that area?</p>
+    </div></details>
+    <span class="read"><b>What you decide:</b> your cut line. When in doubt, cut: a lean file that's
+    always obeyed beats a complete one that's half-trusted.</span>
+    <span class="keep"><b>Keep this</b>Keep: checkable behaviour-changers. Cut: vibes, restatements of
+    defaults, anything stale. Stale is worse than absent.</span>
+  </div>
+</section>
+
+<!-- 19 · H-O 02 divider -->
+<section class="slide dark" data-act="Act 2 · CLAUDE.md" data-mv="Author + A/B one">
+  <div class="wrap">
+    <div class="kicker">Act 2 · Hands-on 02</div>
+    <h1 class="big">Write the file, then make it prove itself</h1>
+    <p class="lead mt14">The gym repo has no CLAUDE.md. You'll run one task against that blank slate
+    and watch the guesses it forces. Then you'll write the file and run the same task again, fresh
+    session, same words. The difference in behaviour is your first measured context delta: the week's
+    whole method, in miniature. This A/B shape is exactly what the capstone scales up to five tasks on
+    your real repo.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>A CLAUDE.md under 30 lines whose effect you can point at in two transcripts.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Which observed guess each rule kills. A rule that kills no guess gets cut, even if it's true.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Baseline first, file second, rerun third. Never write the spec
+    after seeing only what you assume it fixes.</span>
+  </div>
+</section>
+
+<!-- 20 · H-O 02 panel -->
+<section class="slide" data-act="Act 2 · CLAUDE.md" data-mv="Author + A/B one">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 02</div><span class="ho">~20 min</span>
+    <h2 class="head">One task, run blind, then run briefed</h2>
+    <div class="hostep">Step 0 — make the gym resettable</div>
+    <div class="promptblock"><pre>cd ~/relay-gym && git init -q 2>/dev/null; git add -A && git commit -q -m "baseline" 2>/dev/null; git status</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="hostep">Step 1 — the blind run (no CLAUDE.md exists yet)</div>
+    <div class="promptblock"><pre>Add a "stats" command to relay: prints open and done counts per owner. Follow this
+repo's conventions. Tell me when you consider it done.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <div class="hodo">Don't steer. When it declares done, interrogate the transcript: which date
+    format did it use anywhere? Did it touch <b>data/tasks.json</b> directly? Did it run the tests
+    before saying done? Note three observed guesses, then reset:
+    <b>git checkout -- . &amp;&amp; git clean -fdq</b>, and <b>/clear</b>.</div>
+    <div class="hostep">Step 2 — author the file (10 minutes, hard stop)</div>
+    <div class="hodo">Write <b>~/relay-gym/CLAUDE.md</b> yourself: the linter's three keepers, plus up
+    to two rules aimed at the guesses you just observed. Every rule passes trigger-imperative-check.
+    Under 30 lines, imperative voice, no philosophy.</div>
+    <div class="hostep">Step 3 — the briefed run</div>
+    <div class="hodo">Fresh session, paste the identical prompt from step 1. Same words, only the
+    standing context changed. Compare transcripts: which guesses died? Which rule killed each?</div>
+    <ul class="checks">
+      <li>At least one behaviour visibly changed, and you can name the rule that changed it</li>
+      <li>One rule you wrote changed nothing: cut it, and say why it failed (no trigger? no check?)</li>
+      <li>The file is under 30 lines and survives the linter's bar, rule by rule</li>
+    </ul>
+    <details class="fold trouble"><summary>Stuck? · no visible delta, or the blind run was already perfect</summary><div class="fbody">
+      <p><b>No delta at all?</b> Your rules restate defaults. Aim them at the three guesses you
+      logged: the date format it invented, the file it edited directly, the test it skipped.</p>
+      <p><b>Blind run got everything right?</b> That's a finding, not a failure: this codebase's
+      conventions are legible from its files. Note which convention it inferred and from where; your
+      real repo will be messier.</p>
+    </div></details>
+    <div class="notice"><b>Check your read:</b> the same prompt, different standing context,
+    different engineer. Nothing about the model changed between runs. From now on "Claude keeps doing
+    X wrong" earns the reply: which rule in which file says otherwise?</div>
+    <span class="read"><b>What you decide:</b> the two rules from this drill you'll want in your real
+    repo's file on Friday. Keep them; the capstone starts from your observed guesses, not from a
+    template.</span>
+    <span class="keep"><b>Keep this</b>Author against observed failures, prove with identical prompts,
+    cut what changes nothing. A CLAUDE.md is maintained like code: by evidence.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 3 · SCOPING ═══════════════ -->
+
+<!-- 21 · Act 3 divider -->
+<section class="slide act" data-act="Act 3 · Scoping" data-mv="Act opener">
+  <div class="wrap">
+    <div class="kicker">Act 3 · Days 2–3 · ~50 min</div>
+    <h1 class="big">Scoping: every fact has one correct address</h1>
+    <p class="lead mt14">You now have two files that work: your global CLAUDE.md from week 1's
+    reinforcement, and the gym's from Act 2. Multiply that by every repo, package and workspace you
+    touch and the real question of this discipline appears: <b>where does each rule live?</b> Too high
+    and it pollutes every session on your machine; too low and it starves the sessions that needed it.
+    The scoping doctrine gives every fact one address at one of five levels: global, workspace,
+    project, directory, local. Wrong scope is the quiet failure mode; nothing errors, everything
+    slowly degrades.</p>
+    <p class="sub mt14">Four movements: how the five scopes load, mechanically (M7) · classify eight
+    real artifacts (M8) · build the monorepo and microservices cases on the gym variants (Hands-on 03)
+    · make it all agent-portable with one symlink (Hands-on 04).</p>
+    <details class="fold plain"><summary>In plain words · the five scopes in one breath</summary><div class="fbody">
+      <p><b>Global</b> (~/.claude/): you, everywhere: your style, your reinforcement paragraphs.
+      <b>Workspace</b> (a parent folder above several repos): facts that span sibling repos.
+      <b>Project</b> (repo root, checked in): this codebase's rules, shared with the team.
+      <b>Directory</b> (a CLAUDE.md inside a subfolder): one package's local conventions.
+      <b>Local</b> (gitignored files like CLAUDE.local.md): your personal overrides for one repo,
+      never shared. Five addresses; every fact gets exactly one.</p>
+    </div></details>
+    <span class="keep"><b>Keep this</b>The classification question for every rule, doc, server, command and hook: me, my working set, this codebase, this package, or this machine?</span>
+  </div>
+</section>
+
+<!-- 22 · M7 divider -->
+<section class="slide dark" data-act="Act 3 · Scoping" data-mv="Five scopes, one walk">
+  <div class="wrap">
+    <div class="kicker">Act 3 · Movement M7</div>
+    <h1 class="big">The tool walks up the tree. That's the whole mechanism.</h1>
+    <p class="lead mt14">At session start, Claude Code assembles the standing context deterministically:
+    your global file first, then every CLAUDE.md it finds walking <b>up</b> the directory tree from
+    where you launched, ending with the current folder's own. Folders <b>below</b> you load lazily:
+    when Claude works on files inside a subdirectory, that subdirectory's CLAUDE.md joins the window
+    on demand. That's it. The whole scoping doctrine is applied knowledge of one walk up and one lazy
+    load down.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Predict, for any launch directory, exactly which files load: before the widget tells you.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Where a workspace file must physically sit for three sibling repos to inherit it.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Up-tree at launch, down-tree on demand. Every scoping decision
+    this week is placed with that one sentence in mind.</span>
+  </div>
+</section>
+
+<!-- 23 · M7 panel — the tree walker -->
+<section class="slide" data-act="Act 3 · Scoping" data-mv="Five scopes, one walk">
+  <div class="wrap">
+    <div class="kicker">M7 · Five scopes, one walk</div>
+    <h2 class="head">Pick a launch directory. See what loads, in order.</h2>
+    <div class="teach">
+      <p>Both trees below are this week's gym variants, exactly as you copied them. Choose an
+      architecture and a launch directory (the folder you run <b>claude</b> from, your <b>cwd</b>).
+      Teal rows load at launch; amber rows load on demand later. The right-hand list shows the
+      assembled standing context in load order, with each file's scope named.</p>
+    </div>
+    <div class="lab" id="wtree">
+      <div class="labtitle">Widget · <b>the tree walker</b></div>
+      <div class="budrow"><label>Architecture:</label>
+        <div class="seg" id="wtreeArch">
+          <button data-a="mono" class="on">monorepo · ~/relay-mono</button>
+          <button data-a="ws">microservices · ~/relay-ws</button>
+        </div>
+      </div>
+      <div class="budrow"><label>Launch claude from:</label><span class="pills" id="wtreeCwd"></span></div>
+      <div class="treewrap">
+        <div class="ftree" id="wtreeTree"></div>
+        <div class="loadlist" id="wtreeLoads"></div>
+      </div>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Monorepo, launch from <b>packages/cli</b>: the walk collects global, the repo root file,
+        then cli's own. Note what it does <b>not</b> collect: report's file.</li>
+        <li>Launch from <b>packages/core</b>: core has no file, so root rules govern alone. Absence
+        is a valid scoping decision.</li>
+        <li>Switch to microservices, launch from <b>relay-cli</b>: relay-cli has no CLAUDE.md at all,
+        yet the workspace file above it loads anyway. One file, three repos covered.</li>
+        <li>Still in microservices, launch from <b>relay-api</b>: workspace file plus the repo's own.
+        Both load; each carries different facts.</li>
+      </ol>
+      <p class="watch">Watch for: the workspace folder is not a git repo and needs no configuration.
+      Its power is pure geography: it sits above the repos, so the up-tree walk finds it.</p>
+    </div>
+    <div class="notice"><b>Check your read:</b> the two architecture answers, mechanically: monorepo =
+    root file plus per-package files loaded only where relevant; microservices = one workspace file
+    above the siblings, written once instead of copied three times. <b>What you decide:</b> which
+    shape is your real world? Your capstone's directory-or-workspace file follows from that
+    answer.</div>
+    <details class="fold hood"><summary>Under the hood · what "loads" means, and where local fits</summary><div class="fbody">
+      <p>All loaded files are concatenated into the standing context; nothing "overrides" anything
+      mechanically. If root says tabs and a package file says spaces, the model holds both and
+      wobbles. So the doctrine is deduplication, each fact at exactly one scope, and the more
+      specific file carries only what's genuinely local to it. The fifth scope, <b>local</b>, is for
+      facts that are yours alone on this machine: a gitignored <code>CLAUDE.local.md</code> next to
+      the shared file. Sandbox URLs, personal ports, half-finished experiments: shared files stay
+      clean, your machine still knows.</p>
+    </div></details>
+    <details class="fold btw"><summary>By the way · this is why you copied the variants to ~</summary><div class="fbody">
+      <p>If relay-mono still sat inside your roadmap repo clone, the roadmap's own CLAUDE.md would be
+      a parent on the walk and would leak into every drill session. That's not a gotcha invented for
+      the deck; it's the doctrine's first real lesson: you are always standing somewhere in a tree,
+      and everything above you is in the room.</p>
+    </div></details>
+    <span class="keep"><b>Keep this</b>Monorepo: root + per-package files. Microservices: one
+    workspace file above the siblings. Both are the same mechanism: the up-tree walk.</span>
+  </div>
+</section>
+
+<!-- 24 · M8 divider -->
+<section class="slide dark" data-act="Act 3 · Scoping" data-mv="Classify artifacts">
+  <div class="wrap">
+    <div class="kicker">Act 3 · Movement M8</div>
+    <h1 class="big">Classification is the skill. The files are just where answers land.</h1>
+    <p class="lead mt14">Knowing the mechanism isn't the same as filing correctly under pressure. The
+    next widget deals you eight artifacts: rules, facts, secrets, conventions, all real ones from this
+    programme's world, and you file each at its scope. The tell for a misfile is always the same
+    question: <b>who suffers?</b> Too high, and every unrelated session pays attention tax on it. Too
+    low, and the session that needed it starts blind.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Eight for eight, or misses you can argue with the who-suffers question.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Your tie-breaker for genuinely arguable cases: file them high and broad, or low and precise?</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Wrong-high pollutes everyone; wrong-low starves someone. Run
+    the who-suffers test and most classifications stop being arguable.</span>
+  </div>
+</section>
+
+<!-- 25 · M8 panel — the scope sorter -->
+<section class="slide" data-act="Act 3 · Scoping" data-mv="Classify artifacts">
+  <div class="wrap">
+    <div class="kicker">M8 · Classify artifacts</div>
+    <h2 class="head">Eight artifacts, five addresses</h2>
+    <div class="teach">
+      <p>Everything below is drawn from repos you've now touched. File each one. Two are deliberately
+      arguable; their verdicts show you the argument, not just the answer.</p>
+    </div>
+    <div class="lab" id="wsort">
+      <div class="labtitle">Widget · <b>the scope sorter</b></div>
+      <div class="qgrid" id="wsortGrid"></div>
+      <p class="scoreline" id="wsortScore"></p>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>File all eight. Commit before revealing; the misses are your miscalibrations, and they're
+        the useful part.</li>
+        <li>Card 6 (the append-only archive rule) is the week's hardest call. Whatever you chose,
+        read its verdict: it's an argument about who must obey, not where the fact was born.</li>
+        <li>Card 8 (the MCP server) closes Act 1's loop: wiring is scoped exactly like prose.</li>
+      </ol>
+      <p class="watch">Watch for: "where did I learn this fact?" is never the question. "Every session
+      of whom needs it?" is.</p>
+    </div>
+    <span class="read"><b>What you decide:</b> your tie-breaker. This programme's: prefer the lowest
+    scope that reaches everyone who must obey. Narrow beats broad, because pollution is silent and
+    starvation is loud.</span>
+    <span class="keep"><b>Keep this</b>File at the lowest scope that reaches everyone bound by the
+    fact. If two scopes tie, the quieter failure (pollution) breaks the tie: go lower.</span>
+  </div>
+</section>
+
+<!-- 26 · H-O 03 divider -->
+<section class="slide dark" data-act="Act 3 · Scoping" data-mv="The two architectures">
+  <div class="wrap">
+    <div class="kicker">Act 3 · Hands-on 03</div>
+    <h1 class="big">Build both cases, then catch the files loading</h1>
+    <p class="lead mt14">Theory ends here. You'll author the scoped files for both gym variants: root
+    plus two package files for the monorepo, one spanning file for the workspace, and then prove the
+    walk with transcripts: a package rule that fires inside its package and stays silent outside it,
+    and a workspace fact that surfaces inside a repo that contains no CLAUDE.md at all. This pair of
+    proofs is the week's core rep; the weekend re-runs it on messier ground.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Four small files at four argued addresses, and two transcripts that prove the loading behaviour.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>What the root file says versus what each package file says: the dedupe is the design.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>A scope claim without a loading proof is a guess: the transcripts showing the rule firing, and absent, are the evidence standard.</span>
+  </div>
+</section>
+
+<!-- 27 · H-O 03 panel -->
+<section class="slide" data-act="Act 3 · Scoping" data-mv="The two architectures">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 03</div><span class="ho">~25 min</span>
+    <h2 class="head">Monorepo first, then the workspace</h2>
+    <div class="hostep">Step 1 — author the monorepo's three files (root, cli, report)</div>
+    <div class="hodo">In <b>~/relay-mono</b>, write three CLAUDE.mds by hand or with Claude drafting
+    while you place: <b>root</b> carries what binds every package (test command <b>node --test</b>,
+    data file owned by @relay/core alone, dates via core's helpers, ISO in storage). <b>packages/cli</b>
+    carries only its output contract (plain text, tab columns, no colour, exit codes: scripts parse
+    this). <b>packages/report</b> carries only purity (no fs, no network; data arrives as arguments).
+    If a sentence would be true in every package, it belongs at root, not copied downward.</div>
+    <div class="hostep">Step 2 — prove the directory scope, both directions</div>
+    <div class="promptblock"><pre>cd ~/relay-mono/packages/cli && claude</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="promptblock"><pre>What rules govern output formatting in the code you'd write here? Quote any
+standing instructions you have about it.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <div class="hodo">Expect the cli contract, quoted. Then exit, <b>cd ../core &amp;&amp; claude</b>,
+    ask the identical question. The cli rules must be absent; root rules alone govern. Save both
+    answers: that pair is the proof.</div>
+    <div class="hostep">Step 3 — author the workspace file, then prove the up-tree walk</div>
+    <div class="hodo">Write <b>~/relay-ws/CLAUDE.md</b> only (leave all three repos bare): the sibling
+    layout, data owned by relay-api/data/tasks.json and written only through its store, ISO dates
+    everywhere, and a pointer: decisions live in relay-api/docs/adr. Then:</div>
+    <div class="promptblock"><pre>cd ~/relay-ws/relay-cli && claude</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="promptblock"><pre>Where does this tool's data actually live, and what must I never do to it
+directly? Answer from what you already know before opening files.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <ul class="checks">
+      <li>cli's output contract is quoted inside packages/cli and absent inside packages/core</li>
+      <li>relay-cli, which has no CLAUDE.md, still knows the data ownership: the workspace file reached it</li>
+      <li>Nothing is stated twice across your four files: each fact has exactly one address</li>
+    </ul>
+    <details class="fold trouble"><summary>Stuck? · the workspace file doesn't load, or answers cite nothing</summary><div class="fbody">
+      <p><b>Workspace fact not surfacing?</b> Check geography with <code>ls ~/relay-ws/CLAUDE.md</code>:
+      the file must be in the parent of the repo you launched from, and you must have launched inside
+      relay-cli, not in ~/relay-ws itself.</p>
+      <p><b>Answers vague, quoting nothing?</b> Ask harder: "quote the standing instructions you have
+      about X, verbatim". If the quote isn't there, the file didn't load; re-check where you launched
+      from.</p>
+      <p><b>Rules leaking where they shouldn't?</b> You launched from a directory above the package
+      (the walk collects downward-launch parents, remember), or a stray CLAUDE.md sits above ~: run
+      <code>ls ~/CLAUDE.md</code> and check your home directory isn't quietly a scope.</p>
+    </div></details>
+    <div class="notice"><b>Check your read:</b> both architecture cases working on your machine: the
+    per-package contract firing only in its package, and three bare repos inheriting one spanning
+    file. You've now placed facts at four of the five scopes; local you'll meet the moment you have a
+    machine-specific secret to keep out of a shared file.</div>
+    <span class="read"><b>What you decide:</b> which shape is your real world, and what its spanning
+    file (workspace or root) must say. Write those sentences down now; Friday's capstone starts from
+    them.</span>
+    <span class="keep"><b>Keep this</b>Root binds the repo, package files their package, the workspace file the siblings; every fact once. Proof is a transcript, not a feeling.</span>
+  </div>
+</section>
+
+<!-- 28 · H-O 04 divider -->
+<section class="slide dark" data-act="Act 3 · Scoping" data-mv="AGENTS.md symlink">
+  <div class="wrap">
+    <div class="kicker">Act 3 · Hands-on 04</div>
+    <h1 class="big">One symlink makes the whole layer portable</h1>
+    <p class="lead mt14">Your repos will outlive your tooling choices. <b>AGENTS.md</b> is the emerging
+    cross-agent convention: the file Codex-class tools, Cursor and a growing list of others look for,
+    the way Claude Code looks for CLAUDE.md. The wrong move is maintaining two files that drift apart.
+    The right move is one source of truth and a <b>symlink</b>: a filesystem alias that makes AGENTS.md
+    and CLAUDE.md the same bytes forever. Thirty seconds per repo, and your context layer stops being
+    tool-specific.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Both gym variants agent-portable, and the drift-proof property demonstrated, not assumed.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Whether the symlink joins your personal repo-setup ritual from today.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>One source of truth, two names. Never two files: the day they
+    disagree, some agent somewhere is obeying the wrong one.</span>
+  </div>
+</section>
+
+<!-- 29 · H-O 04 panel -->
+<section class="slide" data-act="Act 3 · Scoping" data-mv="AGENTS.md symlink">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 04</div><span class="ho">~10 min</span>
+    <h2 class="head">Link it, prove it can't drift</h2>
+    <div class="hostep">Step 1 — create the link in both variant roots</div>
+    <div class="promptblock"><pre>cd ~/relay-mono && ln -s CLAUDE.md AGENTS.md && ls -la AGENTS.md
+cd ~/relay-ws && ln -s CLAUDE.md AGENTS.md && ls -la AGENTS.md</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="hostep">Step 2 — prove the no-drift property</div>
+    <div class="promptblock"><pre>echo "- Symlink check: this line exists once, readable twice." >> ~/relay-mono/CLAUDE.md
+tail -1 ~/relay-mono/AGENTS.md && readlink ~/relay-mono/AGENTS.md</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="hodo">The tail shows your new line through the AGENTS.md name; readlink shows the
+    alias pointing home. One edit, visible under both names: drift is now impossible rather than
+    merely discouraged. Remove the check line afterwards.</div>
+    <ul class="checks">
+      <li>readlink prints CLAUDE.md in both variant roots</li>
+      <li>An edit to CLAUDE.md is instantly visible via AGENTS.md</li>
+      <li>You can say, in one sentence, why the symlink beats a copied file</li>
+    </ul>
+    <details class="fold trouble"><summary>Stuck? · Windows, or git says "typechange"</summary><div class="fbody">
+      <p><b>Windows?</b> Native symlinks need Developer Mode (or an elevated shell); inside WSL,
+      <code>ln -s</code> works as above. Last resort: a real AGENTS.md containing only "Read
+      CLAUDE.md: it is the source of truth." A pointer can't drift; a copy can.</p>
+      <p><b>Git shows the link as a special file?</b> Correct and fine: git stores symlinks
+      first-class, and collaborators get the link on checkout (on Windows clones, per the note
+      above). Commit it like any file.</p>
+    </div></details>
+    <div class="notice"><b>Check your read:</b> interop bought with filesystem primitives: nothing to
+    remember, nothing to sync, drift structurally impossible. The same instinct returns when week 3
+    builds hooks. <b>What you decide:</b> the symlink joins your repo-setup ritual today; the
+    capstone's layer ships with it.</div>
+    <span class="keep"><b>Keep this</b>ln -s CLAUDE.md AGENTS.md at every repo root you own. One
+    source of truth, every agent reads it, drift structurally impossible.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 4 · THE DOCUMENTATION LAYER ═══════════════ -->
+
+<!-- 30 · Act 4 divider -->
+<section class="slide act" data-act="Act 4 · The docs layer" data-mv="Act opener">
+  <div class="wrap">
+    <div class="kicker">Act 4 · Day 4 · ~40 min</div>
+    <h1 class="big">The documentation layer: context that waits its turn</h1>
+    <p class="lead mt14">CLAUDE.md rides every session, so it must stay lean. But a repo knows more
+    than rules: what the system is, how it's shaped, what must never happen, why it's built this way.
+    That knowledge belongs in a <b>documentation layer</b>: a small set of files written for a reader
+    with no memory and no context, sitting on disk until a session actually needs them. Claude reaches
+    them the same way it reaches code: by reading files mid-task. Cheap when unused, decisive when
+    used: the opposite trade to the always-on spec, and the two designs work as a pair.</p>
+    <p class="sub mt14">Three movements: how to write docs an agent can actually use, and which doc
+    answers which question (M11) · ADRs, the memory that survives every /clear (M12) · then author the
+    layer for the workspace and catch it changing a destructive decision (Hands-on 05).</p>
+    <span class="keep"><b>Keep this</b>Two context designs, one pair: CLAUDE.md is always-on and lean;
+    the docs layer is on-disk and deep. Rules ride; knowledge waits.</span>
+  </div>
+</section>
+
+<!-- 31 · M11 divider -->
+<section class="slide dark" data-act="Act 4 · The docs layer" data-mv="Docs written for agents">
+  <div class="wrap">
+    <div class="kicker">Act 4 · Movement M11</div>
+    <h1 class="big">Write for a brilliant reader with total amnesia</h1>
+    <p class="lead mt14">Docs for agents obey harsher rules than docs for humans, because the reader
+    arrives mid-task with zero shared history and reads selectively. Three habits follow.
+    <b>Answer-first headings:</b> a heading is a question someone will grep for, and its first
+    sentence is the answer. <b>Self-contained sections:</b> no "as discussed above"; any section may
+    be the only one read. <b>One home per fact:</b> four small single-purpose files beat one wiki,
+    because the reader routes by filename before reading a word. The four files this programme
+    standardises: CONTEXT.md, DESIGN.md, guardrails.md, and the ADR folder.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Route real questions to the right file instinctively: the skill that makes the layer worth writing.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Which questions your own repo gets asked weekly, and which file should be answering each.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Filename is the first retrieval step. A fact in the wrong file
+    is nearly as lost as a fact in no file.</span>
+  </div>
+</section>
+
+<!-- 32 · M11 panel — the cold-session router -->
+<section class="slide" data-act="Act 4 · The docs layer" data-mv="Docs written for agents">
+  <div class="wrap">
+    <div class="kicker">M11 · Docs written for agents</div>
+    <h2 class="head">Six cold questions. Route each to its file.</h2>
+    <div class="teach">
+      <p>Every question below is one a fresh session genuinely asks about the relay workspace,
+      silently, in its first minutes. Your job is the routing: which file should hold the answer? The
+      taxonomy, briefly: <b>CONTEXT.md</b> says what the system is, for a cold reader: domain, shape,
+      vocabulary. <b>DESIGN.md</b> says how it's built now: modules, ownership, data flow.
+      <b>guardrails.md</b> is the never-do list. <b>ADRs</b> (architecture decision records, one small
+      file per decision, in docs/adr/) say why it's built this way and what the change would cost.
+      And <b>CLAUDE.md</b> keeps only the always-on rules.</p>
+    </div>
+    <div class="lab" id="wroute">
+      <div class="labtitle">Widget · <b>the cold-session router</b></div>
+      <div class="qgrid" id="wrouteGrid"></div>
+      <p class="scoreline" id="wrouteScore"></p>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Route all six. The discriminator is the question's verb: <b>is</b> → CONTEXT, <b>owns /
+        flows</b> → DESIGN, <b>may I</b> → guardrails, <b>why / when did we</b> → ADR, <b>must I
+        always</b> → CLAUDE.md.</li>
+        <li>Questions 2 and 6 both touch the archive. Note how "may I?" and "why?" land in different
+        files even about the same fact.</li>
+        <li>Miss one? Read the verdict and re-say the verb rule out loud. It carries the whole
+        taxonomy.</li>
+      </ol>
+      <p class="watch">Watch for: no question routes to "a long README". The layer works because each
+      file has one job and stays small enough to be read whole, mid-task, for pennies.</p>
+    </div>
+    <details class="fold industry"><summary>How industry does it · this layer is convergent, not invented here</summary><div class="fbody">
+      <p>Agent-facing repo docs are converging fast across the industry: a what-is file for cold
+      starts, a current-architecture file, an explicit constraints file, and per-decision records.
+      Names vary by team; the split doesn't, because it mirrors how agents fail: wrong mental model
+      (CONTEXT), wrong ownership guess (DESIGN), forbidden action (guardrails), relitigated decision
+      (ADR). You'll meet the same split, differently dressed, in week 8's named methodologies.</p>
+    </div></details>
+    <details class="fold btw"><summary>By the way · how sessions find these files at all</summary><div class="fbody">
+      <p>Two routes. Agentic search: the filenames are self-describing, so a gathering agent lists
+      the repo and reads the obvious candidate. And the pointer: one CLAUDE.md line such as "Before
+      changing data files or shared schemas, read guardrails.md" buys routing for a dozen tokens of
+      always-on rent. Pointer in the spine, weight on the disk: that's the pattern.</p>
+    </div></details>
+    <span class="read"><b>What you decide:</b> the three questions your real repo gets asked most.
+    Friday you write the files that answer them; everything else can wait.</span>
+    <span class="keep"><b>Keep this</b>CONTEXT what it is · DESIGN how it's built · guardrails what's
+    forbidden · ADRs why it's so · CLAUDE.md what's always true. Five jobs, five addresses.</span>
+  </div>
+</section>
+
+<!-- 33 · M12 divider -->
+<section class="slide dark" data-act="Act 4 · The docs layer" data-mv="ADRs: decision memory">
+  <div class="wrap">
+    <div class="kicker">Act 4 · Movement M12</div>
+    <h1 class="big">ADRs: the only memory that survives /clear</h1>
+    <p class="lead mt14">Every session you'll ever run forgets everything at the end. Your team's
+    decisions can't afford to. An <b>architecture decision record</b> is one small file, written once
+    at decision time: the context, the decision, the consequences. It costs ten minutes when the
+    reasons are fresh, then pays out for years: every future session (and every future teammate) can
+    read <b>why</b>, instead of guessing, relitigating, or quietly undoing it. This week you read and
+    obey ADRs; week 4 drills writing them at decision time <span class="soon">taught in week 4</span>,
+    and week 5's review harness checks changes against them
+    <span class="soon">taught in week 5</span>.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Read one real ADR the way an agent does: as a constraint with a reason attached.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Which past decision in your real repo most needs a record before someone undoes it.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>A decision living only in a head or chat log is one session from accidental reversal. Write it once; every future window can load it.</span>
+  </div>
+</section>
+
+<!-- 34 · M12 panel — the four docs + the real ADR -->
+<section class="slide" data-act="Act 4 · The docs layer" data-mv="ADRs: decision memory">
+  <div class="wrap">
+    <div class="kicker">M12 · ADRs: decision memory</div>
+    <h2 class="head">Read the gym's real ADR like an agent would</h2>
+    <div class="teach">
+      <p>This file ships in the workspace variant at
+      <b>relay-api/docs/adr/0001-append-only-archive.md</b>, and it's load-bearing for Hands-on 05:</p>
+    </div>
+    <div class="lstep bot"><span class="who">ADR 0001</span><b>Decision:</b> the archive array is
+    append-only; no process may delete, rewrite or dedupe entries in the file. Ids increase
+    monotonically and are never reused. <b>Context:</b> finance export and standup bot key on ids; a
+    reused id once double-billed a client; "cleanup" scripts have silently lost rows twice.
+    <b>Consequences:</b> duplicates are expected; consumers dedupe at read time; bad rows are fixed
+    by appending corrections.</div>
+    <div class="teach">
+      <p>Read as an agent: the <b>decision</b> is a hard constraint on any edit it plans; the
+      <b>context</b> is why the "obvious cleanup" is a incident replay; the <b>consequences</b> hand
+      it the compliant alternative (dedupe at read time: relay-report already does). One small file
+      converts a plausible destructive edit into an informed refusal, with no human in the loop.</p>
+      <p>Where each file earns its keep, by lifecycle:</p>
+    </div>
+    <table class="mtable">
+      <tr><th>File</th><th>Enters the window</th><th>Written</th><th>Goes stale?</th></tr>
+      <tr><td><code>CLAUDE.md</code></td><td>Every session, automatically</td><td>Act 2; pruned continuously</td><td>Fastest: audit it like code</td></tr>
+      <tr><td><code>CONTEXT.md</code></td><td>Cold starts, on demand</td><td>Once; touched rarely</td><td>Slowly: domain shifts slowly</td></tr>
+      <tr><td><code>DESIGN.md</code></td><td>Architecture questions, on demand</td><td>Now; kept honest as things move</td><td>The drift risk: week 4's habit <span class="soon">taught in week 4</span></td></tr>
+      <tr><td><code>guardrails.md</code></td><td>Before risky operations, on demand</td><td>From incidents + ADR decisions</td><td>Rarely: never-dos age well</td></tr>
+      <tr><td><code>docs/adr/*</code></td><td>Why-questions, on demand</td><td>Once per decision, at decision time</td><td>Never: superseded, not edited</td></tr>
+    </table>
+    <details class="fold dyk"><summary>Did you know · ADRs predate agents by a quarter-century</summary><div class="fbody">
+      <p>Michael Nygard's 2011 blog post "Documenting Architecture Decisions" popularised the format,
+      building on decision-record practice from the 2000s, and teams adopted it for entirely human
+      reasons: onboarding, audits, ending relitigation. Agents didn't create the need; they raised
+      the price of ignoring it, because an agent relitigates a decision at machine speed unless the
+      record is on disk where it gathers.</p>
+    </div></details>
+    <span class="read"><b>What you decide:</b> the one decision in your real repo that most needs a
+    record. Don't write it yet (week 4 drills the writing); name it, and put a placeholder line in
+    your friction log.</span>
+    <span class="keep"><b>Keep this</b>ADRs are superseded, never edited: the trail is the point. And
+    they only work if they're where agents gather: docs/adr/, pointed to from the spine.</span>
+  </div>
+</section>
+
+<!-- 35 · H-O 05 divider -->
+<section class="slide dark" data-act="Act 4 · The docs layer" data-mv="Author the layer">
+  <div class="wrap">
+    <div class="kicker">Act 4 · Hands-on 05</div>
+    <h1 class="big">Author the layer, then catch it stopping a bad edit</h1>
+    <p class="lead mt14">The rep: write CONTEXT.md by interview, seed guardrails.md from your friction
+    log and the ADR, then run the week's most satisfying experiment. You'll ask a fresh session to
+    "clean up" the archive: a plausible, destructive request that violates ADR 0001. Once blind, once
+    with the layer in place. If the layer works, a file you wrote talks an agent out of destroying
+    data while you watch.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>CONTEXT.md + guardrails.md on the workspace, and a before/after transcript pair on the destructive ask.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>What goes in guardrails versus what stays a CLAUDE.md rule: teeth versus tempo.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>The probe order matters: blind run first, then author, then
+    rerun. You're measuring the layer, not your steering.</span>
+  </div>
+</section>
+
+<!-- 36 · H-O 05 panel -->
+<section class="slide" data-act="Act 4 · The docs layer" data-mv="Author the layer">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 05</div><span class="ho">~25 min</span>
+    <h2 class="head">Interview, seed, then the destructive probe</h2>
+    <div class="hostep">Step 1 — the blind probe first (before any new docs exist)</div>
+    <div class="promptblock"><pre>cd ~/relay-ws/relay-api && claude</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="promptblock"><pre>The archive in data/tasks.json has duplicate rows. Clean it up so each id appears
+exactly once, and make sure this stays clean going forward.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <div class="hodo">Let it plan; stop it before you accept destructive edits. Record: did it open
+    docs/adr at all? Did it propose rewriting the archive in place? Save the verdict moment, then
+    revert any edits and exit.</div>
+    <div class="hostep">Step 2 — CONTEXT.md by interview, on the workspace</div>
+    <div class="promptblock"><pre>cd ~/relay-ws && claude</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="promptblock"><pre>Interview me to write CONTEXT.md for this workspace: one question at a time, five
+questions maximum, then draft it. Cover: what the system is, who uses it, the three
+repos and their jobs, the domain words (task, archive, shipped), and where data
+lives. Keep the draft under a page; a cold session should get the shape in one read.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <div class="hodo">Answer honestly (you know this system now), then cut anything a cold reader
+    doesn't need. Save to <b>~/relay-ws/CONTEXT.md</b>.</div>
+    <div class="hostep">Step 3 — guardrails.md, seeded from two real sources</div>
+    <div class="hodo">Write <b>~/relay-ws/guardrails.md</b> by hand: from ADR 0001: never delete,
+    rewrite or dedupe archive rows in the file; never reuse ids. From the store contract: never edit
+    data/tasks.json except through relay-api's store. From your friction log: your two most repeated
+    "never again" lines. Then add one pointer line to ~/relay-ws/CLAUDE.md: "Before changing data
+    files or schemas, read guardrails.md."</div>
+    <div class="hostep">Step 4 — the informed probe</div>
+    <div class="hodo">Fresh session in <b>relay-api</b>, identical prompt from step 1. Compare: does
+    it now surface the ADR, refuse the in-place rewrite, and route to read-time dedupe (or a
+    correcting append)? Save both transcripts side by side.</div>
+    <ul class="checks">
+      <li>The probe pair shows a decision changed by files alone: same prompt, different plan</li>
+      <li>guardrails.md has at least three never-dos, each traceable to an ADR or a logged incident</li>
+      <li>CONTEXT.md fits on a page and a cold session can restate the system from it</li>
+    </ul>
+    <details class="fold trouble"><summary>Stuck? · the blind run behaved, or the informed run ignored the layer</summary><div class="fbody">
+      <p><b>Blind run refused already?</b> Good gathering found the ADR on its own: that's week 1's
+      gather beat working. Your evidence becomes "what made it look", and the layer's job shifts
+      from rescue to guarantee: gathering is probabilistic, the pointer makes it reliable.</p>
+      <p><b>Informed run still went destructive?</b> Check the pointer line exists in
+      ~/relay-ws/CLAUDE.md and you launched inside the workspace tree; then check guardrails.md
+      states the rule as a never-do, not advice. "Be careful with the archive" doesn't bind;
+      "never dedupe the archive in place" does.</p>
+    </div></details>
+    <div class="notice"><b>Check your read:</b> the documentation layer doing its real job: not
+    prettier onboarding, but a decision changed at the moment of risk, by prose sitting where the
+    agent gathers. This transcript pair is the strongest artifact in your capstone report.</div>
+    <span class="read"><b>What you decide:</b> teeth versus tempo. Never-dos that must bind go to
+    guardrails (and week 3 gives them enforcement <span class="soon">taught in week 3</span>);
+    always-dos that shape everyday work stay in CLAUDE.md.</span>
+    <span class="keep"><b>Keep this</b>Blind probe, author, informed probe: the three-step proof that
+    docs change behaviour. You'll run it on your own repo inside 48 hours.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 5 · SESSION CRAFT ═══════════════ -->
+
+<!-- 37 · Act 5 divider -->
+<section class="slide act" data-act="Act 5 · Session craft" data-mv="Act opener">
+  <div class="wrap">
+    <div class="kicker">Act 5 · Day 4 · ~45 min</div>
+    <h1 class="big">Session craft: hygiene, search, the handoff</h1>
+    <p class="lead mt14">The standing layers are built. What remains is the hour-by-hour craft: keeping
+    a live window worth reading. Three skills close the week. <b>Hygiene:</b> knowing when to /clear,
+    when to /compact, and when neither is enough. <b>Search over paste:</b> letting the agent pull
+    exactly what it needs instead of drowning it in what you guess it needs. And <b>the handoff:</b>
+    ending a day so tomorrow's session starts brilliant instead of archaeological. Week 1 promised
+    you'd learn why day boundaries need discipline; this act pays that promise.</p>
+    <p class="sub mt14">Four movements: the three-way decision at every session juncture (M14) · when
+    pasting beats searching and mostly doesn't (M15) · the handoff document (M16) · then poison a
+    session on purpose and repair it (Hands-on 06).</p>
+    <span class="keep"><b>Keep this</b>Standing context is architecture; session craft is driving.
+    This act is the driving lesson: clear, compact, search, hand off, on purpose.</span>
+  </div>
+</section>
+
+<!-- 38 · M14 divider -->
+<section class="slide dark" data-act="Act 5 · Session craft" data-mv="Clear, compact, hand off">
+  <div class="wrap">
+    <div class="kicker">Act 5 · Movement M14</div>
+    <h1 class="big">Three exits from a heavy session. Choosing is the skill.</h1>
+    <p class="lead mt14"><b>/clear</b> wipes the conversation: instant lean window, everything
+    unwritten is gone. <b>/compact</b> summarises the conversation and restarts on the summary: the
+    window shrinks, the gist survives, the verbatim detail dies: and you can steer what survives with
+    an instruction, like <b>/compact keep the decisions and the failing tests</b>. The <b>handoff</b>
+    ends the session entirely, leaving an authored file for the next one. Wait too long and the
+    choice is made for you: near the limit, auto-compact fires at a moment it picks, summarising
+    whatever happens to be there, junk included.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Make the right call at three real junctures, against the clock of a filling window.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Your defaults: what earns a /clear, what earns a focused /compact, what earns the full handoff.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>New task: /clear. Same task, noisy window: focused /compact.
+    Day boundary or model change: handoff. Auto-compact choosing for you: you waited too long.</span>
+  </div>
+</section>
+
+<!-- 39 · M14 panel — the session timeline -->
+<section class="slide" data-act="Act 5 · Session craft" data-mv="Clear, compact, hand off">
+  <div class="wrap">
+    <div class="kicker">M14 · Clear, compact, hand off</div>
+    <h2 class="head">One working day, three junctures. Call each one.</h2>
+    <div class="teach">
+      <p>The timeline below is a realistic day on a real repo. Grey rows are events; at each tinted
+      juncture, pick the move you'd make. Verdicts argue from what the window holds at that moment:
+      that's always the argument, never habit or superstition.</p>
+    </div>
+    <div class="lab" id="wtime">
+      <div class="labtitle">Widget · <b>the session timeline</b></div>
+      <div id="wtimeRows"></div>
+      <p class="scoreline" id="wtimeScore"></p>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Read the day top to bottom; commit at each juncture before revealing.</li>
+        <li>Juncture A tests the cheapest discipline: unrelated new task. What does the old context
+        contribute to it? Price that honestly.</li>
+        <li>Juncture B is the subtle one: same task, but the window is 70% exploration debris. Note
+        why the focused variant of /compact wins over both neighbours.</li>
+        <li>Juncture C is the day boundary week 1 promised you'd solve. The verdict names what
+        compact-and-leave-open costs you overnight.</li>
+      </ol>
+      <p class="watch">Watch for: every verdict prices the window's contents. The moves aren't rituals;
+      they're answers to "what in here still earns its attention?"</p>
+    </div>
+    <details class="fold hood"><summary>Under the hood · what /compact keeps, mechanically</summary><div class="fbody">
+      <p>Compact asks the model to write a structured summary of the conversation so far, then starts
+      a fresh window seeded with that summary (plus your standing layers, which reload as always).
+      Anything not in the summary is gone: exact code hunks, precise error text, the verbatim
+      wording of an instruction. That's why the focus argument matters: <code>/compact keep the
+      decisions, open bugs and file list</code> makes the keep-list explicit instead of leaving
+      triage to a summariser mid-squeeze. And it's why a rule that must survive compaction belongs
+      in CLAUDE.md, which never depends on the summary at all.</p>
+    </div></details>
+    <span class="read"><b>What you decide:</b> your three defaults, written into your friction log
+    today. Week 3 may promote them to a status-line reminder or a command; this week they're
+    habits.</span>
+    <span class="keep"><b>Keep this</b>Price the window's contents, then move: clear the unrelated,
+    compact the noisy-but-live, hand off at boundaries. Never let auto-compact be your triage.</span>
+  </div>
+</section>
+
+<!-- 40 · M15 divider -->
+<section class="slide dark" data-act="Act 5 · Session craft" data-mv="Search beats pasting">
+  <div class="wrap">
+    <div class="kicker">Act 5 · Movement M15</div>
+    <h1 class="big">Stop feeding it. It hunts better than you carry.</h1>
+    <p class="lead mt14">Three verbs move text into the window. <b>Paste</b>: you choose the text, and
+    it stays in the window forever. <b>@-ref</b>: type @ and a path in your prompt, and Claude Code
+    injects that file's current bytes: precise, current, no copy drift. <b>Search</b>: you name the
+    goal and the agent greps, lists and reads only what it needs: the gather beat from week 1 doing
+    context selection for you. Chat habits made pasting your default. In an agent session it's
+    usually the worst of the three: you pay for your guess of what's relevant, at full window
+    prices, whether you guessed right or not.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Retire paste-by-default; keep paste-on-purpose for the cases it genuinely wins.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Your size-and-certainty line: below it paste, above it @-ref or search.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Paste what's small and load-bearing. @-ref what's known and
+    exact. Search what's big or uncertain. Default to search; it's the one that scales.</span>
+  </div>
+</section>
+
+<!-- 41 · M15 panel — paste, @-ref, or search -->
+<section class="slide" data-act="Act 5 · Session craft" data-mv="Search beats pasting">
+  <div class="wrap">
+    <div class="kicker">M15 · Search beats pasting</div>
+    <h2 class="head">Four situations from your actual week. Pick the verb.</h2>
+    <div class="lab" id="wpaste">
+      <div class="labtitle">Widget · <b>the intake sorter</b></div>
+      <div class="qgrid" id="wpasteGrid"></div>
+      <p class="scoreline" id="wpasteScore"></p>
+    </div>
+    <div class="drive"><span class="dt">Drive it</span>
+      <ol>
+        <li>Call all four. Two look like paste cases; only one is.</li>
+        <li>Card 1 (the 2,400-line log) has the move most people miss: read its verdict even if you
+        got it right.</li>
+        <li>After the score line, re-read the four verdicts as one rule: size × certainty picks the
+        verb.</li>
+      </ol>
+      <p class="watch">Watch for: @-ref and paste differ in one crucial way on files: the @-ref is
+      the file's bytes now; your paste is the file's bytes when you copied it. Stale pastes are
+      context poison you administered yourself.</p>
+    </div>
+    <details class="fold dyk"><summary>Did you know · your instinct to paste is a chat-era scar</summary><div class="fbody">
+      <p>In the chat window, pasting was the only way to give the model eyes: no tools, so you were
+      the file system. That reflex was correct for years and is obsolete in an agent session, where
+      the model has grep and read of its own. Noticing the reflex is the fix: every time your
+      fingers reach for a big paste, ask what search would find.</p>
+    </div></details>
+    <span class="read"><b>What you decide:</b> your paste ceiling. This programme's: about thirty
+    lines of load-bearing text; beyond that it's a file path or a search goal.</span>
+    <span class="keep"><b>Keep this</b>You are no longer the file system. Small and vital: paste.
+    Known and exact: @-ref. Everything else: name the goal, let it gather.</span>
+  </div>
+</section>
+
+<!-- 42 · M16 divider -->
+<section class="slide dark" data-act="Act 5 · Session craft" data-mv="The handoff">
+  <div class="wrap">
+    <div class="kicker">Act 5 · Movement M16</div>
+    <h1 class="big">The handoff: authored context beats residue</h1>
+    <p class="lead mt14">Why not just /compact at 6pm and keep the session overnight? Because compact
+    keeps what a summariser guessed mattered, and tomorrow-you inherits residue: no say in what
+    survived. A <b>handoff</b> flips the authorship: before ending, the session writes a small file
+    (state, decisions, next step, gotchas, verify) that <b>you review and correct</b> while you still
+    know everything. Tomorrow's session starts lean, reads one authored page, and continues as if the
+    day boundary weren't there. It's the week's thesis applied to time: decide what the model sees,
+    even tomorrow's model.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Know the five sections and the quality test: could a stranger's session continue from this file alone?</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>What graduates from handoff (working set) to ADR (permanent record) at each day's end.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Handoff = state · decisions · next step · gotchas · verify.
+    Five sections, one page, reviewed by you before the window dies.</span>
+  </div>
+</section>
+
+<!-- 43 · M16 panel — the handoff shape -->
+<section class="slide" data-act="Act 5 · Session craft" data-mv="The handoff">
+  <div class="wrap">
+    <div class="kicker">M16 · The handoff</div>
+    <h2 class="head">Five sections, and the test each must pass</h2>
+    <div class="teach">
+      <p>The template ships at <b>weeks/week-2/data/handoff-template.md</b>; here is what each section
+      is for, and the failure it prevents:</p>
+    </div>
+    <table class="mtable">
+      <tr><th>Section</th><th>Holds</th><th>Prevents</th></tr>
+      <tr><td><b>State</b></td><td>Done and verified · half-done · untouched, one line each</td><td>Re-verifying finished work; trusting unfinished work</td></tr>
+      <tr><td><b>Decisions</b></td><td>Choices made this session, each with its one-line reason</td><td>Tomorrow relitigating today (the ADR failure, at day scale)</td></tr>
+      <tr><td><b>Next step</b></td><td>The single next action, cold-startable: file, command, intent</td><td>The 25-minute "where was I" ramp</td></tr>
+      <tr><td><b>Gotchas</b></td><td>The trap that already cost you time once today</td><td>Paying for the same discovery twice</td></tr>
+      <tr><td><b>Verify</b></td><td>Commands that prove the state still holds</td><td>Building on a base that shifted overnight</td></tr>
+    </table>
+    <div class="teach">
+      <p>The quality bar is transferability: not "will this remind me" but "could a session with no
+      memory of today continue from this page alone". Every session is that stranger. And note the
+      boundary with Act 4: a decision that should outlive the week graduates from the handoff's
+      Decisions section into an ADR; the handoff is the working set, not the archive.</p>
+    </div>
+    <details class="fold btw"><summary>By the way · handoffs compound beyond day boundaries</summary><div class="fbody">
+      <p>The same file works whenever a window must die mid-stream: before a risky /clear, when
+      switching machines, when a session has degraded past compacting, or when handing work to an
+      actual colleague and their session. Once the habit exists, "this session is past saving"
+      stops being a loss: two minutes of handoff and the work continues elsewhere, clean.</p>
+    </div></details>
+    <span class="read"><b>What you decide:</b> your 6pm ritual. The programme's: handoff written by
+    the session, corrected by you, committed if the repo is yours: then /clear or close without
+    guilt.</span>
+    <span class="keep"><b>Keep this</b>End days by authoring, not abandoning. The handoff is two
+    minutes that buys tomorrow's first half-hour.</span>
+  </div>
+</section>
+
+<!-- 44 · H-O 06 divider -->
+<section class="slide dark" data-act="Act 5 · Session craft" data-mv="Poison + recover">
+  <div class="wrap">
+    <div class="kicker">Act 5 · Hands-on 06</div>
+    <h1 class="big">Break a session on purpose. Then fix it like an engineer.</h1>
+    <p class="lead mt14">You've watched sessions degrade by accident for months. This time you'll do
+    it deliberately: start a clean task, inject the poison yourself (a bulk paste and an unrelated
+    detour), watch the work wobble, and then repair it with hygiene alone: no new docs, no rule
+    edits, just the M14 decision made well. Then you'll end with a real handoff and prove it, cold.
+    Inoculation by controlled exposure: after today, you'll recognise the wobble's onset from the
+    inside.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>One reproduced derailment, one reasoned recovery, one handoff that a fresh session continues correctly.</p></div>
+      <div class="gb"><div class="t">You'll decide</div><p>Your personal poison threshold: how much junk your sessions tolerate before quality visibly turns.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>The weekend's poisoning drill re-runs this class solo on a
+    messier target. What you capture today is your worked example.</span>
+  </div>
+</section>
+
+<!-- 45 · H-O 06 panel -->
+<section class="slide" data-act="Act 5 · Session craft" data-mv="Poison + recover">
+  <div class="wrap">
+    <div class="hobadge">Hands-on · 06</div><span class="ho">~20 min</span>
+    <h2 class="head">Poison, wobble, recover, hand off</h2>
+    <div class="hostep">Step 1 — clean start, real task</div>
+    <div class="promptblock"><pre>cd ~/relay-gym && claude</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
+    <div class="promptblock"><pre>Rename the weekly report function to weeklyShipped across the repo: definition,
+imports, call sites, tests. List the files you'll touch first, then do it.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <div class="hodo">Let it list the files and start. Note <b>/context</b> now: this is healthy.</div>
+    <div class="hostep">Step 2 — inject the poison mid-task</div>
+    <div class="hodo">Before it finishes, send three messages in a row: (1) paste the entire contents
+    of <b>data/tasks.json</b> with "for context, here's our data"; (2) "unrelated, but what's a good
+    colour scheme for a terminal dashboard? give me five options with hex codes"; (3) "actually also
+    summarise what makes a good standup update". Then: <b>"ok, carry on with the rename."</b></div>
+    <div class="hodo">Interrogate the wobble: ask <b>"what exactly remains for the rename? list
+    files done and files pending."</b> Compare its answer to its own step 1 list. Record any drift:
+    forgotten files, re-reading it already did, colour talk bleeding in. Read /context again. If it
+    stayed crisp, double the poison (paste the json twice, add a fourth topic) and note your
+    threshold: resilience is a finding too.</div>
+    <div class="hostep">Step 3 — recover with the M14 tree, then prove it</div>
+    <div class="hodo">Make the call like the timeline: same task, live decisions, noisy window →
+    <b>/compact keep the rename plan, files completed and files pending; drop the data paste and
+    the off-topic answers</b>. Then re-ask the "what remains" question: the answer should now match
+    reality, crisply. Let it finish; run the tests.</div>
+    <div class="hostep">Step 4 — end with a real handoff</div>
+    <div class="promptblock"><pre>Write handoff.md for this session using the five sections: state, decisions, next
+step, gotchas, verify. Be concrete: file names, the exact test command, what's
+half-done. I'll correct it before we stop.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
+    <div class="hodo">Correct anything wrong (that review is the point), exit, then prove it cold:
+    fresh session, <b>"Read handoff.md and continue."</b> Watch whether it resumes at the true next
+    step with no archaeology.</div>
+    <ul class="checks">
+      <li>You captured the drift moment: its own file list, contradicted after the poison</li>
+      <li>Your recovery kept the plan and dropped the junk, and the post-compact answer proves it</li>
+      <li>The cold session resumed from handoff.md at the correct next step, first try</li>
+    </ul>
+    <details class="fold trouble"><summary>Stuck? · nothing wobbled, or compact lost the plan</summary><div class="fbody">
+      <p><b>No wobble even doubled?</b> Note the threshold honestly and move on: newer models
+      tolerate more. The weekend drill uses a longer session where drift has more room; your job
+      today was learning the probe, and you now have it.</p>
+      <p><b>Compact dropped something vital?</b> Your keep-list didn't name it. Re-run the drill's
+      step 3 with a sharper focus argument: the lesson is that triage instructions, like rules,
+      work when they're specific.</p>
+    </div></details>
+    <div class="notice"><b>Check your read:</b> the full hygiene loop under controlled conditions:
+    poison identified by transcript evidence, recovery chosen from the decision tree rather than
+    panic, and continuity proven by a cold resume. That's session craft as engineering: reproduce,
+    fix, verify: week 1's loop, applied to the window itself.</div>
+    <span class="read"><b>What you decide:</b> your threshold and your first move when real sessions
+    wobble next week. Write both into the friction log; they're personal calibration data no deck
+    can give you.</span>
+    <span class="keep"><b>Keep this</b>You can now break, read, repair and hand off a session on
+    purpose. Accidental degradation stopped being mysterious the moment you caused it.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ CAPSTONE · THE LAYER, MEASURED ═══════════════ -->
+
+<!-- 46 · Capstone opener -->
+<section class="slide act" data-act="Capstone · The layer, measured" data-mv="Capstone opener">
+  <div class="wrap">
+    <div class="kicker">Capstone · Day 5 · ~1.5 h</div>
+    <h1 class="big">The scoped docs layer, measured</h1>
+    <p class="lead mt14">Everything this week was parts: the window, the spec, the scopes, the layer,
+    the craft. The capstone assembles them on ground that matters: a repo or workspace you actually
+    work in. You'll define a five-task suite from your real backlog, run it cold, author the full
+    layer at argued scopes, run the same suite again, and write down what moved. One guided rep of
+    every problem class this week owns; the weekend's issues re-run those classes solo.</p>
+    <div class="goalrow mt28">
+      <div class="gb"><div class="t">The shape</div><p>Target + suite → baseline → author the layer →
+      A/B reruns → verdict + export. Capture boxes as you go; step 5 assembles them into the markdown
+      report for your Knowledge issue.</p></div>
+      <div class="gb"><div class="t">You'll carry forward</div><p>A docs layer living in your real
+      repo from today, the measured deltas that justify it, and the strongest before/after story
+      you've produced so far for week 9's retrospective.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Captures save to this browser only; same browser throughout.
+    Paper fallback: weeks/week-2/data/capstone-report-template.md, with the suite table in
+    task-suite-template.md.</span>
+  </div>
+</section>
+
+<!-- 47 · Step 1 divider -->
+<section class="slide dark" data-act="Capstone · The layer, measured" data-mv="Step 1 · Target + suite">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 1 of 5 · ~15 min</div>
+    <h1 class="big">Pick the ground and fix the yardstick</h1>
+    <p class="lead mt14">Two choices before anything runs. The <b>target</b>: a real repo or workspace
+    you'll still be working in next month: your daily codebase, not a toy, because half the value is
+    that the layer stays. And the <b>suite</b>: five tasks from your actual backlog, small enough to
+    run in minutes, spread across the kinds of asks you make daily. Then the discipline that makes
+    Friday honest: written <b>predictions</b>. Which tasks will the layer improve, and why? Committing
+    before measuring is what separates measurement from storytelling.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Target named, five tasks written with verbatim prompts, predictions committed.</p></div>
+      <div class="gb"><div class="t">You'll carry forward</div><p>The suite: it's also the grading instrument a peer uses on you in this weekend's swap.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Five tasks, one spread: explain something, change something,
+    test something, debug something, navigate somewhere. Prompts written once, reused verbatim in
+    both runs.</span>
+  </div>
+</section>
+
+<!-- 48 · Step 1 panel -->
+<section class="slide" data-act="Capstone · The layer, measured" data-mv="Step 1 · Target + suite">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 1 · Target + suite</div>
+    <h2 class="head">Name it, write it, predict it</h2>
+    <div class="teach">
+      <p>Fill the suite table in <b>weeks/week-2/data/task-suite-template.md</b> (or your notes) with
+      five one-liners and their exact prompts. Good spread for a working repo: "explain how X flows",
+      "add small feature Y", "write the missing test for Z", "why does W fail when…", "where is the
+      code that owns V". If your world is multi-repo, pick tasks that cross repo lines: that's where
+      the workspace file will earn or fail.</p>
+    </div>
+    <div class="caplbl">Capture — the target (repo/workspace, shape, why this one)</div>
+    <textarea class="cap" id="cap-target" data-persist="cap-target" placeholder="Target: … · shape: monorepo / multi-repo / single · I picked it because …"></textarea>
+    <div class="caplbl">Capture — the five tasks + predictions</div>
+    <textarea class="cap" id="cap-suite" data-persist="cap-suite" placeholder="T1 … · T2 … · T3 … · T4 … · T5 … · Predictions: the layer helps T_ and T_ most because …"></textarea>
+    <span class="read"><b>You carry forward:</b> a yardstick that can't quietly bend later. If a task
+    turns out badly chosen, note it and keep it: a flawed-but-fixed yardstick beats a retrofitted
+    one.</span>
+    <span class="keep"><b>Keep this</b>Predictions first. A delta you predicted is evidence; a delta
+    you noticed afterwards is a story.</span>
+  </div>
+</section>
+
+<!-- 49 · Step 2 divider -->
+<section class="slide dark" data-act="Capstone · The layer, measured" data-mv="Step 2 · Baseline">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 2 of 5 · ~25 min</div>
+    <h1 class="big">Run the suite cold, and let it be ugly</h1>
+    <p class="lead mt14">Five fresh sessions, five verbatim prompts, zero help beyond them: your repo
+    as it stands today, docs layer absent (if a stale CLAUDE.md exists, move it aside for the
+    baseline: you're measuring the layer you're about to write, not the one you abandoned in March).
+    Resist steering. Every clarifying question it asks, every wrong file it opens, every convention
+    it invents is the data. You're not failing while it flounders; you're collecting the before
+    picture.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Five baseline observations in a fixed format, plus /context readings at each run's end.</p></div>
+      <div class="gb"><div class="t">You'll carry forward</div><p>The observed guesses: they, not templates, dictate what the layer must say.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Log per run: questions asked · wrong files or assumptions ·
+    instructions you'd have to repeat tomorrow · window at end. Same four fields, all five runs.</span>
+  </div>
+</section>
+
+<!-- 50 · Step 2 panel -->
+<section class="slide" data-act="Capstone · The layer, measured" data-mv="Step 2 · Baseline">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 2 · Baseline</div>
+    <h2 class="head">Five runs, four fields each</h2>
+    <div class="hostep">The loop, per task</div>
+    <div class="hodo">Fresh session in the target (<b>/clear</b> between tasks, or new sessions).
+    Paste the task's verbatim prompt. Observe without steering; answer direct questions with "decide
+    and proceed" so the run stays unaided. When it declares done (or stalls), record the four fields
+    and <b>/context</b>. Revert any changes you don't want: <b>git checkout -- . && git clean
+    -fd</b> between tasks keeps runs independent.</div>
+    <div class="hostep">If a run goes long</div>
+    <div class="hodo">Cap each task at ten minutes. A task that can't finish inside the cap is
+    recorded as "did not finish + why": that's a strong baseline datum, not a broken drill.</div>
+    <div class="caplbl">Capture — baseline observations (T1…T5, four fields each)</div>
+    <textarea class="cap" id="cap-base" data-persist="cap-base" placeholder="T1: asked …, wrong-file …, would-repeat …, window …% · T2: … · T3: … · T4: … · T5: …"></textarea>
+    <span class="read"><b>You carry forward:</b> a pattern, if you look: the same two or three
+    guesses usually recur across all five tasks. Those recurring guesses are tomorrow's first
+    rules.</span>
+    <span class="keep"><b>Keep this</b>Unaided means unaided: "decide and proceed" is the only steer
+    you give. The mess is the measurement.</span>
+  </div>
+</section>
+
+<!-- 51 · Step 3 divider -->
+<section class="slide dark" data-act="Capstone · The layer, measured" data-mv="Step 3 · Author the layer">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 3 of 5 · ~30 min</div>
+    <h1 class="big">Author the layer, every file at an argued address</h1>
+    <p class="lead mt14">Now write, against the baseline's observed guesses, at the scopes Act 3
+    drilled: your global file tuned (five minutes: does it still say who you are this month?); the
+    project CLAUDE.md (linter-grade rules aimed at recurring guesses); <b>one directory or workspace
+    file</b> (per your architecture: a package's local contract, or the spanning file above your
+    sibling repos); CONTEXT.md by interview; guardrails.md seeded from incidents and any live ADRs;
+    and the AGENTS.md symlink. Every file placed by the who-suffers question, nothing said twice.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>The complete layer, on disk, in your real repo, each file's scope arguable in one sentence.</p></div>
+      <div class="gb"><div class="t">You'll carry forward</div><p>The inventory capture: it's the "what I built" half of the report, and the weekend swap's raw material.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Author against observed guesses, not templates. Every rule
+    should point at a baseline moment; a rule pointing at nothing is rent.</span>
+  </div>
+</section>
+
+<!-- 52 · Step 3 panel -->
+<section class="slide" data-act="Capstone · The layer, measured" data-mv="Step 3 · Author the layer">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 3 · Author the layer</div>
+    <h2 class="head">Six artifacts, thirty minutes, addresses argued</h2>
+    <div class="hostep">The order that works</div>
+    <div class="hodo">1 · Project <b>CLAUDE.md</b> first, from the baseline's recurring guesses:
+    test command, conventions it invented wrongly, the files it must never hand-edit. Linter bar:
+    trigger, imperative, check; under 30 lines.<br>
+    2 · The <b>scoped file</b>: monorepo → one package CLAUDE.md for your most convention-heavy
+    package; multi-repo → the workspace file above the siblings. Only facts local to that scope.<br>
+    3 · <b>CONTEXT.md</b> by interview (the Hands-on 05 prompt, pointed at this repo), then cut to a
+    page.<br>
+    4 · <b>guardrails.md</b>: your real never-agains, each traceable to an incident or decision; add
+    the pointer line to CLAUDE.md.<br>
+    5 · <b>Global tune-up</b>: remove anything in ~/.claude/CLAUDE.md that belongs at project scope
+    now; the sorter's who-suffers test settles arguments.<br>
+    6 · <b>ln -s CLAUDE.md AGENTS.md</b> at the root.</div>
+    <div class="caplbl">Capture — the layer inventory (file → scope → one-line argument)</div>
+    <textarea class="cap" id="cap-layer" data-persist="cap-layer" placeholder="CLAUDE.md (project): … · packages/api/CLAUDE.md (directory): parses-by-scripts contract … · CONTEXT.md: … · guardrails.md: … · global: moved X down · symlink: done"></textarea>
+    <span class="read"><b>You carry forward:</b> a layer a teammate could read tomorrow. If any file
+    would embarrass you in the weekend swap, fix it now: the swap is exactly this artifact under a
+    stranger's eyes.</span>
+    <span class="keep"><b>Keep this</b>The one-sentence scope argument per file is not paperwork:
+    if you can't argue the address, the address is probably wrong.</span>
+  </div>
+</section>
+
+<!-- 53 · Step 4 divider -->
+<section class="slide dark" data-act="Capstone · The layer, measured" data-mv="Step 4 · A/B reruns">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 4 of 5 · ~25 min</div>
+    <h1 class="big">Same five prompts. Now with the layer loaded.</h1>
+    <p class="lead mt14">Rerun the suite exactly as in step 2: fresh sessions, verbatim prompts,
+    "decide and proceed", ten-minute cap, four fields plus /context per run. The only variable that
+    changed is the standing context: that's the whole design. Then set the runs side by side against
+    your predictions. Expect texture, not a clean sweep: typically two tasks transform, two improve
+    at the margin, one doesn't move: and the one that doesn't move teaches the most.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Five A/B pairs with deltas stated in observables, judged against the step 1 predictions.</p></div>
+      <div class="gb"><div class="t">You'll carry forward</div><p>The honest middle: where the layer paid, where it didn't, and your best account of why.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>Deltas in observables only: questions asked, wrong files,
+    repeats needed, window at end. "Felt smoother" is not a field.</span>
+  </div>
+</section>
+
+<!-- 54 · Step 4 panel -->
+<section class="slide" data-act="Capstone · The layer, measured" data-mv="Step 4 · A/B reruns">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 4 · A/B reruns</div>
+    <h2 class="head">Five pairs, predictions settled</h2>
+    <div class="hostep">Run, then difference</div>
+    <div class="hodo">Per task: rerun → record the four fields → write the pair's delta as a
+    sentence with numbers where they exist ("baseline asked 4 questions and edited data by hand;
+    with layer asked 0 and used the store"). Mark each prediction: right, wrong, or half-right.</div>
+    <div class="hostep">Interrogate the flat one</div>
+    <div class="hodo">For any task that didn't move: was the baseline already clean (task too easy
+    to discriminate)? Did the run never touch the layer's territory (wrong task, fine layer)? Or
+    did it read your file and still guess (a rule failing the linter bar in the wild)? Name which,
+    with a transcript line.</div>
+    <div class="caplbl">Capture — A/B deltas + prediction verdicts</div>
+    <textarea class="cap" id="cap-ab" data-persist="cap-ab" placeholder="T1: baseline … → with layer …; predicted? · T2: … · T3: … · T4: … · T5: … · Flat task: T_ because …"></textarea>
+    <span class="read"><b>You carry forward:</b> the claim your report can defend: "on the same five
+    tasks, the layer removed N clarifying questions, M wrong-file edits and K repeated instructions."
+    Numbers attached, transcripts behind them.</span>
+    <span class="keep"><b>Keep this</b>Two transformed, two nudged, one flat is a normal, honest
+    result: report it that way. Overclaiming here is exactly what the peer swap will catch.</span>
+  </div>
+</section>
+
+<!-- 55 · Step 5 divider -->
+<section class="slide dark" data-act="Capstone · The layer, measured" data-mv="Step 5 · Verdict">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 5 of 5 · ~10 min</div>
+    <h1 class="big">Verdict: two lines, then ship the report</h1>
+    <p class="lead mt14">Data isn't judgement. Close with two committed lines. First, the delta that
+    surprised you: the gap between your predictions and your results is where your model of the tool
+    just improved; name it. Second, the rule you'll carry to every repo you own from now on: specific
+    or it didn't happen. "Write better context" fails. "No repo of mine goes 48 hours without a
+    CLAUDE.md, a CONTEXT.md and the symlink, and every rule must name the guess it kills" clears.</p>
+    <div class="goalrow">
+      <div class="gb"><div class="t">Goal</div><p>Two ruthless lines, then the one-click export onto your Knowledge issue.</p></div>
+      <div class="gb"><div class="t">You'll carry forward</div><p>The report: proof of work, swap-grading input, and week 9's before/after exhibit A.</p></div>
+    </div>
+    <span class="keep"><b>Keep this</b>The export gathers every capture since step 1. Blank boxes
+    export as "____": go back and fill the step, don't hand-edit the output.</span>
+  </div>
+</section>
+
+<!-- 56 · Step 5 panel — verdict + export -->
+<section class="slide" data-act="Capstone · The layer, measured" data-mv="Step 5 · Verdict">
+  <div class="wrap">
+    <div class="kicker">Capstone · Step 5 · Verdict &amp; export</div>
+    <h2 class="head">Commit the lines, copy the report</h2>
+    <div class="caplbl">The delta that surprised me</div>
+    <textarea class="cap" id="cap-surprise" data-persist="cap-surprise" placeholder="I predicted …, but the runs showed …, which means my model of the tool was wrong about …"></textarea>
+    <div class="caplbl">One rule I carry to every repo I own</div>
+    <textarea class="cap" id="cap-rule" data-persist="cap-rule" placeholder="Stated so a teammate could audit me against it next month…"></textarea>
+    <div class="mt20" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <button class="btn" id="capCopy">Copy my capstone report</button>
+      <span class="sub" id="capCopyMsg">Assembles every capture on this deck into one markdown report.</span>
+    </div>
+    <span class="read"><b>This report is the capstone:</b> paste it on your Week 2 Knowledge issue
+    now, while it's warm. Its suite seeds the weekend's peer swap, its layer inventory is what they
+    grade, and its deltas set the bar your Application evidence is held to.</span>
+    <span class="keep"><b>Keep this</b>Export → paste on the Knowledge issue. The deck's loop closes
+    on GitHub, not in the browser.</span>
+  </div>
+</section>
+
+<!-- ═══════════════ BACK MATTER ═══════════════ -->
+
+<!-- 57 · Stuck or curious -->
+<section class="slide isnow" data-act="Close" data-mv="Stuck or curious?">
+  <div class="wrap">
+    <div class="kicker">Support</div>
+    <h2 class="head">Stuck or curious?</h2>
+    <div class="cards">
+      <div class="ucard"><h3>Stuck</h3>
+        <ul>
+          <li><b>Comment on your Week 2 Knowledge issue</b> with the transcript and a /context
+          reading. Context problems are diagnosable from exactly those two artifacts; post them and
+          the thread does the rest.</li>
+          <li>A file that won't load is nearly always geography: where you launched from, or a
+          parent you forgot was a scope. The tree walker widget replays the walk any time.</li>
+          <li>Lost captures (new browser, cleared storage)? The paper skeleton at
+          <span style="font-family:ui-monospace,Menlo,monospace;font-size:.9em">weeks/week-2/data/capstone-report-template.md</span>
+          rebuilds the report in ten minutes from your transcripts.</li>
+        </ul>
+      </div>
+      <div class="ucard"><h3>Curious</h3>
+        <ul>
+          <li>Re-drive the ledger with your real /context numbers from Hands-on 01, and the tree
+          walker against your actual home directory layout.</li>
+          <li>The <b>Keep this</b> bands top-to-bottom are the week's summary; the folds are the
+          depth layer, reopenable any time, including from print.</li>
+          <li><b>Optional deeper dives</b> (search by name): Anthropic's "Claude Code best
+          practices" and "Effective context engineering for AI agents", and Liu et al.'s "Lost in
+          the Middle". Weekend-grade, not required.</li>
+        </ul>
+      </div>
+    </div>
+    <span class="read"><b>Being confused about scopes in week 2 is the week working.</b> A misfiled
+    rule examined in the open beats a perfect file nobody can explain.</span>
+    <span class="keep"><b>Keep this</b>Support lives on the issue thread. Post the transcript and the
+    /context reading; that pair answers most context questions by itself.</span>
+  </div>
+</section>
+
+<!-- 58 · Close -->
+<section class="slide isnow" id="close" data-act="Close" data-mv="Close the loop">
+  <div class="wrap">
+    <div class="kicker">Close the loop</div>
+    <h2 class="head">Re-read your number.</h2>
+    <div class="confbox">
+      <span class="confecho" id="confEcho">—</span>
+      <p class="q">That's what you wrote on Day 1: <em>for a repo you own, could you state exactly
+      what Claude sees at turn one, and change it deliberately?</em> Rate yourself again, honestly.</p>
+    </div>
+    <div class="teach">
+      <p>If the number moved, it moved on evidence: you itemised your own window with /context, wrote
+      rules that killed observed guesses, proved a package file fires only in its package, watched a
+      workspace file reach a bare repo, saw prose you wrote refuse a destructive edit, and measured
+      the whole layer on five real tasks. If it moved down, same as last week: calibration counts as
+      learning.</p>
+    </div>
+    <div class="caplbl mt14">Commit — one sentence</div>
+    <textarea class="cap" data-persist="close-commit" id="closeCommit" placeholder="One context rule I now hold, in one sentence…"></textarea>
+    <div class="hostep mt14">The hand-off</div>
+    <div class="hodo"><b>This weekend:</b> six Application issues on the Week 2 milestone. Book the
+    repo swap first (it needs a partner's repo and your suite). Each issue is a ticket: a fresh
+    problem of a class the capstone rehearsed, yours to navigate solo. Stuck is allowed: run
+    <b>/guide-me</b> with the issue link; it coaches, never solves.</div>
+    <div class="hodo"><b>Standing habits update:</b> the friction log continues, two minutes a day,
+    and from this week each entry gets a scope guess: global, workspace, project, directory, or
+    local. You'll thank yourself in seven days.</div>
+    <div class="hodo"><b>Next week:</b> harness engineering. The rule of twice: any instruction
+    you've now given twice becomes infrastructure: settings, commands, hooks, skills, each at its
+    correct scope. Your friction log is the shopping list; week 2's scoping doctrine is the address
+    system. Bring both.</div>
+    <span class="read"><b>You stopped re-explaining your codebase.</b> You can name what the model
+    sees, place every fact at its scope, and prove the difference with a suite. See you in week
+    3.</span>
+    <span class="keep"><b>Keep this</b>Deck done ≠ week done: the milestone closes when all eight
+    issues close, Sunday EOD. And the scope column in your friction log starts tonight.</span>
+  </div>
+</section>
+
+</div>
+
+<div class="chrome"><b id="chromeAct"></b> · <span id="chromeMv"></span> · <span id="chromeCount"></span></div>
+<div class="helpbar">→ next · ← back · <b>Home</b> agenda · <b>End</b> close · <b>F</b> full-screen</div>
+
+<script>
+(function(){
+"use strict";
+/* ── engine ─────────────────────────────────────────────── */
+var slides=[].slice.call(document.querySelectorAll("section.slide"));
+var pbar=document.getElementById("pbar");
+var chromeAct=document.getElementById("chromeAct"),chromeMv=document.getElementById("chromeMv"),chromeCount=document.getElementById("chromeCount");
+var agendaIdx=slides.indexOf(document.getElementById("agenda"));
+var cur=0;
+slides.forEach(function(s,i){if(s.classList.contains("active"))cur=i;});
+
+function steps(s){return [].slice.call(s.querySelectorAll(".steppanel"));}
+function nodes(s){return [].slice.call(s.querySelectorAll(".snode"));}
+function setStep(s,i){
+  var ps=steps(s),ns=nodes(s);if(!ps.length)return;
+  i=Math.max(0,Math.min(i,ps.length-1));s.dataset.step=i;
+  ps.forEach(function(p,j){p.classList.toggle("on",j===i);});
+  ns.forEach(function(n,j){n.classList.toggle("on",j===i);});
+}
+function refreshConf(){
+  var c=document.getElementById("conf"),e=document.getElementById("confEcho");
+  if(e)e.textContent=(c&&c.value)?c.value:"—";
+}
+function show(i){
+  i=Math.max(0,Math.min(i,slides.length-1));
+  slides[cur].classList.remove("active");
+  cur=i;var s=slides[cur];s.classList.add("active");
+  pbar.style.width=(((cur+1)/slides.length)*100)+"%";
+  chromeAct.textContent=s.dataset.act||"";
+  chromeMv.textContent=s.dataset.mv||"";
+  chromeCount.textContent=(cur+1)+" / "+slides.length;
+  refreshConf();
+  s.scrollTop=0;
+}
+function next(){
+  var s=slides[cur],ps=steps(s);
+  if(ps.length){var i=+(s.dataset.step||0);if(i<ps.length-1){setStep(s,i+1);return;}}
+  show(cur+1);
+}
+function prev(){
+  var s=slides[cur],ps=steps(s);
+  if(ps.length){var i=+(s.dataset.step||0);if(i>0){setStep(s,i-1);return;}}
+  show(cur-1);
+}
+document.addEventListener("keydown",function(e){
+  var t=e.target;
+  if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.tagName==="SELECT"||t.isContentEditable))return;
+  var k=e.key;
+  if(k==="ArrowRight"||k===" "||k==="Spacebar"||k==="PageDown"||k==="ArrowDown"){e.preventDefault();next();}
+  else if(k==="ArrowLeft"||k==="PageUp"||k==="ArrowUp"){e.preventDefault();prev();}
+  else if(k==="Home"){e.preventDefault();if(agendaIdx>=0)show(agendaIdx);}
+  else if(k==="End"){e.preventDefault();show(slides.length-1);}
+  else if(k==="f"||k==="F"){
+    try{
+      if(document.fullscreenElement){if(document.exitFullscreen)document.exitFullscreen();}
+      else if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen();}
+    }catch(_){}
+  }
+});
+
+/* clicks: copy buttons + stepper chips (mouse drives content, never slides) */
+function copyText(txt,btn,flash){
+  function ok(){if(btn){var o=btn.textContent;btn.textContent=flash||"Copied ✓";setTimeout(function(){btn.textContent=o;},1400);}}
+  function fallback(){
+    var ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");ok();}catch(_){/* noop */}
+    document.body.removeChild(ta);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(ok,fallback);}
+  else fallback();
+}
+document.addEventListener("click",function(e){
+  var c=e.target.closest(".copy");
+  if(c){var pre=c.parentElement.querySelector("pre");if(pre)copyText(pre.innerText,c);return;}
+  var sn=e.target.closest(".snode");
+  if(sn){var s=sn.closest("section.slide");if(s)setStep(s,nodes(s).indexOf(sn));}
+});
+
+/* print: open every fold so paper carries the depth layer, then restore */
+var foldsOpened=[];
+window.addEventListener("beforeprint",function(){
+  foldsOpened=[].slice.call(document.querySelectorAll("details.fold")).filter(function(d){return !d.open;});
+  foldsOpened.forEach(function(d){d.open=true;});
+});
+window.addEventListener("afterprint",function(){
+  foldsOpened.forEach(function(d){d.open=false;});foldsOpened=[];
+});
+
+/* local persistence (this device only) */
+var PFX="dw2.";
+[].slice.call(document.querySelectorAll("[data-persist]")).forEach(function(el){
+  var k=PFX+el.dataset.persist;
+  try{var v=localStorage.getItem(k);if(v!==null)el.value=v;}catch(_){}
+  el.addEventListener("input",function(){
+    try{localStorage.setItem(k,el.value);}catch(_){}
+    if(el.id==="conf")refreshConf();
+  });
+});
+
+/* capstone report export */
+var capBtn=document.getElementById("capCopy");
+if(capBtn){
+  capBtn.addEventListener("click",function(){
+    function g(id){var el=document.getElementById(id);return (el&&el.value.trim())?el.value.trim():"____";}
+    var md=[
+      "# Week 2 capstone report — the scoped docs layer, measured","",
+      "## Target","- "+g("cap-target"),"",
+      "## Suite + predictions","- "+g("cap-suite"),"",
+      "## Baseline (no layer)","- "+g("cap-base"),"",
+      "## The layer I authored","- "+g("cap-layer"),"",
+      "## A/B deltas","- "+g("cap-ab"),"",
+      "## Verdict",
+      "- **The delta that surprised me:** "+g("cap-surprise"),
+      "- **One rule I carry to every repo:** "+g("cap-rule"),""
+    ].join("\n");
+    copyText(md,capBtn,"Report copied ✓");
+    var m=document.getElementById("capCopyMsg");
+    if(m)m.textContent="Copied — paste it as a comment on your Week 2 Knowledge issue.";
+  });
+}
+
+/* ── widget: the window meter ───────────────────────────── */
+(function(){
+  var bar=document.getElementById("wmeterBar");if(!bar)return;
+  var line=document.getElementById("wmeterLine"),mcpSeg=document.getElementById("wmeterMcp"),mcpNote=document.getElementById("wmeterMcpNote");
+  var pills=[].slice.call(document.querySelectorAll("#wmeterPills .pillbtn"));
+  var BUDGET=200,BASE=18,PER_MCP=8;
+  var mcpN=2,on={};
+  var COL={base:"var(--muted)",mcp:"var(--deep)",md:"var(--accent)",turns:"var(--good)",reads:"var(--warn)",paste1:"var(--bad)",paste2:"var(--bad)"};
+  var NOTE={0:"nothing connected in this scope",2:"a modest wiring · ~16k idle",5:"week 1 enthusiasm, unscoped · ~40k idle"};
+  function seg(k,sz){return "<i style='width:"+(sz/BUDGET*100)+"%;background:"+COL[k]+"' title='"+k+" "+sz+"k'></i>";}
+  function render(){
+    var used=BASE,html=seg("base",BASE);
+    html+=seg("mcp",mcpN*PER_MCP);used+=mcpN*PER_MCP;
+    ["md","turns","reads","paste1","paste2"].forEach(function(k){
+      var p=pills.filter(function(b){return b.dataset.k===k;})[0];
+      if(p&&on[k]){var sz=+p.dataset.sz;html+=seg(k,sz);used+=sz;}
+    });
+    bar.innerHTML=html;
+    var pct=Math.round(used/BUDGET*100),state;
+    if(pct<30)state="fresh: plenty of room";
+    else if(pct<60)state="working range";
+    else if(pct<80)state="crowded: start big work in a fresh session, not this one";
+    else state="degraded territory: attention is thin and auto-compact looms";
+    line.textContent=used+"k of "+BUDGET+"k used ("+pct+"%) · "+state;
+    mcpNote.textContent=NOTE[mcpN]||"";
+  }
+  pills.forEach(function(b){b.addEventListener("click",function(){on[b.dataset.k]=!on[b.dataset.k];b.classList.toggle("on",!!on[b.dataset.k]);render();});});
+  [].slice.call(mcpSeg.querySelectorAll("button")).forEach(function(b){
+    b.addEventListener("click",function(){
+      mcpN=+b.dataset.n;
+      [].slice.call(mcpSeg.querySelectorAll("button")).forEach(function(o){o.classList.toggle("on",o===b);});
+      render();
+    });
+  });
+  render();
+})();
+
+/* ── widget: the position probe ─────────────────────────── */
+(function(){
+  var dot=document.getElementById("wposDot");if(!dot)return;
+  var out=document.getElementById("wposOut"),cue=document.getElementById("wposCue");
+  var pills=[].slice.call(document.querySelectorAll("#wpos .pillbtn"));
+  var D={
+    early:{x:"8%",cue:"Placed at the window's start: the standing layer's seat.",
+      t:"<b>Strong ground.</b> Long-context evaluations consistently show start-of-window content retrieved well, and the start is the only position you can guarantee: it's where the standing layers load, every session, before the first word. This is CLAUDE.md's seat. A rule here doesn't compete with the day's debris; the day's debris piles up after it."},
+    mid:{x:"50%",cue:"Buried mid-window: where every 10am instruction lives by 2pm.",
+      t:"<b>The sag.</b> This is the \"lost in the middle\" zone: retrieval is measurably weakest for content buried mid-window. Nothing stays late forever: four hours of file reads and test output pile on top, and your carefully typed constraint migrates here on its own. The rule didn't leave the window. It just stopped winning attention."},
+    late:{x:"92%",cue:"Just said: strong for the next few turns.",
+      t:"<b>Strong, briefly.</b> Recency privileges the last stretch of the window, so a just-repeated rule works now. But \"late\" is a position measured from the end, and the end keeps moving: an hour more work and this sentence sits mid-window with the rest. Repetition buys minutes. Placement in the standing layer buys every session, permanently."}
+  };
+  pills.forEach(function(b){
+    b.addEventListener("click",function(){
+      pills.forEach(function(o){o.classList.toggle("on",o===b);});
+      var d=D[b.dataset.pos];dot.style.left=d.x;cue.textContent=d.cue;out.innerHTML=d.t;
+    });
+  });
+})();
+
+/* ── widget: the re-send ledger ─────────────────────────── */
+(function(){
+  var carry=document.getElementById("wledCarry");if(!carry)return;
+  var turns=document.getElementById("wledTurns"),shapeSeg=document.getElementById("wledShape");
+  var carryVal=document.getElementById("wledCarryVal"),turnsVal=document.getElementById("wledTurnsVal");
+  var winBar=document.getElementById("wledWinBar"),winVal=document.getElementById("wledWinVal");
+  var ledBar=document.getElementById("wledLedBar"),ledVal=document.getElementById("wledLedVal");
+  var out=document.getElementById("wledOut"),winG=document.getElementById("wledWinG"),ledG=document.getElementById("wledLedG");
+  var PER_TURN=3,shape="stable";
+  function raw(c,n){return n*c+PER_TURN*n*(n+1)/2;}
+  function eff(c,n,s){return Math.round(raw(c,n)*(s==="stable"?0.2:0.9));}
+  var MAXLED=eff(80,40,"broken");
+  function render(){
+    var c=+carry.value,n=+turns.value;
+    carryVal.textContent=c+"k";turnsVal.textContent=""+n;
+    var w=c+n*PER_TURN;
+    var e=eff(c,n,shape),other=eff(c,n,shape==="stable"?"broken":"stable");
+    winBar.style.width=Math.min(100,w/200*100)+"%";winVal.textContent=w+"k / 200k";
+    winG.className="gauge"+(w>160?" hot":(w>120?" warm":""));
+    ledBar.style.width=Math.min(100,e/MAXLED*100)+"%";ledVal.textContent="≈"+e+"k";
+    ledG.className="gauge"+(e/MAXLED>0.6?" hot":(e/MAXLED>0.25?" warm":""));
+    var mult=Math.round(e/w*10)/10,flip=Math.round((shape==="stable"?other/e:e/other)*10)/10;
+    out.innerHTML="The window ends at <b>"+w+"k</b>; the system processed <b>≈"+e+"k</b> full-price-equivalent — about <b>"+mult+"×</b> what you \"see\". "
+      +(shape==="stable"
+        ?"Flip the shape and the same afternoon costs about <b>"+flip+"×</b> more: churn breaks the cache discount."
+        :"An append-only session doing identical work costs about <b>"+flip+"×</b> less: the cache discount, kept alive.")
+      +" Model, not invoice: on Max the number you watch is /usage, and it moves with this ledger, not with the window.";
+  }
+  carry.addEventListener("input",render);turns.addEventListener("input",render);
+  [].slice.call(shapeSeg.querySelectorAll("button")).forEach(function(b){
+    b.addEventListener("click",function(){
+      shape=b.dataset.s;
+      [].slice.call(shapeSeg.querySelectorAll("button")).forEach(function(o){o.classList.toggle("on",o===b);});
+      render();
+    });
+  });
+  render();
+})();
+
+/* ── sorter factory: qgrid card widgets ─────────────────── */
+function buildSorter(gridId,scoreId,opts,data,doneLine){
+  var grid=document.getElementById(gridId);if(!grid)return;
+  var score=document.getElementById(scoreId),done=0,right=0;
+  data.forEach(function(d){
+    var c=document.createElement("div");c.className="qcard";
+    var btns=opts.map(function(o){return "<button data-p='"+o.k+"'>"+o.label+"</button>";}).join("");
+    c.innerHTML="<p class='q'>"+d.q+"</p><div class='qbtns'>"+btns+"</div><div class='v'></div>";
+    var v=c.querySelector(".v");
+    [].slice.call(c.querySelectorAll("button")).forEach(function(b){
+      b.addEventListener("click",function(){
+        if(c.dataset.done)return;c.dataset.done="1";done++;
+        b.classList.add("pick");
+        var ok=(b.dataset.p===d.a);if(ok)right++;
+        var lbl="";opts.forEach(function(o){if(o.k===d.a)lbl=o.label;});
+        v.className="v show "+(ok?"ok":"no");
+        v.innerHTML=(ok?"✓ ":"✗ It's "+lbl+". ")+d.x;
+        score.textContent=(done===data.length)?(right+" of "+data.length+" on first pick. "+doneLine):("Called "+done+" of "+data.length+"…");
+      });
+    });
+    grid.appendChild(c);
+  });
+}
+
+/* ── widget: the rule linter ────────────────────────────── */
+buildSorter("wrulesGrid","wrulesScore",
+  [{k:"keep",label:"Keep"},{k:"cut",label:"Cut"}],
+  [
+    {q:"1 · \"Always write clean, well-structured code.\"",a:"cut",
+     x:"No trigger, no check: a wish. The model already aims for this; the line spends attention every session and changes nothing."},
+    {q:"2 · \"Run node --test after every change, and before saying done.\"",a:"keep",
+     x:"Trigger (every change, before done), imperative, and any transcript shows compliance or breach. This is the anatomy, complete."},
+    {q:"3 · \"Dates are YYYY-MM-DD everywhere: storage, output, tests. Never another format.\"",a:"keep",
+     x:"Checkable in any diff at a glance, and it kills a guess you actually observed: invented date formats."},
+    {q:"4 · \"This project uses Node.js; follow modern best practices.\"",a:"cut",
+     x:"The directory listing already says Node, and \"best practices\" can't be audited. Rent without power."},
+    {q:"5 · \"Never edit data/tasks.json by hand; all writes go through src/store.js.\"",a:"keep",
+     x:"A never-do with a named path and a named alternative: auditable from any transcript, and it guards real damage."},
+    {q:"6 · \"Be careful with the archive; it's important for reporting.\"",a:"cut",
+     x:"True, important, and uncheckable: \"careful\" can't be audited. The rewrite saves the fact: \"The archive is append-only; never delete or rewrite rows.\" Same knowledge, now a rule."}
+  ],
+  "The file you'd ship: four rules — the three keeps plus rule 6's rewrite — each auditable from a transcript. Everything else was rent, and that bar is the one your own file clears in Hands-on 02.");
+
+/* ── widget: the tree walker ────────────────────────────── */
+(function(){
+  var tree=document.getElementById("wtreeTree");if(!tree)return;
+  var loads=document.getElementById("wtreeLoads"),cwdHost=document.getElementById("wtreeCwd"),archSeg=document.getElementById("wtreeArch");
+  var ARCH={
+    mono:{
+      rows:[
+        {k:"g", t:"~/.claude/CLAUDE.md"},
+        {k:"root", t:"~/relay-mono/"},
+        {k:"rootmd", t:"  CLAUDE.md"},
+        {k:"data", t:"  data/tasks.json"},
+        {k:"pk", t:"  packages/"},
+        {k:"core", t:"    core/            (no CLAUDE.md)"},
+        {k:"cli", t:"    cli/"},
+        {k:"climd", t:"      CLAUDE.md"},
+        {k:"rep", t:"    report/"},
+        {k:"repmd", t:"      CLAUDE.md"}
+      ],
+      cwds:[
+        {label:"~/relay-mono (root)",cwdKey:"root",load:["g","rootmd"],demand:["climd","repmd"],
+         list:[["~/.claude/CLAUDE.md","global",0],["CLAUDE.md","project",0],["packages/cli/CLAUDE.md","on demand",1],["packages/report/CLAUDE.md","on demand",1]],
+         note:"From the root, both package files wait: they join the window only when work touches their packages."},
+        {label:"packages/cli",cwdKey:"cli",load:["g","rootmd","climd"],demand:[],
+         list:[["~/.claude/CLAUDE.md","global",0],["CLAUDE.md (root)","project",0],["packages/cli/CLAUDE.md","directory",0]],
+         note:"The walk up from cli collects root on the way. report's file is not on the path and stays out."},
+        {label:"packages/core",cwdKey:"core",load:["g","rootmd"],demand:[],
+         list:[["~/.claude/CLAUDE.md","global",0],["CLAUDE.md (root)","project",0]],
+         note:"core has no file, so root rules govern alone. Absence is a valid scoping decision."}
+      ]
+    },
+    ws:{
+      rows:[
+        {k:"g", t:"~/.claude/CLAUDE.md"},
+        {k:"ws", t:"~/relay-ws/          (plain folder, not a git repo)"},
+        {k:"wsmd", t:"  CLAUDE.md"},
+        {k:"api", t:"  relay-api/"},
+        {k:"apimd", t:"    CLAUDE.md"},
+        {k:"adr", t:"    docs/adr/0001-append-only-archive.md"},
+        {k:"cli", t:"  relay-cli/         (no CLAUDE.md)"},
+        {k:"rep", t:"  relay-report/      (no CLAUDE.md)"}
+      ],
+      cwds:[
+        {label:"~/relay-ws (the folder)",cwdKey:"ws",load:["g","wsmd"],demand:["apimd"],
+         list:[["~/.claude/CLAUDE.md","global",0],["relay-ws/CLAUDE.md","workspace",0],["relay-api/CLAUDE.md","on demand",1]],
+         note:"Launching in the folder itself: the spanning file loads; repo files wait for work to touch them."},
+        {label:"relay-api",cwdKey:"api",load:["g","wsmd","apimd"],demand:[],
+         list:[["~/.claude/CLAUDE.md","global",0],["relay-ws/CLAUDE.md","workspace",0],["relay-api/CLAUDE.md","project",0]],
+         note:"Workspace facts plus the repo's own: two files, two jobs, no duplication."},
+        {label:"relay-cli",cwdKey:"cli",load:["g","wsmd"],demand:[],
+         list:[["~/.claude/CLAUDE.md","global",0],["relay-ws/CLAUDE.md","workspace",0]],
+         note:"relay-cli has no CLAUDE.md at all, yet the session knows the workspace facts: the up-tree walk found the parent. One file, three repos covered."}
+      ]
+    }
+  };
+  var arch="mono",cwdIdx=1;
+  function render(){
+    var a=ARCH[arch],c=a.cwds[cwdIdx];
+    tree.innerHTML=a.rows.map(function(r){
+      var cls="trow";
+      if(c.load.indexOf(r.k)>=0)cls+=" load";
+      if(c.demand.indexOf(r.k)>=0)cls+=" demand";
+      if(r.k===c.cwdKey)cls+=" cwdmark";
+      return "<div class='"+cls+"'>"+r.t+"</div>";
+    }).join("");
+    loads.innerHTML="<div class='lrow'><span class='scopechip'>load order</span><span>launching claude in <b>"+c.label+"</b></span></div>"
+      +c.list.map(function(l,i){
+        return "<div class='lrow'><span class='scopechip"+(l[2]?" od":"")+"'>"+l[1]+"</span><b>"+(i+1)+" · "+l[0]+"</b></div>";
+      }).join("")
+      +"<div class='lrow'><span>"+c.note+"</span></div>";
+    cwdHost.innerHTML="";
+    a.cwds.forEach(function(o,i){
+      var b=document.createElement("button");b.className="pillbtn"+(i===cwdIdx?" on":"");b.textContent=o.label;
+      b.addEventListener("click",function(){cwdIdx=i;render();});
+      cwdHost.appendChild(b);
+    });
+  }
+  [].slice.call(archSeg.querySelectorAll("button")).forEach(function(b){
+    b.addEventListener("click",function(){
+      arch=b.dataset.a;cwdIdx=0;
+      [].slice.call(archSeg.querySelectorAll("button")).forEach(function(o){o.classList.toggle("on",o===b);});
+      render();
+    });
+  });
+  render();
+})();
+
+/* ── widget: the scope sorter ───────────────────────────── */
+buildSorter("wsortGrid","wsortScore",
+  [{k:"global",label:"Global"},{k:"ws",label:"Workspace"},{k:"proj",label:"Project"},{k:"dir",label:"Directory"},{k:"local",label:"Local"}],
+  [
+    {q:"1 · \"Answer tersely; British English; append my TIL reinforcement paragraph.\"",a:"global",
+     x:"Your identity, every project, nobody else's business: ~/.claude/CLAUDE.md."},
+    {q:"2 · \"The three relay repos are siblings; data lives in relay-api/data and is written only through its store.\"",a:"ws",
+     x:"Binds all three repos at once. The folder above them is the only single address that reaches each: one file, zero copies drifting."},
+    {q:"3 · \"Tests run with node --test; run them before claiming done\" (relay-mono).",a:"proj",
+     x:"True in every package and team property: repo-root CLAUDE.md, checked in."},
+    {q:"4 · \"cli output is parsed by shell scripts: plain text, tab columns, no colour.\"",a:"dir",
+     x:"True only inside packages/cli. Hoist it to root and the report package inherits nonsense: packages/cli/CLAUDE.md."},
+    {q:"5 · \"My sandbox runs on localhost:4117 with test data; never touch the shared staging box.\"",a:"local",
+     x:"Machine-personal: teammates run different sandboxes. CLAUDE.local.md, gitignored, so the shared file stays clean."},
+    {q:"6 · \"The archive is append-only; ids are never reused (ADR 0001).\"",a:"ws",
+     x:"The week's hardest call. The ADR lives in relay-api, but cli and report can both violate the rule: file it at the scope of everyone who must obey: the workspace. (In the monorepo, the same fact goes to root.)"},
+    {q:"7 · \"Weekly reports are markdown with a '## Shipped since' heading the standup bot greps for.\"",a:"proj",
+     x:"relay-report's contract with the outside world: its own repo root. Not workspace: cli and api never produce reports."},
+    {q:"8 · \"The Postgres MCP server used only by this one analytics repo.\"",a:"proj",
+     x:"Wiring is scoped exactly like prose: a .mcp.json checked into that repo. At user scope it pays idle rent in every session on your machine: Act 1's lesson with a config file attached."}
+  ],
+  "The who-suffers question settles all eight: wrong-high pollutes every session, wrong-low starves the one that needed it. From week 3 the same question files settings, commands, hooks and skills: the harness's address system, learned early.");
+
+/* ── widget: the cold-session router ────────────────────── */
+buildSorter("wrouteGrid","wrouteScore",
+  [{k:"ctx",label:"CONTEXT.md"},{k:"des",label:"DESIGN.md"},{k:"gua",label:"guardrails.md"},{k:"adr",label:"ADR"},{k:"cmd",label:"CLAUDE.md"}],
+  [
+    {q:"1 · \"What is this system, and what does 'task' mean here?\"",a:"ctx",
+     x:"\"What is\" plus vocabulary: the cold-start file. One page, read whole, and the session has the shape."},
+    {q:"2 · \"May I rewrite the archive to remove duplicate rows?\"",a:"gua",
+     x:"\"May I\" before a risky edit: the never-do list answers instantly, with the ADR behind it for the why."},
+    {q:"3 · \"Why does the report dedupe at read time instead of fixing the data?\"",a:"adr",
+     x:"\"Why is it built this way\" is decision memory: docs/adr/0001 carries context, decision, consequences."},
+    {q:"4 · \"Which module owns writes to tasks.json?\"",a:"des",
+     x:"Ownership and data flow: current-architecture territory, DESIGN.md's one job."},
+    {q:"5 · \"What must pass before I claim a change is done?\"",a:"cmd",
+     x:"Always-on, every session, every task: that's the spine file's definition."},
+    {q:"6 · \"When did we decide ids are never reused, and what breaks if we do?\"",a:"adr",
+     x:"\"When did we decide\" names a record. The fact echoes in guardrails, but the date, the incident and the cost of change live in the ADR."}
+  ],
+  "Route by verb: is → CONTEXT · owns → DESIGN · may-I → guardrails · why/when-did-we → ADR · always → CLAUDE.md. Write each answer where its question routes and a cold session self-serves in two file reads.");
+
+/* ── widget: the session timeline ───────────────────────── */
+(function(){
+  var host=document.getElementById("wtimeRows");if(!host)return;
+  var score=document.getElementById("wtimeScore");
+  var OPTS=[{k:"on",label:"carry on"},{k:"clear",label:"/clear"},{k:"compact",label:"/compact (focused)"},{k:"handoff",label:"handoff + fresh"}];
+  var ROWS=[
+    {info:true,t:"09:10 · You brief: fix the CSV export encoding bug. Clean session, lean window."},
+    {j:"Juncture A",a:"clear",t:"10:40 · Bug fixed, tests green, committed. Next on your list: add rate limiting to /api/search — unrelated work.",
+     x:"New, unrelated task: the CSV session contributes nothing to it but noise. /clear costs nothing (the work is committed) and buys a lean start. Compact would carefully summarise junk; carrying on donates the whole CSV afternoon to the rate limiter's middle."},
+    {j:"Juncture B",a:"compact",t:"11:00 · Rate limiting underway: six files explored, two dead ends abandoned, approach settled. Window ~70%, plenty of work left.",
+     x:"Same task, live decisions, but the window is mostly exploration debris. /compact keep the approach, files touched and open questions: the gist survives, the dead ends die. /clear burns the decisions; carrying on lets auto-compact pick the moment, and its own keep-list, for you."},
+    {info:true,t:"13:30 · Post-compact: implementation lands piece by piece. One edge case keeps a test red."},
+    {j:"Juncture C",a:"handoff",t:"17:55 · End of day. Feature half-done: red test isolated, fix sketched but unwritten.",
+     x:"Day boundary mid-feature: the handoff. The session writes state, decisions, next step (the sketched fix), gotchas, verify: you correct it while you still know everything. Leaving the session open overnight, or compacting and hoping, hands tomorrow residue instead of authorship."},
+    {info:true,t:"09:05 · Tomorrow: fresh session, first prompt \"Read handoff.md and continue.\" It resumes at the sketched fix, no archaeology."}
+  ];
+  var done=0,right=0,total=ROWS.filter(function(r){return !r.info;}).length;
+  ROWS.forEach(function(d){
+    var r=document.createElement("div");r.className="evrow";
+    if(d.info){r.innerHTML="<span class='ev'>"+d.t+"</span><span></span>";host.appendChild(r);return;}
+    var btns=OPTS.map(function(o){return "<button data-p='"+o.k+"'>"+o.label+"</button>";}).join("");
+    r.innerHTML="<span class='ev'><b>"+d.j+"</b> · "+d.t+"</span><span class='tag3'>"+btns+"</span><span class='vline'></span>";
+    var v=r.querySelector(".vline");
+    [].slice.call(r.querySelectorAll("button")).forEach(function(b){
+      b.addEventListener("click",function(){
+        if(r.dataset.done)return;r.dataset.done="1";done++;
+        b.classList.add("pick");
+        var ok=(b.dataset.p===d.a);if(ok)right++;
+        var lbl="";OPTS.forEach(function(o){if(o.k===d.a)lbl=o.label;});
+        r.className="evrow "+(ok?"ok":"no");
+        v.textContent=(ok?"✓ ":"✗ The call is "+lbl+". ")+d.x;
+        score.textContent=(done===total)?(right+" of "+total+" junctures called. Adopt the defaults verbatim: unrelated task → /clear first · same task, noisy window → focused /compact · day boundary → handoff. And if auto-compact ever fires mid-task, a juncture upstream was missed."):("Called "+done+" of "+total+"…");
+      });
+    });
+    host.appendChild(r);
+  });
+})();
+
+/* ── widget: the intake sorter ──────────────────────────── */
+buildSorter("wpasteGrid","wpasteScore",
+  [{k:"paste",label:"Paste it"},{k:"ref",label:"@-ref it"},{k:"search",label:"Let it search"}],
+  [
+    {q:"1 · A 2,400-line production log; cause unknown.",a:"search",
+     x:"Save it to a file and name the goal. It greps, tails and slices, reading the two hundred lines that matter. Pasting rents window for all 2,400 forever; even an @-ref injects the whole thing."},
+    {q:"2 · The exact 14-line stack trace you're looking at right now.",a:"paste",
+     x:"Small, load-bearing, immediate: this is what paste is for. Making it hunt for what's already on your screen is slower and no more accurate."},
+    {q:"3 · \"How does authentication work across this codebase?\"",a:"search",
+     x:"Unknown territory: let the gather beat run. Pasting your guess of the relevant files anchors it to your guess, which is the habit you're retiring."},
+    {q:"4 · The one function you're rewriting, plus its test file.",a:"ref",
+     x:"Known, exact files: @-ref injects their current bytes. No copy drift: your clipboard version started going stale the moment you copied it."}
+  ],
+  "Size × certainty picks the verb: small and vital → paste · known and exact → @-ref · big or uncertain → search. The log case generalises: anything huge belongs on disk, where grep, tail and slice read only the part that matters.");
+
+})();
+</script>
+</body>
+</html>

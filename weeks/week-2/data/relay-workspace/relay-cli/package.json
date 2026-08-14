@@ -1,0 +1,10 @@
+{
+  "name": "relay-cli",
+  "version": "0.4.0",
+  "description": "Terminal front door for relay.",
+  "main": "src/cli.js",
+  "scripts": {
+    "start": "node src/cli.js"
+  },
+  "license": "MIT"
+}

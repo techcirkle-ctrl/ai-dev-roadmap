@@ -1,0 +1,7 @@
+{
+  "name": "@relay/core",
+  "version": "0.4.0",
+  "description": "Storage for relay. The only package that touches data/tasks.json.",
+  "main": "src/store.js",
+  "license": "MIT"
+}

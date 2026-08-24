@@ -62,10 +62,11 @@ file is the repo's ideology in brief; the full operating contract is
 - **Week = GitHub milestone**, due Sunday EOD. All the week's issues belong to it.
 - **Deck ideology:** one self-contained HTML deck per week on `main`; acts (one act =
   one topic) with embedded hands-on exercises run in Claude Code on real repos; a
-  capstone project after the final act. Slide furniture is a fixed grammar: one name
-  per band (Drive it · Check your read · What you decide · Keep this), bands
-  conditional rather than ritual, self-checking widgets debrief via their own score
-  line, keeps one line. Full rules: DECK-PLAYBOOK §1.
+  capstone project after the final act. Slide furniture is the v2 self-serve grammar:
+  movement = one panel (no divider slides; dark register at act openers only), the
+  coach lives inside the widget (.cuebar, no Drive-it box), every widget self-checks
+  and debriefs via its score line, "Check your read" survives on hands-on panels
+  only, keeps one line. Full rules: DECK-PLAYBOOK §1 + §3.
 - **GitHub Issues + Milestones are the source of truth** for all tracking; `setup/`
   copies are fallback only.
 

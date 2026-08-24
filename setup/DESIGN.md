@@ -56,11 +56,14 @@ Reuse these named patterns; don't invent parallel ones.
 | Kicker | `.kicker` | The uppercase teal eyebrow above a title. |
 | Tag | `.tag` | Small uppercase metadata chip (track, duration). Variants: default=Craft, `.method`, `.repo`, `.team`. |
 | Fold | `details.fold` | Optional-depth collapsible strip; core teaching never lives inside one. Colour-coded by the question it answers: `.plain` "In plain words" (teal, `--accent`), `.hood` "Under the hood" (violet, `--deep`), `.industry` "How industry does it" (green, `--good`), `.btw` "By the way" (slate, `--muted`), `.dyk` "Did you know" (amber, `--warn`), `.trouble` "Stuck?" (slate, dashed — replaces the old `.bank`). Body in `.fbody`; a beforeprint handler opens all folds so print carries the layer. |
-| Drive it | `.drive` | Widget operating cues: numbered steps (≤ 4) + a "watch for" line. Required on every widget. |
-| Check your read | `.notice` | The self-assessment band after a widget or hands-on. This exact label — never "What you just saw" / "What good looks like" / other variants (retired 2026-08-14). Omitted on self-checking widgets, whose score line carries the debrief. May absorb a short What-you-decide as a second bold mini-lead. |
-| What you decide | `.read` | The decision the learner owns. Conditional: only where a genuine decision exists. |
+| Goal strip | `.goalstrip` | One-line goal atop every movement and capstone-step panel (movements have no divider slides — v2 grammar, 2026-08-14). |
+| Coach cues | `.cuebar` + `.cueall` | The in-widget coach: current operating cue shown inside the lab shell, advanced by the learner's own actions; final cue carries the watch-for. `.cueall` is the hidden full list revealed in print. Replaces the retired `.drive` box. |
+| Inline check | `.wcheck` | One self-check question inside a reveal/simulator widget; its verdict writes the widget's `.scoreline`. Sorter widgets self-check per click instead. Every widget ends self-checking. |
+| Check your read | `.notice` | Hands-on panels only (terminal work the deck cannot observe). This exact label — never "What you just saw" / "What good looks like" (retired 2026-08-14). At most one; may absorb a short What-you-decide mini-lead. Never on widget panels. |
+| What you decide | `.read` | The decision the learner owns. Only where genuine; concrete decisions prefer a persisted micro-capture (confidence-box pattern). |
 | Keep this | `.keep` | One-line takeaway closing every slide (≤ 25 words); the keeps read in order are the week's glossary. |
 | Taught-later chip | `.soon` | Inline grey chip marking a term previewed now and taught in a later act ("taught in Act 4"). Kills the am-I-supposed-to-know-this moment on forward references. |
+| Teach list | `.teach ul` / `.fbody ul` | The default shape for teach prose that makes more than one point (spoken-English bar, 2026-08-24): one point per `li`, each a full sentence. Style matches teach paragraphs: `.teach ul,.fbody ul{margin:9px 0 9px 22px}` `.teach li,.fbody li{margin:6px 0;font-size:1.03rem}` (`.fbody li` at `.98rem`). Paragraphs are reserved for narrative — one point, ≤ 75 words, verifier-enforced. |
 
 ## The two registers (Sparkline rule)
 

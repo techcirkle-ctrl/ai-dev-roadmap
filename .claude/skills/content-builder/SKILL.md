@@ -12,7 +12,9 @@ no LLM-101 padding on code, zero assumed vocabulary on agents. Keywords are curr
 keep every term of art and back its first use with a plain-words explainer (takeaway →
 expansion → example; depth in the fold layer). The bar for every artifact is the
 **another-LLM test** — a learner who needs a second LLM to decode a slide means the
-artifact failed. Mechanics: DECK-PLAYBOOK rules 5 and 8b.
+artifact failed. Prose reads like a colleague explaining aloud: points in bullets, full
+sentences (never compressed phrase-pairs), everyday words for everything that isn't a
+curriculum keyword. Mechanics: DECK-PLAYBOOK rules 5, 8b and 8c.
 
 Companion files in this folder: `DECK-PLAYBOOK.md` (deck authoring canon — read before
 building any deck), `check-deck.js` (structural verifier), `publish-week.sh` (idempotent

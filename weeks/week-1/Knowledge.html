@@ -2,7 +2,8 @@
 <!--
   Week 1 deck — Setup + the map: wire everything · AI Dev Roadmap
   SELF-TEACHING deck: the learner navigates alone — all teaching is on the glass.
-  Every widget carries a visible "Drive it" box; every slide ends with a "Keep this" band.
+  v2 grammar: movement = one panel, the coach lives inside the widget (.cuebar), every widget
+  self-checks, dark register at act openers only; every slide ends with a "Keep this" band.
   Self-contained: inline CSS + vanilla JS, no network, prints clean, state → localStorage.
   Keys: → next · ← back · Home agenda · End close · F full-screen.
   Navigation is keyboard-only; the mouse is for widgets, copy buttons, and capture boxes.
@@ -48,6 +49,9 @@ h2.head{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size
 /* teaching prose */
 .teach{max-width:76ch;margin-top:8px}
 .teach p{margin:9px 0;font-size:1.03rem}
+.teach ul,.fbody ul{margin:9px 0 9px 22px}
+.teach li{margin:6px 0;font-size:1.03rem}
+.fbody li{margin:6px 0;font-size:.98rem}
 .teach b{color:var(--ink)}
 .teach .em{color:var(--accent);font-weight:700}
 .slide.dark .teach b{color:#eef6f5}
@@ -253,6 +257,17 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 .chrome b{color:#c3d9d6;font-weight:700}
 .helpbar{position:fixed;bottom:12px;left:20px;z-index:30;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12px;color:#5f7a77}
 .helpbar b{color:#8aa6a2}
+/* v2: goal strip + in-widget coach + inline check */
+.goalstrip{background:var(--wash);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:7px 14px;margin:0 0 14px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;color:var(--muted);max-width:900px}
+.goalstrip b{color:var(--accent);text-transform:uppercase;font-size:11px;letter-spacing:.1em;margin-right:8px}
+.cuebar{background:var(--accent-soft);border:1px dashed var(--accent);border-radius:8px;padding:7px 12px;margin-bottom:12px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;color:var(--accent);max-width:860px}
+.cuebar b{font-family:ui-monospace,Menlo,Consolas,monospace}
+.cuebar.watch{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.cuebar.done{background:var(--good-soft);border-color:var(--good);color:var(--good);border-style:solid}
+.cueall{display:none;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:var(--muted);margin-top:10px}
+.cueall ol{margin:4px 0 0 18px}
+.wcheck{border-top:1px dashed var(--line);margin-top:14px;padding-top:12px}
+.wcheck .q{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;font-weight:700;margin-bottom:8px}
 /* print */
 @media print{
   body{background:#fff}
@@ -271,6 +286,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
   details.fold{break-inside:avoid;background:#fff;border-color:var(--line)}
   details.fold .fbody{color:var(--ink)!important}
   .chrome,.helpbar,.progress,.promptblock .copy,.stepcue{display:none!important}
+  .cuebar{display:none!important}
+  .cueall{display:block!important}
   .promptblock{padding-right:16px}
 }
 </style>
@@ -288,25 +305,40 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     <h1 class="big">Stop being the clipboard.<br>Start running the loop.</h1>
     <p class="lead mt14">You already use Claude every day. This week rebuilds <b>how</b>: one wired
     environment where Claude reaches GitHub, your systems and your terminal directly, plus the map of the
-    four disciplines — four named skills this programme drills — that the next eight weeks deepen.
+    four disciplines, the four named skills that the next eight weeks deepen.
     <span class="soon">taught in Act 4</span></p>
     <div class="teach">
-      <p><b>How this deck works:</b> it's a guided lab you walk through alone, well under an hour most days.
-      Slides teach in full. Read them; nothing you need is hidden anywhere else. When a slide has a
-      widget, a tinted <span class="em">Drive it</span> box tells you exactly what to click and what to
-      watch for, and a green <span class="em">Check your read</span> box confirms what you should have
-      seen; widgets that grade your clicks skip that box and debrief in their own score line. When it has a hands-on, the commands and prompts are copy-ready, and each block is
-      labelled: <b>terminal</b> means your shell, <b>claude</b> means inside a Claude Code session. Every
-      slide ends with a <span class="em">Keep this</span> line: the one thing to retain.</p>
-      <p><b>Two conventions built for you:</b> every new term is explained in plain words the moment it
-      first appears, and the colour-coded fold strips (<b>In plain words</b>, <b>Under the hood</b>,
-      <b>How industry does it</b>, <b>By the way</b>, <b>Did you know</b>) hold optional depth. Click one
-      open when you want the longer explanation; skip them all and you still get the full lesson. A small
-      grey chip like <span class="soon">taught in Act 4</span> marks a term being previewed now and taught
-      properly later — so a word you don't recognise yet is never a word you were supposed to know.</p>
-      <p><b>Keys:</b> <b>→</b> next · <b>←</b> back · <b>Home</b> jumps to the map · <b>F</b> full-screen.
-      The mouse never changes slides; it drives widgets, copies commands, opens folds, and types into
-      capture boxes. Anything you type saves to this browser only.</p>
+      <p><b>How this deck works:</b> it's a guided lab you walk through alone, and most days it takes
+      well under an hour.</p>
+      <ul>
+        <li>Each lesson is one slide that teaches in full; nothing you need is hidden anywhere else.</li>
+        <li>Widgets coach themselves: the teal <span class="em">cue strip</span> inside a widget names
+        your next move and advances as you act.</li>
+        <li>Every widget ends by checking your read and writing its <span class="em">score line</span>.</li>
+        <li>Hands-on slides carry a green <span class="em">Check your read</span> box instead, because
+        that work happens in your terminal.</li>
+        <li>Commands and prompts are copy-ready, and each block is labelled: <b>terminal</b> means your
+        shell, and <b>claude</b> means inside a Claude Code session.</li>
+        <li>Every slide ends with a <span class="em">Keep this</span> line: the one thing to retain.</li>
+      </ul>
+      <p><b>Two conventions are built in for you.</b></p>
+      <ul>
+        <li>Every new term is explained in plain words the moment it first appears.</li>
+        <li>The colour-coded fold strips (<b>In plain words</b>, <b>Under the hood</b>,
+        <b>How industry does it</b>, <b>By the way</b>, <b>Did you know</b>) hold optional depth. Click
+        one open when you want the longer explanation; skip them all and you still get the full
+        lesson.</li>
+        <li>A small grey chip like <span class="soon">taught in Act 4</span> marks a term being previewed
+        now and taught properly later. A word you don't recognise yet is never a word you were supposed
+        to know.</li>
+      </ul>
+      <ul>
+        <li><b>Keys:</b> <b>→</b> next · <b>←</b> back · <b>Home</b> jumps to the map · <b>F</b>
+        full-screen.</li>
+        <li>The mouse never changes slides; it drives widgets, copies commands, opens folds, and types
+        into capture boxes.</li>
+        <li>Anything you type saves to this browser only.</li>
+      </ul>
     </div>
     <details class="fold plain"><summary>In plain words · "the clipboard" and "the loop"</summary><div class="fbody">
       <p><b>The clipboard job.</b> Today you copy code out of Claude's chat window into your editor, run
@@ -314,11 +346,11 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       text between Claude and your own machine. That courier role is what this deck calls "being the
       clipboard".</p>
       <p><b>The loop.</b> The repeating cycle every coding task runs on: look at the code, make a change,
-      test it, look again. Today you run that cycle by hand. By Sunday, Claude Code runs it — it reads
+      test it, look again. Today you run that cycle by hand. By Sunday, Claude Code runs it: it reads
       your files, edits them, and runs your tests itself, on your machine, while you watch and steer.
       "Running the loop" means owning that cycle end to end.</p>
     </div></details>
-    <span class="keep"><b>Keep this</b>Zero copy-paste by Sunday: no text travels between Claude and your tools by hand. Every hop is a cost you can now name and delete.</span>
+    <span class="keep"><b>Keep this</b>By Sunday you reach zero copy-paste: no text travels between Claude and your tools by hand, and every hop has a name and a cost.</span>
   </div>
 </section>
 
@@ -326,20 +358,27 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 <section class="slide isnow" data-act="Week 1" data-mv="The week">
   <div class="wrap">
     <div class="kicker">The week · ~1 h/day in the deck + a weekend block</div>
-    <h2 class="head">Do-a-lot beats read-a-little</h2>
+    <h2 class="head">Doing a lot beats reading a little</h2>
     <div class="teach">
-      <p>Budget: roughly <b>5 hours</b> in this deck across five short days, then a weekend block for
-      the Application projects on GitHub. You already code; nothing here needs long sittings. The tags
-      show where your hands are on a real terminal. Reading about wiring builds nothing; running it
-      builds the instinct. So almost every block is tagged.</p>
-      <p>Two words in the plan, defined now: a <b>mini-rep</b> is one short practice exercise — a rep, as
-      in the gym, because you learn this material by repetitions, not by reading. <b>EOD</b> means end of
-      day.</p>
+      <p>The budget is roughly <b>5 hours</b> in this deck across five short days, then a weekend block
+      for the Application projects on GitHub.</p>
+      <ul>
+        <li>You already code, so nothing here needs long sittings.</li>
+        <li>The tags show where your hands are on a real terminal.</li>
+        <li>Reading about wiring builds nothing; running it builds the instinct. That's why almost every
+        block is tagged.</li>
+      </ul>
+      <p>Two words in the plan get defined now.</p>
+      <ul>
+        <li>A <b>mini-rep</b> is one short practice exercise: a rep, as in the gym, because you learn
+        this material by repetition rather than by reading.</li>
+        <li><b>EOD</b> means end of day.</li>
+      </ul>
     </div>
     <details class="fold btw"><summary>By the way · why five short days beat one long Saturday</summary><div class="fbody">
       <p>The plan spreads the deck across five short sittings on purpose. Practice spaced over days sticks
       far better than one long cram, because you re-meet each idea just as it starts to fade. If life
-      forces you to batch it, batch the reading — but keep the hands-ons on separate days. They're the
+      forces you to batch it, batch the reading, but keep the hands-ons on separate days. They're the
       part that builds habit, and habit needs repetition with gaps.</p>
     </div></details>
     <div class="dayplan">
@@ -352,8 +391,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     </div>
     <span class="read"><b>If a day slips:</b> compress Act 3's reading and the widget replays, never the
     mini-reps and never the capstone. The reps are the week.</span>
-    <span class="keep"><b>Keep this</b>~5 h in the deck, ~6 h of projects, due Sunday EOD on the Week 1
-    milestone. Protect the hands-on blocks first.</span>
+    <span class="keep"><b>Keep this</b>The week is about 5 hours of deck and 6 hours of projects, due
+    Sunday EOD on the Week 1 milestone; protect the hands-on blocks first.</span>
   </div>
 </section>
 
@@ -361,15 +400,21 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 <section class="slide isnow" id="agenda" data-act="Week 1" data-mv="Agenda">
   <div class="wrap">
     <div class="kicker">The map · press Home anytime to come back here</div>
-    <h2 class="head">Four acts, nine hands-ons, one capstone</h2>
+    <h2 class="head">The week is four acts, nine hands-ons and one capstone</h2>
     <div class="teach">
-      <p>Reading the map: an <b>act</b> is one topic. A <b>movement</b> (the M numbers) is one lesson
-      inside an act — usually a short teach followed by a widget you drive or an exercise you run.
-      <b>H-O</b> marks a <b>hands-on</b>: a lesson done in a real terminal, not in this deck. Acts 1 to 3
-      wire the machine and the meter. Act 4 is the programme in miniature: all four disciplines, each
-      experienced as a mini-rep on a small practice repo — the gym, so called because it's where you do
-      your reps — that ships in this week's folder. Everything funnels into the capstone: audit the
-      wiring, ship one real automation through it, then autopsy the loop that did the work.</p>
+      <p>Three words explain the map.</p>
+      <ul>
+        <li>An <b>act</b> is one topic.</li>
+        <li>A <b>movement</b> (the M numbers) is one lesson inside an act: usually a short teach,
+        followed by a widget you drive or an exercise you run.</li>
+        <li><b>H-O</b> marks a <b>hands-on</b>: a lesson done in a real terminal, outside this deck.</li>
+      </ul>
+      <p>Acts 1 to 3 wire the machine and the meter. Act 4 is the programme in miniature: you run all
+      four disciplines once each, as mini-reps, on a small practice repo that ships in this week's
+      folder. That repo is called the gym, because it's where you do your reps.</p>
+      <p>Everything funnels into the capstone: audit the wiring, ship one real automation through it,
+      then walk back through the loop that did the work (the deck calls that walk-back the loop
+      autopsy).</p>
     </div>
     <div class="agcols">
       <div class="accol"><h3>Act 1 · The agentic loop</h3>
@@ -408,8 +453,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     <div class="seq"><h3>Capstone · Wire it, ship it, autopsy it</h3>
       <div class="seqrow"><span><b>1</b> Audit the wiring</span><span><b>2</b> Pick the automation</span><span><b>3</b> Ship it</span><span><b>4</b> Loop autopsy</span><span><b>5</b> Verdict + export</span></div>
     </div>
-    <span class="keep"><b>Keep this</b>Sixteen movements, five capstone steps. If you ever feel lost,
-    press Home; this map is always one key away.</span>
+    <span class="keep"><b>Keep this</b>The week runs sixteen movements and five capstone steps; if you
+    ever feel lost, press Home and this map comes back.</span>
   </div>
 </section>
 
@@ -422,7 +467,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       <div class="ucard"><h3>The posture</h3>
         <ul>
           <li><b>Measure, don't trust.</b> Nothing in this programme is graded on "it felt faster".
-          Sessions get probed, costs get read, loops get checked on what they catch.</li>
+          Sessions get measured, usage gets read, loops get checked on what they catch.</li>
           <li><b>Do, don't skim.</b> Every hands-on runs in Claude Code, in a terminal, on a repo. If you
           only read this deck, you did not do Week 1.</li>
           <li><b>Name the discipline.</b> Four words this programme lives by: context (what Claude sees),
@@ -438,7 +483,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
           <li><b>The friction log:</b> start it today. One plain text file (friction-log.md) in your
           notes. Every time you catch yourself copying text by hand, repeating an instruction, or
           doubting a "done", add one line saying what happened. Two minutes a day; week 3 turns its top
-          entries into automation. The deck says "log it in the friction log" often — this file is what
+          entries into automation. The deck says "log it in the friction log" often; this file is what
           it means.</li>
           <li><b>The loop:</b> this deck is your <b>Knowledge</b> issue on the Week 1 milestone. The
           weekend's four <b>Application</b> issues carry the projects and evidence; <b>Reinforcement</b>
@@ -449,21 +494,21 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       </div>
     </div>
     <details class="fold plain"><summary>In plain words · the four disciplines in thirty seconds</summary><div class="fbody">
-      <p><b>Context engineering</b> — controlling what Claude can see. Example: a CLAUDE.md file holding
+      <p><b>Context engineering</b> controls what Claude can see. Example: a CLAUDE.md file holding
       your repo's rules, read automatically at the start of every session, so you stop repeating them.</p>
-      <p><b>Harness engineering</b> — the harness is everything you configure around Claude: permission
-      rules, hooks, custom commands. Harness engineering moves the things you keep saying into that
+      <p><b>Harness engineering</b> works on the harness, which is everything you configure around
+      Claude: permission rules, hooks, custom commands. It moves the things you keep saying into that
       equipment, so they happen automatically instead of being retyped.</p>
-      <p><b>Loop engineering</b> — making sure every piece of work ends with a machine check (a test, a
+      <p><b>Loop engineering</b> makes sure every piece of work ends with a machine check (a test, a
       command with a pass or fail) rather than Claude's own "done".</p>
-      <p><b>Graph engineering</b> — spotting which tasks don't depend on each other, and running those at
+      <p><b>Graph engineering</b> spots which tasks don't depend on each other, and runs those at
       the same time instead of one after another.</p>
       <p>You'll run each one once this week as a mini-rep. Weeks 2 to 7 then go deep, one at a time.</p>
     </div></details>
     <span class="read"><b>By Sunday you hold:</b> a wired environment that passes a cold audit, one shipped
-    automation, a week of cost data, and the four-discipline vocabulary the whole programme runs on.</span>
-    <span class="keep"><b>Keep this</b>Two rules carry all nine weeks: measurement over trust, doing over
-    watching. Open a terminal now, not on Day 4.</span>
+    automation, a week of usage data, and the four-discipline vocabulary the whole programme runs on.</span>
+    <span class="keep"><b>Keep this</b>Two rules carry all nine weeks: measure instead of trusting, and
+    do instead of watching. Open a terminal today, not on Day 4.</span>
   </div>
 </section>
 
@@ -478,15 +523,16 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       You waited again. Somewhere in there you switched to GitHub, read an issue, and retyped half of it
       into the conversation for context.</p>
       <p>Count the hops. Every one of them was <b>you</b>, carrying text between systems that both sit on
-      your machine. The model reasoned; you did the plumbing. That workflow has a name: <b>chat-driven
-      development</b>. It treats a coding agent as a very fast colleague you can only reach by post:
-      every message travels by hand, one exchange at a time, and nothing moves between your replies.</p>
-      <p>The cost isn't just minutes. Because every hop passes through you, the loop only runs while you
+      your machine. The model reasoned; you did the plumbing.</p>
+      <p>That workflow has a name: <b>chat-driven development</b>. It treats a coding agent as a very
+      fast colleague you can only reach by post: every message travels by hand, one exchange at a time,
+      and nothing moves between your replies.</p>
+      <p>The cost goes beyond minutes. Because every hop passes through you, the loop only runs while you
       attend to it. Nothing verifies itself. Nothing compounds. Next week's session starts from zero
       again.</p>
     </div>
-    <span class="keep"><b>Keep this</b>Chat-driven development = the human as clipboard, scheduler and
-    verifier at once. Naming it is the first step to firing yourself from all three jobs.</span>
+    <span class="keep"><b>Keep this</b>In chat-driven development you are the clipboard, the scheduler
+    and the verifier at once; naming those three jobs is the first step to quitting them.</span>
   </div>
 </section>
 
@@ -494,17 +540,22 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 <section class="slide isnow" data-act="Week 1" data-mv="The promise">
   <div class="wrap">
     <div class="kicker">What could be</div>
-    <h2 class="head">By Sunday: Claude reaches every system itself.<br>You review outcomes, not ferry text.</h2>
+    <h2 class="head">By Sunday Claude reaches every system itself.<br>You review outcomes instead of ferrying text.</h2>
     <div class="teach">
-      <p>Concretely, by Sunday: <b>gh</b> — GitHub's official command-line tool — gives Claude hands on
-      GitHub, so it reads and updates your issues and PRs itself. <b>MCP servers</b> connect your team's
-      other systems (MCP, the Model Context Protocol, is a standard plug for giving Claude access to
-      tools like Notion, Jira or your database). <span class="soon">both wired in Act 2</span> A
-      <b>permission baseline</b> — a saved list of which commands may run without asking you — lets safe
-      commands run freely while dangerous ones still stop for you. You know what a session costs, and
-      which Claude model (Opus or Sonnet) to spend on which kind of task. <span class="soon">taught in
-      Act 3</span> And you've run all four disciplines once each, so the eight weeks ahead are deepening,
-      never introducing.</p>
+      <p>Here is what "wired" means by Sunday, concretely.</p>
+      <ul>
+        <li><b>gh</b>, GitHub's official command-line tool, gives Claude hands on GitHub, so it reads
+        and updates your issues and PRs itself.</li>
+        <li><b>MCP servers</b> connect your team's other systems. MCP, the Model Context Protocol, is a
+        standard plug for giving Claude access to tools like Notion, Jira or your database.
+        <span class="soon">both wired in Act 2</span></li>
+        <li>A <b>permission baseline</b>, a saved list of which commands may run without asking you,
+        lets safe commands run freely while dangerous ones still stop for you.</li>
+        <li>You know what a session draws from your usage, and which Claude model (Opus or Sonnet) to
+        spend on which kind of task. <span class="soon">taught in Act 3</span></li>
+        <li>You've run all four disciplines once each, so the eight weeks ahead deepen skills instead
+        of introducing them.</li>
+      </ul>
       <p>The proof is physical: one real automation, shipped through the wired environment, doing work you
       did by hand last week.</p>
     </div>
@@ -528,57 +579,53 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     <div class="kicker">Act 1 · Day 1 · ~50 min</div>
     <h1 class="big">The agentic loop</h1>
     <p class="lead mt14">Act 1 has exactly one idea: an <b>agent</b> is a model in a loop with tools.
-    Tools mean it can read files, edit them, and run commands on your machine — the things you currently
+    Tools mean it can read files, edit them, and run commands on your machine: the things you currently
     do for it. Loop means it repeats a cycle on its own: do something, look at the result, decide the
-    next step. So it <b>gathers</b> its own context, <b>acts</b> on your system, and <b>verifies</b> its
-    own work. The difference between chat and agent isn't intelligence. It's who runs the loop.</p>
+    next step.</p>
+    <p class="lead mt14">So it <b>gathers</b> its own context, <b>acts</b> on your system, and
+    <b>verifies</b> its own work. The model's intelligence is the same in chat and agent; what changes
+    is who runs the loop.</p>
     <p class="sub mt14">Four movements: watch the two workflows side by side and count your hops (M1) ·
     learn the three beats every good turn has (M2) · learn the brief shape that kills the back-and-forth
     (M3) · then read a real session on the gym repo, beat by beat (Hands-on 01).</p>
     <details class="fold plain"><summary>In plain words · one lap of the loop, concretely</summary><div class="fbody">
-      <p>You tell Claude Code: "the weekly report lists a task twice — fix it." It opens the report code
+      <p>You tell Claude Code: "the weekly report lists a task twice; fix it." It opens the report code
       and reads it (<b>gather</b>). It spots the duplicate counting and edits one function (<b>act</b>).
       It runs your test command and reads the output (<b>verify</b>). The tests pass, so it stops and
-      shows you the diff. If a test had failed, it would have read the failure and gone round again —
-      without you touching anything. That whole cycle, run by the model instead of by you, is the agentic
-      loop. Everything else this week is plumbing to make that loop reach further and safer.</p>
+      shows you the diff.</p>
+      <p>If a test had failed, it would have read the failure and gone round again, without you touching
+      anything. That whole cycle, run by the model instead of by you, is the agentic loop. Everything
+      else this week is plumbing to make that loop reach further and safer.</p>
     </div></details>
-    <span class="keep"><b>Keep this</b>One idea this act: gather → act → verify, run by the agent. Every
-    failure you'll ever debug in this programme is one of those beats done badly.</span>
+    <span class="keep"><b>Keep this</b>This act has one idea: the agent runs gather → act → verify
+    itself, and every failure you'll ever debug is one of those beats done badly.</span>
   </div>
 </section>
 
 <!-- 8 · M1 divider -->
-<section class="slide dark" data-act="Act 1 · The agentic loop" data-mv="Chat vs agent">
-  <div class="wrap">
-    <div class="kicker">Act 1 · Movement M1</div>
-    <h1 class="big">Chat vs agent: the loop changes hands</h1>
-    <p class="lead mt14">Same task, two workflows: "the weekly report prints a task twice; find it and fix
-    it." On the left, you drive a chat window. On the right, a Claude Code session drives itself. You're
-    about to step both to completion and count who does the carrying.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Feel the structural difference: the same model, with tools and a loop, stops needing you between every step.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>Which of your daily Claude habits are chat habits you can now drop, because the agent covers them.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>Watch the amber rows on the left. Amber means you, carrying text by
-    hand. The lesson is how many there are for one small fix.</span>
-  </div>
-</section>
-
-<!-- 9 · M1 panel — wloop -->
 <section class="slide" data-act="Act 1 · The agentic loop" data-mv="Chat vs agent">
   <div class="wrap">
     <div class="kicker">M1 · Chat vs agent</div>
-    <h2 class="head">One bugfix. Count your hops.</h2>
+    <h2 class="head">Chat vs agent: the loop changes hands</h2>
+    <div class="goalstrip"><b>Goal</b>Feel the structural difference: the same model, with tools and a loop, stops needing you between every step.</div>
+    <div class="teach"><p>Same task, two workflows: "the weekly report prints a task twice; find it and fix
+    it." On the left, you drive a chat window. On the right, a Claude Code session drives itself. You're
+    about to step both to completion and count who does the carrying.</p></div>
     <div class="teach">
       <p>The task is real; you'll meet this exact bug in the gym repo later this week. What matters here
-      is the traffic pattern. In chat, the model can only see what you paste and can only "do" what you
-      carry out for it. In an agent session, the model has tools: it reads files itself, edits them
-      itself, runs the tests itself. Your involvement collapses to two points: the brief at the start and
-      the review at the end.</p>
+      is the traffic pattern.</p>
+      <ul>
+        <li>In chat, the model can only see what you paste, and can only "do" what you carry out for
+        it.</li>
+        <li>In an agent session, the model has tools: it reads files itself, edits them itself, and runs
+        the tests itself.</li>
+        <li>Your involvement collapses to two points: the brief at the start and the review at the
+        end.</li>
+      </ul>
     </div>
     <div class="lab" id="wloop">
       <div class="labtitle">Widget · <b>the hop counter</b></div>
+      <div class="cuebar"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
         <button class="btn" id="wloopGo">Advance both workflows</button>
         <button class="btn ghost" id="wloopReset">Reset</button>
@@ -596,152 +643,124 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
         </div>
       </div>
       <p class="hopline" id="wloopTally"></p>
+      <div class="wcheck"></div>
+      <p class="scoreline" id="wloopScore"></p>
+      <div class="cueall"></div>
     </div>
-    <div class="drive"><span class="dt">Drive it</span>
-      <ol>
-        <li>Press <b>Advance both workflows</b> once. Both sides receive the same brief.</li>
-        <li>Keep pressing, slowly. Read each new row before the next press. Amber rows with <b>YOU</b> are
-        manual hops: copying code, running commands, ferrying errors.</li>
-        <li>The chat side needs 8 steps to finish. Watch the agent side finish in 5, with a test run it
-        chose to make itself.</li>
-        <li>After the final press, read the tally line under the cards.</li>
-      </ol>
-      <p class="watch">Watch for: the chat side's step 6, where you paste the test output back in. The
-      agent side never has that step. It saw the output the moment the test ran, because it ran it.</p>
-    </div>
-    <div class="notice"><b>Check your read:</b> chat needed 6 hops by you, the agent 2 (brief, review),
-    same model: tools plus a loop mean it gathers and verifies itself, including an unprompted test run
-    chat cannot produce. <b>What you decide:</b> which of your habits are clipboard work? Pasting files,
-    retyping issue context, ferrying stack traces: each is a hop this week deletes.</div>
     <details class="fold industry"><summary>How industry does it · every serious coding tool now runs this loop</summary><div class="fbody">
-      <p>The loop you just watched is not a Claude Code quirk; it's where the whole industry has landed.
+      <p>The loop you just watched is not a Claude Code quirk; the whole industry has landed on it.
       Claude Code runs it in the terminal. Cursor and Windsurf run the same loop inside an editor. GitHub
-      Copilot's coding agent runs it on GitHub's servers. The interfaces differ; gather → act → verify is
-      the shared shape. Which means the skills this week builds — writing a sharp brief, reviewing an
-      agent's work, reading a session — transfer to whichever tool your next team uses. You're learning
-      the loop, not memorising a product.</p>
+      Copilot's coding agent runs it on GitHub's servers.</p>
+      <p>The interfaces differ; gather → act → verify is the shared shape. So the skills this week
+      builds (writing a sharp brief, reviewing an agent's work, reading a session) transfer to whichever
+      tool your next team uses. The loop is the durable skill; products come and go.</p>
     </div></details>
-    <span class="keep"><b>Keep this</b>Agent = model + tools + loop. Your job moves to the two ends: a
-    sharp brief in, a real review out.</span>
+    <span class="keep"><b>Keep this</b>An agent is a model plus tools plus a loop; your job moves to the
+    two ends, a sharp brief in and a real review out.</span>
   </div>
 </section>
 
 <!-- 10 · M2 divider -->
-<section class="slide dark" data-act="Act 1 · The agentic loop" data-mv="Gather, act, verify">
-  <div class="wrap">
-    <div class="kicker">Act 1 · Movement M2</div>
-    <h1 class="big">Gather, act, verify: every turn has three beats</h1>
-    <p class="lead mt14">A <b>beat</b> here is a stage in the rhythm, like a beat in a bar of music — and
-    open any good agent transcript and the same three appear. <b>Gather:</b> read files, grep, list —
-    learning the territory before touching it. <b>Act:</b> edit, write, run the change. <b>Verify:</b>
-    run the tests, check the output, compare the result against what was asked. When a session goes
-    wrong, one beat is missing or done badly. Reading sessions by beat is the diagnostic skill of the
-    whole programme.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Learn to tag any transcript event as gather, act or verify, fast enough that it becomes automatic.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>The question you'll ask of every session from now on: what closed the loop, and was it a machine check or a vibe?</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>Gather → act → verify. Say it until it's boring. It's the x-ray you
-    read every session with from here on.</span>
-  </div>
-</section>
-
-<!-- 11 · M2 panel — wtrace -->
 <section class="slide" data-act="Act 1 · The agentic loop" data-mv="Gather, act, verify">
   <div class="wrap">
     <div class="kicker">M2 · Gather, act, verify</div>
-    <h2 class="head">Tag the session: eight events, three beats</h2>
+    <h2 class="head">Gather, act, verify: every turn has three beats</h2>
+    <div class="goalstrip"><b>Goal</b>Learn to tag any transcript event as gather, act or verify, fast enough that it becomes automatic.</div>
     <div class="teach">
-      <p>Below is a condensed transcript of a Claude Code session on the gym repo, given "the weekly
-      report shows a task twice; fix it." Each row is one <b>tool call</b> — one use of one tool (read a
-      file, run a command), in order. Tag every row with its beat. Two rows are traps: one looks like
-      action but is gathering, and one is the beat most sessions skip.</p>
+      <p>A <b>beat</b> here is a stage in the rhythm, like a beat in a bar of music. Open any good agent
+      transcript and the same three appear.</p>
+      <ul>
+        <li><b>Gather:</b> the model reads files, greps and lists, learning the territory before
+        touching it.</li>
+        <li><b>Act:</b> it edits, writes, and runs the change.</li>
+        <li><b>Verify:</b> it runs the tests, checks the output, and compares the result against what
+        was asked.</li>
+      </ul>
+      <p>When a session goes wrong, one beat is missing or done badly. Reading sessions by beat is the
+      diagnostic skill of the whole programme.</p>
+    </div>
+    <div class="teach">
+      <p>Below is a condensed transcript of a Claude Code session on the gym repo. The task was: "the
+      weekly report shows a task twice; fix it." Each row is one <b>tool call</b>, meaning one use of
+      one tool (read a file, run a command), in order.</p>
+      <p>Tag every row with its beat. Two rows are traps: one looks like action but is gathering, and
+      the other is the beat most sessions skip.</p>
     </div>
     <details class="fold hood"><summary>Under the hood · what a "tool call" actually is</summary><div class="fbody">
-      <p>The model can only produce text. So when Claude Code "reads a file", what really happens is:
-      the model writes a structured request — "call the Read tool on src/report.js" — the Claude Code
-      program executes it, and the file's contents come back as text into the conversation. Same for
-      running a command: the model requests the Bash tool, your machine runs the command, and the output
-      (including errors) flows back in. A session transcript is just this exchange repeated: request,
-      result, request, result. That's why you can read any session as a sequence of tool calls — it
-      literally is one.</p>
+      <p>The model can only produce text. So when Claude Code "reads a file", what really happens is
+      this: the model writes a structured request ("call the Read tool on src/report.js"), the Claude
+      Code program executes it, and the file's contents come back as text into the conversation.</p>
+      <p>Running a command works the same way: the model requests the Bash tool, your machine runs the
+      command, and the output (including errors) flows back in. A session transcript is just this
+      exchange repeated: request, result, request, result. That's why you can read any session as a
+      sequence of tool calls; it literally is one.</p>
     </div></details>
     <div class="lab" id="wtrace">
       <div class="labtitle">Widget · <b>the session tracer</b></div>
+      <div class="cuebar"></div>
       <div id="wtraceRows"></div>
       <p class="scoreline" id="wtraceScore"></p>
-    </div>
-    <div class="drive"><span class="dt">Drive it</span>
-      <ol>
-        <li>Take the rows top to bottom. Commit a tag on each before reading its verdict.</li>
-        <li>Row 4 is the first trap: running the test suite <b>before</b> any edit. Decide what beat that
-        really is.</li>
-        <li>Rows 7 and 8 are the loop closing. Notice what kind of evidence each produces.</li>
-        <li>Read your score line, then re-read the whole list once as a rhythm: G G G V? A V A V.</li>
-      </ol>
-      <p class="watch">Watch for: the test run before the edit. Running checks to learn the current state
-      is gathering. The same command after the edit is verification. The beat isn't the tool; it's the
-      intent.</p>
+      <div class="cueall"></div>
     </div>
     <span class="read"><b>What you decide:</b> from now on, when a session feels off, you don't say
     "Claude was weird". You say which beat failed: gathered too little, acted too wide, verified
     nothing.</span>
-    <span class="keep"><b>Keep this</b>Same command, different beat: checks before an edit are gather,
-    checks after are verify. Intent defines the beat.</span>
+    <span class="keep"><b>Keep this</b>The same command can be either beat: checks before an edit are
+    gather, checks after are verify. Intent defines the beat.</span>
   </div>
 </section>
 
 <!-- 11b · M3 divider -->
-<section class="slide dark" data-act="Act 1 · The agentic loop" data-mv="The well-formed brief">
-  <div class="wrap">
-    <div class="kicker">Act 1 · Movement M3</div>
-    <h1 class="big">A well-formed brief kills the back-and-forth</h1>
-    <p class="lead mt14">The most practical mindset shift of the week costs nothing to adopt: stop typing
-    requests, start writing briefs. A <b>brief</b> is a prompt with the shape of a spec, and it has five
-    parts: <b>role</b> (who Claude should work as), <b>task</b> (the outcome you want, not the activity),
-    <b>constraints</b> (what must and must not happen), <b>examples</b> (one input → output pair beats a
-    paragraph of description), <b>output</b> (what done looks like, and what proves it). Every part you
-    leave out becomes a <b>round-trip</b> later — Claude asks, you answer — and every round-trip re-sends
-    the whole conversation to the model. <span class="soon">why that costs money: Act 3</span></p>
-    <details class="fold plain"><summary>In plain words · a full five-part brief, worked</summary><div class="fbody">
-      <p>Here is the brief the widget's right-hand run uses, line by line:</p>
-      <p><b>Role:</b> "You're the release manager for relay's users." — sets the perspective; a release
-      manager writes for users, not for the team.<br>
-      <b>Task:</b> "Draft release notes covering changes since the last tag." — the outcome. Not "look
-      through the commits", which is an activity.<br>
-      <b>Constraints:</b> "User-visible changes only; no internal refactors." — the fence. Without it,
-      Claude must guess, and a guess in either direction wastes a turn.<br>
-      <b>Example:</b> "Fixed: weekly report no longer lists a task twice." — one sample line. This does
-      more than a paragraph about tone, because Claude copies patterns better than it follows
-      adjectives.<br>
-      <b>Output:</b> "Markdown bullets grouped under Fixed and Added, 80 words or fewer." — what done
-      looks like, checkable at a glance.</p>
-      <p>Five short lines. Nothing clever in any of them — the power is that nothing is left for Claude
-      to ask about.</p>
-    </div></details>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Watch the same task run from a vague ask and from a five-part brief, and count what the vagueness cost in turns and tokens.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>Which parts your own prompts habitually skip: it's usually constraints and output.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>You've written specs your whole career. A brief is a spec whose
-    reader happens to be a model; the skill transfers whole.</span>
-  </div>
-</section>
-
-<!-- 11c · M3 panel — wbrief -->
 <section class="slide" data-act="Act 1 · The agentic loop" data-mv="The well-formed brief">
   <div class="wrap">
     <div class="kicker">M3 · The well-formed brief</div>
-    <h2 class="head">Same task, two briefs. Count the turns.</h2>
+    <h2 class="head">A well-formed brief kills the back-and-forth</h2>
+    <div class="goalstrip"><b>Goal</b>Watch the same task run from a vague ask and from a five-part brief, and count what the vagueness cost in turns and tokens.</div>
     <div class="teach">
-      <p>The task: get a release-notes draft out of the relay repo's recent commits. The left run opens
-      with the ask most developers type. The right run opens with five labelled lines. Neither model is
-      smarter; only the brief changed. Vagueness isn't rude, it's expensive: each clarifying question
-      costs a full round-trip, and each round-trip re-sends the whole growing conversation to the model.
-      The vague path literally pays for its own questions.</p>
+      <p>The most practical mindset shift of the week costs nothing to adopt: stop typing requests,
+      start writing briefs. A <b>brief</b> is a prompt with the shape of a spec, and it has five
+      parts.</p>
+      <ul>
+        <li><b>Role</b> says who Claude should work as.</li>
+        <li><b>Task</b> names the outcome you want, rather than the activity.</li>
+        <li><b>Constraints</b> say what must and must not happen.</li>
+        <li><b>Examples</b> show the shape: one input and output pair beats a paragraph of
+        description.</li>
+        <li><b>Output</b> describes what done looks like, and what proves it.</li>
+      </ul>
+      <p>Every part you leave out becomes a <b>round-trip</b> later: Claude asks, you answer. And every
+      round-trip re-sends the whole conversation to the model. <span class="soon">why that costs money:
+      Act 3</span></p>
+    </div>
+    <details class="fold plain"><summary>In plain words · a full five-part brief, worked</summary><div class="fbody">
+      <p>Here is the brief the widget's right-hand run uses, line by line.</p>
+      <ul>
+        <li><b>Role:</b> "You're the release manager for relay's users." This sets the perspective; a
+        release manager writes for users rather than for the team.</li>
+        <li><b>Task:</b> "Draft release notes covering changes since the last tag." This names the
+        outcome. "Look through the commits" would name an activity instead.</li>
+        <li><b>Constraints:</b> "User-visible changes only; no internal refactors." This is the fence.
+        Without it, Claude must guess, and a guess in either direction wastes a turn.</li>
+        <li><b>Example:</b> "Fixed: weekly report no longer lists a task twice." One sample line does
+        more than a paragraph about tone, because Claude copies patterns better than it follows
+        adjectives.</li>
+        <li><b>Output:</b> "Markdown bullets grouped under Fixed and Added, 80 words or fewer." This is
+        what done looks like, checkable at a glance.</li>
+      </ul>
+      <p>Five short lines, and nothing clever in any of them. The power is that nothing is left for
+      Claude to ask about.</p>
+    </div></details>
+    <div class="teach">
+      <p>The task is to get a release-notes draft out of the relay repo's recent commits. The left run
+      opens with the ask most developers type. The right run opens with five labelled lines. Neither
+      model is smarter; only the brief changed.</p>
+      <p>Vagueness is expensive: each clarifying question costs a full round-trip, and each round-trip
+      re-sends the whole growing conversation to the model. The vague path literally pays for its own
+      questions.</p>
     </div>
     <div class="lab" id="wbrief">
       <div class="labtitle">Widget · <b>the brief comparator</b></div>
+      <div class="cuebar"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
         <button class="btn" id="wbriefGo">Advance both runs</button>
         <button class="btn ghost" id="wbriefReset">Reset</button>
@@ -759,54 +778,28 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
         </div>
       </div>
       <p class="hopline" id="wbriefTally"></p>
+      <div class="wcheck"></div>
+      <p class="scoreline" id="wbriefScore"></p>
+      <div class="cueall"></div>
     </div>
-    <div class="drive"><span class="dt">Drive it</span>
-      <ol>
-        <li>Press <b>Advance both runs</b> and read the two opening prompts: the right one is five short
-        labelled lines, not an essay.</li>
-        <li>Keep pressing. The left run stops twice to ask (audience? format?) and once to be corrected;
-        each amber row is a round-trip you paid for.</li>
-        <li>The right run finishes in two turns. Read its tally: fewer turns and a smaller total context
-        re-read.</li>
-      </ol>
-      <p class="watch">Watch for: the vague run's final answer is fine. That's the trap. You always get
-      there eventually; the brief decides how much of the window you burn on the journey.</p>
-    </div>
-    <div class="notice"><b>Check your read:</b> five turns against two, and the vague path's extra turns
-    each re-carried the growing conversation. The five parts are a checklist, not a ritual: for small
-    tasks two lines cover it (task + output). The bigger the task, the more the missing parts cost. Your
-    capstone already knows this: the step-2 spec paragraph is exactly this shape, and it gets pasted as
-    the build prompt.</div>
     <span class="read"><b>What you decide:</b> your default brief skeleton. Write it once in your notes:
     role · task · constraints · example · output-with-proof. Use it on every non-trivial prompt this
     week, and log in the friction log each time skipping it cost you a round-trip.</span>
-    <span class="keep"><b>Keep this</b>Role · task · constraints · examples · output. Every missing part becomes a question, every question re-sends the conversation, and re-sending is what you pay for.</span>
+    <span class="keep"><b>Keep this</b>The five parts are role, task, constraints, examples and output;
+    every missing part becomes a question, and every question re-sends the conversation you pay for.</span>
   </div>
 </section>
 
 <!-- 12 · H-O 01 divider -->
-<section class="slide dark" data-act="Act 1 · The agentic loop" data-mv="Read a live session">
-  <div class="wrap">
-    <div class="kicker">Act 1 · Hands-on 01 · Day 1</div>
-    <h1 class="big">Read a live session</h1>
-    <p class="lead mt14">You've tagged a canned transcript. Now produce a real one. You'll point Claude
-    Code at the gym repo (a small task tracker with problems it doesn't know about yet), give it one task,
-    and watch the loop run with your own eyes: which files it reads, what it changes, whether it verifies
-    without being asked.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Watch a real gather → act → verify cycle on your own machine, and log the beats as they happen.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>Whether the session earned trust: did anything machine-checked close the loop, or did it just sound finished?</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>The gym repo ships in this week's folder. Copy it out before
-    advancing; the next slide assumes you're standing in it.</span>
-  </div>
-</section>
-
-<!-- 13 · H-O 01 panel -->
 <section class="slide" data-act="Act 1 · The agentic loop" data-mv="Read a live session">
   <div class="wrap">
     <div class="hobadge">Hands-on · 01</div><span class="ho">~20 min</span>
-    <h2 class="head">One task on the gym repo. Watch every beat.</h2>
+    <h2 class="head">Read a live session</h2>
+    <div class="goalstrip"><b>Goal</b>Watch a real gather → act → verify cycle on your own machine, and log the beats as they happen.</div>
+    <div class="teach"><p>You've tagged a canned transcript. Now produce a real one. You'll point Claude
+    Code at the gym repo (a small task tracker with problems it doesn't know about yet), give it one task,
+    and watch the loop run with your own eyes: which files it reads, what it changes, whether it verifies
+    without being asked.</p></div>
     <div class="teach">
       <p>The gym repo is <b>relay</b>: a tiny task-tracker CLI, no dependencies, node 20+. It works,
       mostly. Don't study it yourself yet; the point is watching Claude study it.</p>
@@ -828,11 +821,11 @@ ran and what you noticed.</pre><button class="copy">Copy</button><span class="pb
       <p><b>If Claude isn't installed:</b> <code>npm install -g @anthropic-ai/claude-code</code>, then
       <code>claude --version</code> to confirm.</p>
       <p><b>If it finishes in one shot without visible reading:</b> ask "walk me back through what you
-      read before acting, in order". The recap is your transcript — tag the beats from that.</p>
+      read before acting, in order". The recap is your transcript; tag the beats from that.</p>
       <p><b>If the report output looks wrong:</b> good. Note it and leave it; it's Thursday's
       material.</p>
     </div></details>
-    <div class="notice"><b>Check your read:</b> a session that reads before it runs (cli.js at
+    <div class="notice"><b>Check your read:</b> a good session reads before it runs (cli.js at
     minimum), acts with the actual CLI rather than editing data files by hand, and shows you real command
     output. The report will list one task twice. If Claude noticed that unprompted, you watched a gather
     beat pay off. If it didn't, you just learnt that agents verify what they're pointed at, and nothing
@@ -840,7 +833,7 @@ ran and what you noticed.</pre><button class="copy">Copy</button><span class="pb
     <span class="read"><b>What you decide:</b> did the session earn trust? Write one line: what
     machine-produced evidence closed the loop, or what would have, if it had been asked for.</span>
     <span class="keep"><b>Keep this</b>Agents verify what they're pointed at: if nobody names a check,
-    the loop closes on a vibe, not evidence. Automating the pointing is week 5's business.</span>
+    the loop closes on a vibe instead of evidence. Automating the pointing is week 5's business.</span>
   </div>
 </section>
 
@@ -853,10 +846,10 @@ ran and what you noticed.</pre><button class="copy">Copy</button><span class="pb
     <h1 class="big">Wiring day</h1>
     <p class="lead mt14"><b>Wiring</b> means connecting Claude to the systems you work in, so it can act
     on them directly instead of through your clipboard. Copy-paste is the first inefficiency this
-    programme removes, and it goes on day two, not week six. Three pieces of wiring: <b>gh</b> (GitHub's
-    command-line tool) puts GitHub in the loop, <b>MCP</b> puts your team's other systems in the loop,
-    and a <b>permission baseline</b> decides what runs without asking. The exit bar has a name: zero
-    copy-paste.</p>
+    programme removes, and it goes on day two rather than week six.</p>
+    <p class="lead mt14">The act wires three pieces: <b>gh</b> (GitHub's command-line tool) puts GitHub
+    in the loop, <b>MCP</b> puts your team's other systems in the loop, and a <b>permission baseline</b>
+    decides what runs without asking. The exit bar has a name: zero copy-paste.</p>
     <p class="sub mt14">Four movements, three of them hands-on: wire gh and drive it from inside a session
     (Hands-on 02) · understand MCP's shape (M5) · connect your first two servers (Hands-on 03) · set the
     permission baseline (Hands-on 04).</p>
@@ -866,36 +859,15 @@ ran and what you noticed.</pre><button class="copy">Copy</button><span class="pb
 </section>
 
 <!-- 15 · M4 / H-O 02 divider -->
-<section class="slide dark" data-act="Act 2 · Wiring day" data-mv="gh CLI wired">
-  <div class="wrap">
-    <div class="kicker">Act 2 · Hands-on 02</div>
-    <h1 class="big">gh: GitHub becomes a tool call</h1>
-    <p class="lead mt14">Claude Code can run any CLI you can. So the fastest wiring win is the official
-    GitHub CLI: once <b>gh</b> is authenticated, issues, PRs, milestones and releases stop being a browser
-    tab you retype from and become commands the agent runs itself. This entire programme is tracked in
-    GitHub issues; from today, Claude reads yours directly.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Authenticate gh, then watch Claude use it unprompted: reading real issues on the cohort repo, creating and closing a test issue.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>What else in your daily flow is secretly a CLI away: your tracker, your CI, your cloud console.</p></div>
-    </div>
-    <details class="fold industry"><summary>How industry does it · CLIs are the oldest integration there is</summary><div class="fbody">
-      <p>Long before agents, teams automated GitHub, cloud consoles and deploy pipelines by scripting
-      their CLIs — that's what CI servers have done for twenty years. Agents inherit that entire world
-      for free: anything with a command-line tool (gh, aws, kubectl, your company's internal CLI) is
-      already agent-ready, no integration work needed. This is why experienced teams ask "is there a
-      CLI?" before building anything custom — and why your company's internal tools becoming CLIs makes
-      them agent-usable overnight.</p>
-    </div></details>
-    <span class="keep"><b>Keep this</b>Rule of the day: before wiring anything exotic, ask "is there a CLI
-    for this?" Agents inherit every CLI your shell has.</span>
-  </div>
-</section>
-
-<!-- 16 · H-O 02 panel -->
 <section class="slide" data-act="Act 2 · Wiring day" data-mv="gh CLI wired">
   <div class="wrap">
     <div class="hobadge">Hands-on · 02</div><span class="ho">~15 min</span>
-    <h2 class="head">Wire gh, then make Claude drive it</h2>
+    <h2 class="head">gh: GitHub becomes a tool call</h2>
+    <div class="goalstrip"><b>Goal</b>Authenticate gh, then watch Claude use it unprompted: reading real issues on the cohort repo, creating and closing a test issue.</div>
+    <div class="teach"><p>Claude Code can run any CLI you can. So the fastest wiring win is the official
+    GitHub CLI: once <b>gh</b> is authenticated, issues, PRs, milestones and releases stop being a browser
+    tab you retype from and become commands the agent runs itself. This entire programme is tracked in
+    GitHub issues; from today, Claude reads yours directly.</p></div>
     <div class="hostep">Step 1 — install and authenticate (skip what you already have)</div>
     <div class="promptblock"><pre>brew install gh
 gh auth login
@@ -915,7 +887,7 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
       <li>The test issue exists, then reads closed, on github.com</li>
     </ul>
     <details class="fold btw"><summary>By the way · gh and git are different tools</summary><div class="fbody">
-      <p>Easy to blur, worth separating: <b>git</b> moves code — commits, branches, pushes — and works
+      <p>Easy to blur, worth separating: <b>git</b> moves code (commits, branches, pushes) and works
       against any host. <b>gh</b> talks to GitHub the service: issues, pull requests, milestones,
       releases, the things you normally click through in a browser tab. Claude already had git through
       your terminal; what you just wired is the service half. Together they cover everything GitHub-side
@@ -935,34 +907,43 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
     <span class="read"><b>What you decide:</b> the retype habit dies today. Any time you catch yourself
     copying issue text into a prompt this week, that's a friction-log line.</span>
     <span class="keep"><b>Keep this</b>gh is the template: authenticate once, then the agent has hands.
-    Next: the systems that don't have a CLI.</span>
+    Next come the systems that don't have a CLI.</span>
   </div>
 </section>
 
 <!-- 17 · M5 divider -->
-<section class="slide dark" data-act="Act 2 · Wiring day" data-mv="MCP: every system">
+<section class="slide" data-act="Act 2 · Wiring day" data-mv="MCP: every system">
   <div class="wrap">
-    <div class="kicker">Act 2 · Movement M6</div>
-    <h1 class="big">MCP: one protocol, every system</h1>
-    <p class="lead mt14">Your team's knowledge doesn't live in files. It lives in Notion or Confluence, in
-    Jira or Linear, in a Postgres somewhere, in Sentry. The <b>Model Context Protocol (MCP)</b> is the
-    standard plug for reaching all of it. An <b>MCP server</b> is a small program that speaks for one
-    system: it tells Claude "here are the operations I offer" — search pages, create a ticket, run a
-    query — and Claude can call those operations mid-task, exactly like the file and terminal tools it
-    already has. You connect a server once; every session after that can use it. No server, and <b>you</b>
-    are the integration, ferrying answers by hand.</p>
+    <div class="kicker">M6 · MCP: every system</div>
+    <h2 class="head">MCP: one protocol reaches every system</h2>
+    <div class="goalstrip"><b>Goal</b>See the clipboard-hop diagram change shape as each connector lands, until the hop count reads zero.</div>
+    <div class="teach">
+      <p>Your team's knowledge doesn't live in files. It lives in Notion or Confluence, in Jira or
+      Linear, in a Postgres somewhere, in Sentry. The <b>Model Context Protocol (MCP)</b> is the
+      standard plug for reaching all of it.</p>
+      <ul>
+        <li>An <b>MCP server</b> is a small program that speaks for one system.</li>
+        <li>It tells Claude "here are the operations I offer": search pages, create a ticket, run a
+        query.</li>
+        <li>Claude can call those operations mid-task, exactly like the file and terminal tools it
+        already has.</li>
+        <li>You connect a server once; every session after that can use it.</li>
+      </ul>
+      <p>Without a server, <b>you</b> are the integration, ferrying answers by hand.</p>
+    </div>
     <details class="fold hood"><summary>Under the hood · client, server, and the sign-in</summary><div class="fbody">
-      <p>Claude Code is the <b>client</b>. Each connected system runs a <b>server</b> — usually hosted by
+      <p>Claude Code is the <b>client</b>. Each connected system runs a <b>server</b>, usually hosted by
       the vendor (Notion runs mcp.notion.com; you install nothing). When a session starts, Claude Code
       asks each server "what tools do you offer?" and the answers join Claude's toolbox for that session.
       When Claude uses one, the request goes to the server, the server does the real work in the real
       system, and the result comes back as text.</p>
-      <p>Access is granted through <b>OAuth</b> — the "sign in with your browser" dance you know from
+      <p>Access is granted through <b>OAuth</b>: the "sign in with your browser" dance you know from
       "Log in with Google". You approve once in the browser; the server remembers your session from then
       on. Your password never passes through Claude, and revoking access works the same as for any
       connected app.</p>
       <p>Some servers run locally on your machine instead (started as a background process, called
-      <b>stdio</b> servers) — useful for databases and internal tools that have no hosted option.</p>
+      <b>stdio</b> servers). They're useful for databases and internal tools that have no hosted
+      option.</p>
     </div></details>
     <details class="fold dyk"><summary>Did you know · MCP went from Anthropic project to industry standard in a year</summary><div class="fbody">
       <p>Anthropic open-sourced MCP in November 2024. Within a year OpenAI and Google's Gemini tooling
@@ -970,69 +951,48 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
       worth learning as a concept, not a product feature: the connector you configure this week is the
       same mechanism your next employer's stack will speak, whichever model vendor they use.</p>
     </div></details>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>See the clipboard-hop diagram change shape as each connector lands, until the hop count reads zero.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>Which two systems you personally ferry the most text from. Those are tomorrow's first connections.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>MCP is USB for agents: one protocol, many devices. Every connector
-    you add deletes a category of copy-paste forever.</span>
-  </div>
-</section>
-
-<!-- 18 · M5 panel — wwire -->
-<section class="slide" data-act="Act 2 · Wiring day" data-mv="MCP: every system">
-  <div class="wrap">
-    <div class="kicker">M6 · MCP: every system</div>
-    <h2 class="head">Watch the hops disappear</h2>
     <div class="teach">
-      <p>The board below is your working day as a wiring diagram. Left: five systems a feature touches.
-      Right: the routes text currently travels, every one passing through your clipboard. Toggling a
-      connector moves that system inside the loop: Claude reaches it directly, and the route through you
-      is struck out. The meter counts the hops that remain.</p>
+      <p>The board below is your working day drawn as a wiring diagram.</p>
+      <ul>
+        <li>The left column lists five systems a feature touches.</li>
+        <li>The right column lists the routes text currently travels; every one passes through your
+        clipboard.</li>
+        <li>Toggling a connector moves that system inside the loop: Claude reaches it directly, and the
+        route through you is struck out.</li>
+        <li>The meter counts the hops that remain.</li>
+      </ul>
     </div>
     <div class="lab" id="wwire">
       <div class="labtitle">Widget · <b>the wiring board</b></div>
+      <div class="cuebar"></div>
       <div class="wiregrid">
         <div class="wirecol"><h4>Systems · toggle the connector</h4><div id="wwireSys"></div></div>
         <div class="wirecol"><h4>Routes text travels</h4><div id="wwireRoutes"></div></div>
       </div>
       <div class="meter" id="wwireMeter"><i></i></div>
       <p class="alertline" id="wwireAlert"></p>
+      <div class="wcheck"></div>
+      <p class="scoreline" id="wwireScore"></p>
+      <div class="cueall"></div>
     </div>
-    <div class="drive"><span class="dt">Drive it</span>
-      <ol>
-        <li>Read the routes first: ten of them, all through you. That's the "what is" slide, drawn.</li>
-        <li>Toggle <b>GitHub</b>. Two routes strike out at once; issue text and PR state stop passing
-        through your hands.</li>
-        <li>Toggle the rest one by one, slowest ferry first. Watch the meter fall and change colour at
-        zero.</li>
-        <li>Toggle one connector back off and read the alert line: partial wiring has a specific cost.</li>
-      </ol>
-      <p class="watch">Watch for: the meter never reaches zero from connectors alone until <b>terminal</b>
-      is on. Local commands (tests, git, builds) are hops too, and Claude Code ships that connector built
-      in.</p>
-    </div>
-    <div class="notice"><b>Check your read:</b> zero copy-paste is this meter reading 0 with every
-    system you actually use switched on; one unwired system quietly reinstates you as its integration.
-    <b>What you decide:</b> your first two connectors, chosen by ferry volume, not glamour. Docs and
-    tickets beat exotic databases for most developers.</div>
     <span class="keep"><b>Keep this</b>Count hops, wire the worst two first. The meter is the audit
     another learner runs on your machine this weekend.</span>
   </div>
 </section>
 
 <!-- 19 · H-O 03 divider -->
-<section class="slide dark" data-act="Act 2 · Wiring day" data-mv="Connect two servers">
+<section class="slide" data-act="Act 2 · Wiring day" data-mv="Connect two servers">
   <div class="wrap">
-    <div class="kicker">Act 2 · Hands-on 03</div>
-    <h1 class="big">Connect your first two MCP servers</h1>
-    <p class="lead mt14">Enough diagrams. You'll connect GitHub's official MCP server (richer than gh for
-    some reads, and a clean first OAuth flow — the browser sign-in that grants access once), then one
-    system your team actually uses. The commands are two lines; the judgement is in the <b>scope
-    flag</b> — the part of the command that decides who the connection belongs to — and it previews a
-    doctrine this programme returns to constantly.</p>
+    <div class="hobadge">Hands-on · 03</div><span class="ho">~20 min</span>
+    <h2 class="head">Connect your first two MCP servers</h2>
+    <div class="goalstrip"><b>Goal</b>Get two servers connected and green in /mcp, and one question answered that only a connected system could answer.</div>
+    <div class="teach"><p>Enough diagrams. You'll connect GitHub's official MCP server (richer than gh for
+    some reads, and a clean first OAuth flow: the browser sign-in that grants access once), then one
+    system your team actually uses. The commands are two lines. The judgement is in the <b>scope
+    flag</b>, the part of the command that decides who the connection belongs to, and it previews a
+    doctrine this programme returns to constantly.</p></div>
     <details class="fold plain"><summary>In plain words · user scope vs project scope</summary><div class="fbody">
-      <p>Every artifact you add — an MCP server, a settings file, later hooks and commands — lives at a
+      <p>Every artifact you add (an MCP server, a settings file, later hooks and commands) lives at a
       <b>scope</b>: a level that decides where it applies and who inherits it.</p>
       <p><b>User scope</b> means "mine, everywhere": the config lands in your home directory
       (<code>~/.claude.json</code>), so the server is available in every project on your machine, and
@@ -1040,23 +1000,9 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
       <p><b>Project scope</b> means "everyone, here": the config lands in a file inside the repo
       (<code>.mcp.json</code>) and gets committed, so every teammate who clones the repo inherits the
       connection automatically. Right for a team's shared systems: the project's tracker, its docs.</p>
-      <p>The question to ask each time is always the same: <b>who needs this — me everywhere, or everyone
+      <p>The question to ask each time is always the same: <b>who needs this, me everywhere or everyone
       here?</b> Today both servers go to user scope; week 2 gives scoping a full treatment.</p>
     </div></details>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Two servers connected and green in /mcp, and one question answered that only a connected system could answer.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>Scope per server: available in every project (user) or checked into one repo for the whole team (project)?</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>The scope question ("who needs this: me everywhere, or everyone
-    here?") is asked of every artifact you'll ever add. It gets a full week in week 2.</span>
-  </div>
-</section>
-
-<!-- 20 · H-O 03 panel -->
-<section class="slide" data-act="Act 2 · Wiring day" data-mv="Connect two servers">
-  <div class="wrap">
-    <div class="hobadge">Hands-on · 03</div><span class="ho">~20 min</span>
-    <h2 class="head">Two servers, then prove them</h2>
     <div class="hostep">Step 1 — add GitHub's MCP server at user scope, then authenticate</div>
     <div class="promptblock"><pre>claude mcp add --transport http --scope user github https://api.githubcopilot.com/mcp/</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
     <div class="hodo">Open a session, run <b>/mcp</b>, select github, and complete the OAuth flow in the
@@ -1082,7 +1028,7 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
       <p><b>Connected but flaky answers?</b> Ask the question again naming the tool: "using the linear
       tools, …". Discovery improves once you name the server.</p>
     </div></details>
-    <div class="notice"><b>Check your read:</b> the OAuth dance once, then never again. From here,
+    <div class="notice"><b>Check your read:</b> you do the OAuth dance once, then never again. From here,
     "check the tracker" is something Claude does mid-task, not something you do between prompts. The
     scope flag you chose is the first entry in a classification you'll refine all programme: user scope
     for your personal reach, project scope (a checked-in .mcp.json) for a team's shared wiring.</div>
@@ -1094,48 +1040,37 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
 </section>
 
 <!-- 21 · H-O 04 divider -->
-<section class="slide dark" data-act="Act 2 · Wiring day" data-mv="Permission baseline">
-  <div class="wrap">
-    <div class="kicker">Act 2 · Hands-on 04</div>
-    <h1 class="big">Permissions: autonomy is an allowlist, not a mood</h1>
-    <p class="lead mt14">Wired tools raise the stakes: an agent that can run anything must not run
-    everything. Claude Code's answer is a permission system built on an <b>allowlist</b> — an explicit,
-    written list of which commands may run without asking you, which must ask, and which are refused
-    outright, kept in settings files. The lazy failure modes are both bad: approve-everything fatigue
-    (you stop reading what you approve) and ask-me-everything friction (autonomy dies). The baseline is
-    engineered, once, in a file — not decided by your mood at each prompt.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Sort real tool calls into allow, ask and deny, then encode the result as your settings baseline.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>Your personal red lines: what may never run unattended, whatever the convenience.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>Every prompt you approve without reading is training you to approve
-    the one you shouldn't. Fewer, sharper prompts is the design goal.</span>
-  </div>
-</section>
-
-<!-- 22 · H-O 04 panel — wperm + settings -->
 <section class="slide" data-act="Act 2 · Wiring day" data-mv="Permission baseline">
   <div class="wrap">
     <div class="hobadge">Hands-on · 04</div><span class="ho">~15 min</span>
-    <h2 class="head">Sort six calls, then write the baseline</h2>
+    <h2 class="head">Permissions: autonomy is a written allowlist</h2>
+    <div class="goalstrip"><b>Goal</b>Sort real tool calls into allow, ask and deny, then encode the result as your settings baseline.</div>
+    <div class="teach">
+      <p>Wired tools raise the stakes: an agent that can run anything must not run everything. Claude
+      Code's answer is a permission system built on an <b>allowlist</b>: an explicit, written list, kept
+      in settings files, of which commands may run without asking you, which must ask, and which are
+      refused outright.</p>
+      <p>The lazy failure modes are both bad. Approve-everything fatigue means you stop reading what you
+      approve; ask-me-everything friction means autonomy dies. So the baseline gets engineered once, in
+      a file, and your mood at each prompt stops being the policy.</p>
+    </div>
     <div class="teach">
       <p>First calibrate your instincts on the sorter; then encode them. The rule that makes sorting
-      fast: judge the <b>blast radius if wrong</b> — how much damage the worst case does — not the
-      likelihood of going wrong. Reads can't damage anything, so they're free. Writes inside a git repo
-      are cheap to undo (that's what version control is for). Anything that leaves the machine or
-      destroys state is where "ask" and "deny" live, because there's no undo out there.</p>
+      fast: judge the <b>blast radius if wrong</b>, meaning how much damage the worst case does, and
+      ignore how likely the worst case is.</p>
+      <ul>
+        <li>Reads can't damage anything, so they're free.</li>
+        <li>Writes inside a git repo are cheap to undo; that's what version control is for.</li>
+        <li>Anything that leaves the machine or destroys state is where "ask" and "deny" live, because
+        there's no undo out there.</li>
+      </ul>
     </div>
     <div class="lab" id="wperm">
       <div class="labtitle">Widget · <b>the permission sorter</b></div>
+      <div class="cuebar"></div>
       <div class="qgrid" id="wpermGrid"></div>
       <p class="scoreline" id="wpermScore"></p>
-    </div>
-    <div class="drive"><span class="dt">Drive it</span>
-      <ol>
-        <li>Sort all six calls. Commit before each verdict; the misses are your miscalibrations.</li>
-        <li>Note which column each verdict argues from: blast radius, reversibility, or visibility.</li>
-        <li>Score line read? Now encode the same instincts below.</li>
-      </ol>
+      <div class="cueall"></div>
     </div>
     <div class="hostep">Encode it — open your user settings and add the baseline</div>
     <div class="promptblock"><pre>Open ~/.claude/settings.json (create it if missing) and merge in:
@@ -1159,31 +1094,32 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
       <li>You can say where project settings would live (.claude/settings.json, checked in) vs your personal ones</li>
     </ul>
     <details class="fold hood"><summary>Under the hood · where the rules live and how they merge</summary><div class="fbody">
-      <p>Three layers, merged at session start. Your <b>user settings</b>
-      (<code>~/.claude/settings.json</code>) carry your personal baseline everywhere — that's the file
+      <p>Three layers merge at session start. Your <b>user settings</b>
+      (<code>~/.claude/settings.json</code>) carry your personal baseline everywhere; that's the file
       you just wrote. <b>Project settings</b> (<code>.claude/settings.json</code> inside a repo, checked
-      in) carry a team's shared rules for that repo. Where they overlap, <b>deny always beats allow</b> —
-      a personal allow can never override a team's red line. Anything no rule covers falls through to the
-      approval dialogue, which is exactly what the dialogue is for: the genuinely undecided middle, not
-      every single call.</p>
+      in) carry a team's shared rules for that repo.</p>
+      <p>Where they overlap, <b>deny always beats allow</b>: a personal allow can never override a
+      team's red line. Anything no rule covers falls through to the approval dialogue, which is exactly
+      what the dialogue is for: the genuinely undecided middle, never every single call.</p>
     </div></details>
     <details class="fold industry"><summary>How industry does it · you already trust this pattern on GitHub</summary><div class="fbody">
       <p>This is the same safety design your team already uses: branch protection stops force-pushes to
       main no matter who asks; CODEOWNERS forces a review on sensitive paths; CI must pass before merge.
-      Rules in files, enforced by machinery, instead of everyone promising to be careful. A permission
-      baseline is that instinct applied to an agent — and security teams call the underlying principle
-      "least privilege": grant what's needed, deny by default at the edges.</p>
+      The rules live in files and get enforced by machinery, instead of everyone promising to be
+      careful.</p>
+      <p>A permission baseline is that instinct applied to an agent. Security teams call the underlying
+      principle "least privilege": grant what's needed, deny by default at the edges.</p>
     </div></details>
     <details class="fold trouble"><summary>Stuck? · prompt fatigue, team rules</summary><div class="fbody">
       <p><b>Prompt fatigue mid-week?</b> Add the specific command to allow rather than widening a
       pattern. Wide patterns are how dangerous commands slip onto the allowlist without you noticing.</p>
-      <p><b>Team repo with shared rules?</b> That's .claude/settings.json checked into the repo — week
-      3's material. Today is your user baseline only.</p>
+      <p><b>Team repo with shared rules?</b> That's .claude/settings.json checked into the repo, which
+      is week 3's material. Today is your user baseline only.</p>
     </div></details>
     <span class="read"><b>What you decide:</b> your red lines. Write them as deny rules now, while
     they're obvious. A red line you configure once beats one you must remember nightly.</span>
-    <span class="keep"><b>Keep this</b>Allow by blast radius, deny your red lines, let the middle ask.
-    Revisit the allowlist weekly as trust grows; that's calibration, not drift.</span>
+    <span class="keep"><b>Keep this</b>Allow by blast radius, deny your red lines, and let the middle
+    ask. Revisit the allowlist weekly as trust grows; that's healthy calibration.</span>
   </div>
 </section>
 
@@ -1194,26 +1130,34 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
   <div class="wrap">
     <div class="kicker">Act 3 · Day 3 · ~40 min</div>
     <h1 class="big">Token economics</h1>
-    <p class="lead mt14">Three words carry this act, defined now. A <b>token</b> is the unit models read
-    and write text in — roughly three-quarters of an English word ("refactoring" is about three tokens).
-    Everything Claude does is measured in tokens: every file it reads, every reply it writes. The
-    <b>context window</b> is the model's working memory for one session: your messages, the files it
-    read, its own replies, all held together. And the surprise that makes this an economics act: the
-    model itself remembers nothing between turns, so <b>the whole window is re-sent on every turn</b>. A
-    fat window makes every turn dearer. Last, Claude comes in <b>models</b> you pick between: Opus (most
-    capable, heaviest burn) and Sonnet (fast, the everyday default).</p>
-    <p class="sub mt14">You're on Max 5x for the whole programme, and used daily on real work its limits
-    will bite; the curriculum treats budgeting as craft, not admin. One honesty up front: a subscription
-    has no price meter — Anthropic shows no dollar figures and no token counts, only usage percentages.
-    Three movements: the mechanics you can't see directly (M9), the meters you can actually read
-    (Hands-on 05), then what to do when a session runs heavy: the three exits (M11). The register is the
-    same as everywhere: measure, don't trust. "It feels like I have plenty left" is a vibe; /usage and
-    /context are readings.</p>
+    <p class="lead mt14">Three words carry this act, so they get defined now.</p>
+    <div class="teach">
+      <ul>
+        <li>A <b>token</b> is the unit models read and write text in: roughly three-quarters of an
+        English word ("refactoring" is about three tokens). Everything Claude does is measured in
+        tokens, from every file it reads to every reply it writes.</li>
+        <li>The <b>context window</b> is the model's working memory for one session: your messages, the
+        files it read, and its own replies, all held together.</li>
+        <li>Here is the surprise that makes this an economics act: the model itself remembers nothing
+        between turns, so <b>the whole window is re-sent on every turn</b>. A fat window makes every
+        turn dearer.</li>
+        <li>Last, Claude comes in <b>models</b> you pick between: Opus (most capable, heaviest burn) and
+        Sonnet (fast, the everyday default).</li>
+      </ul>
+    </div>
+    <p class="sub mt14">You're on Max 5x for the whole programme, and when it's used daily on real work,
+    its limits will bite. The curriculum treats budgeting as part of the craft.</p>
+    <p class="sub mt14">One honesty up front: a subscription has no price meter. Anthropic shows no
+    dollar figures and no token counts, only usage percentages.</p>
+    <p class="sub mt14">Three movements follow: the mechanics you can't see directly, the meters you can
+    actually read (Hands-on 05), then the three exits from a session that runs heavy. The register is
+    the same as everywhere: measure, don't trust. "It feels like I have plenty left" is a vibe; /usage
+    and /context are readings.</p>
     <details class="fold dyk"><summary>Did you know · the window holds a long novel</summary><div class="fbody">
-      <p>Claude's standard context window is 200,000 tokens — roughly 150,000 words, the length of a long
+      <p>Claude's standard context window is 200,000 tokens: roughly 150,000 words, the length of a long
       novel. Sounds infinite; isn't. A handful of large source files, a chatty transcript and some test
-      output eat it faster than you'd guess, and everything in it is re-sent every turn, so a full window
-      isn't just a limit problem, it's a running cost. That's why the craft of keeping the window lean
+      output eat it faster than you'd guess, and everything in it is re-sent every turn, so a full
+      window is a running cost as well as a limit. That's why the craft of keeping the window lean
       (week 2) exists at all.</p>
     </div></details>
     <span class="keep"><b>Keep this</b>Context is spend: the window is re-sent every turn, and every
@@ -1222,30 +1166,23 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
 </section>
 
 <!-- 24 · M8 divider -->
-<section class="slide dark" data-act="Act 3 · Token economics" data-mv="Max 5x has physics">
-  <div class="wrap">
-    <div class="kicker">Act 3 · Movement M9</div>
-    <h1 class="big">Max 5x has physics: windows, caps, model mix</h1>
-    <p class="lead mt14">"Physics" because these are fixed mechanics you can't negotiate with, only plan
-    around. Three of them govern the plan. Usage accrues in <b>rolling 5-hour windows</b>: burn hard and
-    the window throttles you (slows or pauses your access) until it resets. A <b>weekly cap</b> sits
-    above that, and heavy Opus use is what reaches it. And the <b>model mix</b> — how much of your work
-    runs on Opus vs Sonnet — is your main lever: Opus burns roughly five times Sonnet for the same
-    conversation, so what you route to Opus decides your week.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Drive a week-shaped simulation until you can predict when a working pattern hits the window and when it hits the cap.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>Your default mix: what genuinely earns Opus, and what runs on Sonnet without you noticing a difference.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>Windows throttle your day; the cap throttles your week; the mix is
-    the lever you actually control.</span>
-  </div>
-</section>
-
-<!-- 25 · M8 panel — wbudget -->
 <section class="slide" data-act="Act 3 · Token economics" data-mv="Max 5x has physics">
   <div class="wrap">
     <div class="kicker">M9 · Max 5x has physics</div>
-    <h2 class="head">Find the mix that survives your week</h2>
+    <h2 class="head">Max 5x has physics: three fixed limits shape your week</h2>
+    <div class="goalstrip"><b>Goal</b>Drive a week-shaped simulation until you can predict when a working pattern hits the window and when it hits the cap.</div>
+    <div class="teach">
+      <p>The word "physics" fits because these are fixed mechanics you can't negotiate with, only plan
+      around. Three of them govern the plan.</p>
+      <ul>
+        <li>Usage accrues in <b>rolling 5-hour windows</b>: burn hard and the window throttles you
+        (slows or pauses your access) until it resets.</li>
+        <li>A <b>weekly cap</b> sits above that, and heavy Opus use is what reaches it.</li>
+        <li>The <b>model mix</b>, meaning how much of your work runs on Opus against Sonnet, is your
+        main lever: Opus burns roughly five times Sonnet for the same conversation, so what you route
+        to Opus decides your week.</li>
+      </ul>
+    </div>
     <div class="teach">
       <p>The simulator below models a Max 5x week in illustrative units calibrated to Anthropic's
       published guidance ranges; your real numbers differ by codebase and session style, which is why
@@ -1254,6 +1191,7 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
     </div>
     <div class="lab" id="wbudget">
       <div class="labtitle">Widget · <b>the budget meter</b> — illustrative units, real shape</div>
+      <div class="cuebar"></div>
       <div class="budrow">
         <label>Hours of agent work per day: <b id="wbudHrsOut">4</b></label>
         <input type="range" min="1" max="8" value="4" id="wbudHrs">
@@ -1269,61 +1207,39 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
       <div class="gauge" id="wbudWin"><span>5-hour window</span><span class="trk"><i></i></span><span class="pct"></span></div>
       <div class="gauge" id="wbudWeek"><span>Weekly cap</span><span class="trk"><i></i></span><span class="pct"></span></div>
       <div class="budverdict" id="wbudVerdict"></div>
+      <div class="wcheck"></div>
+      <p class="scoreline" id="wbudScore"></p>
+      <div class="cueall"></div>
     </div>
-    <div class="drive"><span class="dt">Drive it</span>
-      <ol>
-        <li>Start at 4 h/day, Sonnet-first: both gauges sit comfortable. That's the programme's default
-        posture.</li>
-        <li>Switch to <b>Opus-heavy</b> at the same hours. Read the weekly gauge and the verdict: the cap
-        arrives midweek.</li>
-        <li>Find your own edge: raise hours until Balanced goes amber, then read which gauge went first.</li>
-        <li>Set it to this week's honest plan (about 3–4 h/day) and note the verdict you're signing up
-        for.</li>
-      </ol>
-      <p class="watch">Watch for: the window gauge reacts to intensity (hours in one sitting); the weekly
-      gauge reacts to mix. They fail independently, and the fixes are different: pace the day vs change
-      the mix.</p>
-    </div>
-    <div class="notice"><b>Check your read:</b> Sonnet-first absorbs this programme's hours; Opus-heavy
-    does not survive a 4 h/day week. Route Opus to planning, gnarly debugging and architecture calls;
-    Sonnet takes the long middle. <b>What you decide:</b> your default model and two named exceptions,
-    written as "Sonnet unless: …", tested against real /usage data this week.</div>
     <details class="fold btw"><summary>By the way · what the official numbers do and don't say</summary><div class="fbody">
       <p>Anthropic's plan pages describe Max 5x as roughly five times Pro's usage, with limits stated as
-      rolling windows and weekly caps — but they publish no exact token budgets, and the numbers get
+      rolling windows and weekly caps. But they publish no exact token budgets, and the numbers get
       tuned over time. That's why this widget runs on illustrative units rather than pretending to know
       the real ones, and why Hands-on 05 matters more than any simulator: your own /usage readings are
       the only numbers that are true for you.</p>
     </div></details>
-    <span class="keep"><b>Keep this</b>Opus ≈ 5× Sonnet's burn: route by task value, pace the heavy
-    sessions. Ignoring the mix buys a Thursday with no Claude.</span>
+    <span class="keep"><b>Keep this</b>Opus burns about five times Sonnet, so route by task value and
+    pace heavy sessions; ignoring the mix buys a Thursday with no Claude.</span>
   </div>
 </section>
 
 <!-- 26 · H-O 05 divider -->
-<section class="slide dark" data-act="Act 3 · Token economics" data-mv="Read your own meters">
-  <div class="wrap">
-    <div class="kicker">Act 3 · Hands-on 05</div>
-    <h1 class="big">Read your own meters</h1>
-    <p class="lead mt14">The simulator taught the shape; now take the readings that actually exist. On a
-    subscription nothing shows you a price. What Claude Code does show: <b>/usage</b> (how much of the
-    current 5-hour window and of the week you've consumed, as percentages with reset times),
-    <b>/context</b> (what's filling the window right now, item by item), and <b>/model</b> (what you're
-    burning it on). You'll read all three on a genuine session and start the week's usage log.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Take your first real readings, and see what a session's context is actually made of.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>When you check the meters: the habit is end of session, plus any time a session feels heavy.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>The usage log you start today is evidence for a weekend Application
-    issue and week 6's baseline. Two minutes at the end of each session, all week.</span>
-  </div>
-</section>
-
-<!-- 27 · H-O 05 panel -->
 <section class="slide" data-act="Act 3 · Token economics" data-mv="Read your own meters">
   <div class="wrap">
     <div class="hobadge">Hands-on · 05</div><span class="ho">~10 min</span>
-    <h2 class="head">Three instruments on a live session</h2>
+    <h2 class="head">Read your own meters</h2>
+    <div class="goalstrip"><b>Goal</b>Take your first real readings, and see what a session's context is actually made of.</div>
+    <div class="teach">
+      <p>The simulator taught the shape; now take the readings that actually exist. On a subscription
+      nothing shows you a price. Claude Code shows you three things instead.</p>
+      <ul>
+        <li><b>/usage</b> shows how much of the current 5-hour window and of the week you've consumed,
+        as percentages with reset times.</li>
+        <li><b>/context</b> shows what's filling the window right now, item by item.</li>
+        <li><b>/model</b> shows which model you're burning it on.</li>
+      </ul>
+      <p>You'll read all three on a genuine session and start the week's usage log.</p>
+    </div>
     <div class="hostep">Step 1 — generate real usage, then read the session meter</div>
     <div class="promptblock"><pre>Read every file in this repo and give me a one-paragraph health assessment:
 what's solid, what smells, what you'd fix first.</pre><button class="copy">Copy</button><span class="pbtag">claude · in ~/relay-gym</span></div>
@@ -1351,82 +1267,69 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
       <p><b>Session feels heavy later this week?</b> /context first, then /clear if the load is stale.
       Session hygiene gets its full treatment in week 2.</p>
     </div></details>
-    <div class="notice"><b>Check your read:</b> a session's context is mostly what the agent read, not
-    what you typed. That's why "read every file" is an expensive prompt shape and why week 2 teaches
+    <div class="notice"><b>Check your read:</b> a session's context is mostly what the agent read rather
+    than what you typed. That's why "read every file" is an expensive prompt shape and why week 2 teaches
     scoped context. And you saw the plan's honest shape: pressure without prices. Relative readings,
     taken consistently, are all the budgeting signal you get, and all you need.</div>
     <span class="read"><b>What you decide:</b> your checking rhythm. End of every session goes in the
     log; /context whenever heavy. Meters you don't read are decoration.</span>
-    <span class="keep"><b>Keep this</b>/usage = window + week + reset times · /context = what's loaded ·
-    /model = what you're burning it on. Three commands, two minutes, every session this week.</span>
+    <span class="keep"><b>Keep this</b>/usage shows the window, the week and reset times, /context shows
+    what's loaded, and /model shows what you burn; run all three every session this week.</span>
   </div>
 </section>
 
 <!-- 27b · M11 divider -->
-<section class="slide dark" data-act="Act 3 · Token economics" data-mv="Session triage">
-  <div class="wrap">
-    <div class="kicker">Act 3 · Movement M11</div>
-    <h1 class="big">Three exits from a heavy session</h1>
-    <p class="lead mt14">The meters tell you a session is heavy; they don't tell you what to do. You have
-    three exits. <b>/clear</b> empties the window: cheapest, right whenever the next task doesn't need
-    the history. <b>/compact</b> summarises the conversation in place: right mid-task, when the decisions
-    matter but the transcript doesn't. <b>Hand off</b> writes the state to a file a fresh session reads:
-    right when the work continues but this session shouldn't.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Sort six real moments into clear, compact or hand off, until the choice is reflex.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>Your default exit. Most developers should /clear far more than they do; history feels valuable and mostly isn't.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>Clear = fresh start · compact = same task, smaller history · hand
-    off = new session, same work. Pick by what the next hour needs, not by attachment.</span>
-  </div>
-</section>
-
-<!-- 27c · M11 panel — wtriage -->
 <section class="slide" data-act="Act 3 · Token economics" data-mv="Session triage">
   <div class="wrap">
     <div class="kicker">M11 · Session triage</div>
-    <h2 class="head">Six moments. Three exits. Sort them.</h2>
+    <h2 class="head">A heavy session has three exits</h2>
+    <div class="goalstrip"><b>Goal</b>Sort six real moments into clear, compact or hand off, until the choice is reflex.</div>
     <div class="teach">
-      <p>The tells: is the history <b>done with</b> (clear), <b>needed but bloated</b> (compact), or
-      <b>needed by someone else</b>, including tomorrow's you (hand off)? Two sharp edges. First:
-      <b>poisoned context</b> means wrong or misleading text sitting in the window — a bad log, a wrong
-      assumption — quietly steering every later answer. /compact keeps a summary, so poison survives in
-      summary form: a derailed session wants /clear and a restated task, never /compact. Second: hand off
-      isn't a built-in command. You ask Claude to write the state to a file (done, next, decisions, files
-      touched), /clear, and point the new session at that file. Week 3 wraps this into a custom /handoff
-      command.</p>
+      <p>The meters tell you a session is heavy; they don't tell you what to do. You have three
+      exits.</p>
+      <ul>
+        <li><b>/clear</b> empties the window. It's the cheapest exit, and right whenever the next task
+        doesn't need the history.</li>
+        <li><b>/compact</b> summarises the conversation in place. It's right mid-task, when the
+        decisions matter but the transcript doesn't.</li>
+        <li><b>Hand off</b> writes the state to a file that a fresh session reads. It's right when the
+        work continues but this session shouldn't.</li>
+      </ul>
+      <p>The tell is what the history still owes you: if it's done with, clear; if it's needed but
+      bloated, compact; if someone else needs it, including tomorrow's you, hand off.</p>
+    </div>
+    <div class="teach">
+      <p>Two sharp edges.</p>
+      <ul>
+        <li><b>Poisoned context</b> means wrong or misleading text sitting in the window (a bad log, a
+        wrong assumption), quietly steering every later answer. /compact keeps a summary, so poison
+        survives in summary form; a derailed session wants /clear and a restated task, never
+        /compact.</li>
+        <li>Hand off isn't a built-in command. You ask Claude to write the state to a file (done, next,
+        decisions, files touched), then /clear, and point the new session at that file. Week 3 wraps
+        this into a custom /handoff command.</li>
+      </ul>
     </div>
     <details class="fold hood"><summary>Under the hood · what /compact actually does</summary><div class="fbody">
       <p>/compact asks the model to write a summary of the conversation so far, then replaces the whole
-      transcript with that summary. The window shrinks; the session continues from the summary. Two
-      consequences follow directly. A summary keeps whatever the model judged important — so give it a
-      focus line and you steer that judgement. And a summary of poisoned context is still poisoned,
-      because the wrong "facts" get summarised right along with the good ones. Mechanism explains
-      rule.</p>
+      transcript with that summary. The window shrinks; the session continues from the summary.</p>
+      <p>Two consequences follow directly. A summary keeps whatever the model judged important, so give
+      it a focus line and you steer that judgement. And a summary of poisoned context is still poisoned,
+      because the wrong "facts" get summarised right along with the good ones. The mechanism explains
+      the rule.</p>
     </div></details>
     <div class="lab" id="wtriage">
       <div class="labtitle">Widget · <b>the triage sorter</b></div>
+      <div class="cuebar"></div>
       <div class="qgrid" id="wtriageGrid"></div>
       <p class="scoreline" id="wtriageScore"></p>
-    </div>
-    <div class="drive"><span class="dt">Drive it</span>
-      <ol>
-        <li>Sort all six moments, committing before each verdict.</li>
-        <li>Card 3 (the poisoned session) is the one most people miss: decide whether a summary saves you
-        before you flip it.</li>
-        <li>Read your score, then try the real thing: in your gym session, run <b>/compact</b> with a
-        focus, e.g. <b>/compact keep only the relay bug findings and open work</b>, and check
-        <b>/context</b> before and after.</li>
-      </ol>
-      <p class="watch">Watch for: /compact accepts instructions. A focused compact keeps what you name
-      and sheds the rest; an unfocused one guesses what mattered.</p>
+      <div class="cueall"></div>
     </div>
     <span class="read"><b>What you decide:</b> your triage habit, written as one line in your notes:
     "task done → /clear · long task at a breakpoint → focused /compact · day ends mid-work → handoff
     file." Log every time you break it this week.</span>
-    <span class="keep"><b>Keep this</b>/clear when history is done with · /compact (with a focus) when
-    it's needed but heavy · handoff file when the work outlives the session. Never compact a poisoned
-    session.</span>
+    <span class="keep"><b>Keep this</b>Clear when the history is done, compact with a focus when it's
+    heavy but needed, and hand off when the work outlives the session; never compact poison.</span>
   </div>
 </section>
 
@@ -1437,26 +1340,37 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
   <div class="wrap">
     <div class="kicker">Act 4 · Days 3–4 · ~1.5 h</div>
     <h1 class="big">The four disciplines, once each</h1>
-    <p class="lead mt14">Everything this programme teaches lives in four named disciplines.
-    <b>Context engineering:</b> control what the model sees — the files, rules and history in its window
-    decide its behaviour, so you curate them deliberately. <b>Harness engineering:</b> the harness is
-    everything you configure around Claude (settings, permission rules, hooks, custom commands); the
-    discipline is moving what you repeatedly say into that equipment, so it happens automatically.
-    <b>Loop engineering:</b> never let "done" rest on the model's word — design the work so a machine
-    check (a test, a command with a pass or fail) closes every loop. <b>Graph engineering:</b> see which
-    tasks genuinely depend on each other, and run the independent ones at the same time instead of in a
-    queue. Weeks 2 to 7 deepen them one at a time; today you run all four as mini-reps on the gym repo,
-    so the map is experienced, never just read.</p>
+    <p class="lead mt14">Everything this programme teaches lives in four named disciplines.</p>
+    <div class="teach">
+      <ul>
+        <li><b>Context engineering</b> controls what the model sees: the files, rules and history in
+        its window decide its behaviour, so you curate them deliberately.</li>
+        <li><b>Harness engineering</b> works on the harness, meaning everything you configure around
+        Claude (settings, permission rules, hooks, custom commands). The discipline moves what you
+        repeatedly say into that equipment, so it happens automatically.</li>
+        <li><b>Loop engineering</b> never lets "done" rest on the model's word: you design the work so
+        a machine check (a test, a command with a pass or fail) closes every loop.</li>
+        <li><b>Graph engineering</b> spots which tasks genuinely depend on each other, and runs the
+        independent ones at the same time instead of in a queue.</li>
+      </ul>
+    </div>
+    <p class="lead mt14">Weeks 2 to 7 deepen them one at a time. Today you run all four as mini-reps on
+    the gym repo, so the map is experienced rather than just read.</p>
     <p class="sub mt14">Five movements: the map itself (M10), then one rep per discipline, 10 to 20
     minutes each (Hands-ons 06–09). Do them in order; rep 3 uses the bug you met in Act 1.</p>
     <details class="fold plain"><summary>In plain words · one bad afternoon, four diagnoses</summary><div class="fbody">
-      <p>Imagine last Tuesday. Claude wrote code in the wrong module style — because it never saw your
-      conventions: a <b>context</b> failure; the fix is a CLAUDE.md it always reads. You typed "run the
-      linter before finishing" for the third day running — a <b>harness</b> failure; a repeated
-      instruction should become configuration. It said "done", you ran the tests, two failed — a
-      <b>loop</b> failure; nothing machine-checked closed the turn. And the three unrelated bugfixes you
-      did one after another all afternoon — a <b>graph</b> failure; they could have run at the same
-      time. Same afternoon, four different problems, four different fixes. That's why naming the
+      <p>Imagine last Tuesday.</p>
+      <ul>
+        <li>Claude wrote code in the wrong module style, because it never saw your conventions. That's a
+        <b>context</b> failure; the fix is a CLAUDE.md it always reads.</li>
+        <li>You typed "run the linter before finishing" for the third day running. That's a
+        <b>harness</b> failure; a repeated instruction should become configuration.</li>
+        <li>It said "done", you ran the tests, and two failed. That's a <b>loop</b> failure; nothing
+        machine-checked closed the turn.</li>
+        <li>The three unrelated bugfixes you did one after another all afternoon are a <b>graph</b>
+        failure; they could have run at the same time.</li>
+      </ul>
+      <p>Same afternoon, four different problems, four different fixes. That's why naming the
       discipline comes before reaching for a fix.</p>
     </div></details>
     <span class="keep"><b>Keep this</b>Four names to carry for nine weeks: context, harness, loop, graph.
@@ -1465,83 +1379,54 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
 </section>
 
 <!-- 29 · M10 divider -->
-<section class="slide dark" data-act="Act 4 · The four disciplines" data-mv="The map">
-  <div class="wrap">
-    <div class="kicker">Act 4 · Movement M12</div>
-    <h1 class="big">Name the discipline before you reach for a fix</h1>
-    <p class="lead mt14">Eight situations follow, all real, all from developers working exactly the way
-    you did last week. For each, the question isn't "what's the fix?": it's <b>which discipline owns the
-    fix</b>. Diagnose the discipline correctly and the fix is usually obvious; misdiagnose and you'll
-    patch symptoms all year.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Classify eight real failures by discipline, and miss a few: the misses show which discipline you currently can't see.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>Which discipline your own last month of Claude use needed most. That's where your attention goes first.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>Commit before you flip, on all eight. A diagnosis you didn't commit
-    to teaches nothing.</span>
-  </div>
-</section>
-
-<!-- 30 · M10 panel — wmap -->
 <section class="slide" data-act="Act 4 · The four disciplines" data-mv="The map">
   <div class="wrap">
     <div class="kicker">M12 · The map</div>
-    <h2 class="head">Eight failures. Four disciplines. Sort them.</h2>
+    <h2 class="head">Name the discipline before you reach for a fix</h2>
+    <div class="goalstrip"><b>Goal</b>Classify eight real failures by discipline, and miss a few: the misses show which discipline you currently can't see.</div>
+    <div class="teach"><p>Eight situations follow, all real, all from developers working exactly the way
+    you did last week. For each one, ask <b>which discipline owns the fix</b> rather than "what's the
+    fix?". Diagnose the discipline correctly and the fix is usually obvious; misdiagnose and you'll
+    patch symptoms all year.</p></div>
     <div class="teach">
-      <p>The tell for each discipline: context failures are about <b>what the model saw</b> (missing,
-      stale, or drowned). Harness failures are about <b>what you keep repeating</b> (instructions,
-      approvals, checklists). Loop failures are about <b>what closed the turn</b> (nothing, or a signal
-      that lies). Graph failures are about <b>work shape</b> (serial where it could be parallel, or
-      colliding where it should be isolated).</p>
+      <p>Each discipline has a tell.</p>
+      <ul>
+        <li>Context failures are about <b>what the model saw</b>: missing, stale, or drowned.</li>
+        <li>Harness failures are about <b>what you keep repeating</b>: instructions, approvals,
+        checklists.</li>
+        <li>Loop failures are about <b>what closed the turn</b>: nothing, or a signal that lies.</li>
+        <li>Graph failures are about <b>work shape</b>: serial where it could be parallel, or colliding
+        where it should be isolated.</li>
+      </ul>
     </div>
     <div class="lab" id="wmap">
       <div class="labtitle">Widget · <b>the discipline sorter</b></div>
+      <div class="cuebar"></div>
       <div class="qgrid" id="wmapGrid"></div>
       <p class="scoreline" id="wmapScore"></p>
-    </div>
-    <div class="drive"><span class="dt">Drive it</span>
-      <ol>
-        <li>Sort all eight, committing before each verdict. Read every verdict; each names the week that
-        deepens it.</li>
-        <li>Card 7 (the deleted test) is the subtle one: decide whether a gamed signal is a loop problem
-        or a harness problem before you flip it.</li>
-        <li>Read your score, then answer the read band honestly.</li>
-      </ol>
-      <p class="watch">Watch for: two cards describe Claude "forgetting". One is a context failure, one is
-      a harness failure. The difference is whether the fix is what it sees or what you've encoded.</p>
+      <div class="cueall"></div>
     </div>
     <span class="read"><b>What you decide:</b> your weakest discipline, named, from your own last month.
     Most chat-driven developers pick loop, and most are right.</span>
-    <span class="keep"><b>Keep this</b>Context = what it sees · harness = what you encode · loop = what
-    closes the turn · graph = how work is shaped. Four reps next, one each.</span>
+    <span class="keep"><b>Keep this</b>Context is what it sees, harness is what you encode, loop is what
+    closes the turn, and graph is how work is shaped; four reps come next.</span>
   </div>
 </section>
 
 <!-- 31 · H-O 06 divider -->
-<section class="slide dark" data-act="Act 4 · The four disciplines" data-mv="Context mini-rep">
-  <div class="wrap">
-    <div class="kicker">Act 4 · Hands-on 06 · mini-rep 1 of 4</div>
-    <h1 class="big">Context: one file changes behaviour</h1>
-    <p class="lead mt14"><b>CLAUDE.md</b> is a plain markdown file at a repo's root that Claude Code
-    reads automatically at the start of every session — your standing instructions, always in the
-    window. The gym repo doesn't have one, which means every session guesses your conventions. The rep:
-    run a task cold (no CLAUDE.md, no setup) and catalogue the guesses, then write four lines of
-    CLAUDE.md and run the identical task again. Same model, same prompt, different behaviour. That's
-    context engineering in its smallest possible dose.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Produce a before/after pair where a four-line file visibly changed what the agent did.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>Which guesses were worth correcting, and which rules earn a place in a file every session reads.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>A/B on the same prompt is this programme's standard proof. Week 2
-    scales this rep into the full documentation layer.</span>
-  </div>
-</section>
-
-<!-- 32 · H-O 06 panel -->
 <section class="slide" data-act="Act 4 · The four disciplines" data-mv="Context mini-rep">
   <div class="wrap">
     <div class="hobadge">Hands-on · 06</div><span class="ho">~15 min</span>
-    <h2 class="head">Cold run, four rules, hot run</h2>
+    <h2 class="head">Context: one file changes behaviour</h2>
+    <div class="goalstrip"><b>Goal</b>Produce a before/after pair where a four-line file visibly changed what the agent did.</div>
+    <div class="teach">
+      <p><b>CLAUDE.md</b> is a plain markdown file at a repo's root that Claude Code reads
+      automatically at the start of every session: your standing instructions, always in the window.
+      The gym repo doesn't have one, which means every session guesses your conventions.</p>
+      <p>The rep runs the same task twice: first cold (no CLAUDE.md, no setup) while you catalogue the
+      guesses, then again, identically, after you write four lines of CLAUDE.md. Same model, same
+      prompt, different behaviour. That's context engineering in its smallest possible dose.</p>
+    </div>
     <div class="hostep">Step 1 — cold run (no CLAUDE.md exists yet)</div>
     <div class="promptblock"><pre>Add a "cancel" command to this CLI: relay cancel &lt;n&gt; removes an open task
 without archiving it. Match the existing style.</pre><button class="copy">Copy</button><span class="pbtag">claude · in ~/relay-gym · fresh session</span></div>
@@ -1564,13 +1449,13 @@ without archiving it. Match the existing style.</pre><button class="copy">Copy</
       <p>Instruction files for agents are turning into standard repo furniture, the way CONTRIBUTING.md
       and .editorconfig did for humans and editors. CLAUDE.md is Claude Code's; AGENTS.md is an emerging
       cross-tool convention several vendors read; many teams symlink one to the other so every agent
-      sees the same rules. When you join a repo that has one, read it first — it's the team telling
+      sees the same rules. When you join a repo that has one, read it first; it's the team telling
       every agent (and you) how work is done here.</p>
     </div></details>
     <details class="fold trouble"><summary>Stuck? · the cold run guessed right</summary><div class="fbody">
       <p><b>Cold run already did everything right?</b> Lucky guesses happen. Tighten the contrast: add a
       rule the cold run violated (its error wording, its output format) and re-run. The rep is the
-      delta — the visible difference between runs — not the rules themselves.</p>
+      visible difference between the two runs; the rules only exist to produce it.</p>
     </div></details>
     <div class="notice"><b>Check your read:</b> the hot run stops guessing where the file speaks: it
     writes the node --test test unprompted, keeps output plain, shapes errors your way. CLAUDE.md is the
@@ -1578,50 +1463,41 @@ without archiving it. Match the existing style.</pre><button class="copy">Copy</
     <span class="read"><b>What you decide:</b> the difference between a rule worth encoding (it recurs,
     and the default behaviour is wrong) and noise (a one-off preference). That judgement is week 2's
     whole craft, met here in its smallest, strongest dose.</span>
-    <span class="keep"><b>Keep this</b>No CLAUDE.md = every session guesses. Four imperative lines beat a
-    page of prose. Proof by A/B, always.</span>
+    <span class="keep"><b>Keep this</b>Without a CLAUDE.md every session guesses; four imperative lines
+    beat a page of prose, and the proof is always a before/after pair.</span>
   </div>
 </section>
 
 <!-- 33 · H-O 07 divider -->
-<section class="slide dark" data-act="Act 4 · The four disciplines" data-mv="Harness mini-rep">
-  <div class="wrap">
-    <div class="kicker">Act 4 · Hands-on 07 · mini-rep 2 of 4</div>
-    <h1 class="big">Harness: a hook is a guarantee</h1>
-    <p class="lead mt14">Your permission baseline asks or denies. A <b>hook</b> goes further: it's a
-    small script Claude Code runs automatically at a fixed moment in the loop — for example, just before
-    any tool call — and the model cannot skip, forget or talk its way past it, because the harness runs
-    it, not the model. Written instructions fade as a session grows; code doesn't. The rep: install a
-    guardrail hook in the gym repo that blocks dangerous git commands, then watch it fire against a live
-    request.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Ship one working PreToolUse hook and see it block a command you asked for yourself.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>Which guarantee from your own incident history deserves to be a hook rather than a hope.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>Instructions are requests; hooks are guarantees. Anything that must
-    never happen belongs in code, not in prose.</span>
-  </div>
-</section>
-
-<!-- 34 · H-O 07 panel -->
 <section class="slide" data-act="Act 4 · The four disciplines" data-mv="Harness mini-rep">
   <div class="wrap">
     <div class="hobadge">Hands-on · 07</div><span class="ho">~15 min</span>
-    <h2 class="head">Install the guardrail, then try to cross it</h2>
+    <h2 class="head">Harness: a hook is a guarantee</h2>
+    <div class="goalstrip"><b>Goal</b>Ship one working PreToolUse hook and see it block a command you asked for yourself.</div>
+    <div class="teach">
+      <p>Your permission baseline asks or denies. A <b>hook</b> goes further: it's a small script Claude
+      Code runs automatically at a fixed moment in the loop, for example just before any tool call. The
+      model cannot skip, forget or talk its way past it, because the harness runs it rather than the
+      model.</p>
+      <p>Written instructions fade as a session grows; code doesn't. In this rep you install a guardrail
+      hook in the gym repo that blocks dangerous git commands, then watch it fire against a live
+      request.</p>
+    </div>
     <div class="teach">
       <p>The hook lives at <b>project scope</b> (.claude/settings.json inside the gym repo) because it
       guards this repo, and anyone who clones it should inherit the guard. That's the scope question from
-      wiring day, answered a second way. The command below looks dense; the fold under it decodes every
-      piece. The short version: before any terminal command runs, this script inspects it, and a
-      forbidden pattern gets the call blocked with an explanation Claude can read.</p>
+      wiring day, answered a second way.</p>
+      <p>The command below looks dense; the fold under it decodes every piece. The short version: before
+      any terminal command runs, this script inspects it, and a forbidden pattern gets the call blocked
+      with an explanation Claude can read.</p>
     </div>
     <details class="fold hood"><summary>Under the hood · reading the hook line, piece by piece</summary><div class="fbody">
       <p><b>"PreToolUse"</b> is the moment: this hook runs just before every tool call.
-      <b>"matcher": "Bash"</b> narrows it to one tool — terminal commands only.</p>
+      <b>"matcher": "Bash"</b> narrows it to one tool: terminal commands only.</p>
       <p>When the moment arrives, Claude Code runs your command and pipes the pending tool call into it
-      as JSON on <b>stdin</b> (standard input — the stream a program reads when data is piped to it).</p>
+      as JSON on <b>stdin</b> (standard input: the stream a program reads when data is piped to it).</p>
       <p><b>jq</b> is a widely used command-line tool for reading JSON. Here it pulls out
-      <code>.tool_input.command</code> — the actual shell command Claude wants to run — and
+      <code>.tool_input.command</code>, the actual shell command Claude wants to run, and
       <code>test("push +--force|…")</code> checks it against a pattern of forbidden commands.</p>
       <p>The exit code is the verdict. <b>exit 2</b> tells Claude Code "block this call", and whatever
       was printed to stderr becomes the explanation Claude sees. <b>exit 0</b> means "let it through".
@@ -1655,14 +1531,14 @@ without archiving it. Match the existing style.</pre><button class="copy">Copy</
       <p>The pattern is older than agents: git's pre-commit hooks run linters before a commit is allowed;
       branch protection refuses force-pushes to main whoever asks; CI gates block a merge until checks
       pass. In every case a machine enforces a rule people would otherwise have to remember. A PreToolUse
-      hook is the same design applied to an agent's tool calls — which is why teams that already trust
+      hook is the same design applied to an agent's tool calls, which is why teams that already trust
       CI gates adopt agent hooks without blinking.</p>
     </div></details>
     <details class="fold trouble"><summary>Stuck? · hook not firing, no jq, no remote</summary><div class="fbody">
       <p><b>Hook didn't fire?</b> Hooks load at session start: exit and rerun claude. Then check /hooks
       shows it registered.</p>
       <p><b>jq missing?</b> brew install jq, or swap the command for a grep:
-      <code>grep -qE 'push +--force|rm +-rf' && exit 2 || exit 0</code> — reading raw text instead of
+      <code>grep -qE 'push +--force|rm +-rf' && exit 2 || exit 0</code>. Reading raw text instead of
       JSON loses precision but keeps the guarantee.</p>
       <p><b>No origin remote?</b> The block happens before git runs, so it fires anyway. That's the
       point.</p>
@@ -1675,36 +1551,26 @@ without archiving it. Match the existing style.</pre><button class="copy">Copy</
     <span class="read"><b>What you decide:</b> your first real guardrail. Look at your incident history:
     the command you've regretted, the file nobody may edit. Write the hook's one-line spec in your
     friction log; week 3 ships it.</span>
-    <span class="keep"><b>Keep this</b>PreToolUse + exit 2 = a line the loop cannot cross. Project scope,
-    checked in, inherited by everyone who clones.</span>
+    <span class="keep"><b>Keep this</b>A PreToolUse hook that exits 2 is a line the loop cannot cross;
+    keep it at project scope, checked in, so every clone inherits it.</span>
   </div>
 </section>
 
 <!-- 35 · H-O 08 divider -->
-<section class="slide dark" data-act="Act 4 · The four disciplines" data-mv="Loop mini-rep">
-  <div class="wrap">
-    <div class="kicker">Act 4 · Hands-on 08 · mini-rep 3 of 4</div>
-    <h1 class="big">Loop: never trust "done"</h1>
-    <p class="lead mt14">In Act 1 the weekly report printed a task twice, and the gym's test suite (one
-    trivial test) said everything was fine. That's the loop problem in miniature: the verify signal
-    exists and lies. The rep runs the classic <b>red → green</b> cycle — red means tests failing, which
-    proves the bugs are real; green means the same tests passing after the fix. The fix gets judged by
-    the referee — the test suite, the neutral machine that says pass or fail — instead of by anyone's
-    confidence.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Run one honest red → green cycle: failing tests that prove two real bugs, then a fix accepted only when node --test says so.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>What "done" means in your own repos from now on, and who gets to say it.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>A verify signal that can't fail isn't a signal. Red first is what
-    makes green mean something.</span>
-  </div>
-</section>
-
-<!-- 36 · H-O 08 panel -->
 <section class="slide" data-act="Act 4 · The four disciplines" data-mv="Loop mini-rep">
   <div class="wrap">
     <div class="hobadge">Hands-on · 08</div><span class="ho">~20 min</span>
-    <h2 class="head">Red, then green, then believe it</h2>
+    <h2 class="head">Loop: never trust "done"</h2>
+    <div class="goalstrip"><b>Goal</b>Run one honest red → green cycle: failing tests that prove two real bugs, then a fix accepted only when node --test says so.</div>
+    <div class="teach">
+      <p>In Act 1 the weekly report printed a task twice, and the gym's test suite (one trivial test)
+      said everything was fine. That's the loop problem in miniature: the verify signal exists and
+      lies.</p>
+      <p>The rep runs the classic <b>red → green</b> cycle. Red means tests failing, which proves the
+      bugs are real; green means the same tests passing after the fix. The fix gets judged by the
+      referee, meaning the test suite, the neutral machine that says pass or fail, instead of by
+      anyone's confidence.</p>
+    </div>
     <div class="teach">
       <p>Two real bugs live in src/report.js. One you've seen: a task completed this week appears twice
       (it's counted from both the open list and the archive). One is nastier: run the report on a
@@ -1729,7 +1595,7 @@ and paste the final test output.</pre><button class="copy">Copy</button><span cl
       <li>The dedupe and the Sunday boundary are both covered by a test that would catch a regression</li>
     </ul>
     <details class="fold industry"><summary>How industry does it · this is TDD, made enforceable</summary><div class="fbody">
-      <p>Test-driven development — write the failing test first, then the code that passes it — has been
+      <p>Test-driven development (write the failing test first, then the code that passes it) has been
       industry practice for over twenty years, and honoured in the breach for most of them: under
       deadline, humans skip the failing-test step. Agents change the economics. Writing the test costs
       you one sentence in the brief, and weeks 5 and 6 make the sequence enforceable rather than
@@ -1740,7 +1606,7 @@ and paste the final test output.</pre><button class="copy">Copy</button><span cl
       (<code>git checkout -- src</code>) and re-run step 1 with "do not modify src yet" added. Getting an
       agent to hold red is itself a skill.</p>
       <p><b>Tests use today's date?</b> Reject them: a test tied to the wall clock passes six days a week
-      and fails on Sundays — the exact bug it's meant to prove. Fixed dates or it isn't proof.</p>
+      and fails on Sundays, which is the exact bug it's meant to prove. Fixed dates or it isn't proof.</p>
     </div></details>
     <div class="notice"><b>Check your read:</b> a suite that failed for the right reasons, then
     passed, with the diff staying inside report.js. Notice what changed in you: at no point did you read
@@ -1749,50 +1615,41 @@ and paste the final test output.</pre><button class="copy">Copy</button><span cl
     <span class="read"><b>What you decide:</b> the "done" rule for your real repos: done = the named
     check passes, pasted. Anything else is a claim, and claims are what week 5 teaches agents to stop
     making.</span>
-    <span class="keep"><b>Keep this</b>Red → green → believe. Fixed dates, not wall clock. The signal, not
-    the vibe, says done.</span>
+    <span class="keep"><b>Keep this</b>Believe a fix only when red turns green; pin tests to fixed dates
+    instead of the wall clock, and let the signal say done.</span>
   </div>
 </section>
 
 <!-- 37 · H-O 09 divider -->
-<section class="slide dark" data-act="Act 4 · The four disciplines" data-mv="Graph mini-rep">
-  <div class="wrap">
-    <div class="kicker">Act 4 · Hands-on 09 · mini-rep 4 of 4</div>
-    <h1 class="big">Graph: two sessions, no collision</h1>
-    <p class="lead mt14">Work is a dependency graph pretending to be a queue. Plainly: most task lists
-    have no real order — you do tasks one after another out of habit, not necessity. A <b>dependency
-    graph</b> is the honest picture: which task truly needs which done first. Tasks with no arrow
-    between them can run at the same time. Today's pair — the README rewrite and the utils audit — don't
-    depend on each other, so you'll run them together: one interactive session and one <b>headless</b>
-    session (no chat: one command in, results straight to a file — next slide teaches it), same repo,
-    same time, touching different files.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Finish two real tasks in the wall-clock time of one, and state the rule that made it safe.</p></div>
-      <div class="gb"><div class="t">You'll decide</div><p>What in your current week splits the same way: independent branches you've been running serially.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>Parallel is safe when the writes don't overlap. Week 7 gives you
-    worktrees for when they do.</span>
-  </div>
-</section>
-
-<!-- 38 · H-O 09 panel -->
 <section class="slide" data-act="Act 4 · The four disciplines" data-mv="Graph mini-rep">
   <div class="wrap">
     <div class="hobadge">Hands-on · 09</div><span class="ho">~15 min</span>
-    <h2 class="head">Interactive front, headless back</h2>
+    <h2 class="head">Graph: two sessions can run at once without colliding</h2>
+    <div class="goalstrip"><b>Goal</b>Finish two real tasks in the wall-clock time of one, and state the rule that made it safe.</div>
     <div class="teach">
-      <p>Second instrument first: <b>claude -p</b> (p for print) runs one prompt to completion and
-      exits. No conversation, no questions back; the result prints to stdout — the terminal's standard
-      output stream — which is why the command below can catch it in a file with <code>&gt;</code>. It's
-      Claude as a Unix tool, and it's how week 6 builds overnight jobs. Today it's simply your second
-      pair of hands.</p>
+      <p>Work is a dependency graph pretending to be a queue. Plainly: most task lists have no real
+      order, and you do tasks one after another out of habit rather than necessity. A <b>dependency
+      graph</b> is the honest picture: which task truly needs which done first. Tasks with no arrow
+      between them can run at the same time.</p>
+      <p>Today's pair, the README rewrite and the utils audit, don't depend on each other, so you'll run
+      them together: one interactive session and one <b>headless</b> session (no chat: one command in,
+      results straight to a file; the next paragraph teaches it), same repo, same time, touching
+      different files.</p>
+    </div>
+    <div class="teach">
+      <p>Meet the second instrument first: <b>claude -p</b> (p for print) runs one prompt to completion
+      and exits. No conversation, no questions back; the result prints to stdout (the terminal's
+      standard output stream), which is why the command below can catch it in a file with
+      <code>&gt;</code>. It's Claude as a Unix tool, and it's how week 6 builds overnight jobs. Today
+      it's simply your second pair of hands.</p>
     </div>
     <details class="fold industry"><summary>How industry does it · the Unix philosophy absorbs the agent</summary><div class="fbody">
-      <p>Fifty years of Unix practice: small tools that do one job, read text in, write text out, and
-      compose through pipes and files. <code>claude -p</code> makes an agent one of those tools — so
-      everything that already orchestrates commands can now orchestrate Claude: cron can schedule it, CI
-      can call it, a Makefile can depend on it, a script can chain it. Week 6 builds on exactly this. No
-      new infrastructure was invented; the agent joined the oldest one there is.</p>
+      <p>Fifty years of Unix practice built on small tools that do one job, read text in, write text
+      out, and compose through pipes and files.</p>
+      <p><code>claude -p</code> makes an agent one of those tools, so everything that already
+      orchestrates commands can now orchestrate Claude: cron can schedule it, CI can call it, a Makefile
+      can depend on it, a script can chain it. Week 6 builds on exactly this. No new infrastructure was
+      invented; the agent joined the oldest one there is.</p>
     </div></details>
     <div class="hostep">Step 1 — terminal B: launch the headless audit</div>
     <div class="promptblock"><pre>cd ~/relay-gym && claude -p "Audit src/utils.js: list every function that is dead
@@ -1816,7 +1673,7 @@ by running it first.</pre><button class="copy">Copy</button><span class="pbtag">
       <p><b>Worried they'll collide?</b> They were scoped not to: one writes README.md, one writes
       audit.md and is forbidden code changes. That scoping IS the discipline.</p>
     </div></details>
-    <div class="notice"><b>Check your read:</b> two tasks, no shared files — so nothing needed to
+    <div class="notice"><b>Check your read:</b> the two tasks shared no files, so nothing needed to
     coordinate them. The scoping you did up front (each session told exactly what it may write) was the
     coordination. When branches genuinely do share files, you need real isolation, and that's git
     worktrees plus subagents in week 7. The instinct to draw the graph before queueing the work is what
@@ -1824,8 +1681,8 @@ by running it first.</pre><button class="copy">Copy</button><span class="pbtag">
     <span class="read"><b>What you decide:</b> one thing from your actual backlog you'll run headless this
     week while you work on something else. Write the claude -p line for it now, while the shape is
     fresh.</span>
-    <span class="keep"><b>Keep this</b>claude -p = Claude as a Unix tool. Draw the graph, split the
-    independent branches, let scoping prevent collisions.</span>
+    <span class="keep"><b>Keep this</b>claude -p turns Claude into a Unix tool; draw the graph, split
+    the independent branches, and let scoping prevent collisions.</span>
   </div>
 </section>
 
@@ -1838,13 +1695,13 @@ by running it first.</pre><button class="copy">Copy</button><span class="pbtag">
     <h1 class="big">Wire it, ship it, autopsy it</h1>
     <p class="lead mt14">Everything so far was parts. The capstone assembles them: audit your wiring
     against the zero-copy-paste bar, ship one real automation through the wired environment, then
-    autopsy the loop that did the work — an <b>autopsy</b> here means walking back through the finished
+    autopsy the loop that did the work. An <b>autopsy</b> here means walking back through the finished
     session, tool call by tool call, to judge how the work actually happened. You leave with the week's
     proof artifact and the habit the programme is built on: evidence before claims.</p>
     <div class="goalrow mt28">
-      <div class="gb"><div class="t">The shape</div><p>Audit → Pick → Ship → Autopsy → Verdict + export.
-      Five steps, capture boxes as you go; the last step assembles them into one markdown report for your
-      Knowledge issue.</p></div>
+      <div class="gb"><div class="t">The shape</div><p>The five steps are audit, pick, ship, autopsy,
+      then verdict and export. Capture boxes fill as you go; the last step assembles them into one
+      markdown report for your Knowledge issue.</p></div>
       <div class="gb"><div class="t">You'll carry forward</div><p>The capstone report: Knowledge-issue
       proof, your rehearsal for the weekend's Application projects, and your first before/after
       story for week 9's retrospective.</p></div>
@@ -1855,37 +1712,24 @@ by running it first.</pre><button class="copy">Copy</button><span class="pbtag">
 </section>
 
 <!-- 40 · Step 1 divider -->
-<section class="slide dark" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 1 · Audit">
-  <div class="wrap">
-    <div class="kicker">Capstone · Step 1 of 5 · ~15 min</div>
-    <h1 class="big">Audit the wiring</h1>
-    <p class="lead mt14">Before shipping anything through the environment, establish what the environment
-    actually is, with commands, not memory. This is the same audit another learner will run on your
-    machine cold this weekend; running it on yourself first means their pass finds refinements, not
-    embarrassments.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>A filled scorecard: what's wired, what prompts, what's missing, each backed by a command you ran.</p></div>
-      <div class="gb"><div class="t">You'll carry forward</div><p>The honest gap list. Unwired is fine; unknown is not.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>Audit yourself before others audit you. The weekend's peer audit
-    checklist is weeks/week-1/data/wiring-audit.md; this step is your practice run of it.</span>
-  </div>
-</section>
-
-<!-- 41 · Step 1 panel -->
 <section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 1 · Audit">
   <div class="wrap">
     <div class="kicker">Capstone · Step 1 · Audit</div>
-    <h2 class="head">Four probes, one scorecard</h2>
-    <div class="hostep">Probe 1 — identity and reach</div>
+    <h2 class="head">Audit the wiring</h2>
+    <div class="goalstrip"><b>Goal</b>Fill the scorecard: what's wired, what prompts, what's missing, each backed by a command you ran.</div>
+    <div class="teach"><p>Before shipping anything through the environment, establish what the environment
+    actually is, with commands, not memory. This is the same audit another learner will run on your
+    machine cold this weekend; running it on yourself first means their pass finds refinements, not
+    embarrassments.</p></div>
+    <div class="hostep">Check 1 — identity and reach</div>
     <div class="promptblock"><pre>claude --version && gh auth status</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
-    <div class="hostep">Probe 2 — servers</div>
+    <div class="hostep">Check 2 — servers</div>
     <div class="hodo">In a session: <b>/mcp</b>. Every server green? Which are configured but not
     authenticated?</div>
-    <div class="hostep">Probe 3 — permissions, both edges</div>
+    <div class="hostep">Check 3 — permissions, both edges</div>
     <div class="hodo">Ask for <b>git status</b> (should run silently), then ask it to force-push (should
     refuse or prompt). Count what interrupted you.</div>
-    <div class="hostep">Probe 4 — the reach test</div>
+    <div class="hostep">Check 4 — the reach test</div>
     <div class="promptblock"><pre>Without me pasting anything: what's the newest open issue on our cohort repo, and
 what does our tracker/docs say about [something you know is current]? Name each tool
 you used.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
@@ -1893,34 +1737,22 @@ you used.</pre><button class="copy">Copy</button><span class="pbtag">claude</spa
     <textarea class="cap" id="cap-audit" data-persist="cap-audit" placeholder="gh: … · MCP servers green: … · permissions: safe ran silently? dangerous stopped? · reach test: what it fetched without a paste · gaps: …"></textarea>
     <span class="read"><b>You carry forward:</b> the gap list. Each gap is either a fix before Sunday's
     peer audit or a named, deliberate exception with a reason.</span>
-    <span class="keep"><b>Keep this</b>Wired, prompting, missing: three states, known per system, proven
-    by a command. That's what "my environment is set up" means from now on.</span>
+    <span class="keep"><b>Keep this</b>Every system sits in one of three states, wired, prompting or
+    missing, and a command proves which; that's what "set up" means from now on.</span>
   </div>
 </section>
 
 <!-- 42 · Step 2 divider -->
-<section class="slide dark" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 2 · Pick">
-  <div class="wrap">
-    <div class="kicker">Capstone · Step 2 of 5 · ~10 min</div>
-    <h1 class="big">Pick the automation</h1>
-    <p class="lead mt14">One real automation, shipped today, used all week. The right pick is boring: a
-    hand-run chore from your actual week, small enough to ship in an hour, frequent enough to feel daily.
-    The wrong pick is impressive: a clever agent pipeline you'll demo once and never run again.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>One chore chosen from real friction, specified in a paragraph, with its verify signal named before any building starts.</p></div>
-      <div class="gb"><div class="t">You'll carry forward</div><p>The spec paragraph. If the spec can't name how you'll know it worked, the pick is wrong.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>Frequency beats cleverness: the automation you run three times this week is evidence; the clever one you run once is a screenshot.</span>
-  </div>
-</section>
-
-<!-- 43 · Step 2 panel -->
 <section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 2 · Pick">
   <div class="wrap">
     <div class="kicker">Capstone · Step 2 · Pick</div>
-    <h2 class="head">Choose boring. Specify sharp.</h2>
+    <h2 class="head">Pick the automation</h2>
+    <div class="goalstrip"><b>Goal</b>Choose one chore from real friction, specify it in a paragraph, and name its verify signal before any building starts.</div>
+    <div class="teach"><p>One real automation, shipped today, used all week. The right pick is boring: a
+    hand-run chore from your actual week, small enough to ship in an hour, frequent enough to feel daily.
+    The wrong pick is impressive: a clever agent pipeline you'll demo once and never run again.</p></div>
     <div class="teach">
-      <p>Source: your friction log and the hops you caught yourself doing this week. The spec is one
+      <p>The source is your friction log and the hops you caught yourself doing this week. The spec is one
       paragraph with four sentences: what triggers it, what it does, what it touches (which wired
       systems), and <b>what proves it worked</b>. That last sentence is the loop discipline showing up in
       your planning, three weeks early.</p>
@@ -1936,34 +1768,21 @@ you used.</pre><button class="copy">Copy</button><span class="pbtag">claude</spa
     <textarea class="cap" id="cap-pick" data-persist="cap-pick" placeholder="The chore: … · Trigger: … · It does: … · Systems it touches: … · Proof it worked: …"></textarea>
     <span class="read"><b>You carry forward:</b> a spec whose last sentence names the verify signal.
     You'll paste this paragraph as the build prompt in step 3, nearly verbatim: good specs are prompts.</span>
-    <span class="keep"><b>Keep this</b>Four sentences: trigger, action, systems, proof. If sentence four
-    is hard to write, pick a different chore.</span>
+    <span class="keep"><b>Keep this</b>The spec is four sentences, trigger, action, systems and proof;
+    if the proof sentence is hard to write, pick a different chore.</span>
   </div>
 </section>
 
 <!-- 44 · Step 3 divider -->
-<section class="slide dark" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 3 · Ship">
-  <div class="wrap">
-    <div class="kicker">Capstone · Step 3 of 5 · ~45 min</div>
-    <h1 class="big">Ship it</h1>
-    <p class="lead mt14">Build the automation through the wired environment, in three moves: hand the spec
-    to Claude Code, make the first run produce its proof, then run it again untouched. Twice-run is the
-    bar because anything runs once with you hovering; the second clean run is what makes it an automation
-    rather than a transcript.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>The automation exists as a runnable thing (script or slash command), has run twice, and produced its named proof both times.</p></div>
-      <div class="gb"><div class="t">You'll carry forward</div><p>Run evidence for the capture box, and the habit of specs that build themselves.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>→ advances through the three moves on the next slide. Ship the
-    boring version today; polish is what the week's three real uses are for.</span>
-  </div>
-</section>
-
-<!-- 45 · Step 3 panel — stepper -->
 <section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 3 · Ship">
   <div class="wrap">
     <div class="kicker">Capstone · Step 3 · Ship — three moves</div>
-    <h2 class="head">Spec in, proof out, twice</h2>
+    <h2 class="head">Ship it</h2>
+    <div class="goalstrip"><b>Goal</b>Make the automation a runnable thing (a script or a slash command) that has run twice and produced its named proof both times.</div>
+    <div class="teach"><p>Build the automation through the wired environment, in three moves: hand the spec
+    to Claude Code, make the first run produce its proof, then run it again untouched. Twice-run is the
+    bar because anything runs once with you hovering; the second clean run is what makes it an automation
+    rather than a transcript.</p></div>
     <div class="stepper" id="shipStepper">
       <button class="snode on">1 · Build from the spec</button>
       <button class="snode">2 · First run + proof</button>
@@ -1987,43 +1806,30 @@ tell me exactly how to run it.</pre><button class="copy">Copy</button><span clas
       the issues. Fix what the proof exposes; that's the loop working.</p>
     </div>
     <div class="steppanel">
-      <p class="sub"><b>Move 3:</b> run it again on fresh input, touching nothing in between. Second
-      clean run = shipped. A weekend Application issue asks you to ship a second automation, solo —
-      keep the friction log warm.</p>
+      <p class="sub"><b>Move 3:</b> run it again on fresh input, touching nothing in between. The second
+      clean run is what makes it shipped. A weekend Application issue asks you to ship a second
+      automation, solo, so keep the friction log warm.</p>
     </div>
     <p class="stepcue">→ advances through the moves, then to the next slide · click a chip to jump</p>
     <div class="caplbl">Capture — shipping evidence</div>
     <textarea class="cap" id="cap-ship" data-persist="cap-ship" placeholder="What I shipped and where it lives: … · Run 1 proof: … · Run 2 proof: … · What run 1 exposed that I fixed: …"></textarea>
     <span class="read"><b>You carry forward:</b> a thing that works while you don't watch it. Note what
     the build consumed from your wiring: gh calls, MCP reads. None of them were possible on Monday.</span>
-    <span class="keep"><b>Keep this</b>Spec → build → proof → proof again. The second untouched run is
-    what "shipped" means this week.</span>
+    <span class="keep"><b>Keep this</b>The path runs spec, build, proof, then proof again; the second
+    untouched run is what "shipped" means this week.</span>
   </div>
 </section>
 
 <!-- 46 · Step 4 divider -->
-<section class="slide dark" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 4 · Autopsy">
-  <div class="wrap">
-    <div class="kicker">Capstone · Step 4 of 5 · ~20 min</div>
-    <h1 class="big">Loop autopsy</h1>
-    <p class="lead mt14">One more session on the gym repo, but this time the session itself is the
-    specimen. You'll give Claude a fresh bug, let it work, then annotate the transcript beat by beat:
-    gather, act, verify, with a note on what each beat earned. The autopsy habit is how you'll debug
-    every misbehaving session for the rest of the programme.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>A transcript annotated beat by beat, naming the verify signal that closed the loop (or the vibe that didn't).</p></div>
-      <div class="gb"><div class="t">You'll carry forward</div><p>The annotated autopsy: capstone evidence now, and the seed of the weekend's full write-up.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>The paper version of this annotation lives at
-    weeks/week-1/data/loop-autopsy-template.md; the weekend Application issue uses the same skeleton.</span>
-  </div>
-</section>
-
-<!-- 47 · Step 4 panel -->
 <section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 4 · Autopsy">
   <div class="wrap">
     <div class="kicker">Capstone · Step 4 · Autopsy</div>
-    <h2 class="head">Fresh bug in, annotated loop out</h2>
+    <h2 class="head">Loop autopsy</h2>
+    <div class="goalstrip"><b>Goal</b>Annotate a transcript beat by beat, naming the verify signal that closed the loop (or the vibe that didn't).</div>
+    <div class="teach"><p>One more session on the gym repo, but this time the session itself is the
+    specimen. You'll give Claude a fresh bug, let it work, then annotate the transcript beat by beat:
+    gather, act, verify, with a note on what each beat earned. The autopsy habit is how you'll debug
+    every misbehaving session for the rest of the programme.</p></div>
     <div class="teach">
       <p>The specimen task is a bug you haven't touched yet: <b>relay done 2</b> completes a different
       task than the one <b>relay list</b> showed as 2. (Two causes conspire; that's what makes the gather
@@ -2053,34 +1859,21 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
     <textarea class="cap" id="cap-autopsy" data-persist="cap-autopsy" placeholder="Task: done-2 bug · Gather: what it read, what it missed … · Act: … · Verify: reproduced first? closing signal? … · Where I'd have trusted a wrong done: …"></textarea>
     <span class="read"><b>You carry forward:</b> the autopsy instinct. A session that can't survive this
     annotation didn't earn its "done", however confident it sounded.</span>
-    <span class="keep"><b>Keep this</b>Reproduce → cause → fix → regression test: the debugging loop,
-    met here in miniature, is week 5's centrepiece.</span>
+    <span class="keep"><b>Keep this</b>Reproduce, find the cause, fix, then add a regression test; that
+    debugging loop, met here in miniature, is week 5's centrepiece.</span>
   </div>
 </section>
 
 <!-- 48 · Step 5 divider -->
-<section class="slide dark" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 5 · Verdict">
-  <div class="wrap">
-    <div class="kicker">Capstone · Step 5 of 5 · ~10 min</div>
-    <h1 class="big">Verdict</h1>
-    <p class="lead mt14">Data isn't judgement. Two ruthless lines close the week: the next wiring gap
-    you'd close, and the one workflow rule you now hold. Specific or it didn't happen: "be more careful
-    with context" fails; "no repo of mine goes a day without a CLAUDE.md and a runnable test command"
-    clears.</p>
-    <div class="goalrow">
-      <div class="gb"><div class="t">Goal</div><p>Distil the week into two committed lines, then export the whole report.</p></div>
-      <div class="gb"><div class="t">You'll carry forward</div><p>The capstone report, pasted on your Knowledge issue: the week's proof of work.</p></div>
-    </div>
-    <span class="keep"><b>Keep this</b>The export gathers every capture since step 1. Blank boxes come out
-    as "____": go back and fill the step, don't hand-edit the export.</span>
-  </div>
-</section>
-
-<!-- 49 · Step 5 panel — verdict + export -->
 <section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 5 · Verdict">
   <div class="wrap">
     <div class="kicker">Capstone · Step 5 · Verdict &amp; export</div>
-    <h2 class="head">Two lines, one report</h2>
+    <h2 class="head">Verdict</h2>
+    <div class="goalstrip"><b>Goal</b>Distil the week into two committed lines, then export the whole report.</div>
+    <div class="teach"><p>Data isn't judgement. Two ruthless lines close the week: the next wiring gap
+    you'd close, and the one workflow rule you now hold. Specific or it didn't happen: "be more careful
+    with context" fails; "no repo of mine goes a day without a CLAUDE.md and a runnable test command"
+    clears.</p></div>
     <div class="caplbl">The next wiring gap I'll close</div>
     <textarea class="cap" id="cap-next" data-persist="cap-next" placeholder="The system still outside the loop, what it costs me daily, and when it gets wired…"></textarea>
     <div class="caplbl">One workflow rule I now hold</div>
@@ -2092,8 +1885,8 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
     <span class="read"><b>This report is the capstone:</b> paste it on your Week 1 Knowledge issue now,
     while it's warm. Its audit seeds the peer audit, its shipping evidence feeds the second automation,
     and its autopsy rehearses the weekend's solo bug. Zero copy-paste is your bar now: defend it.</span>
-    <span class="keep"><b>Keep this</b>Export → paste on the Knowledge issue. The deck's loop closes on
-    GitHub, not in the browser.</span>
+    <span class="keep"><b>Keep this</b>Export the report and paste it on the Knowledge issue; the deck's
+    loop closes on GitHub rather than in the browser.</span>
   </div>
 </section>
 
@@ -2121,7 +1914,7 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
           <li>Re-drive the budget meter and the discipline sorter with your own week's numbers and your
           own incidents in mind; the widgets are local and unbreakable.</li>
           <li>The <b>Keep this</b> bands, read top to bottom, are the week's summary. The colour-coded
-          folds (In plain words, Under the hood, How industry does it…) are the depth layer — reopen any
+          folds (In plain words, Under the hood, How industry does it…) are the depth layer; reopen any
           of them, any time, including from print.</li>
           <li><b>Optional deeper dives</b> (search by name): Anthropic's "Claude Code best practices" and
           "Building effective agents". Weekend-grade, not required.</li>
@@ -2156,7 +1949,7 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
     <div class="hostep mt14">The hand-off</div>
     <div class="hodo"><b>This weekend:</b> four Application issues on the Week 1 milestone. Book the peer
     audit first (it needs another learner's diary). Each issue is a ticket: a fresh problem of a class
-    the capstone rehearsed, yours to navigate solo. Stuck is allowed — run <b>/guide-me</b> (a skill in
+    the capstone rehearsed, yours to navigate solo. Stuck is allowed: run <b>/guide-me</b> (a skill in
     the cohort repo: give it the issue link and it coaches you step by step; it never solves).</div>
     <div class="hodo"><b>Starting today, forever:</b> the friction log, two minutes a day. Every repeated
     instruction, every hop, every wrong "done" is one line. Week 3 turns the top entries into
@@ -2165,8 +1958,8 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
     CLAUDE.md grows into a documentation layer, and the gym repo gets the full treatment.</div>
     <span class="read"><b>You fired yourself from the clipboard job.</b> You can name the four
     disciplines, read a session by its beats, and prove your environment cold. See you in week 2.</span>
-    <span class="keep"><b>Keep this</b>Deck done ≠ week done: the milestone closes when all six issues
-    close, Sunday EOD. The friction-log habit starts today.</span>
+    <span class="keep"><b>Keep this</b>Finishing the deck doesn't finish the week: the milestone closes
+    when all six issues close, Sunday EOD, and the friction-log habit starts today.</span>
   </div>
 </section>
 
@@ -2296,8 +2089,48 @@ if(capBtn){
     ].join("\n");
     copyText(md,capBtn,"Report copied ✓");
     var m=document.getElementById("capCopyMsg");
-    if(m)m.textContent="Copied — paste it as a comment on your Week 1 Knowledge issue.";
+    if(m)m.textContent="Copied. Paste it as a comment on your Week 1 Knowledge issue.";
   });
+}
+
+/* ── the coach: in-widget cue engine (v2) ───────────────── */
+var COACH={};
+function coach(id,cues,doneText){
+  var lab=document.getElementById(id);if(!lab)return;
+  var bar=lab.querySelector(".cuebar"),all=lab.querySelector(".cueall");
+  var st={i:0,cues:cues,bar:bar,done:doneText||"Now take the check below."};
+  COACH[id]=st;
+  if(all)all.innerHTML="<b>Coach cues (in order):</b><ol>"+cues.map(function(c){return "<li>"+c.t+"</li>";}).join("")+"</ol>";
+  paintCue(st);
+}
+function paintCue(st){
+  if(!st.bar)return;
+  if(st.i>=st.cues.length){st.bar.className="cuebar done";st.bar.innerHTML="✓ Driven. "+st.done;return;}
+  var c=st.cues[st.i];
+  st.bar.className="cuebar"+(c.w?" watch":"");
+  st.bar.innerHTML="<b>"+(st.i+1)+"/"+st.cues.length+"</b> · "+c.t;
+}
+function cueEval(id){
+  var st=COACH[id];if(!st)return;
+  while(st.i<st.cues.length&&st.cues[st.i].cond&&st.cues[st.i].cond()){st.i++;}
+  paintCue(st);
+}
+function wcheck(labId,scoreId,q,opts,aIdx,verdict){
+  var lab=document.getElementById(labId);if(!lab)return;
+  var host=lab.querySelector(".wcheck"),score=document.getElementById(scoreId);
+  if(!host||!score)return;
+  host.innerHTML="<p class='q'>Check yourself · "+q+"</p>";
+  var btns=document.createElement("div");btns.className="qbtns";
+  opts.forEach(function(o,i){
+    var b=document.createElement("button");b.textContent=o;
+    b.addEventListener("click",function(){
+      if(host.dataset.done)return;host.dataset.done="1";
+      b.classList.add("pick");
+      score.textContent=(i===aIdx?"✓ ":"✗ It's '"+opts[aIdx]+"'. ")+verdict;
+    });
+    btns.appendChild(b);
+  });
+  host.appendChild(btns);
 }
 
 /* ── widget: the hop counter ────────────────────────────── */
@@ -2306,6 +2139,11 @@ if(capBtn){
   var chat=document.getElementById("wloopChat"),agent=document.getElementById("wloopAgent");
   var chatMeta=document.getElementById("wloopChatMeta"),agentMeta=document.getElementById("wloopAgentMeta");
   var tally=document.getElementById("wloopTally"),n=0;
+  coach("wloop",[
+    {t:"Press Advance once: both sides receive the same brief.",cond:function(){return n>=1;}},
+    {t:"Keep pressing, slowly. Amber rows marked YOU are manual hops: copying code, running commands, ferrying errors. Read each row before the next press.",cond:function(){return n>=5;}},
+    {t:"Watch for: the chat side's step 6, where you paste test output back in. The agent side never has that step: it saw the output the moment the test ran, because it ran it.",w:1,cond:function(){return n>=CHAT.length;}}
+  ]);
   var CHAT=[
     {you:1,t:"Paste the task + report.js + store.js into the chat"},
     {you:0,t:"Model replies: prose diagnosis + a suggested patch"},
@@ -2338,8 +2176,12 @@ if(capBtn){
     agentMeta.textContent=Math.min(n,AGENT.length)+" steps · "+agHops+" hops by you";
     tally.innerHTML=(n>=CHAT.length)?"<b>Same fix, same model:</b> chat took 8 steps, 6 of them you carrying text. The agent took 5, and the only human steps were the brief and the review.":"";
   }
-  go.addEventListener("click",function(){if(n<CHAT.length)n++;render();});
+  go.addEventListener("click",function(){if(n<CHAT.length)n++;render();cueEval("wloop");});
   document.getElementById("wloopReset").addEventListener("click",function(){n=0;render();});
+  wcheck("wloop","wloopScore",
+    "Same model on both sides. What actually cut the hops from 6 to 2?",
+    ["A smarter model","Tools plus a loop the agent runs itself","A better prompt"],1,
+    "The structure changed, and the intelligence didn't: with tools and a loop the model gathers and verifies for itself, and it produced something chat cannot: an unprompted verification step. Your job moved to the two ends: a sharp brief in, a real review out.");
   render();
 })();
 
@@ -2348,17 +2190,22 @@ if(capBtn){
   var host=document.getElementById("wtraceRows");if(!host)return;
   var score=document.getElementById("wtraceScore");
   var data=[
-    {ev:"Read README.md",a:"g",x:"Gathering — and this README lies about the CLI, which is itself a finding."},
+    {ev:"Read README.md",a:"g",x:"Gathering. And this README lies about the CLI, which is itself a finding."},
     {ev:"Read src/cli.js, src/report.js",a:"g",x:"Gathering: the code that owns the symptom."},
     {ev:"Grep \"completed\" across src/",a:"g",x:"Gathering: where does completion state flow?"},
     {ev:"Bash: node --test (before any edit)",a:"g",x:"The trap: checks BEFORE an edit establish current state. That's gathering, whatever the command."},
     {ev:"Edit src/report.js (dedupe by id)",a:"a",x:"Acting: the change itself."},
-    {ev:"Bash: node --test (after the edit)",a:"v",x:"Verifying: same command as row 4, different intent — now it judges the change."},
+    {ev:"Bash: node --test (after the edit)",a:"v",x:"Verifying: the same command as row 4 with different intent, because now it judges the change."},
     {ev:"Write test/report.test.js (regression case)",a:"a",x:"Acting: encoding the verify signal so next month's regression gets caught."},
-    {ev:"Bash: node --test — full suite green",a:"v",x:"Verifying: the loop closes on machine evidence, not confidence."}
+    {ev:"Bash: node --test — full suite green",a:"v",x:"Verifying: the loop closes on machine evidence instead of confidence."}
   ];
   var LBL={g:"Gather",a:"Act",v:"Verify"};
   var done=0,right=0;
+  coach("wtrace",[
+    {t:"Take the rows top to bottom. Commit a tag on each before reading its verdict.",cond:function(){return done>=1;}},
+    {t:"Row 4 is the first trap: running the test suite BEFORE any edit. Decide what beat that really is.",cond:function(){return done>=4;}},
+    {t:"Watch for: rows 7 and 8 are the loop closing. Notice what kind of evidence each produces. Then read your score line as a rhythm: G G G G · A V · A V.",w:1,cond:function(){return done>=data.length;}}
+  ],"Your score line below is the debrief.");
   data.forEach(function(d,idx){
     var r=document.createElement("div");r.className="evrow";
     r.innerHTML="<span class='ev'>"+(idx+1)+" · "+d.ev+"</span>"+
@@ -2372,7 +2219,8 @@ if(capBtn){
         var ok=(b.dataset.p===d.a);if(ok)right++;
         r.className="evrow "+(ok?"ok":"no");
         v.textContent=(ok?"✓ ":"✗ It's "+LBL[d.a]+". ")+d.x;
-        score.textContent=(done===data.length)?("Tagged "+right+" of "+data.length+" on first pick. Re-read the rhythm: G G G G · A V · A V — gather-heavy, never done without a verify. The red flag you'll hunt all programme: an act beat followed directly by 'done', with no verify between."):("Tagged "+done+" of "+data.length+"…");
+        score.textContent=(done===data.length)?("Tagged "+right+" of "+data.length+" on first pick. Re-read the rhythm (G G G G · A V · A V): it gathers heavily and is never done without a verify. The red flag you'll hunt all programme: an act beat followed directly by 'done', with no verify between."):("Tagged "+done+" of "+data.length+"…");
+        cueEval("wtrace");
       });
     });
     host.appendChild(r);
@@ -2392,13 +2240,19 @@ if(capBtn){
     {name:"Terminal (tests, git)",how:"built in",routes:["Test output → pasted into chat","Commands → run by hand, results ferried"]}
   ];
   var on=SYS.map(function(){return false;});
+  var toggles=0,hitZero=false;
+  coach("wwire",[
+    {t:"Read the routes first: ten of them, all through you. That's the 'what is' slide, drawn. Then toggle GitHub: two routes strike out at once.",cond:function(){return toggles>=1;}},
+    {t:"Toggle the rest, slowest ferry first. Watch the meter fall and change colour at zero.",cond:function(){return hitZero;}},
+    {t:"Watch for: toggle one connector back off and read the alert line: partial wiring has a specific cost.",w:1,cond:function(){return hitZero&&toggles>=6;}}
+  ]);
   function render(){
     sysHost.innerHTML="";routeHost.innerHTML="";
     var hops=0;
     SYS.forEach(function(s,i){
       var d=document.createElement("div");d.className="wsys"+(on[i]?" on":"");
       d.innerHTML="<span>"+s.name+" <span style='color:var(--muted);font-size:11px'>("+s.how+")</span></span><button>"+(on[i]?"wired":"wire it")+"</button>";
-      d.querySelector("button").addEventListener("click",function(){on[i]=!on[i];render();});
+      d.querySelector("button").addEventListener("click",function(){toggles++;on[i]=!on[i];render();});
       sysHost.appendChild(d);
       s.routes.forEach(function(r){
         var p=document.createElement("div");p.className="hoproute"+(on[i]?" gone":"");
@@ -2410,9 +2264,14 @@ if(capBtn){
     var pct=Math.round(hops/10*100);
     meter.className="meter"+(hops===0?" zero":"");
     meter.querySelector("i").style.width=(hops===0?100:pct)+"%";
-    if(hops===0){alertEl.textContent="0 hops — the zero-copy-paste bar. This is what the weekend audit checks on your machine.";alertEl.className="alertline goodline";}
+    if(hops===0){hitZero=true;alertEl.textContent="0 hops: that's the zero-copy-paste bar. This is what the weekend audit checks on your machine.";alertEl.className="alertline goodline";}
     else{alertEl.textContent=hops+" hops still pass through your clipboard.";alertEl.className="alertline";}
+    cueEval("wwire");
   }
+  wcheck("wwire","wwireScore",
+    "Four of five systems wired. What does the fifth still cost you?",
+    ["Nothing: 80% wired is done","Every route through it, on every task that touches it","Only the first task of the day"],1,
+    "Partial wiring is a standing tax: each unwired system keeps its routes through your clipboard on every task that touches it. That's why the bar is zero, and why the two systems you ferry the most from are tomorrow's first connections.");
   render();
 })();
 
@@ -2429,6 +2288,10 @@ if(capBtn){
     {q:"<code>curl -X POST</code> to an external webhook",a:"ask",x:"Leaves the machine with an audience. External side effects stay human-approved until wrapped in something reviewed."}
   ];
   var done=0,right=0;
+  coach("wperm",[
+    {t:"Sort all six. Commit before each verdict; the misses are your miscalibrations, and they're the useful part.",cond:function(){return done>=1;}},
+    {t:"Watch for: note which column each verdict argues from: blast radius, reversibility, or visibility. Then encode the same instincts in the settings block below the widget.",w:1,cond:function(){return done>=4;}}
+  ],"Your score line below is the debrief.");
   data.forEach(function(d){
     var card=document.createElement("div");card.className="qcard";
     card.innerHTML="<div class='q'>"+d.q+"</div>"+
@@ -2443,6 +2306,7 @@ if(capBtn){
         v.className="v show "+(ok?"ok":"no");
         v.textContent=(ok?"✓ ":"✗ "+d.a.toUpperCase()+". ")+d.x;
         score.textContent=(done===data.length)?("Sorted "+right+" of "+data.length+" — the misses show where your blast-radius instinct needs calibrating. Now encode it: rules live in files with scopes, deny beats allow, and the dialogue is only for the genuinely undecided middle."):("Sorted "+done+" of "+data.length+"…");
+        cueEval("wperm");
       });
     });
     grid.appendChild(card);
@@ -2457,7 +2321,12 @@ if(capBtn){
   var verdict=document.getElementById("wbudVerdict");
   var MIX={sonnet:1,bal:2.2,opus:5};
   var MIXLBL={sonnet:"Sonnet-first",bal:"Balanced",opus:"Opus-heavy"};
-  var mode="sonnet";
+  var mode="sonnet",sawOpus=false,sawWarm=false,touched=0;
+  coach("wbudget",[
+    {t:"Start at 4 h/day, Sonnet-first: both gauges sit comfortable. That's the programme's default posture. Now switch to Opus-heavy at the same hours.",cond:function(){return sawOpus;}},
+    {t:"Read the weekly gauge and the verdict: the cap arrives midweek. Now find your own edge: raise hours until Balanced goes amber.",cond:function(){return sawWarm;}},
+    {t:"Watch for: which gauge went first? The window reacts to intensity (hours in one sitting); the weekly cap reacts to mix. They fail independently, and the fixes differ: pace the day vs change the mix. Set it to this week's honest plan (3–4 h/day) and note the verdict.",w:1,cond:function(){return sawWarm&&touched>=6;}}
+  ]);
   function paint(g,pct){
     g.className="gauge"+(pct>=95?" hot":pct>=70?" warm":"");
     g.querySelector("i").style.width=Math.min(100,pct)+"%";
@@ -2468,6 +2337,8 @@ if(capBtn){
     var winPct=h*MIX[mode]*5;
     var weekPct=h*7*MIX[mode]/120*100;
     paint(win,winPct);paint(week,weekPct);
+    if(mode==="opus")sawOpus=true;
+    if(mode==="bal"&&(weekPct>=70||winPct>=70))sawWarm=true;
     var v;
     if(weekPct>=100){
       var day=Math.ceil(120/(h*MIX[mode]));
@@ -2481,10 +2352,14 @@ if(capBtn){
   [].slice.call(seg.querySelectorAll("button")).forEach(function(b){
     b.addEventListener("click",function(){
       [].slice.call(seg.querySelectorAll("button")).forEach(function(o){o.classList.remove("on");});
-      b.classList.add("on");mode=b.dataset.m;render();
+      b.classList.add("on");mode=b.dataset.m;touched++;render();cueEval("wbudget");
     });
   });
-  hrs.addEventListener("input",render);
+  hrs.addEventListener("input",function(){touched++;render();cueEval("wbudget");});
+  wcheck("wbudget","wbudScore",
+    "The weekly cap goes amber but the 5-hour window stays green. Which lever fixes it?",
+    ["Take longer breaks between sittings","Change the model mix","Both, equally"],1,
+    "The weekly cap responds to mix; the window responds to intensity. Sonnet-first absorbs this programme's hours; Opus-heavy doesn't survive a 4 h/day week. Route Opus to planning, gnarly debugging and architecture calls: Sonnet takes the long middle. Your decision: a default model and two named exceptions, written as 'Sonnet unless: …'.");
   render();
 })();
 
@@ -2504,6 +2379,10 @@ if(capBtn){
   ];
   var LBL={ctx:"Context",har:"Harness",loop:"Loop",graph:"Graph"};
   var done=0,right=0;
+  coach("wmap",[
+    {t:"Name the discipline behind each symptom. Commit before revealing; the misses mark the discipline you currently can't see.",cond:function(){return done>=1;}},
+    {t:"Watch for: two cards each share a symptom family with a different discipline behind it. Same feeling, different fix: diagnosis first.",w:1,cond:function(){return done>=5;}}
+  ],"Your score line below is the debrief.");
   data.forEach(function(d){
     var card=document.createElement("div");card.className="qcard";
     card.innerHTML="<div class='q'>"+d.q+"</div>"+
@@ -2518,6 +2397,7 @@ if(capBtn){
         v.className="v show "+(ok?"ok":"no");
         v.textContent=(ok?"✓ ":"✗ "+LBL[d.a]+". ")+d.x;
         score.textContent=(done===data.length)?("Named "+right+" of "+data.length+" — the misses mark the discipline you currently can't see, which is where your attention goes first. Same symptom, different discipline, different fix: diagnosis comes first, and this vocabulary is the programme's spine."):("Named "+done+" of "+data.length+"…");
+        cueEval("wmap");
       });
     });
     grid.appendChild(card);
@@ -2530,6 +2410,11 @@ if(capBtn){
   var vg=document.getElementById("wbriefVague"),sh=document.getElementById("wbriefSharp");
   var vgMeta=document.getElementById("wbriefVagueMeta"),shMeta=document.getElementById("wbriefSharpMeta");
   var tally=document.getElementById("wbriefTally"),n=0;
+  coach("wbrief",[
+    {t:"Press Advance and read the two opening prompts: the right one is five short labelled lines, not an essay.",cond:function(){return n>=1;}},
+    {t:"Keep pressing. The left run stops twice to ask (audience? format?) and once to be corrected; each amber row is a round-trip you paid for.",cond:function(){return n>=4;}},
+    {t:"Watch for: the vague run's final answer is fine. That's the trap. You always get there eventually; the brief decides how much of the window you burn on the journey.",w:1,cond:function(){return n>=VAGUE.length;}}
+  ]);
   var VAGUE=[
     {you:1,t:"\"Write release notes for recent changes.\""},
     {you:0,t:"\"Who's the audience — users or the team? And which changes: since the last tag, or this week?\""},
@@ -2557,8 +2442,12 @@ if(capBtn){
     shMeta.textContent=Math.min(n,SHARP.length)+" turns";
     tally.innerHTML=(n>=VAGUE.length)?"<b>6 turns against 2</b> — and turns 2–5 each re-carried the growing conversation through the window. The vague path paid tokens to discover requirements the brief stated for free.":"";
   }
-  go.addEventListener("click",function(){if(n<VAGUE.length)n++;render();});
+  go.addEventListener("click",function(){if(n<VAGUE.length)n++;render();cueEval("wbrief");});
   document.getElementById("wbriefReset").addEventListener("click",function(){n=0;render();});
+  wcheck("wbrief","wbriefScore",
+    "Both runs ended with a usable draft. Where did the vague run's extra cost actually land?",
+    ["A worse final answer","Every extra turn re-sent the whole growing conversation","Nowhere: same result, same cost"],1,
+    "The result was fine; the bill wasn't. Each clarifying question re-carried the conversation through the window. The five parts are a checklist, not a ritual: small tasks need two lines (task + output); the bigger the task, the more a missing part costs. Your capstone's step-2 spec paragraph is exactly this shape.");
   render();
 })();
 
@@ -2576,6 +2465,10 @@ if(capBtn){
   ];
   var LBL={clear:"/clear",compact:"/compact",hand:"Hand off"};
   var done=0,right=0;
+  coach("wtriage",[
+    {t:"Call all six. Judge each from what the window holds at that moment, never from habit.",cond:function(){return done>=1;}},
+    {t:"Watch for: the poisoned session (the wrong 2,000-line log) is the expensive one. Decide whether a summary of poison is still poison.",w:1,cond:function(){return done>=4;}}
+  ],"Your score line below is the debrief.");
   data.forEach(function(d){
     var card=document.createElement("div");card.className="qcard";
     card.innerHTML="<div class='q'>"+d.q+"</div>"+
@@ -2590,6 +2483,7 @@ if(capBtn){
         v.className="v show "+(ok?"ok":"no");
         v.textContent=(ok?"✓ ":"✗ "+LBL[d.a]+". ")+d.x;
         score.textContent=(done===data.length)?("Sorted "+right+" of "+data.length+" — if you missed the poisoned session, re-read its verdict; it's the expensive one. The rhythm that works: one task, one session · /clear liberally · /compact at breakpoints · hand off at day boundaries. Week 2 explains why."):("Sorted "+done+" of "+data.length+"…");
+        cueEval("wtriage");
       });
     });
     grid.appendChild(card);

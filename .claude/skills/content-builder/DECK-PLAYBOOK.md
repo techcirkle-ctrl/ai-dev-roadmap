@@ -20,26 +20,31 @@ learner navigates alone, so the deck must say everything, on the glass:
   under-written.
 - **Never hide teaching behind a key or a layer.** No presenter scripts, no
   hidden speaker notes. The only keys are navigation (`→ ← Home End F`).
-- Guidance a workshop would put in a trainer's mouth goes in **visible furniture**.
-  Furniture discipline (2026-08-14 trainer correction): **one name per band, forever**;
-  bands are conditional, not ritual — a band with nothing non-redundant to say is
-  omitted, and the typical widget slide shows at most two tinted bands after the widget:
-  - `.drive` — the **Drive it** box on every widget: numbered steps (≤ 4), exact
-    controls in order, a "watch for" line carrying the widget's baked-in data and
-    expected outputs. The learner never drives blind. Needed MORE in self-serve, not
-    less — an interactive without operating cues is a toy.
-  - `.notice` — the **Check your read** band (this exact label, never variants): the
-    self-assessment after a widget or hands-on — expected values, common misreads,
-    "if it didn't fail, that's a finding too." **Self-checking widgets (per-click
-    verdicts + score line) carry no notice band**: their score line absorbs the one
-    non-redundant insight; feedback lives inside the interaction.
+- Guidance a workshop would put in a trainer's mouth goes in **visible furniture** —
+  but in its self-serve-native form, never the presenter-ported one (v2 grammar,
+  2026-08-14). **One name per band, forever**; bands conditional, not ritual:
+  - **Movement = one panel.** No movement or capstone-step divider slides — a slide
+    that previews the next slide is presenter residue. The dark register marks act
+    openers (and the capstone opener) only. Each panel opens with a `.goalstrip`:
+    kicker, then one line naming the movement's goal.
+  - **The coach lives inside the widget.** Every `.lab` carries a `.cuebar`: the
+    current operating cue (one at a time), advanced by the learner's own actions via
+    the shared coach engine; the final cue carries the watch-for. A hidden `.cueall`
+    list makes print carry all cues. No `.drive` box — a manual under a game is not
+    how games teach.
+  - **Every widget self-checks.** Sorter-family widgets grade per click and close
+    with their `.scoreline` (the debrief lives there). Reveal/simulator widgets end
+    with one inline `.wcheck` question whose verdict writes the scoreline. The
+    "Check your read" `.notice` band is therefore retired on widget panels.
+  - `.notice` — **Check your read** (this exact label): hands-on panels only, where
+    the work happens in a terminal the deck cannot observe. At most one; may absorb
+    a short What-you-decide as a second bold mini-lead.
+  - `.read` — the **What you decide** band: only where a genuine decision exists.
+    When the decision is concrete (a number, a default, a rule), prefer a persisted
+    micro-capture (the confidence-box pattern) over rhetorical prose.
   - `.keep` — a visible **Keep this** band closing every slide (read top-to-bottom
     they form the week's glossary). Hard cap: one line — a single thought, ≤ 25
     words; two short sentences only when the second is the action.
-  - `.read` — the **What you decide** band: the decision the learner now owns. Only
-    where a genuine decision exists — never manufactured. When both it and Check
-    your read are short (≤ 3 sentences combined), merge them into ONE `.notice` box
-    with the two bold mini-leads.
   - `details.fold` — the **optional-depth layer**: collapsible, colour-coded strips
     (see DESIGN.md for the six types). `.plain` "In plain words" unpacks the concept
     with an analogy or worked example; `.hood` "Under the hood" gives the mechanism;
@@ -91,6 +96,28 @@ learner navigates alone, so the deck must say everything, on the glass:
      economics"); include the middle ("every missing part becomes a question, every
      question re-sends the conversation, and re-sending is what you pay for").
    Forward references carry a `.soon` chip; optional depth goes to the fold layer.
+8c. **Spoken-English bar** (from the 2026-08-24 cohort feedback: learners were STILL
+   pasting slides into another LLM after the 8b fixes — the survivors were paragraph
+   walls, compressed phrasing, and trade jargon). Three mechanics, the first two
+   machine-gated by `check-deck.js`:
+   - **Points go in bullets.** When a stretch of teach prose makes more than one point,
+     it becomes a list: one point per bullet, a full sentence per bullet. A paragraph
+     holds ONE point and caps at 75 words (verifier-enforced on all learner-facing
+     prose, folds included); two short paragraphs beat one long one. Paragraphs are for
+     narrative (a story, a worked example); enumerable content is never prose.
+   - **Sentences, never compressed phrases.** No telegram constructions: "two
+     assumptions, one decision", "one block, three costs: space, attention, spend".
+     Write the sentence a person would say aloud: "Here you make two assumptions, but
+     only one decision." A colon-led list may summarise a point only after the sentence
+     form has been said. This applies with full force to `.keep` bands and titles — an
+     aphorism that needs unpacking has failed.
+   - **Workplace words, not trade jargon.** Two vocabularies exist. Curriculum terms
+     (token, context window, MCP, harness, hook, headless) are KEPT and defined at
+     first use — rule 5. Trade shorthand that is not curriculum (spike, probe, delta,
+     ante, shard, dogfood, greenfield) is BANNED: say "experiment" or "test run", "the
+     difference between the two runs", "starting point". Test: if you wouldn't use the
+     word in an email to a colleague outside engineering, and it isn't a keyword the
+     week teaches, use the everyday word. The verifier scans a banlist on teach prose.
 9. **Writing canon** — the trainer's writing ideology, encoded at project scope so it
    binds every builder and every headless run; partly machine-enforced by
    `check-deck.js`:
@@ -125,19 +152,19 @@ Front matter   1 Title (incl. "how this deck works" + keys)
                6 Cold open — What Could Be (+ the confidence read: 1–10, persisted,
                  re-read at the close)
 Acts 1..K      per roadmap.html topics. Each act: an .act divider (orientation: the act's
-               one idea + movement list), then movements.
-                 concept movement = .dark divider (Goal + You'll decide + 1–2 sentence
-                 setup) → paper panel (teach prose → widget → Drive it → notice → read →
-                 keep)
-                 hands-on movement = .dark divider → panel (hobadge + time chip + why-prose
-                 → numbered steps with copy-ready .promptblock prompts/commands → checks →
-                 bank → notice → read → keep)
+               one idea + movement list), then movements — ONE panel each, no dividers.
+                 concept movement = paper panel (.goalstrip → teach prose → widget with
+                 .cuebar coach → per-click verdicts or .wcheck → .scoreline → optional
+                 .read or micro-capture → keep)
+                 hands-on movement = panel (.goalstrip → hobadge + time chip + why-prose
+                 → numbered steps with copy-ready .promptblock prompts/commands → checks
+                 → trouble fold → one Check-your-read notice → keep)
 Capstone       .act opener (shape + what carries forward + storage note) then 5 steps,
-               each = .dark divider (goal, time) + panel. Canonical shape: set up →
-               baseline → core probes (stepper, one sub-panel per probe) → second
-               opinion / cross-check → verdict + one-click markdown export. Capture
-               fields persist to localStorage; export assembles them; the report is
-               pasted on the Knowledge issue.
+               each = ONE panel (.goalstrip with step number + time → teach/steps →
+               capture). Canonical shape: set up → baseline → core work → A/B or
+               cross-check → verdict + one-click markdown export. Capture fields
+               persist to localStorage; export assembles them; the report is pasted
+               on the Knowledge issue.
 Back matter    Stuck-or-curious (support = the Knowledge issue thread; optional deeper
                dives named here) · Close (re-read the confidence number, one-sentence
                commit, hand-off to Application issues / standing habits / next week)
@@ -214,6 +241,18 @@ bar only goes up), and the newest shipped deck becomes the reference implementat
   the furniture (§1, DESIGN.md), `.bank` retired into `fold.trouble`, verifier extended
   (fold types, summary/fbody pairing, beforeprint expander, bank remnant). Reference
   implementation: the revised week 1 deck.
+- 2026-08-14 · Trainer correction (v2 grammar — the deep cut): the first furniture pass
+  stopped at band labels; the trainer pushed further and was right. Movement divider
+  slides are presenter section-breaks (a slide previewing the next slide, prose paid
+  twice, clicks doubled) — retired; movement = one panel with a .goalstrip, dark
+  register at act openers only. The Drive-it box is a demo script externalised —
+  replaced by the in-widget coach (.cuebar advancing on the learner's own actions,
+  .cueall for print). Every widget now self-checks (.wcheck on reveal widgets), so
+  the notice band survives only on hands-on panels, where the deck cannot observe
+  the work. Concrete decisions prefer persisted micro-captures over rhetorical read
+  bands. Slide counts fell ~40% with zero teaching lost; the duplication WAS the
+  presenter. Verifier enforces the v2 contract (cuebar+scoreline per lab, no .drive,
+  no notice on widget panels, goalstrip on movement/capstone panels).
 - 2026-08-14 · Trainer correction (furniture grammar): the band stack had drifted into
   presenter-era ritual — the debrief band wore three labels ("What you just saw" /
   "What good looks like" / "What to expect"), every slide carried every band, and
@@ -224,6 +263,15 @@ bar only goes up), and the newest shipped deck becomes the reference implementat
   Load lives in label variants, redundancy and verbosity — never in the existence of
   the safety net (the 2026-08-14 cohort correction pushed scaffolding UP; do not
   respond to density complaints by deleting functions).
+- 2026-08-24 · Cohort correction (second comprehension failure): learners were still
+  copying slide text into another LLM for "explain in simpler terms" — after the 8b
+  fixes. The three surviving failure modes: paragraph walls where a bulleted list was
+  the natural shape; compressed phrase-pairs ("two assumptions, one decision") where a
+  plain sentence was needed; and trade jargon that is not curriculum (spike, probe,
+  delta, ante). Rule 8c added (spoken-English bar); verifier now gates the 75-word
+  paragraph cap and a jargon banlist; weeks 1–2 decks rewritten under it. The lesson:
+  Flesch and defined keywords are not sufficient — the prose must read like a colleague
+  explaining aloud, point-wise, in everyday words.
 - 2026-08-14 · Trainer correction (rep parity): the capstone is the programme's only
   hand-held rep — deliberately over-guided, because every Application issue re-runs its
   problem classes solo at the same difficulty. Author each capstone step as the worked

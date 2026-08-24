@@ -24,16 +24,28 @@ sections.forEach((body, i) => {
 });
 console.log(`keep bands: ${(html.match(/class="keep"/g) || []).length}`);
 
-// every widget (.lab) slide carries a visible Drive-it box
+// v2 grammar: the coach lives inside the widget; every widget self-checks
 sections.forEach((body, i) => {
-  if (body.includes('class="lab"') && !body.includes('class="drive"'))
-    bad(`section ${i + 1}: has a .lab widget but no Drive-it box`);
+  const isLab = body.includes('class="lab"');
+  if (isLab) {
+    if (!body.includes('class="cuebar"')) bad(`section ${i + 1}: .lab without a .cuebar coach`);
+    if (!body.includes('class="cueall"')) bad(`section ${i + 1}: .lab without a .cueall print list`);
+    if (!body.includes('class="scoreline"')) bad(`section ${i + 1}: .lab without a .scoreline (widgets must self-check)`);
+    if (body.includes('class="notice"')) bad(`section ${i + 1}: notice band on a widget panel (v2: hands-on panels only)`);
+  }
+  // movement + capstone-step panels open with a goal strip
+  if ((isLab || body.includes('class="hobadge"')) && !body.includes('class="goalstrip"'))
+    bad(`section ${i + 1}: movement/step panel without a .goalstrip`);
 });
-console.log(`drive boxes: ${(html.match(/class="drive"/g) || []).length} · notices: ${(html.match(/class="notice"/g) || []).length}`);
+console.log(`labs: ${(html.match(/class="lab"/g) || []).length} · cuebars: ${(html.match(/class="cuebar"/g) || []).length} · scorelines: ${(html.match(/class="scoreline"/g) || []).length} · notices (hands-on only): ${(html.match(/class="notice"/g) || []).length}`);
 
-// presenter-era remnants must never return; class="bank" retired in favour of fold.trouble
-for (const rem of ['class="script"', 'class="note"', "scriptpanel", "script-open", "@@MORE@@", 'class="bank"'])
+// presenter-era remnants must never return; .drive retired in v2
+for (const rem of ['class="script"', 'class="note"', "scriptpanel", "script-open", "@@MORE@@", 'class="bank"', 'class="drive"'])
   if (html.includes(rem)) bad("presenter-era remnant / stray marker: " + rem);
+
+// v2: no movement/step divider slides — the dark register belongs to act openers only
+const darkCount = (html.match(/class="slide dark"/g) || []).length;
+if (darkCount) bad(`movement/step divider slides present: ${darkCount} × 'slide dark' (v2 retired them; dark register = act openers only)`);
 
 // fold layer: every fold declares a known type and carries a summary + .fbody; print expander wired
 const FOLD_TYPES = ["plain", "hood", "industry", "btw", "dyk", "trouble"];
@@ -139,6 +151,35 @@ else {
     console.log("  note: above the 60–70 band — fine, but check the prose isn't underwritten");
   }
 }
+
+// ---- Writing canon gate: spoken-English bar (DECK-PLAYBOOK §2.8c) ----
+// (a) paragraph cap: one point per <p>, ≤ 75 words, on all learner-facing prose
+const proseHtml = cutByClass(
+  html.replace(/<script>[\s\S]*?<\/script>/g, " ")
+      .replace(/<style>[\s\S]*?<\/style>/g, " ")
+      .replace(/<pre\b[\s\S]*?<\/pre>/gi, " ")
+      .replace(/<code\b[\s\S]*?<\/code>/gi, " "), "promptblock");
+const longPs = [...proseHtml.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)]
+  .map(m => m[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim())
+  .map(t => ({ t, n: t.split(/\s+/).filter(w => /[a-z]/i.test(w)).length }))
+  .filter(p => p.n > 75);
+if (longPs.length) {
+  bad(`paragraph walls: ${longPs.length} × <p> over 75 words — split into bullets or shorter paragraphs`);
+  longPs.slice(0, 5).forEach(p => console.log(`    ${p.n} words: "${p.t.split(/\s+/).slice(0, 8).join(" ")}…"`));
+} else console.log("paragraph cap (≤ 75 words): clean");
+
+// (b) jargon banlist: trade shorthand that is not curriculum never reaches the learner
+const JARGON = /\b(spike[sd]?|probes?|probed|probing|deltas?|ante|shards?|dogfood(?:ing)?|greenfield)\b/gi;
+const jargonHits = {};
+for (const m of toProse(html).matchAll(JARGON)) {
+  const w = m[0].toLowerCase();
+  jargonHits[w] = (jargonHits[w] || 0) + 1;
+}
+const jargonWords = Object.keys(jargonHits);
+if (jargonWords.length)
+  bad("banned trade jargon in prose (§2.8c — use the everyday word): " +
+      jargonWords.map(w => `${w} ×${jargonHits[w]}`).join(", "));
+else console.log("jargon banlist: clean");
 
 console.log(fail ? "RESULT: FAIL" : "RESULT: CLEAN");
 process.exit(fail ? 1 : 0);

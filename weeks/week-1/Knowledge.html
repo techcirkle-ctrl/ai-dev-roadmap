@@ -252,6 +252,15 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 .confbox input{width:84px;font-size:26px;font-weight:800;font-family:ui-sans-serif,system-ui,sans-serif;text-align:center;border:2px solid var(--accent);border-radius:10px;padding:8px;color:var(--accent);background:var(--paper)}
 .confbox .q{font-size:.98rem}
 .confecho{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;font-family:ui-sans-serif,system-ui,sans-serif;color:var(--accent)}
+/* voice-over bar */
+.vobar{position:fixed;top:14px;right:20px;z-index:45;display:flex;align-items:center;gap:8px;font-family:ui-sans-serif,system-ui,sans-serif}
+.vobtn{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);color:var(--muted);border-radius:999px;padding:6px 12px;font-family:inherit;font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.vobtn:hover{border-color:var(--accent);color:var(--accent)}
+.vobtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.vobtn[disabled]{opacity:.4;cursor:default}
+.vobtn:disabled:hover{border-color:var(--line);color:var(--muted)}
+.vobtn .glyph{font-size:13px;line-height:1}
+.vocount{font-family:ui-sans-serif,system-ui,sans-serif;font-size:11.5px;font-weight:700;color:var(--muted);min-width:86px;text-align:right}
 /* chrome / progress / helpbar */
 .progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:40;background:rgba(255,255,255,.08)}
 .progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}
@@ -287,7 +296,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
   .steppanel{display:block!important;border-top:1px dashed var(--line);padding-top:10px}
   details.fold{break-inside:avoid;background:#fff;border-color:var(--line)}
   details.fold .fbody{color:var(--ink)!important}
-  .chrome,.helpbar,.progress,.promptblock .copy,.stepcue{display:none!important}
+  .chrome,.helpbar,.progress,.vobar,.promptblock .copy,.stepcue{display:none!important}
   .cuebar{display:none!important}
   .cueall{display:block!important}
   .promptblock{padding-right:16px}
@@ -296,6 +305,11 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 </head>
 <body>
 <div class="progress"><i id="pbar"></i></div>
+<div class="vobar">
+  <button class="vobtn" id="voToggle" type="button" aria-pressed="false" aria-label="Voice-over on or off"><span class="glyph" id="voGlyph">&#128263;</span><span id="voLabel">Voice off</span></button>
+  <button class="vobtn" id="voAuto" type="button" aria-pressed="false" aria-label="Autoplay on or off" disabled>Auto</button>
+  <span class="vocount" id="voCount"></span>
+</div>
 <div class="deck" id="deck">
 
 <!-- ═══════════════ FRONT MATTER ═══════════════ -->
@@ -2004,6 +2018,130 @@ var agendaIdx=slides.indexOf(document.getElementById("agenda"));
 var cur=0;
 slides.forEach(function(s,i){if(s.classList.contains("active"))cur=i;});
 
+/* ── voice-over: the deck reads the glass aloud ──────────── */
+var VO=(function(){
+  var synth=window.speechSynthesis;
+  var bar=document.querySelector(".vobar");
+  if(!bar)return {onSlide:function(){},cancel:function(){}};
+  if(!synth||typeof window.SpeechSynthesisUtterance!=="function"){
+    bar.style.display="none";
+    return {onSlide:function(){},cancel:function(){}};
+  }
+  var VOPFX="dw1.vo.";            /* per deck: dw1. / dw2. / dw3. */
+  var GRACE=10;                   /* seconds the learner gets before the deck moves */
+  var bToggle=document.getElementById("voToggle");
+  var bAuto=document.getElementById("voAuto");
+  var elGlyph=document.getElementById("voGlyph");
+  var elLabel=document.getElementById("voLabel");
+  var elCount=document.getElementById("voCount");
+  var on=false,auto=false,armed=false,timer=null,left=0,voice=null,queue=[],qi=0;
+
+  function save(k,v){try{localStorage.setItem(VOPFX+k,v?"1":"0");}catch(_){}}
+  function load(k){try{return localStorage.getItem(VOPFX+k)==="1";}catch(_){return false;}}
+
+  /* the voice list arrives asynchronously in Chrome, so re-pick when it lands */
+  function pickVoice(){
+    var vs=[];
+    try{vs=synth.getVoices()||[];}catch(_){return null;}
+    var want=["Samantha","Daniel","Google UK English Female","Google US English","Microsoft Aria Online (Natural) - English (United States)"];
+    var i,j;
+    for(i=0;i<want.length;i++){for(j=0;j<vs.length;j++){if(vs[j].name===want[i])return vs[j];}}
+    for(j=0;j<vs.length;j++){if(/^en/i.test(vs[j].lang))return vs[j];}
+    return null;
+  }
+  voice=pickVoice();
+  if(synth.addEventListener)synth.addEventListener("voiceschanged",function(){voice=pickVoice();});
+
+  function held(s){return !!(s.querySelector(".lab")||s.querySelector(".hobadge"));}
+  function script(s){return (s.getAttribute("data-vo")||"").trim();}
+
+  /* Chrome cuts utterances past roughly 15 seconds, so speak sentence by sentence */
+  function chunks(txt){
+    var out=[],buf="";
+    txt.split(/\s+/).forEach(function(w){
+      buf=buf?buf+" "+w:w;
+      if(/[.!?]$/.test(w)){out.push(buf);buf="";}
+    });
+    if(buf)out.push(buf);
+    return out;
+  }
+
+  function stopTimer(){
+    if(timer){clearInterval(timer);timer=null;}
+    if(elCount)elCount.textContent="";
+  }
+  function cancel(){
+    stopTimer();queue=[];qi=0;
+    try{synth.cancel();}catch(_){}
+  }
+  function paint(){
+    bToggle.setAttribute("aria-pressed",on?"true":"false");
+    elGlyph.innerHTML=on?"&#128266;":"&#128263;";
+    elLabel.textContent=on?"Voice on":"Voice off";
+    bAuto.setAttribute("aria-pressed",(on&&auto)?"true":"false");
+    bAuto.disabled=!on;
+  }
+
+  function finished(){
+    if(!on||!auto)return;
+    if(cur>=slides.length-1)return;
+    if(held(slides[cur])){elCount.textContent="held · your move";return;}
+    left=GRACE;
+    elCount.textContent="next in "+left+"…";
+    timer=setInterval(function(){
+      left--;
+      if(left<=0){stopTimer();next();return;}
+      elCount.textContent="next in "+left+"…";
+    },1000);
+  }
+  function speakNext(){
+    if(!on)return;
+    if(qi>=queue.length){finished();return;}
+    var u=new SpeechSynthesisUtterance(queue[qi++]);
+    if(voice)u.voice=voice;
+    u.rate=0.95;u.pitch=1;
+    u.onend=function(){speakNext();};
+    u.onerror=function(){speakNext();};
+    try{synth.speak(u);}catch(_){}
+  }
+  function speakCurrent(){
+    cancel();
+    if(!on||!armed)return;
+    var txt=script(slides[cur]);
+    if(!txt)return;
+    queue=chunks(txt);qi=0;
+    speakNext();
+  }
+
+  /* Chrome refuses to speak before the first gesture, so a saved "on" only arms */
+  function arm(){
+    if(armed)return;
+    armed=true;
+    if(on)speakCurrent();
+  }
+  document.addEventListener("keydown",arm);
+  document.addEventListener("click",arm);
+
+  bToggle.addEventListener("click",function(){
+    on=!on;armed=true;save("on",on);paint();
+    if(on)speakCurrent();else cancel();
+  });
+  bAuto.addEventListener("click",function(){
+    auto=!auto;save("auto",auto);paint();
+    if(!auto)stopTimer();
+  });
+  /* any deliberate action outside the bar cancels a pending advance */
+  document.addEventListener("click",function(e){
+    if(e.target.closest&&e.target.closest(".vobar"))return;
+    stopTimer();
+  });
+  document.addEventListener("keydown",function(){stopTimer();});
+  window.addEventListener("beforeprint",function(){cancel();});
+
+  on=load("on");auto=load("auto");paint();
+  return {onSlide:speakCurrent,cancel:cancel};
+})();
+
 function steps(s){return [].slice.call(s.querySelectorAll(".steppanel"));}
 function nodes(s){return [].slice.call(s.querySelectorAll(".snode"));}
 function setStep(s,i){
@@ -2025,6 +2163,7 @@ function show(i){
   chromeMv.textContent=s.dataset.mv||"";
   chromeCount.textContent=(cur+1)+" / "+slides.length;
   refreshConf();
+  VO.onSlide();
   s.scrollTop=0;
 }
 function next(){

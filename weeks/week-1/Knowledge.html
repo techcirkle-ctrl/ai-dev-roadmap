@@ -252,6 +252,9 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 .confbox input{width:84px;font-size:26px;font-weight:800;font-family:ui-sans-serif,system-ui,sans-serif;text-align:center;border:2px solid var(--accent);border-radius:10px;padding:8px;color:var(--accent);background:var(--paper)}
 .confbox .q{font-size:.98rem}
 .confecho{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;font-family:ui-sans-serif,system-ui,sans-serif;color:var(--accent)}
+/* voice-over: the block being narrated */
+.vohl{background:var(--accent-soft);box-shadow:-3px 0 0 var(--accent);border-radius:4px;transition:background .3s ease}
+.slide.act .vohl,.slide.dark .vohl{background:rgba(255,255,255,.10);box-shadow:-3px 0 0 var(--accent)}
 /* voice-over bar */
 .vobar{position:fixed;top:14px;right:20px;z-index:45;display:flex;align-items:center;gap:8px;font-family:ui-sans-serif,system-ui,sans-serif}
 .vobtn{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);color:var(--muted);border-radius:999px;padding:6px 12px;font-family:inherit;font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
@@ -296,6 +299,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
   .steppanel{display:block!important;border-top:1px dashed var(--line);padding-top:10px}
   details.fold{break-inside:avoid;background:#fff;border-color:var(--line)}
   details.fold .fbody{color:var(--ink)!important}
+  .vohl{background:none!important;box-shadow:none!important}
   .chrome,.helpbar,.progress,.vobar,.promptblock .copy,.stepcue{display:none!important}
   .cuebar{display:none!important}
   .cueall{display:block!important}
@@ -315,7 +319,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 <!-- ═══════════════ FRONT MATTER ═══════════════ -->
 
 <!-- 1 · Title -->
-<section class="slide active" data-act="Week 1" data-mv="Title" data-vo-audio="audio/01.m4a" data-vo="Let me tell you what actually changes this week. Right now you are the courier, because Claude writes the code and you carry it. You paste it into your editor, you run it, then you paste the error back. Picture a brilliant colleague who only answers by post. Every letter helps, but nothing moves while you are asleep. By Sunday, Claude reaches GitHub, your systems and your terminal itself. You write the brief and you review what comes back. This deck teaches you alone, so every slide says everything it needs to say. Nothing you need is hidden in a fold or behind a key. Take it at your own pace and drive the widgets with your mouse.">
+<section class="slide active" data-act="Week 1" data-mv="Title" data-vo-audio="audio/01-01.m4a" data-vo="Let me tell you what actually changes this week. Right now you are the courier, because Claude writes the code and you carry it. You paste it into your editor, you run it, then you paste the error back. Picture a brilliant colleague who only answers by post. Every letter helps, but nothing moves while you are asleep. By Sunday, Claude reaches GitHub, your systems and your terminal itself. You write the brief and you review what comes back. This deck teaches you alone, so every slide says everything it needs to say. Nothing you need is hidden in a fold or behind a key. Take it at your own pace and drive the widgets with your mouse.">
   <div class="wrap">
     <div class="kicker">AI Dev Roadmap · Week 1 of 9 · Self-paced</div>
     <h1 class="big">Stop being the clipboard.<br>Start running the loop.</h1>
@@ -371,7 +375,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 </section>
 
 <!-- 2 · The week plan -->
-<section class="slide isnow" data-act="Week 1" data-mv="The week" data-vo-audio="audio/02.m4a" data-vo="Five hours in this deck plus about six hours at the weekend is the whole budget. It is spread over five short days, and each day sits near an hour. That spacing is deliberate. Practice spread over days sticks far better than one long Saturday. You meet each idea again just as it begins to fade. Almost every block is tagged hands-on for a related reason. Reading about wiring builds nothing, because your fingers learn wiring and your eyes do not. Imagine learning to drive from a manual. You would pass the theory and stall at the first junction. So when a day slips, cut the reading, protect the reps, and remember the projects are due Sunday.">
+<section class="slide isnow" data-act="Week 1" data-mv="The week" data-vo="Five hours in this deck plus about six hours at the weekend is the whole budget. It is spread over five short days, and each day sits near an hour. That spacing is deliberate. Practice spread over days sticks far better than one long Saturday. You meet each idea again just as it begins to fade. Almost every block is tagged hands-on for a related reason. Reading about wiring builds nothing, because your fingers learn wiring and your eyes do not. Imagine learning to drive from a manual. You would pass the theory and stall at the first junction. So when a day slips, cut the reading, protect the reps, and remember the projects are due Sunday.">
   <div class="wrap">
     <div class="kicker">The week · ~1 h/day in the deck + a weekend block</div>
     <h2 class="head">Doing a lot beats reading a little</h2>
@@ -413,7 +417,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 </section>
 
 <!-- 3 · Mini-agenda -->
-<section class="slide isnow" id="agenda" data-act="Week 1" data-mv="Agenda" data-vo-audio="audio/03.m4a" data-vo="This is the map, and Home brings you back here whenever you feel lost. The week runs four acts, nine hands-ons and one capstone. An act is one topic, and a movement is one lesson inside that act. In acts 1 to 3 you wire the tools, then you learn to read what a session costs you. Act 4 is the whole programme in miniature. You run each of the four disciplines once, on the small practice repo shipped with this week. We call that repo the gym, because you go there to do reps. Nobody joins a gym to admire the equipment. The capstone then ties the lot together. You audit your own wiring, ship one real automation through it, and walk back through the loop that did the work.">
+<section class="slide isnow" id="agenda" data-act="Week 1" data-mv="Agenda" data-vo="This is the map, and Home brings you back here whenever you feel lost. The week runs four acts, nine hands-ons and one capstone. An act is one topic, and a movement is one lesson inside that act. In acts 1 to 3 you wire the tools, then you learn to read what a session costs you. Act 4 is the whole programme in miniature. You run each of the four disciplines once, on the small practice repo shipped with this week. We call that repo the gym, because you go there to do reps. Nobody joins a gym to admire the equipment. The capstone then ties the lot together. You audit your own wiring, ship one real automation through it, and walk back through the loop that did the work.">
   <div class="wrap">
     <div class="kicker">The map · press Home anytime to come back here</div>
     <h2 class="head">The week is four acts, nine hands-ons and one capstone</h2>
@@ -475,7 +479,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 </section>
 
 <!-- 4 · How this week works -->
-<section class="slide isnow" data-act="Week 1" data-mv="How this works" data-vo-audio="audio/04.m4a" data-vo="Two rules carry all nine weeks, and both are short. Measure instead of trusting, and do instead of watching. The first rule means that it felt faster is not evidence here. Time the same task before and after, then compare the two numbers. The second rule means the terminal is where the learning happens. If you only read this deck, you did not do week one. The friction log is the small habit that makes the rest pay off. Every time you copy text by hand, write one line saying what happened, which costs two minutes a day. By week 3 your own log tells you what to automate first, and the entry you write today is the thing you fix then. So start friction-log.md before you leave this slide.">
+<section class="slide isnow" data-act="Week 1" data-mv="How this works" data-vo="Two rules carry all nine weeks, and both are short. Measure instead of trusting, and do instead of watching. The first rule means that it felt faster is not evidence here. Time the same task before and after, then compare the two numbers. The second rule means the terminal is where the learning happens. If you only read this deck, you did not do week one. The friction log is the small habit that makes the rest pay off. Every time you copy text by hand, write one line saying what happened, which costs two minutes a day. By week 3 your own log tells you what to automate first, and the entry you write today is the thing you fix then. So start friction-log.md before you leave this slide.">
   <div class="wrap">
     <div class="kicker">How this week works</div>
     <h2 class="head">Your terminal is the classroom</h2>
@@ -529,7 +533,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 </section>
 
 <!-- 5 · Cold open — what is -->
-<section class="slide isnow" data-act="Week 1" data-mv="What is" data-vo-audio="audio/05.m4a" data-vo="Be honest about yesterday for a moment. You typed a request into a chat box and you waited. You copied the answer into your editor, ran it, and copied the error back when it failed. Then you opened GitHub and retyped half an issue for context. Count those hops, because every one of them was you, moving text between systems on the same machine. The model did the thinking and you did the plumbing. That way of working has a name, and the name is chat-driven development. The real cost is not the lost minutes. The loop only runs while you sit and watch it, so nothing verifies itself and nothing carries over. Next week you open a fresh chat and explain your codebase from scratch again.">
+<section class="slide isnow" data-act="Week 1" data-mv="What is" data-vo="Be honest about yesterday for a moment. You typed a request into a chat box and you waited. You copied the answer into your editor, ran it, and copied the error back when it failed. Then you opened GitHub and retyped half an issue for context. Count those hops, because every one of them was you, moving text between systems on the same machine. The model did the thinking and you did the plumbing. That way of working has a name, and the name is chat-driven development. The real cost is not the lost minutes. The loop only runs while you sit and watch it, so nothing verifies itself and nothing carries over. Next week you open a fresh chat and explain your codebase from scratch again.">
   <div class="wrap">
     <div class="kicker">What is</div>
     <h1 class="big">You use Claude daily.<br>And you are still the loop's engine.</h1>
@@ -553,7 +557,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 </section>
 
 <!-- 6 · Cold open — what could be + confidence -->
-<section class="slide isnow" data-act="Week 1" data-mv="The promise" data-vo-audio="audio/06.m4a" data-vo="By Sunday, Claude reaches your systems itself and you review outcomes instead of carrying text. Wired means three concrete things. First, gh is GitHub's own command-line tool, so Claude reads and updates your issues without you. Second, MCP servers connect everything else you work in, such as Notion or your database. MCP stands for Model Context Protocol, and it is the standard plug for those connections. Third, a permission baseline is your saved list of commands that may run without asking. Safe things run freely, and risky things still stop and wait for you. The proof at the end is physical. You ship one real automation, and it does work you did by hand last week. Before you move on, type your confidence number from 1 to 10.">
+<section class="slide isnow" data-act="Week 1" data-mv="The promise" data-vo="By Sunday, Claude reaches your systems itself and you review outcomes instead of carrying text. Wired means three concrete things. First, gh is GitHub's own command-line tool, so Claude reads and updates your issues without you. Second, MCP servers connect everything else you work in, such as Notion or your database. MCP stands for Model Context Protocol, and it is the standard plug for those connections. Third, a permission baseline is your saved list of commands that may run without asking. Safe things run freely, and risky things still stop and wait for you. The proof at the end is physical. You ship one real automation, and it does work you did by hand last week. Before you move on, type your confidence number from 1 to 10.">
   <div class="wrap">
     <div class="kicker">What could be</div>
     <h2 class="head">By Sunday Claude reaches every system itself.<br>You review outcomes instead of ferrying text.</h2>
@@ -2040,6 +2044,7 @@ var VO=(function(){
   var elLabel=document.getElementById("voLabel");
   var elCount=document.getElementById("voCount");
   var on=false,auto=false,armed=false,timer=null,left=0,voice=null,queue=[],qi=0,gen=0,au=null;
+  var units=[],ui=0,hl=null;
 
   function save(k,v){try{localStorage.setItem(VOPFX+k,v?"1":"0");}catch(_){}}
   function load(k){try{return localStorage.getItem(VOPFX+k)==="1";}catch(_){return false;}}
@@ -2080,6 +2085,7 @@ var VO=(function(){
   function cancel(){
     gen++;stopTimer();clearCount();queue=[];qi=0;
     if(au){au.onended=null;au.onerror=null;try{au.pause();}catch(_){}au=null;}
+    units=[];ui=0;unmark();
     try{synth.cancel();}catch(_){}
   }
   function paint(){
@@ -2105,7 +2111,7 @@ var VO=(function(){
   }
   function speakNext(g){
     if(g!==gen||!on)return;
-    if(qi>=queue.length){finished();return;}
+    if(qi>=queue.length){playUnit();return;}
     var u=new SpeechSynthesisUtterance(queue[qi++]);
     if(voice)u.voice=voice;
     u.rate=0.95;u.pitch=1;
@@ -2113,24 +2119,48 @@ var VO=(function(){
     u.onerror=function(){speakNext(g);};
     try{synth.speak(u);}catch(_){}
   }
-  function speakText(s){
-    var txt=script(s);
-    if(!txt)return;
+  /* a slide narrates block by block, so the eye can follow the voice */
+  function collect(s){
+    var n=[].slice.call(s.querySelectorAll("[data-vo]"));
+    if(!n.length&&s.getAttribute("data-vo"))n=[s];
+    return n;
+  }
+  function unmark(){
+    if(hl){hl.classList.remove("vohl");hl=null;}
+  }
+  function mark(el){
+    unmark();
+    if(!el||el===slides[cur])return;
+    el.classList.add("vohl");hl=el;
+    if(!el.scrollIntoView)return;
+    try{el.scrollIntoView({block:"center",behavior:"smooth"});}
+    catch(_){try{el.scrollIntoView();}catch(__){}}
+  }
+  function speakUnit(el,g){
+    var txt=(el.getAttribute("data-vo")||"").trim();
+    if(!txt){playUnit();return;}
     queue=chunks(txt);qi=0;
-    speakNext(gen);
+    speakNext(g);
   }
   /* a rendered file wins where one exists; the speech engine is the fallback */
+  function playUnit(){
+    if(!on){unmark();return;}
+    if(ui>=units.length){unmark();finished();return;}
+    var el=units[ui++],src=el.getAttribute("data-vo-audio"),g=gen;
+    mark(el);
+    if(!src){speakUnit(el,g);return;}
+    au=new Audio(src);
+    au.onended=function(){if(g===gen)playUnit();};
+    au.onerror=function(){if(g===gen)speakUnit(el,g);};
+    var pr=au.play();
+    if(pr&&pr["catch"])pr["catch"](function(){if(g===gen)speakUnit(el,g);});
+  }
   function speakCurrent(){
     cancel();
     if(!on||!armed)return;
-    var s=slides[cur],src=s.getAttribute("data-vo-audio");
-    if(!src){speakText(s);return;}
-    var g=gen;
-    au=new Audio(src);
-    au.onended=function(){if(g===gen)finished();};
-    au.onerror=function(){if(g===gen)speakText(s);};
-    var pr=au.play();
-    if(pr&&pr["catch"])pr["catch"](function(){if(g===gen)speakText(s);});
+    units=collect(slides[cur]);ui=0;
+    if(!units.length)return;
+    playUnit();
   }
 
   /* Chrome refuses to speak before the first gesture, so a saved "on" only arms.

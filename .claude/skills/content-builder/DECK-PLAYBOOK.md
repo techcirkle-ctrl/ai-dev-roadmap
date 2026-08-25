@@ -60,20 +60,26 @@ learner navigates alone, so the deck must say everything, on the glass:
   - `.soon` — the **taught-later chip**: inline grey chip ("taught in Act 4") on any
     term used before its act teaches it, so a learner never mistakes a forward
     reference for assumed knowledge.
-  - **Voice-over is a teacher, not a reader.** (Trainer correction, 25 Aug 2026.) Every
-    slide may carry a `data-vo` attribute holding the narration script: plain text, 100 to 160
-    words. Sentence count follows from the word budget, so expect eight to fourteen — the
-    word count is the constraint, never the sentence count.
-    It is not the slide read aloud. It is what a good trainer says while the slide is up — the essence first, then the reasoning, with a
-    concrete example wherever one makes the idea land. Reach for an example even when the
-    slide itself did not need to print one. A learner who hears it should feel taught,
-    not recited to.
-    - **The line that still holds: illustrate freely, require nothing new.** The narration
-      may add analogies, worked examples, asides and the why-this-matters a slide has no
-      room for. It may never introduce a fact, command or instruction the learner is
-      *required* to know that is not on the glass. The speaker gives a better lesson, never
-      a different syllabus, so a silent learner loses richness and never loses the
-      curriculum.
+  - **Voice-over is a teacher, not a reader.** (Trainer correction, 25 Aug 2026.) The
+    narration is what a good trainer says while the slide is up. It covers the slide and
+    then adds to it: the reasoning behind a point, and a concrete example wherever one
+    makes the idea land. Reach for an example even where the slide had no room to print one.
+    - **Cover, never summarise.** The slides are already dense and already concise, so
+      there is nothing safe to drop. Every point on the glass gets said. The only thing
+      you may compress is genuine repetition. The verifier measures narration words against
+      the slide's prose words and fails anything under 90%.
+    - **Narration lives on the elements, not the slide.** Each block carries its own
+      `data-vo`: every `.lead`, every `li`, the `.keep`, each `details.fold`, the
+      `.goalstrip`, the `.notice` and the `.read`. A `.lab` carries one script framing what
+      the widget teaches and what to do with it — never a reading of its buttons. The
+      slide's narration is those scripts played in document order.
+    - **The eye follows the voice.** While a block's audio plays, the engine adds `.vohl`
+      to that element and scrolls it into view, so the learner reads the line being
+      explained. This is why narration is authored per block rather than per slide.
+    - **Illustrate freely, require nothing new.** The narration may add analogies, worked
+      examples and the why-this-matters. It may never introduce a fact, command or
+      instruction the learner is *required* to know that is not on the glass. A silent
+      learner loses richness and never loses the curriculum.
     - Sentence rules from `~/.claude/VOICE.md` still bind: one idea per sentence, average
       under 15 words, never over 25. A longer script means more sentences, never longer ones.
     - No markup and no double quotes inside the attribute. Speak a file path, a flag or a
@@ -81,14 +87,15 @@ learner navigates alone, so the deck must say everything, on the glass:
       long path, or a chain of four commands. Then say it in shortened form, and only where
       the exact string is on the glass for the eye to read.
     - Never name the deck's own furniture. No "the box below", no "as you can see".
-    - A slide without `data-vo` is silent, and autoplay stops there rather than advancing
-      past it. Autoplay also stops on any slide holding a `.hobadge`, a `.lab` or a
-      `.steppanel`, because the learner is working in a terminal the deck cannot see, or
+    - A slide with no narrated block is silent, and autoplay stops there rather than
+      advancing past it. Autoplay also stops on any slide holding a `.hobadge`, a `.lab` or
+      a `.steppanel`, because the learner is working in a terminal the deck cannot see, or
       stepping through a panel by hand where step changes never call `show()`.
-    - **Audio ships as files.** `data-vo-audio` on the same slide points at
-      `weeks/week-N/audio/NN.m4a`, rendered by `render-voice.sh`. The file wins where it
-      exists and the browser's speech engine is the fallback, so a deck works before its
-      audio is rendered. `data-vo` stays the source of truth for both.
+    - **Audio ships as files.** `render-voice.sh <week>` renders every block through
+      `edge-tts` (Microsoft neural voices, free, no key) to `weeks/week-N/audio/SS-BB.m4a`
+      at 16 kbps HE-AAC, and stamps `data-vo-audio` onto each block. It re-renders only
+      blocks whose script changed. The file wins where it exists and the browser's speech
+      engine is the fallback, so a deck works before its audio exists.
 
 ## 2. Doctrine (adapted for the dev cohort)
 

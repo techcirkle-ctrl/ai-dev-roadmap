@@ -87,14 +87,31 @@ sections.forEach((body, i) => {
   else if (!v.trim()) bad(`section ${i + 1}: data-vo is empty (drop the attribute instead)`);
   else if (/<[a-z/!]/i.test(v)) bad(`section ${i + 1}: data-vo contains markup (plain text only)`);
 });
-// narration length: teaching scripts run 100-160 words (DECK-PLAYBOOK §1, 25 Aug 2026)
+// narration coverage: the voice covers the slide, it never summarises it
+// (DECK-PLAYBOOK §1, 25 Aug 2026). Measured against the slide's prose only —
+// widget furniture (button labels, simulated output) is framed, never read out.
+const proseWords = body => {
+  const stripped = body.replace(/\sdata-vo(-audio)?="[^"]*"/g, " ");
+  const parts = [...stripped.matchAll(/<(p|li|h1|h2|summary)\b[^>]*>([\s\S]*?)<\/\1>/g)]
+    .map(m => m[2]).join(" ");
+  const txt = parts.replace(/<[^>]+>/g, " ").replace(/&[a-z#0-9]+;/gi, " ").replace(/\s+/g, " ").trim();
+  return txt ? txt.split(/\s+/).length : 0;
+};
+const thin = [];
 sections.forEach((body, i) => {
-  const m = body.match(/\sdata-vo="([^"]*)"/);
-  if (!m || !m[1].trim()) return;
-  const w = m[1].trim().split(/\s+/).length;
-  if (w < 80) bad(`section ${i + 1}: data-vo is ${w} words — a reading, not a lesson (want 100-160)`);
-  else if (w > 200) bad(`section ${i + 1}: data-vo is ${w} words — too long for one slide (want 100-160)`);
+  const scripts = [...body.matchAll(/\sdata-vo="([^"]*)"/g)].map(m => m[1]);
+  if (!scripts.length) return;
+  const said = scripts.join(" ").trim().split(/\s+/).filter(Boolean).length;
+  const shown = proseWords(body);
+  if (!shown) return;
+  const ratio = said / shown;
+  if (ratio < 0.9) thin.push({ i: i + 1, said, shown, ratio });
 });
+if (thin.length) {
+  bad(`slides whose narration summarises instead of covering: ${thin.length}`);
+  thin.sort((a, b) => a.ratio - b.ratio).slice(0, 8)
+    .forEach(t => console.log(`    section ${t.i}: ${t.said} narrated vs ${t.shown} prose words (${Math.round(t.ratio * 100)}%, want 90%+)`));
+} else if (voScripted) console.log("narration coverage: every scripted slide at 90%+");
 
 if (!voScripted) console.log("voice-over: no slides scripted");
 else if (voScripted === sections.length) console.log(`voice-over: all ${voScripted} slides scripted`);

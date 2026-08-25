@@ -2034,7 +2034,7 @@ var VO=(function(){
   var elGlyph=document.getElementById("voGlyph");
   var elLabel=document.getElementById("voLabel");
   var elCount=document.getElementById("voCount");
-  var on=false,auto=false,armed=false,timer=null,left=0,voice=null,queue=[],qi=0;
+  var on=false,auto=false,armed=false,timer=null,left=0,voice=null,queue=[],qi=0,gen=0;
 
   function save(k,v){try{localStorage.setItem(VOPFX+k,v?"1":"0");}catch(_){}}
   function load(k){try{return localStorage.getItem(VOPFX+k)==="1";}catch(_){return false;}}
@@ -2052,7 +2052,8 @@ var VO=(function(){
   voice=pickVoice();
   if(synth.addEventListener)synth.addEventListener("voiceschanged",function(){voice=pickVoice();});
 
-  function held(s){return !!(s.querySelector(".lab")||s.querySelector(".hobadge"));}
+  /* autoplay hands control back wherever the learner is the one working */
+  function held(s){return !!(s.querySelector(".lab")||s.querySelector(".hobadge")||s.querySelector(".steppanel"));}
   function script(s){return (s.getAttribute("data-vo")||"").trim();}
 
   /* Chrome cuts utterances past roughly 15 seconds, so speak sentence by sentence */
@@ -2066,12 +2067,13 @@ var VO=(function(){
     return out;
   }
 
+  function clearCount(){if(elCount)elCount.textContent="";}
   function stopTimer(){
-    if(timer){clearInterval(timer);timer=null;}
-    if(elCount)elCount.textContent="";
+    if(timer){clearInterval(timer);timer=null;clearCount();}
   }
+  /* the generation bump fences off any utterance callback still in flight */
   function cancel(){
-    stopTimer();queue=[];qi=0;
+    gen++;stopTimer();clearCount();queue=[];qi=0;
     try{synth.cancel();}catch(_){}
   }
   function paint(){
@@ -2083,6 +2085,7 @@ var VO=(function(){
   }
 
   function finished(){
+    stopTimer();
     if(!on||!auto)return;
     if(cur>=slides.length-1)return;
     if(held(slides[cur])){elCount.textContent="held · your move";return;}
@@ -2094,14 +2097,14 @@ var VO=(function(){
       elCount.textContent="next in "+left+"…";
     },1000);
   }
-  function speakNext(){
-    if(!on)return;
+  function speakNext(g){
+    if(g!==gen||!on)return;
     if(qi>=queue.length){finished();return;}
     var u=new SpeechSynthesisUtterance(queue[qi++]);
     if(voice)u.voice=voice;
     u.rate=0.95;u.pitch=1;
-    u.onend=function(){speakNext();};
-    u.onerror=function(){speakNext();};
+    u.onend=function(){speakNext(g);};
+    u.onerror=function(){speakNext(g);};
     try{synth.speak(u);}catch(_){}
   }
   function speakCurrent(){
@@ -2110,17 +2113,20 @@ var VO=(function(){
     var txt=script(slides[cur]);
     if(!txt)return;
     queue=chunks(txt);qi=0;
-    speakNext();
+    speakNext(gen);
   }
 
-  /* Chrome refuses to speak before the first gesture, so a saved "on" only arms */
-  function arm(){
+  /* Chrome refuses to speak before the first gesture, so a saved "on" only arms.
+     A keydown arms silently, because it is nearly always navigation and the slide
+     change speaks a moment later anyway. */
+  function armQuiet(){armed=true;}
+  function armAndSpeak(){
     if(armed)return;
     armed=true;
     if(on)speakCurrent();
   }
-  document.addEventListener("keydown",arm);
-  document.addEventListener("click",arm);
+  document.addEventListener("keydown",armQuiet);
+  document.addEventListener("click",armAndSpeak);
 
   bToggle.addEventListener("click",function(){
     on=!on;armed=true;save("on",on);paint();

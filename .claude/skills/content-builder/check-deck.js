@@ -87,6 +87,15 @@ sections.forEach((body, i) => {
   else if (!v.trim()) bad(`section ${i + 1}: data-vo is empty (drop the attribute instead)`);
   else if (/<[a-z/!]/i.test(v)) bad(`section ${i + 1}: data-vo contains markup (plain text only)`);
 });
+// narration length: teaching scripts run 100-160 words (DECK-PLAYBOOK §1, 25 Aug 2026)
+sections.forEach((body, i) => {
+  const m = body.match(/\sdata-vo="([^"]*)"/);
+  if (!m || !m[1].trim()) return;
+  const w = m[1].trim().split(/\s+/).length;
+  if (w < 80) bad(`section ${i + 1}: data-vo is ${w} words — a reading, not a lesson (want 100-160)`);
+  else if (w > 200) bad(`section ${i + 1}: data-vo is ${w} words — too long for one slide (want 100-160)`);
+});
+
 if (!voScripted) console.log("voice-over: no slides scripted");
 else if (voScripted === sections.length) console.log(`voice-over: all ${voScripted} slides scripted`);
 else console.log(`voice-over: ${voScripted}/${sections.length} slides scripted (partial — autoplay stops on the rest)`);

@@ -60,19 +60,34 @@ learner navigates alone, so the deck must say everything, on the glass:
   - `.soon` — the **taught-later chip**: inline grey chip ("taught in Act 4") on any
     term used before its act teaches it, so a learner never mistakes a forward
     reference for assumed knowledge.
-  - **Voice-over is a reading of the glass.** Every slide may carry a `data-vo`
-    attribute: two to four plain-text sentences that say what the slide already says,
-    in speakable form. It is spoken by the browser's own speech engine, so it costs no
-    bytes and works offline. It must never carry teaching the eye does not get — a
-    learner who never switches the speaker on loses nothing. No markup and no double
-    quotes inside the attribute. Speak a file path, a flag or a command name exactly as
-    written, unless the literal string reads as noise aloud — a long path, or a chain of
-    four commands. Then say it in shortened form, and only where the exact string is on
-    the glass for the eye to read. A slide without `data-vo` is silent, and autoplay
-    stops there rather than advancing past it. Autoplay also stops on any slide holding
-    a `.hobadge`, a `.lab` or a `.steppanel`, because the learner is working in a
-    terminal the deck cannot see, or stepping through a panel by hand where step
-    changes never call `show()`.
+  - **Voice-over is a teacher, not a reader.** (Trainer correction, 25 Aug 2026.) Every
+    slide may carry a `data-vo` attribute holding the narration script: plain text, six
+    to ten sentences, 100 to 160 words. It is not the slide read aloud. It is what a good
+    trainer says while the slide is up — the essence first, then the reasoning, with a
+    concrete example wherever one makes the idea land. Reach for an example even when the
+    slide itself did not need to print one. A learner who hears it should feel taught,
+    not recited to.
+    - **The line that still holds: illustrate freely, require nothing new.** The narration
+      may add analogies, worked examples, asides and the why-this-matters a slide has no
+      room for. It may never introduce a fact, command or instruction the learner is
+      *required* to know that is not on the glass. The speaker gives a better lesson, never
+      a different syllabus, so a silent learner loses richness and never loses the
+      curriculum.
+    - Sentence rules from `~/.claude/VOICE.md` still bind: one idea per sentence, average
+      under 15 words, never over 25. Longer narration means more sentences, never longer ones.
+    - No markup and no double quotes inside the attribute. Speak a file path, a flag or a
+      command name exactly as written, unless the literal string reads as noise aloud — a
+      long path, or a chain of four commands. Then say it in shortened form, and only where
+      the exact string is on the glass for the eye to read.
+    - Never name the deck's own furniture. No "the box below", no "as you can see".
+    - A slide without `data-vo` is silent, and autoplay stops there rather than advancing
+      past it. Autoplay also stops on any slide holding a `.hobadge`, a `.lab` or a
+      `.steppanel`, because the learner is working in a terminal the deck cannot see, or
+      stepping through a panel by hand where step changes never call `show()`.
+    - **Audio ships as files.** `data-vo-audio` on the same slide points at
+      `weeks/week-N/audio/NN.m4a`, rendered by `render-voice.sh`. The file wins where it
+      exists and the browser's speech engine is the fallback, so a deck works before its
+      audio is rendered. `data-vo` stays the source of truth for both.
 
 ## 2. Doctrine (adapted for the dev cohort)
 

@@ -3,7 +3,7 @@
   Week 1 deck — Setup + the map: wire everything · AI Dev Roadmap
   SELF-TEACHING deck: the learner navigates alone — all teaching is on the glass.
   v2 grammar: movement = one panel, the coach lives inside the widget (.cuebar), every widget
-  self-checks, dark register at act openers only; every slide ends with a "Keep this" band.
+  self-checks, dark register at act openers only.
   Self-contained: inline CSS + vanilla JS, no network, prints clean, state → localStorage.
   Keys: → next · ← back · Home agenda · End close · F full-screen.
   Navigation is keyboard-only; the mouse is for widgets, copy buttons, and capture boxes.
@@ -71,12 +71,6 @@ ul.sub li{margin:5px 0}
 .read b{font-family:ui-sans-serif,system-ui,sans-serif;color:var(--accent)}
 .slide.dark .read{background:rgba(127,209,203,.12);border-left-color:#7fd1cb}
 .slide.dark .read b{color:#7fd1cb}
-/* keep-this band */
-.keep{display:block;margin-top:12px;background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;color:var(--muted);max-width:960px}
-.keep b{color:var(--ink);text-transform:uppercase;font-size:11px;letter-spacing:.1em;margin-right:8px}
-.slide.dark .keep,.slide.act .keep{background:rgba(255,255,255,.05);border-color:rgba(127,209,203,.3);color:#cfe5e2}
-.slide.dark .keep b,.slide.act .keep b{color:#7fd1cb}
-.slide.isnow .keep{background:var(--paper)}
 /* goal row on dark dividers */
 .goalrow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;max-width:900px}
 .gb{background:rgba(255,255,255,.05);border:1px solid rgba(127,209,203,.35);border-radius:12px;padding:16px 18px}
@@ -295,8 +289,6 @@ li.vohl{margin-left:-16px}
   .gb .t{color:var(--accent)}
   .slide.dark .read{background:var(--accent-soft);border-left-color:var(--accent)}
   .slide.dark .read b{color:var(--accent)}
-  .slide.dark .keep,.slide.act .keep{background:var(--wash);border-color:var(--line);color:var(--muted)}
-  .slide.dark .keep b,.slide.act .keep b{color:var(--ink)}
   .steppanel{display:block!important;border-top:1px dashed var(--line);padding-top:10px}
   details.fold{break-inside:avoid;background:#fff;border-color:var(--line)}
   details.fold .fbody{color:var(--ink)!important}
@@ -341,28 +333,27 @@ li.vohl{margin-left:-16px}
         that work happens in your terminal.</li>
         <li data-vo-audio="audio/01-07.m4a" data-vo="Every command and prompt is ready to copy, so you never retype one. Each block carries a label saying where it runs. Terminal means your own shell. Claude means you type it inside a running Claude Code session. Pasting a claude block into your shell is the classic first-day mistake.">Commands and prompts are copy-ready, and each block is labelled: <b>terminal</b> means your
         shell, and <b>claude</b> means inside a Claude Code session.</li>
-        <li data-vo-audio="audio/01-08.m4a" data-vo="Every slide ends with a keep-this line. It holds the single thing worth retaining from that slide. Read those lines end to end and you have the week's glossary.">Every slide ends with a <span class="em">Keep this</span> line: the one thing to retain.</li>
       </ul>
-      <p data-vo-audio="audio/01-09.m4a" data-vo="Two conventions run through the whole deck, and both exist to protect you."><b>Two conventions are built in for you.</b></p>
+      <p data-vo-audio="audio/01-08.m4a" data-vo="Two conventions run through the whole deck, and both exist to protect you."><b>Two conventions are built in for you.</b></p>
       <ul>
-        <li data-vo-audio="audio/01-10.m4a" data-vo="Every new term gets explained in plain words the moment it first appears. We assume you know code and we assume you know nothing about agents. That is the honest starting point for this cohort.">Every new term is explained in plain words the moment it first appears.</li>
-        <li data-vo-audio="audio/01-11.m4a" data-vo="The colour-coded fold strips hold optional depth. In plain words unpacks an idea with an everyday example. Under the hood gives you the mechanism. How industry does it shows what real teams do. By the way holds a useful tangent, and did you know holds a memorable fact. Click one open when you want the longer explanation. Skip every one of them and you still get the full lesson, because core teaching never hides in a fold.">The colour-coded fold strips (<b>In plain words</b>, <b>Under the hood</b>,
+        <li data-vo-audio="audio/01-09.m4a" data-vo="Every new term gets explained in plain words the moment it first appears. We assume you know code and we assume you know nothing about agents. That is the honest starting point for this cohort.">Every new term is explained in plain words the moment it first appears.</li>
+        <li data-vo-audio="audio/01-10.m4a" data-vo="The colour-coded fold strips hold optional depth. In plain words unpacks an idea with an everyday example. Under the hood gives you the mechanism. How industry does it shows what real teams do. By the way holds a useful tangent, and did you know holds a memorable fact. Click one open when you want the longer explanation. Skip every one of them and you still get the full lesson, because core teaching never hides in a fold.">The colour-coded fold strips (<b>In plain words</b>, <b>Under the hood</b>,
         <b>How industry does it</b>, <b>By the way</b>, <b>Did you know</b>) hold optional depth. Click
         one open when you want the longer explanation; skip them all and you still get the full
         lesson.</li>
-        <li data-vo-audio="audio/01-12.m4a" data-vo="A small grey chip marks a term we are previewing now and teaching properly later. The chip names the act where the real lesson lives. So a word you do not recognise yet is never a word you were supposed to know. Read on and trust that it arrives.">A small grey chip like <span class="soon">taught in Act 4</span> marks a term being previewed
+        <li data-vo-audio="audio/01-11.m4a" data-vo="A small grey chip marks a term we are previewing now and teaching properly later. The chip names the act where the real lesson lives. So a word you do not recognise yet is never a word you were supposed to know. Read on and trust that it arrives.">A small grey chip like <span class="soon">taught in Act 4</span> marks a term being previewed
         now and taught properly later. A word you don't recognise yet is never a word you were supposed
         to know.</li>
       </ul>
       <ul>
-        <li data-vo-audio="audio/01-13.m4a" data-vo="Four keys drive the deck. The right arrow moves forward and the left arrow moves back. Home jumps you to the map slide. F puts the deck full-screen."><b>Keys:</b> <b>→</b> next · <b>←</b> back · <b>Home</b> jumps to the map · <b>F</b>
+        <li data-vo-audio="audio/01-12.m4a" data-vo="Four keys drive the deck. The right arrow moves forward and the left arrow moves back. Home jumps you to the map slide. F puts the deck full-screen."><b>Keys:</b> <b>→</b> next · <b>←</b> back · <b>Home</b> jumps to the map · <b>F</b>
         full-screen.</li>
-        <li data-vo-audio="audio/01-14.m4a" data-vo="The mouse never changes slides, and that is deliberate. It drives the widgets, copies commands, opens folds and types into capture boxes. So you can click around freely without losing your place.">The mouse never changes slides; it drives widgets, copies commands, opens folds, and types
+        <li data-vo-audio="audio/01-13.m4a" data-vo="The mouse never changes slides, and that is deliberate. It drives the widgets, copies commands, opens folds and types into capture boxes. So you can click around freely without losing your place.">The mouse never changes slides; it drives widgets, copies commands, opens folds, and types
         into capture boxes.</li>
-        <li data-vo-audio="audio/01-15.m4a" data-vo="Anything you type saves to this browser and nowhere else. Nothing travels to a server. If you switch machines, your answers do not follow you.">Anything you type saves to this browser only.</li>
+        <li data-vo-audio="audio/01-14.m4a" data-vo="Anything you type saves to this browser and nowhere else. Nothing travels to a server. If you switch machines, your answers do not follow you.">Anything you type saves to this browser only.</li>
       </ul>
     </div>
-    <details class="fold plain" data-vo-audio="audio/01-16.m4a" data-vo="Two phrases in the title deserve plain words. Start with the clipboard job. Today you copy code out of Claude's chat window into your editor and you run it. Then you copy the error back into the chat. You paste files in so Claude has the context. You are the courier carrying text between Claude and your own machine. That courier role is what the deck means by being the clipboard. Now take the loop. The loop is the repeating cycle every coding task runs on. You look at the code, you make a change, you test it, then you look again. Today you run that cycle by hand. By Sunday, Claude Code runs it. It reads your files, edits them, and runs your tests itself, on your machine, while you watch and steer. Running the loop means owning that cycle from end to end."><summary>In plain words · "the clipboard" and "the loop"</summary><div class="fbody">
+    <details class="fold plain" data-vo-audio="audio/01-15.m4a" data-vo="Two phrases in the title deserve plain words. Start with the clipboard job. Today you copy code out of Claude's chat window into your editor and you run it. Then you copy the error back into the chat. You paste files in so Claude has the context. You are the courier carrying text between Claude and your own machine. That courier role is what the deck means by being the clipboard. Now take the loop. The loop is the repeating cycle every coding task runs on. You look at the code, you make a change, you test it, then you look again. Today you run that cycle by hand. By Sunday, Claude Code runs it. It reads your files, edits them, and runs your tests itself, on your machine, while you watch and steer. Running the loop means owning that cycle from end to end."><summary>In plain words · "the clipboard" and "the loop"</summary><div class="fbody">
       <p><b>The clipboard job.</b> Today you copy code out of Claude's chat window into your editor and
       run it. Then you copy the error back into the chat, and paste files in for context. You are the courier carrying
       text between Claude and your own machine. That courier role is what this deck calls "being the
@@ -372,7 +363,6 @@ li.vohl{margin-left:-16px}
       your files, edits them, and runs your tests itself, on your machine, while you watch and steer.
       "Running the loop" means owning that cycle end to end.</p>
     </div></details>
-    <span class="keep" data-vo-audio="audio/01-17.m4a" data-vo="By Sunday you reach zero copy-paste. No text travels between Claude and your tools by your hand. Every hop that remains has a name and a cost you can state."><b>Keep this</b>By Sunday you reach zero copy-paste: no text travels between Claude and your tools by hand, and every hop has a name and a cost.</span>
   </div>
 </section>
 
@@ -413,8 +403,6 @@ li.vohl{margin-left:-16px}
     </div>
     <span class="read" data-vo-audio="audio/02-09.m4a" data-vo="Days will slip, so decide now what you cut. Cut the reading in Act 3 and skip replaying widgets you have already driven. Never cut the mini-reps and never cut the capstone. The reps are the week."><b>If a day slips:</b> compress Act 3's reading and the widget replays, never the
     mini-reps and never the capstone. The reps are the week.</span>
-    <span class="keep" data-vo-audio="audio/02-10.m4a" data-vo="Five hours of deck and six hours of projects, due Sunday end of day on the Week 1 milestone. When something has to give, protect the hands-on blocks first."><b>Keep this</b>The week is about 5 hours of deck and 6 hours of projects, due
-    Sunday EOD on the Week 1 milestone; protect the hands-on blocks first.</span>
   </div>
 </section>
 
@@ -475,8 +463,6 @@ li.vohl{margin-left:-16px}
     <div class="seq" data-vo-audio="audio/03-11.m4a" data-vo="The capstone runs in five steps, laid out here in order. You audit the wiring, pick the automation, ship it, autopsy the loop, then write your verdict and export it. Each step feeds the next, so do them in that order."><h3>Capstone · Wire it, ship it, autopsy it</h3>
       <div class="seqrow"><span><b>1</b> Audit the wiring</span><span><b>2</b> Pick the automation</span><span><b>3</b> Ship it</span><span><b>4</b> Loop autopsy</span><span><b>5</b> Verdict + export</span></div>
     </div>
-    <span class="keep" data-vo-audio="audio/03-12.m4a" data-vo="The week runs sixteen movements and five capstone steps. If you ever feel lost, press Home and this map comes straight back."><b>Keep this</b>The week runs sixteen movements and five capstone steps; if you
-    ever feel lost, press Home and this map comes back.</span>
   </div>
 </section>
 
@@ -529,8 +515,6 @@ li.vohl{margin-left:-16px}
     </div></details>
     <span class="read" data-vo-audio="audio/04-09.m4a" data-vo="Here is what you hold by Sunday night. You hold a wired environment that passes a cold audit. You hold one automation you shipped through it. You hold a week of your own usage data. You also hold the four-discipline vocabulary that the whole programme runs on."><b>By Sunday you hold:</b> a wired environment that passes a cold audit, one shipped
     automation, a week of usage data, and the four-discipline vocabulary the whole programme runs on.</span>
-    <span class="keep" data-vo-audio="audio/04-10.m4a" data-vo="Two rules carry all nine weeks. Measure instead of trusting, and do instead of watching. Open a terminal today, not on day 4."><b>Keep this</b>Two rules carry all nine weeks: measure instead of trusting, and
-    do instead of watching. Open a terminal today, not on Day 4.</span>
   </div>
 </section>
 
@@ -553,8 +537,6 @@ li.vohl{margin-left:-16px}
       attend to it. Nothing verifies itself. Nothing compounds. Next week's session starts from zero
       again.</p>
     </div>
-    <span class="keep" data-vo-audio="audio/05-05.m4a" data-vo="In chat-driven development you are three things at once. You are the clipboard, the scheduler and the verifier. Naming those three jobs is the first step to quitting them."><b>Keep this</b>In chat-driven development you are the clipboard, the scheduler
-    and the verifier at once; naming those three jobs is the first step to quitting them.</span>
   </div>
 </section>
 
@@ -588,8 +570,6 @@ li.vohl{margin-left:-16px}
       and let it run, without you becoming the clipboard? Type it in the box (it saves in this browser). The last slide of the
       week shows it back to you.</p>
     </div>
-    <span class="keep" data-vo-audio="audio/06-09.m4a" data-vo="That number is your calibration baseline. The gap between today's number and Sunday's number is the week's receipt. It should move on evidence, not on vibes."><b>Keep this</b>The number is your calibration baseline. The gap between today's
-    number and Sunday's is the week's receipt, and it should move on evidence, not vibes.</span>
   </div>
 </section>
 
@@ -622,8 +602,6 @@ li.vohl{margin-left:-16px}
       anything. That whole cycle, run by the model instead of by you, is the agentic loop. Everything
       else this week is plumbing to make that loop reach further and safer.</p>
     </div></details>
-    <span class="keep" data-vo-audio="audio/07-08.m4a" data-vo="Keep one idea from this act. The agent runs gather, act and verify itself. Every failure you will ever debug is one of those three beats done badly."><b>Keep this</b>This act has one idea: the agent runs gather → act → verify
-    itself, and every failure you'll ever debug is one of those beats done badly.</span>
   </div>
 </section>
 
@@ -640,9 +618,9 @@ li.vohl{margin-left:-16px}
       <p data-vo-audio="audio/08-03.m4a" data-vo="The task is real. You meet this exact bug in the gym repo later this week. What matters right now is the traffic pattern, not the bug itself.">The task is real; you'll meet this exact bug in the gym repo later this week. What matters here
       is the traffic pattern.</p>
       <ul>
-        <li data-vo-audio="audio/08-04.m4a" data-vo="In chat, the model only sees what you paste. It can only do what you carry out for it. Paste half a file, and it reasons about half a file.">In chat, the model can only see what you paste, and can only "do" what you carry out for
+        <li data-vo-audio="audio/08-04.m4a" data-vo="In chat, the model only sees what you paste. It can only do what you carry out for it. Paste half a file, and it reasons about half a file. You are briefing someone over the phone who cannot see your screen. They are sharp, and they only know what you read out.">In chat, the model can only see what you paste, and can only "do" what you carry out for
         it.</li>
-        <li data-vo-audio="audio/08-05.m4a" data-vo="In an agent session the model holds tools. It reads files itself, it edits them itself, and it runs the tests itself.">In an agent session, the model has tools: it reads files itself, edits them itself, and runs
+        <li data-vo-audio="audio/08-05.m4a" data-vo="In an agent session the model holds tools. It reads files itself, it edits them itself, and it runs the tests itself. Now that person is sitting at your machine. They open the files themselves, and nobody has to read anything out.">In an agent session, the model has tools: it reads files itself, edits them itself, and runs
         the tests itself.</li>
         <li data-vo-audio="audio/08-06.m4a" data-vo="Your involvement collapses to two points. You write the brief at the start, and you review at the end. The middle stops being your job.">Your involvement collapses to two points: the brief at the start and the review at the
         end.</li>
@@ -680,8 +658,6 @@ li.vohl{margin-left:-16px}
       builds (writing a sharp brief, reviewing an agent's work, reading a session) transfer to whichever
       tool your next team uses. The loop is the durable skill; products come and go.</p>
     </div></details>
-    <span class="keep" data-vo-audio="audio/08-09.m4a" data-vo="An agent is a model, plus tools, plus a loop. Your job moves to the two ends. Give a sharp brief, then do a real review."><b>Keep this</b>An agent is a model, plus tools, plus a loop. Your job moves to
-    the two ends: a sharp brief and a real review.</span>
   </div>
 </section>
 
@@ -695,13 +671,13 @@ li.vohl{margin-left:-16px}
       <p data-vo-audio="audio/09-02.m4a" data-vo="A beat here is a stage in a rhythm, like a beat in a bar of music. Open any good agent transcript and the same three keep appearing.">A <b>beat</b> here is a stage in the rhythm, like a beat in a bar of music. Open any good agent
       transcript and the same three appear.</p>
       <ul>
-        <li data-vo-audio="audio/09-03.m4a" data-vo="Gather is the reading beat. The model reads files, greps and lists, learning the territory before it touches anything."><b>Gather:</b> the model reads files, greps and lists, learning the territory before
+        <li data-vo-audio="audio/09-03.m4a" data-vo="Gather is the reading beat. The model reads files, greps and lists, learning the territory before it touches anything. Think of a mechanic. Gather is putting the car on the ramp and reading the fault codes."><b>Gather:</b> the model reads files, greps and lists, learning the territory before
         touching it.</li>
-        <li data-vo-audio="audio/09-04.m4a" data-vo="Act is the changing beat. It edits, it writes, and it runs the change."><b>Act:</b> it edits, writes, and runs the change.</li>
-        <li data-vo-audio="audio/09-05.m4a" data-vo="Verify is the checking beat. It runs the tests, checks the output, and compares the result against what you asked for."><b>Verify:</b> it runs the tests, checks the output, and compares the result against what
+        <li data-vo-audio="audio/09-04.m4a" data-vo="Act is the changing beat. It edits, it writes, and it runs the change. Staying with the mechanic, act is fitting the new part."><b>Act:</b> it edits, writes, and runs the change.</li>
+        <li data-vo-audio="audio/09-05.m4a" data-vo="Verify is the checking beat. It runs the tests, checks the output, and compares the result against what you asked for. Verify is driving it round the block before handing the keys back. It is also the beat most people skip."><b>Verify:</b> it runs the tests, checks the output, and compares the result against what
         was asked.</li>
       </ul>
-      <p data-vo-audio="audio/09-06.m4a" data-vo="When a session goes wrong, one beat is missing or done badly. Reading sessions by beat is the diagnostic skill of the whole programme. It is also the fastest thing you will learn today.">When a session goes wrong, one beat is missing or done badly. Reading sessions by beat is the
+      <p data-vo-audio="audio/09-06.m4a" data-vo="When a session goes wrong, one beat is missing or done badly. Reading sessions by beat is the diagnostic skill of the whole programme. It is also the fastest thing you will learn today. A mechanic who fits the part and hands the keys back untested has not done a worse job. They have done a different one.">When a session goes wrong, one beat is missing or done badly. Reading sessions by beat is the
       diagnostic skill of the whole programme.</p>
     </div>
     <div class="teach">
@@ -730,8 +706,6 @@ li.vohl{margin-left:-16px}
     <span class="read" data-vo-audio="audio/09-11.m4a" data-vo="From now on, when a session feels off, you do not say Claude was weird. You say which beat failed. It gathered too little, or it acted too wide, or it verified nothing."><b>What you decide:</b> from now on, when a session feels off, you don't say
     "Claude was weird". You say which beat failed: gathered too little, acted too wide, verified
     nothing.</span>
-    <span class="keep" data-vo-audio="audio/09-12.m4a" data-vo="The same command can be either beat. A check before an edit is gather, and the same check after an edit is verify. Intent defines the beat."><b>Keep this</b>The same command can be either beat: checks before an edit are
-    gather, checks after are verify. Intent defines the beat.</span>
   </div>
 </section>
 
@@ -746,14 +720,14 @@ li.vohl{margin-left:-16px}
       start writing briefs. A <b>brief</b> is a prompt with the shape of a spec, and it has five
       parts.</p>
       <ul>
-        <li data-vo-audio="audio/10-03.m4a" data-vo="Role says who Claude should work as. A release manager and a compiler engineer write very different things."><b>Role</b> says who Claude should work as.</li>
+        <li data-vo-audio="audio/10-03.m4a" data-vo="Role says who Claude should work as. A release manager and a compiler engineer write very different things. Ask a plumber and an architect about the same wall, and you get two honest answers to two different questions."><b>Role</b> says who Claude should work as.</li>
         <li data-vo-audio="audio/10-04.m4a" data-vo="Task names the outcome you want, rather than the activity. Ask for release notes, not for a trawl through the commits."><b>Task</b> names the outcome you want, rather than the activity.</li>
-        <li data-vo-audio="audio/10-05.m4a" data-vo="Constraints say what must happen and what must not. They are the fence around the work."><b>Constraints</b> say what must and must not happen.</li>
-        <li data-vo-audio="audio/10-06.m4a" data-vo="Examples show the shape you want. One pair of input and output beats a paragraph of description."><b>Examples</b> show the shape: one input and output pair beats a paragraph of
+        <li data-vo-audio="audio/10-05.m4a" data-vo="Constraints say what must happen and what must not. They are the fence around the work. It is telling a builder the extension cannot block next door's light. Say it first, or you say it after the wall is up."><b>Constraints</b> say what must and must not happen.</li>
+        <li data-vo-audio="audio/10-06.m4a" data-vo="Examples show the shape you want. One pair of input and output beats a paragraph of description. Show the tailor a jacket you like. It beats a paragraph about lapels every time."><b>Examples</b> show the shape: one input and output pair beats a paragraph of
         description.</li>
-        <li data-vo-audio="audio/10-07.m4a" data-vo="Output describes what done looks like, and what proves it."><b>Output</b> describes what done looks like, and what proves it.</li>
+        <li data-vo-audio="audio/10-07.m4a" data-vo="Output describes what done looks like, and what proves it. It is agreeing what signed off means before the work starts, rather than arguing about it afterwards."><b>Output</b> describes what done looks like, and what proves it.</li>
       </ul>
-      <p data-vo-audio="audio/10-08.m4a" data-vo="Every part you leave out becomes a round-trip later. Claude asks, and then you answer. Every round-trip re-sends the whole conversation to the model. Act 3 shows you why that costs money.">Every part you leave out becomes a <b>round-trip</b> later: Claude asks, you answer. And every
+      <p data-vo-audio="audio/10-08.m4a" data-vo="Every part you leave out becomes a round-trip later. Claude asks, and then you answer. Every round-trip re-sends the whole conversation to the model. Act 3 shows you why that costs money. Picture a takeaway order with no address on it. They ring you back, and the food gets no warmer while you talk.">Every part you leave out becomes a <b>round-trip</b> later: Claude asks, you answer. And every
       round-trip re-sends the whole conversation to the model. <span class="soon">why that costs money:
       Act 3</span></p>
     </div>
@@ -810,8 +784,6 @@ li.vohl{margin-left:-16px}
     <span class="read" data-vo-audio="audio/10-13.m4a" data-vo="Decide your default brief skeleton now. Write it once in your notes as role, task, constraints, example, and output with proof. Use it on every non-trivial prompt this week. Log a line in the friction log each time skipping it cost you a round-trip."><b>What you decide:</b> your default brief skeleton. Write it once in your notes:
     role · task · constraints · example · output-with-proof. Use it on every non-trivial prompt this
     week, and log in the friction log each time skipping it cost you a round-trip.</span>
-    <span class="keep" data-vo-audio="audio/10-14.m4a" data-vo="The five parts are role, task, constraints, examples and output. Every missing part becomes a question. Every question re-sends the conversation that you pay for."><b>Keep this</b>The five parts are role, task, constraints, examples and output;
-    every missing part becomes a question, and every question re-sends the conversation you pay for.</span>
   </div>
 </section>
 
@@ -857,8 +829,6 @@ ran and what you noticed.</pre><button class="copy">Copy</button><span class="pb
     else.</div>
     <span class="read" data-vo-audio="audio/11-13.m4a" data-vo="Decide whether the session earned your trust. Write one line naming the machine-produced evidence that closed the loop. If nothing did, name what would have, had you asked for it."><b>What you decide:</b> did the session earn trust? Write one line: what
     machine-produced evidence closed the loop, or what would have, if it had been asked for.</span>
-    <span class="keep" data-vo-audio="audio/11-14.m4a" data-vo="Agents verify what they are pointed at. Name no check, and the loop closes on a feeling. Week 5 automates the pointing. Now open your terminal, copy the gym repo across, and give Claude that one task."><b>Keep this</b>Agents verify what they're pointed at. Name no check, and the
-    loop closes on a feeling. Week 5 automates the pointing.</span>
   </div>
 </section>
 
@@ -881,8 +851,6 @@ ran and what you noticed.</pre><button class="copy">Copy</button><span class="pb
       <li data-vo-audio="audio/12-05.m4a" data-vo="Hands-on 03 connects your first two servers.">Hands-on 03 connects your first two servers.</li>
       <li data-vo-audio="audio/12-06.m4a" data-vo="Hands-on 04 sets the permission baseline.">Hands-on 04 sets the permission baseline.</li>
     </ul>
-    <span class="keep" data-vo-audio="audio/12-07.m4a" data-vo="The bar is testable, and that is the point. This week another learner asks one question on your machine. Can Claude reach every system it needs while you touch nothing?"><b>Keep this</b>The bar is testable. This week another learner asks one question on
-    your machine. Can Claude reach every system it needs while you touch nothing?</span>
   </div>
 </section>
 
@@ -934,8 +902,6 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
     list) → act (create) → verify (re-read state before claiming done).</div>
     <span class="read" data-vo-audio="audio/13-13.m4a" data-vo="The retype habit dies today. Any time you catch yourself copying issue text into a prompt this week, that is a friction-log line."><b>What you decide:</b> the retype habit dies today. Any time you catch yourself
     copying issue text into a prompt this week, that's a friction-log line.</span>
-    <span class="keep" data-vo-audio="audio/13-14.m4a" data-vo="gh is the template. Authenticate once, and the agent has hands. Next come the systems that have no command-line tool. Go and run the three steps in your terminal now."><b>Keep this</b>gh is the template: authenticate once, then the agent has hands.
-    Next come the systems that don't have a CLI.</span>
   </div>
 </section>
 
@@ -950,14 +916,14 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
       Linear, in a Postgres somewhere, in Sentry. The <b>Model Context Protocol (MCP)</b> is the
       standard plug for reaching all of it.</p>
       <ul>
-        <li data-vo-audio="audio/14-03.m4a" data-vo="An MCP server is a small program that speaks for one system. Think of it as an adapter, with a fixed shape on the Claude side.">An <b>MCP server</b> is a small program that speaks for one system.</li>
+        <li data-vo-audio="audio/14-03.m4a" data-vo="An MCP server is a small program that speaks for one system. Think of it as an adapter, with a fixed shape on the Claude side. Think of a travel plug. The socket is a different shape in every country, and the plug on your laptop never changes.">An <b>MCP server</b> is a small program that speaks for one system.</li>
         <li data-vo-audio="audio/14-04.m4a" data-vo="It tells Claude which operations it offers, such as search pages, create a ticket, or run a query.">It tells Claude "here are the operations I offer": search pages, create a ticket, run a
         query.</li>
         <li data-vo-audio="audio/14-05.m4a" data-vo="Claude can call those operations mid-task. They work exactly like the file and terminal tools it already has.">Claude can call those operations mid-task, exactly like the file and terminal tools it
         already has.</li>
         <li data-vo-audio="audio/14-06.m4a" data-vo="You connect a server once, and every session after that can use it.">You connect a server once; every session after that can use it.</li>
       </ul>
-      <p data-vo-audio="audio/14-07.m4a" data-vo="Without a server, you are the integration. You ferry the answers across by hand, every single time.">Without a server, <b>you</b> are the integration, ferrying answers by hand.</p>
+      <p data-vo-audio="audio/14-07.m4a" data-vo="Without a server, you are the integration. You ferry the answers across by hand, every single time. You are the courier on a bike, riding between two offices that could simply have phoned each other.">Without a server, <b>you</b> are the integration, ferrying answers by hand.</p>
     </div>
     <details class="fold hood" data-vo-audio="audio/14-08.m4a" data-vo="Here is the shape under the hood. Claude Code is the client. Each connected system runs a server, usually hosted by the vendor. Notion runs one at mcp.notion.com, and you install nothing yourself. When a session starts, Claude Code asks each server which tools it offers. Those answers join Claude's toolbox for that session. When Claude uses one, the request goes to the server. The server does the real work in the real system, and the result comes back as text. Access is granted through OAuth, which is the sign-in-with-your-browser dance you know from logging in with Google. You approve once in the browser, and the server remembers your session from then on. Your password never passes through Claude. Revoking access works the same as it does for any connected app. Some servers run locally on your machine instead, started as a background process, and those are called stdio servers. They are useful for databases and internal tools that have no hosted option."><summary>Under the hood · client, server, and the sign-in</summary><div class="fbody">
       <p>Claude Code is the <b>client</b>. Each connected system runs a <b>server</b>, usually hosted by
@@ -1003,8 +969,6 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
       <p class="scoreline" id="wwireScore"></p>
       <div class="cueall"></div>
     </div>
-    <span class="keep" data-vo-audio="audio/14-16.m4a" data-vo="Count hops, and wire the worst two first. The meter is the audit another learner runs on your machine this weekend."><b>Keep this</b>Count hops, wire the worst two first. The meter is the audit
-    another learner runs on your machine this weekend.</span>
   </div>
 </section>
 
@@ -1064,8 +1028,6 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
     for your personal reach, project scope (a checked-in .mcp.json) for a team's shared wiring.</div>
     <span class="read" data-vo-audio="audio/15-14.m4a" data-vo="Decide which system stays unwired this week, deliberately, and what that costs you daily. Write the hop in your friction log. Week 3 may turn it into harness."><b>What you decide:</b> which system stays unwired this week, deliberately, and
     what that costs you daily. Write the hop in your friction log; week 3 may turn it into harness.</span>
-    <span class="keep" data-vo-audio="audio/15-15.m4a" data-vo="The pattern is claude mcp add, with the http transport and user scope, then a name and a URL. Then /mcp to authenticate and check health. Two commands run your whole wiring day. Go and run them now."><b>Keep this</b>claude mcp add --transport http --scope user &lt;name&gt; &lt;url&gt;,
-    then /mcp to authenticate and check health. Two commands run your whole wiring day.</span>
   </div>
 </section>
 
@@ -1150,8 +1112,6 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
     </div></details>
     <span class="read" data-vo-audio="audio/16-17.m4a" data-vo="Decide your red lines now, while they are obvious. Write them as deny rules. A red line you configure once beats one you have to remember nightly."><b>What you decide:</b> your red lines. Write them as deny rules now, while
     they're obvious. A red line you configure once beats one you must remember nightly.</span>
-    <span class="keep" data-vo-audio="audio/16-18.m4a" data-vo="Allow by blast radius, deny your red lines, and let the middle ask. Revisit the allowlist weekly as trust grows, because that is healthy calibration. Open your settings file now and write it."><b>Keep this</b>Allow by blast radius, deny your red lines, and let the middle
-    ask. Revisit the allowlist weekly as trust grows; that's healthy calibration.</span>
   </div>
 </section>
 
@@ -1195,8 +1155,6 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
       you'd guess. Everything in it is re-sent every turn. So a full window is a running cost as well
       as a limit. That's why the craft of keeping the window lean (week 2) exists at all.</p>
     </div></details>
-    <span class="keep" data-vo-audio="audio/17-13.m4a" data-vo="Context is spend, and that is the line to carry out of this act. The window is re-sent every turn. Every file read and every Opus turn draws from the same budget your Friday afternoon needs."><b>Keep this</b>Context is spend: the window is re-sent every turn, and every
-    file read and Opus turn draws from the budget your Friday afternoon needs.</span>
   </div>
 </section>
 
@@ -1210,10 +1168,10 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
       <p data-vo-audio="audio/18-02.m4a" data-vo="The word physics fits because these are fixed mechanics. You cannot negotiate with them, you can only plan around them. Three of them govern your plan.">The word "physics" fits because these are fixed mechanics you can't negotiate with, only plan
       around. Three of them govern the plan.</p>
       <ul>
-        <li data-vo-audio="audio/18-03.m4a" data-vo="Usage accrues in rolling 5-hour windows. Burn hard inside one and the window throttles you, meaning it slows or pauses your access until it resets.">Usage accrues in <b>rolling 5-hour windows</b>: burn hard and the window throttles you
+        <li data-vo-audio="audio/18-03.m4a" data-vo="Usage accrues in rolling 5-hour windows. Burn hard inside one and the window throttles you, meaning it slows or pauses your access until it resets. It behaves like a phone plan that slows you down after a hard burst, then lets you back up to speed.">Usage accrues in <b>rolling 5-hour windows</b>: burn hard and the window throttles you
         (slows or pauses your access) until it resets.</li>
-        <li data-vo-audio="audio/18-04.m4a" data-vo="A weekly cap sits above that, and heavy Opus use is what reaches it. The 5-hour window bites the same day, while the weekly cap bites on Thursday for choices you made on Monday.">A <b>weekly cap</b> sits above that, and heavy Opus use is what reaches it.</li>
-        <li data-vo-audio="audio/18-05.m4a" data-vo="The model mix is your main lever. It means how much of your work runs on Opus against Sonnet. Opus burns roughly five times Sonnet for the same conversation. So what you route to Opus decides your week. Save it for the hard design call, and let Sonnet handle the rename.">The <b>model mix</b> is your main lever, meaning how much of your work runs on Opus against
+        <li data-vo-audio="audio/18-04.m4a" data-vo="A weekly cap sits above that, and heavy Opus use is what reaches it. The 5-hour window bites the same day, while the weekly cap bites on Thursday for choices you made on Monday. That is the monthly data allowance. Binge at the weekend, and you are crawling by the twenty-fifth.">A <b>weekly cap</b> sits above that, and heavy Opus use is what reaches it.</li>
+        <li data-vo-audio="audio/18-05.m4a" data-vo="The model mix is your main lever. It means how much of your work runs on Opus against Sonnet. Opus burns roughly five times Sonnet for the same conversation. So what you route to Opus decides your week. Save it for the hard design call, and let Sonnet handle the rename. Think of taking a taxi everywhere when the bus goes to the same place. Keep the taxi for the trips that actually need one.">The <b>model mix</b> is your main lever, meaning how much of your work runs on Opus against
         Sonnet. Opus burns roughly five times Sonnet for the same conversation. So what you route to
         Opus decides your week.</li>
       </ul>
@@ -1254,8 +1212,6 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
       the real ones. It is also why Hands-on 05 matters more than any simulator. Your own /usage
       readings are the only numbers that are true for you.</p>
     </div></details>
-    <span class="keep" data-vo-audio="audio/18-10.m4a" data-vo="Opus burns about five times Sonnet, so route by task value and pace your heavy sessions. Ignoring the mix buys you a Thursday with no Claude. Drive the meter now, until you can call the gauges before they move."><b>Keep this</b>Opus burns about five times Sonnet, so route by task value and
-    pace heavy sessions; ignoring the mix buys a Thursday with no Claude.</span>
   </div>
 </section>
 
@@ -1309,8 +1265,6 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
     taken consistently, are all the budgeting signal you get, and all you need.</div>
     <span class="read" data-vo-audio="audio/19-17.m4a" data-vo="You decide your checking rhythm. Meters you never read are decoration."><b>What you decide:</b> your checking rhythm. End of every session goes in the
     log; /context whenever heavy. Meters you don't read are decoration.</span>
-    <span class="keep" data-vo-audio="audio/19-18.m4a" data-vo="Run all three meters every session. Go and take today's readings now."><b>Keep this</b>/usage shows the window and reset times, /context shows what's
-    loaded, and /model shows what you burn. Run all three every session.</span>
   </div>
 </section>
 
@@ -1324,11 +1278,11 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
       <p data-vo-audio="audio/20-02.m4a" data-vo="The meters tell you a session is heavy. They do not tell you what to do about it. You have three exits, and they are not interchangeable.">The meters tell you a session is heavy; they don't tell you what to do. You have three
       exits.</p>
       <ul>
-        <li data-vo-audio="audio/20-03.m4a" data-vo="/clear empties the window completely. It is the cheapest exit, and it is right whenever the next task does not need the history. Finished the bugfix and moving to the README? Clear it."><b>/clear</b> empties the window. It's the cheapest exit, and right whenever the next task
+        <li data-vo-audio="audio/20-03.m4a" data-vo="/clear empties the window completely. It is the cheapest exit, and it is right whenever the next task does not need the history. Finished the bugfix and moving to the README? Clear it. Picture the whiteboard at the end of a meeting. Clear is wiping it with your sleeve."><b>/clear</b> empties the window. It's the cheapest exit, and right whenever the next task
         doesn't need the history.</li>
-        <li data-vo-audio="audio/20-04.m4a" data-vo="/compact summarises the conversation in place. It is right mid-task, when the decisions matter but the transcript does not. You keep the thread and drop the noise."><b>/compact</b> summarises the conversation in place. It's right mid-task, when the
+        <li data-vo-audio="audio/20-04.m4a" data-vo="/compact summarises the conversation in place. It is right mid-task, when the decisions matter but the transcript does not. You keep the thread and drop the noise. Staying with the whiteboard, compact photographs it first, then wipes it. You keep the shape and you lose the handwriting."><b>/compact</b> summarises the conversation in place. It's right mid-task, when the
         decisions matter but the transcript doesn't.</li>
-        <li data-vo-audio="audio/20-05.m4a" data-vo="Hand off writes the state to a file that a fresh session reads. It is right when the work continues but this session should not. Friday evening, with half a migration done, is the classic case."><b>Hand off</b> writes the state to a file that a fresh session reads. It's right when the
+        <li data-vo-audio="audio/20-05.m4a" data-vo="Hand off writes the state to a file that a fresh session reads. It is right when the work continues but this session should not. Friday evening, with half a migration done, is the classic case. The handoff is writing a proper note for the next shift. It is the only one of the three that somebody actually reads."><b>Hand off</b> writes the state to a file that a fresh session reads. It's right when the
         work continues but this session shouldn't.</li>
       </ul>
       <p data-vo-audio="audio/20-06.m4a" data-vo="The tell is what the history still owes you. If it is done with, clear. If it is needed but bloated, compact. If someone else needs it, including tomorrow's you, hand off.">The tell is what the history still owes you. If it's done with, clear. If it's needed but
@@ -1337,7 +1291,7 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
     <div class="teach">
       <p data-vo-audio="audio/20-07.m4a" data-vo="Two sharp edges are worth naming before you sort anything.">Two sharp edges.</p>
       <ul>
-        <li data-vo-audio="audio/20-08.m4a" data-vo="Poisoned context means wrong or misleading text sitting in the window. A bad log or a wrong assumption quietly steers every later answer. /compact keeps a summary, so the poison survives in summary form. A derailed session wants /clear and a restated task, never /compact."><b>Poisoned context</b> means wrong or misleading text sitting in the window (a bad log, a
+        <li data-vo-audio="audio/20-08.m4a" data-vo="Poisoned context means wrong or misleading text sitting in the window. A bad log or a wrong assumption quietly steers every later answer. /compact keeps a summary, so the poison survives in summary form. A derailed session wants /clear and a restated task, never /compact. It is a wrong figure copied into a spreadsheet. Every total below it is now wrong, and every total looks perfectly normal."><b>Poisoned context</b> means wrong or misleading text sitting in the window (a bad log, a
         wrong assumption), quietly steering every later answer. /compact keeps a summary, so poison
         survives in summary form; a derailed session wants /clear and a restated task, never
         /compact.</li>
@@ -1364,8 +1318,6 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
     <span class="read" data-vo-audio="audio/20-12.m4a" data-vo="You decide your triage habit, and you write it as one line in your notes. Log every time you break it this week."><b>What you decide:</b> your triage habit, written as one line in your notes:
     "task done → /clear · long task at a breakpoint → focused /compact · day ends mid-work → handoff
     file." Log every time you break it this week.</span>
-    <span class="keep" data-vo-audio="audio/20-13.m4a" data-vo="Clear when the history is done, compact when it is heavy but needed, and hand off when the work outlives the session. Never compact poison. Go and sort the six moments now."><b>Keep this</b>Clear when the history is done, compact when it's heavy but
-    needed, and hand off when the work outlives the session. Never compact poison.</span>
   </div>
 </section>
 
@@ -1409,8 +1361,6 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
       <p>Same afternoon, four different problems, four different fixes. That's why naming the
       discipline comes before reaching for a fix.</p>
     </div></details>
-    <span class="keep" data-vo-audio="audio/21-09.m4a" data-vo="Four names to carry for nine weeks: context, harness, loop and graph. From today, every Claude problem you hit files under exactly one of them."><b>Keep this</b>Four names to carry for nine weeks: context, harness, loop, graph.
-    From today, every Claude problem you hit files under exactly one of them.</span>
   </div>
 </section>
 
@@ -1420,7 +1370,7 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
     <div class="kicker">M12 · The map</div>
     <h2 class="head">Name the discipline before you reach for a fix</h2>
     <div class="goalstrip" data-vo-audio="audio/22-01.m4a" data-vo="The goal is to classify eight real failures by discipline, and to miss a few."><b>Goal</b>Classify eight real failures by discipline, and miss a few: the misses show which discipline you currently can't see.</div>
-    <div class="teach"><p data-vo-audio="audio/22-02.m4a" data-vo="Eight situations follow, all real, all from developers working the way you did last week. For each one, ask which discipline owns the fix, rather than what the fix is. Diagnose the discipline correctly and the fix is usually obvious.">Eight situations follow, all real, all from developers working exactly the way
+    <div class="teach"><p data-vo-audio="audio/22-02.m4a" data-vo="Eight situations follow, all real, all from developers working the way you did last week. For each one, ask which discipline owns the fix, rather than what the fix is. Diagnose the discipline correctly and the fix is usually obvious. Do what you do with a leak at home. You work out whether to call a plumber or an electrician before you call anybody.">Eight situations follow, all real, all from developers working exactly the way
     you did last week. For each one, ask <b>which discipline owns the fix</b> rather than "what's the
     fix?". Diagnose the discipline correctly and the fix is usually obvious; misdiagnose and you'll
     patch symptoms all year.</p></div>
@@ -1444,8 +1394,6 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
     </div>
     <span class="read" data-vo-audio="audio/22-09.m4a" data-vo="You decide your weakest discipline, named, from your own last month. Most chat-driven developers pick loop, and most of them are right."><b>What you decide:</b> your weakest discipline, named, from your own last month.
     Most chat-driven developers pick loop, and most are right.</span>
-    <span class="keep" data-vo-audio="audio/22-10.m4a" data-vo="Context is what it sees, harness is what you encode, loop is what closes the turn, and graph is how work is shaped. Go and classify the eight now."><b>Keep this</b>Context is what it sees, harness is what you encode, loop is what
-    closes the turn, and graph is how work is shaped.</span>
   </div>
 </section>
 
@@ -1501,8 +1449,6 @@ without archiving it. Match the existing style.</pre><button class="copy">Copy</
     <span class="read" data-vo-audio="audio/23-14.m4a" data-vo="You decide the difference between a rule worth encoding and noise. A rule worth encoding recurs, and the default behaviour is wrong. Noise is a one-off preference. That judgement is week 2's whole craft."><b>What you decide:</b> the difference between a rule worth encoding (it recurs,
     and the default behaviour is wrong) and noise (a one-off preference). That judgement is week 2's
     whole craft, met here in its smallest, strongest dose.</span>
-    <span class="keep" data-vo-audio="audio/23-15.m4a" data-vo="Without a CLAUDE.md every session guesses. Four imperative lines beat a page of prose, and the proof is always a before and after pair. Start your cold run now."><b>Keep this</b>Without a CLAUDE.md every session guesses; four imperative lines
-    beat a page of prose, and the proof is always a before/after pair.</span>
   </div>
 </section>
 
@@ -1591,8 +1537,6 @@ without archiving it. Match the existing style.</pre><button class="copy">Copy</
     <span class="read" data-vo-audio="audio/24-15.m4a" data-vo="You decide your first real guardrail, and your incident history names it. The command you have regretted, or the file nobody may edit. Write the hook's one-line spec in your friction log, and week 3 ships it."><b>What you decide:</b> your first real guardrail. Look at your incident history:
     the command you've regretted, the file nobody may edit. Write the hook's one-line spec in your
     friction log; week 3 ships it.</span>
-    <span class="keep" data-vo-audio="audio/24-16.m4a" data-vo="A PreToolUse hook that exits 2 is a line the loop cannot cross. Keep it at project scope, checked in, so every clone inherits it. Go and install yours now."><b>Keep this</b>A PreToolUse hook that exits 2 is a line the loop cannot cross;
-    keep it at project scope, checked in, so every clone inherits it.</span>
   </div>
 </section>
 
@@ -1656,8 +1600,6 @@ and paste the final test output.</pre><button class="copy">Copy</button><span cl
     <span class="read" data-vo-audio="audio/25-15.m4a" data-vo="You decide the done rule for your real repos. Done means the named check passes, pasted. Anything else is a claim, and claims are what week 5 teaches agents to stop making."><b>What you decide:</b> the "done" rule for your real repos: done = the named
     check passes, pasted. Anything else is a claim, and claims are what week 5 teaches agents to stop
     making.</span>
-    <span class="keep" data-vo-audio="audio/25-16.m4a" data-vo="Believe a fix only when red turns green. Pin tests to fixed dates instead of the wall clock, and let the signal say done. Go and demand your failing tests now."><b>Keep this</b>Believe a fix only when red turns green; pin tests to fixed dates
-    instead of the wall clock, and let the signal say done.</span>
   </div>
 </section>
 
@@ -1722,8 +1664,6 @@ by running it first.</pre><button class="copy">Copy</button><span class="pbtag">
     <span class="read" data-vo-audio="audio/26-15.m4a" data-vo="You decide one thing from your actual backlog to run headless this week, while you work on something else. Write the claude -p line for it now, while the shape is fresh."><b>What you decide:</b> one thing from your actual backlog you'll run headless this
     week while you work on something else. Write the claude -p line for it now, while the shape is
     fresh.</span>
-    <span class="keep" data-vo-audio="audio/26-16.m4a" data-vo="claude -p turns Claude into a Unix tool. Draw the graph, split the independent branches, and let scoping prevent collisions. Open your two terminals now."><b>Keep this</b>claude -p turns Claude into a Unix tool; draw the graph, split
-    the independent branches, and let scoping prevent collisions.</span>
   </div>
 </section>
 
@@ -1747,8 +1687,6 @@ by running it first.</pre><button class="copy">Copy</button><span class="pbtag">
       proof, your rehearsal for the weekend's Application projects, and your first before/after
       story for week 9's retrospective.</p></div>
     </div>
-    <span class="keep" data-vo-audio="audio/27-04.m4a" data-vo="Captures save to this browser only, so use the same browser all week. If you would rather work on paper, the same skeleton lives in this week's data folder."><b>Keep this</b>Captures save to this browser only; use the same browser
-    throughout. Prefer paper? The same skeleton lives at weeks/week-1/data/capstone-report-template.md.</span>
   </div>
 </section>
 
@@ -1778,8 +1716,6 @@ you used.</pre><button class="copy">Copy</button><span class="pbtag">claude</spa
     <textarea class="cap" id="cap-audit" data-persist="cap-audit" placeholder="gh: … · MCP servers green: … · permissions: safe ran silently? dangerous stopped? · reach test: what it fetched without a paste · gaps: …"></textarea>
     <span class="read" data-vo-audio="audio/28-09.m4a" data-vo="You carry forward the gap list. Each gap is either a fix before Sunday's peer audit, or a named exception with a reason you can defend."><b>You carry forward:</b> the gap list. Each gap is either a fix before Sunday's
     peer audit or a named, deliberate exception with a reason.</span>
-    <span class="keep" data-vo-audio="audio/28-10.m4a" data-vo="Every system sits in one of three states. It is wired, prompting or missing, and a command proves which. That is what set up means from now on."><b>Keep this</b>Every system sits in one of three states, wired, prompting or
-    missing, and a command proves which; that's what "set up" means from now on.</span>
   </div>
 </section>
 
@@ -1809,8 +1745,6 @@ you used.</pre><button class="copy">Copy</button><span class="pbtag">claude</spa
     <textarea class="cap" id="cap-pick" data-persist="cap-pick" placeholder="The chore: … · Trigger: … · It does: … · Systems it touches: … · Proof it worked: …"></textarea>
     <span class="read" data-vo-audio="audio/29-05.m4a" data-vo="You carry forward a spec whose last sentence names the verify signal. You paste that same paragraph as the build prompt in step three, nearly word for word. Good specs are prompts."><b>You carry forward:</b> a spec whose last sentence names the verify signal.
     You'll paste this paragraph as the build prompt in step 3, nearly verbatim: good specs are prompts.</span>
-    <span class="keep" data-vo-audio="audio/29-06.m4a" data-vo="The spec is four sentences: trigger, action, systems and proof. If the proof sentence is hard to write, pick a different chore."><b>Keep this</b>The spec is four sentences, trigger, action, systems and proof;
-    if the proof sentence is hard to write, pick a different chore.</span>
   </div>
 </section>
 
@@ -1856,8 +1790,6 @@ tell me exactly how to run it.</pre><button class="copy">Copy</button><span clas
     <textarea class="cap" id="cap-ship" data-persist="cap-ship" placeholder="What I shipped and where it lives: … · Run 1 proof: … · Run 2 proof: … · What run 1 exposed that I fixed: …"></textarea>
     <span class="read" data-vo-audio="audio/30-06.m4a" data-vo="You carry forward a thing that works while you are not watching it. Note what the build consumed from your wiring, such as gh calls and MCP reads. None of that was possible on Monday."><b>You carry forward:</b> a thing that works while you don't watch it. Note what
     the build consumed from your wiring: gh calls, MCP reads. None of them were possible on Monday.</span>
-    <span class="keep" data-vo-audio="audio/30-07.m4a" data-vo="The path runs spec, build, proof, then proof again. The second untouched run is what shipped means this week. Work through the three moves now."><b>Keep this</b>The path runs spec, build, proof, then proof again; the second
-    untouched run is what "shipped" means this week.</span>
   </div>
 </section>
 
@@ -1900,8 +1832,6 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
     <textarea class="cap" id="cap-autopsy" data-persist="cap-autopsy" placeholder="Task: done-2 bug · Gather: what it read, what it missed … · Act: … · Verify: reproduced first? closing signal? … · Where I'd have trusted a wrong done: …"></textarea>
     <span class="read" data-vo-audio="audio/31-12.m4a" data-vo="You carry forward the autopsy instinct. A session that cannot survive this annotation did not earn its done, however confident it sounded."><b>You carry forward:</b> the autopsy instinct. A session that can't survive this
     annotation didn't earn its "done", however confident it sounded.</span>
-    <span class="keep" data-vo-audio="audio/31-13.m4a" data-vo="Reproduce, find the cause, fix, then add a regression test. You meet that debugging loop in miniature here, and week five makes it the centrepiece."><b>Keep this</b>Reproduce, find the cause, fix, then add a regression test; that
-    debugging loop, met here in miniature, is week 5's centrepiece.</span>
   </div>
 </section>
 
@@ -1926,8 +1856,6 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
     <span class="read" data-vo-audio="audio/32-03.m4a" data-vo="This report is the capstone, so paste it on your Week 1 Knowledge issue now, while it is warm. Its audit seeds the peer audit. Its shipping evidence feeds the second automation. Its autopsy rehearses the weekend's solo bug. Zero copy-paste is your bar now, so defend it."><b>This report is the capstone:</b> paste it on your Week 1 Knowledge issue now,
     while it's warm. Its audit seeds the peer audit, its shipping evidence feeds the second automation,
     and its autopsy rehearses the weekend's solo bug. Zero copy-paste is your bar now: defend it.</span>
-    <span class="keep" data-vo-audio="audio/32-04.m4a" data-vo="Export the report and paste it on the Knowledge issue. The deck's loop closes on GitHub, not in this browser."><b>Keep this</b>Export the report and paste it on the Knowledge issue; the deck's
-    loop closes on GitHub rather than in the browser.</span>
   </div>
 </section>
 
@@ -1954,9 +1882,8 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
         <ul>
           <li data-vo-audio="audio/33-04.m4a" data-vo="Re-drive the budget meter and the discipline sorter with your own week's numbers and your own incidents in mind. The widgets are local and unbreakable, so nothing you do to them matters.">Re-drive the budget meter and the discipline sorter with your own week's numbers and your
           own incidents in mind; the widgets are local and unbreakable.</li>
-          <li data-vo-audio="audio/33-05.m4a" data-vo="The Keep this bands, read top to bottom, are the week's summary. The colour-coded folds are the depth layer. They are In plain words, Under the hood, How industry does it, and the rest. Reopen any of them at any time, including from print.">The <b>Keep this</b> bands, read top to bottom, are the week's summary. The colour-coded folds
-          are the depth layer. They are In plain words, Under the hood, How industry does it, and the
-          rest. Reopen any of them, any time, including from print.</li>
+          <li data-vo-audio="audio/33-05.m4a" data-vo="The colour-coded folds are the depth layer of this deck. They are In plain words, Under the hood, How industry does it, and the rest. Reopen any of them, any time, including from a printed copy.">The colour-coded folds are the depth layer: In plain words, Under the hood,
+          How industry does it, and the rest. Reopen any of them any time, including from print.</li>
           <li data-vo-audio="audio/33-06.m4a" data-vo="Two optional deeper dives are worth searching by name. Anthropic's Claude Code best practices, and Building effective agents. Both are weekend-grade, and neither is required."><b>Optional deeper dives</b> (search by name): Anthropic's "Claude Code best practices" and
           "Building effective agents". Weekend-grade, not required.</li>
         </ul>
@@ -1964,8 +1891,6 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
     </div>
     <span class="read" data-vo-audio="audio/33-07.m4a" data-vo="Being stuck on wiring is the week working. An SSO wall examined in the open beats a quiet workaround that nobody else learns from."><b>Being stuck on wiring is the week working.</b> An SSO wall examined in the open
     beats a quiet workaround nobody else learns from.</span>
-    <span class="keep" data-vo-audio="audio/33-08.m4a" data-vo="Support lives on the issue thread. Public questions compound, and private ones evaporate."><b>Keep this</b>Support lives on the issue thread. Public questions compound;
-    private ones evaporate.</span>
   </div>
 </section>
 
@@ -1999,8 +1924,6 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
     CLAUDE.md grows into a documentation layer, and the gym repo gets the full treatment.</div>
     <span class="read" data-vo-audio="audio/34-07.m4a" data-vo="You fired yourself from the clipboard job. You can name the four disciplines, read a session by its beats, and prove your environment cold. See you in week two."><b>You fired yourself from the clipboard job.</b> You can name the four
     disciplines, read a session by its beats, and prove your environment cold. See you in week 2.</span>
-    <span class="keep" data-vo-audio="audio/34-08.m4a" data-vo="Finishing the deck does not finish the week. The milestone closes when all six issues close, on Sunday evening. The friction log starts today, and it does not stop. You arrived as the clipboard between Claude and everything else. You are leaving with that job wired away. Go and use it."><b>Keep this</b>Finishing the deck doesn't finish the week: the milestone closes
-    when all six issues close, Sunday EOD, and the friction-log habit starts today.</span>
   </div>
 </section>
 

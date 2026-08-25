@@ -82,7 +82,7 @@ question you may ask before going dark.
    files (templates the capstone/issues need, sample repos/briefs, fallback forms).
 2. Write the **voice-over** into the deck. Narration lives on the elements, not the
    section — see DECK-PLAYBOOK §1, "Voice-over is a teacher, not a reader". Every `.lead`,
-   every `li`, the `.keep`, each `details.fold`, the `.goalstrip`, any `.notice` and any
+   every `li`, each `details.fold`, the `.goalstrip`, any `.notice` and any
    `.read` carries its own `data-vo`; a `.lab` carries one script framing the widget. The
    voice covers the slide and then teaches it, so the verifier fails any slide under 90%
    of its prose words.

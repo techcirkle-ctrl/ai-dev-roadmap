@@ -17,13 +17,6 @@ if (secOpen !== secClose) bad("unbalanced <section> tags");
 
 const sections = html.split(/<section\b/).slice(1).map(s => s.split("</section>")[0]);
 
-// every slide: exactly one visible Keep-this band; data-act present
-sections.forEach((body, i) => {
-  const k = (body.match(/class="keep"/g) || []).length;
-  if (k !== 1) bad(`section ${i + 1}: keep bands = ${k} (want 1)`);
-});
-console.log(`keep bands: ${(html.match(/class="keep"/g) || []).length}`);
-
 // v2 grammar: the coach lives inside the widget; every widget self-checks
 sections.forEach((body, i) => {
   const isLab = body.includes('class="lab"');
@@ -114,6 +107,45 @@ if (thin.length) {
   thin.sort((a, b) => a.ratio - b.ratio).slice(0, 8)
     .forEach(t => console.log(`    section ${t.i}: ${t.said} narrated vs ${t.shown} prose words (${Math.round(t.ratio * 100)}%, want 90%+)`));
 } else if (voScripted) console.log("narration coverage: every scripted slide at 90%+");
+
+// narration illustration: the voice teaches, so it reaches for an example
+// (DECK-PLAYBOOK §1 — "reach for an example even where the slide had no room").
+// Honest about its own limits: no checker can tell a good analogy from a bad one,
+// and this detector under-counts, because plenty of real examples open with none of
+// these words. So it is a floor against absence, not a measure of quality. An act
+// that scores zero has no illustration anywhere in it, which is always a defect.
+// Capstone and close acts are exempt: those slides are instructions, and an analogy
+// dropped into a build step is padding.
+const ILLUS = /\b(picture (?:a|an|the|two|it)|imagine|think of|for example|suppose|compare two|staying with|analogy|the way (?:a|an|the|you|somebody)|is like a|works like|behaves like|reads like|you know this from)\b/i;
+const EXEMPT_ACT = /^\s*(capstone|close)\b/i;
+if (voScripted) {
+  const byAct = new Map();
+  sections.forEach(body => {
+    const scripts = [...body.matchAll(/\sdata-vo="([^"]*)"/g)].map(m => m[1]);
+    if (!scripts.length) return;
+    const act = (body.match(/data-act="([^"]*)"/) || [, "?"])[1];
+    const row = byAct.get(act) || { blocks: 0, ex: 0, teach: 0 };
+    row.blocks += scripts.length;
+    row.ex += scripts.filter(v => ILLUS.test(v)).length;
+    if (!/class="slide act"/.test(body) && !/hobadge/.test(body)) row.teach += 1;
+    byAct.set(act, row);
+  });
+  // one illustrated block per two teaching slides. The rate matters, not just the
+  // presence: a single analogy in a 57-block act is what a flat deck already scores.
+  const short = [...byAct]
+    .filter(([act, r]) => !EXEMPT_ACT.test(act) && r.teach > 0)
+    .map(([act, r]) => ({ act, ...r, need: Math.ceil(r.teach / 2) }))
+    .filter(r => r.ex < r.need);
+  if (short.length) {
+    bad(`acts whose narration recites instead of illustrating: ${short.length}`);
+    short.forEach(r => console.log(
+      `    ${r.act}: ${r.ex} illustrated of ${r.blocks} blocks, want ${r.need} across ${r.teach} teaching slides`));
+  } else {
+    const counts = [...byAct].filter(([act]) => !EXEMPT_ACT.test(act))
+      .map(([act, r]) => `${act.split("·").pop().trim()} ${r.ex}`);
+    console.log(`narration illustration: every act clears the floor (${counts.join(", ")})`);
+  }
+}
 
 // stamped audio must actually exist — a dead pointer silently drops the deck
 // back to the browser voice, which is the thing the files were rendered to avoid
@@ -278,16 +310,6 @@ if (longSents.length) {
   longSents.sort((a, b) => b.n - a.n).slice(0, 8)
     .forEach(s => console.log(`    ${s.n} words: "${s.sent.trim().slice(0, 90)}…"`));
 } else console.log("sentence cap (≤ 25 words): clean");
-
-// (d) keep band cap: one thought, ≤ 25 words (DECK-PLAYBOOK §1)
-const fatKeeps = [...proseHtml.matchAll(/<span class="keep">([\s\S]*?)<\/span>/g)]
-  .map(m => plain(m[1]).replace(/^Keep this\s*/i, ""))
-  .map(t => ({ t, n: wordsIn(t) }))
-  .filter(k => k.n > 25);
-if (fatKeeps.length) {
-  bad(`keep bands over 25 words: ${fatKeeps.length} — one thought per keep`);
-  fatKeeps.slice(0, 8).forEach(k => console.log(`    ${k.n} words: "${k.t.slice(0, 90)}…"`));
-} else console.log("keep band cap (≤ 25 words): clean");
 
 console.log(fail ? "RESULT: FAIL" : "RESULT: CLEAN");
 process.exit(fail ? 1 : 0);

@@ -61,7 +61,6 @@ Reuse these named patterns; don't invent parallel ones.
 | Inline check | `.wcheck` | One self-check question inside a reveal/simulator widget; its verdict writes the widget's `.scoreline`. Sorter widgets self-check per click instead. Every widget ends self-checking. |
 | Check your read | `.notice` | Hands-on panels only (terminal work the deck cannot observe). This exact label — never "What you just saw" / "What good looks like" (retired 2026-08-14). At most one; may absorb a short What-you-decide mini-lead. Never on widget panels. |
 | What you decide | `.read` | The decision the learner owns. Only where genuine; concrete decisions prefer a persisted micro-capture (confidence-box pattern). |
-| Keep this | `.keep` | One-line takeaway closing every slide (≤ 25 words); the keeps read in order are the week's glossary. |
 | Taught-later chip | `.soon` | Inline grey chip marking a term previewed now and taught in a later act ("taught in Act 4"). Kills the am-I-supposed-to-know-this moment on forward references. |
 | Teach list | `.teach ul` / `.fbody ul` | The default shape for teach prose that makes more than one point (spoken-English bar, 2026-08-24): one point per `li`, each a full sentence. Style matches teach paragraphs: `.teach ul,.fbody ul{margin:9px 0 9px 22px}` `.teach li,.fbody li{margin:6px 0;font-size:1.03rem}` (`.fbody li` at `.98rem`). Paragraphs are reserved for narrative — one point, ≤ 75 words, verifier-enforced. |
 

@@ -45,9 +45,6 @@ learner navigates alone, so the deck must say everything, on the glass:
   - `.read` — the **What you decide** band: only where a genuine decision exists.
     When the decision is concrete (a number, a default, a rule), prefer a persisted
     micro-capture (the confidence-box pattern) over rhetorical prose.
-  - `.keep` — a visible **Keep this** band closing every slide (read top-to-bottom
-    they form the week's glossary). Hard cap: one line — a single thought, ≤ 25
-    words; two short sentences only when the second is the action.
   - `details.fold` — the **optional-depth layer**: collapsible, colour-coded strips
     (see DESIGN.md for the six types). `.plain` "In plain words" unpacks the concept
     with an analogy or worked example; `.hood` "Under the hood" gives the mechanism;
@@ -69,7 +66,7 @@ learner navigates alone, so the deck must say everything, on the glass:
       you may compress is genuine repetition. The verifier measures narration words against
       the slide's prose words and fails anything under 90%.
     - **Narration lives on the elements, not the slide.** Each block carries its own
-      `data-vo`: every `.lead`, every `li`, the `.keep`, each `details.fold`, the
+      `data-vo`: every `.lead`, every `li`, each `details.fold`, the
       `.goalstrip`, the `.notice` and the `.read`. A `.lab` carries one script framing what
       the widget teaches and what to do with it — never a reading of its buttons. The
       slide's narration is those scripts played in document order.
@@ -148,8 +145,8 @@ learner navigates alone, so the deck must say everything, on the glass:
      assumptions, one decision", "one block, three costs: space, attention, spend".
      Write the sentence a person would say aloud: "Here you make two assumptions, but
      only one decision." A colon-led list may summarise a point only after the sentence
-     form has been said. This applies with full force to `.keep` bands and titles — an
-     aphorism that needs unpacking has failed.
+     form has been said. This applies with full force to slide titles — an aphorism that
+     needs unpacking has failed.
    - **Workplace words, not trade jargon.** Two vocabularies exist. Curriculum terms
      (token, context window, MCP, harness, hook, headless) are KEPT and defined at
      first use — rule 5. Trade shorthand that is not curriculum (spike, probe, delta,
@@ -166,11 +163,10 @@ learner navigates alone, so the deck must say everything, on the glass:
      sentences: one idea per sentence, average under 20 words, active voice,
      contractions welcome, the shorter commoner word (use not utilise, help not
      facilitate).
-   - **No sentence over 25 words** in learner-facing prose, and no `.keep` band over
-     25 words. Both are verifier-gated per element. A sentence that needs a comma-spliced
-     list or a colon-led tail to fit is two sentences.
-   - **Answer first.** Slide titles and `.keep` bands are full assertions, never
-     topics: "Hooks make guarantees the model can't skip", never "Hooks overview".
+   - **No sentence over 25 words** in learner-facing prose, verifier-gated per element.
+     A sentence that needs a comma-spliced list or a colon-led tail to fit is two
+     sentences.
+   - **Answer first.** Slide titles are full assertions, never topics: "Hooks make guarantees the model can't skip", never "Hooks overview".
    - **Banned in prose:** puffery and significance inflation (stands as, serves as,
      plays a vital role, marks a turning point); trailing participial clauses
      (", ensuring X" / ", reflecting Y"); default triads (vary to two, or four); vague
@@ -255,7 +251,7 @@ numbers (M1…) appear only beside their titles (agenda, kickers) — reference 
 4. Widgets: invent per concept; exercise every path; two-register rule on controls
    (status-quo = muted, lifted = teal).
 5. Verify: run the bundled verifier — `node .claude/skills/content-builder/check-deck.js
-   weeks/week-N/Knowledge.html` — until CLEAN (one `.keep` per section, `.drive` on every
+   weeks/week-N/Knowledge.html` — until CLEAN (`.drive` on every
    widget, no presenter remnants, no duplicate ids, persist/export wired, JS parses,
    Flesch reading ease ≥ 60 on teach prose).
    The browser pass (0 console errors, keys, steppers, copy, export, print) is the
@@ -269,6 +265,13 @@ After each week ships, corrections become one-line rules here (replace vaguer on
 bar only goes up), and the newest shipped deck becomes the reference implementation.
 
 **Log:**
+- 2026-08-25 · Trainer correction (retire the keep band): the `.keep` band is removed from
+  every deck and from this playbook. Closing each slide with a one-line restatement said
+  again what the slide had just taught, and the deck already ends a movement with its own
+  score line, notice or decision band. Slides now end on their last real point. The
+  verifier no longer counts bands or caps their length, `.keep` CSS is gone from the
+  decks, and weeks 1 to 3 were stripped the same day. Do not reintroduce a per-slide
+  takeaway under a new name.
 - 2026-08-04 · Repo founded as sister to `ai-pm-roadmap`; playbook inherited with the
   founding correction already applied (self-teaching on the glass, no presenter layer).
   Dev-cohort adaptations: dev altitude (rule 5), commands as first-class promptblocks,

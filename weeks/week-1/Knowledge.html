@@ -596,24 +596,24 @@ li.vohl{margin-left:-16px}
 <!-- ═══════════════ ACT 1 · THE AGENTIC LOOP ═══════════════ -->
 
 <!-- 7 · Act 1 divider -->
-<section class="slide act" data-act="Act 1 · The agentic loop" data-mv="Act opener" data-vo="An agent is a model in a loop with tools, so it gathers, acts and verifies on its own. This act teaches those three beats, and you finish by reading a real session on the gym repo.">
+<section class="slide act" data-act="Act 1 · The agentic loop" data-mv="Act opener">
   <div class="wrap">
     <div class="kicker">Act 1 · Day 1 · ~50 min</div>
     <h1 class="big">The agentic loop</h1>
-    <p class="lead mt14">Act 1 has exactly one idea: an <b>agent</b> is a model in a loop with tools.
+    <p class="lead mt14" data-vo="Act 1 has exactly one idea. An agent is a model in a loop with tools. Tools mean it can read your files, edit them, and run commands on your machine. Those are the jobs you currently do for it by hand. Loop means it repeats a cycle on its own. It does something, it looks at the result, then it decides the next step. Picture a junior engineer at your keyboard, rather than a chat window on your screen.">Act 1 has exactly one idea: an <b>agent</b> is a model in a loop with tools.
     Tools mean it can read files, edit them, and run commands on your machine: the things you currently
     do for it. Loop means it repeats a cycle on its own: do something, look at the result, decide the
     next step.</p>
-    <p class="lead mt14">So it <b>gathers</b> its own context, <b>acts</b> on your system, and
+    <p class="lead mt14" data-vo="So the agent gathers its own context, acts on your system, and verifies its own work. Those three words carry the whole act. The model is exactly as clever in chat as it is in an agent session. What changes is who runs the loop. Yesterday, that was you.">So it <b>gathers</b> its own context, <b>acts</b> on your system, and
     <b>verifies</b> its own work. The model's intelligence is the same in chat and agent; what changes
     is who runs the loop.</p>
     <ul class="sub mt14">
-      <li>M1 puts the two workflows side by side, and you count your hops.</li>
-      <li>M2 teaches the three beats every good turn has.</li>
-      <li>M3 teaches the brief shape that kills the back-and-forth.</li>
-      <li>Hands-on 01 has you read a real session on the gym repo, beat by beat.</li>
+      <li data-vo="M1 puts the two workflows side by side. You count your own hops as each one advances.">M1 puts the two workflows side by side, and you count your hops.</li>
+      <li data-vo="M2 teaches the three beats that every good turn has. Once you can name them, you can spot the one that went missing.">M2 teaches the three beats every good turn has.</li>
+      <li data-vo="M3 teaches the brief shape that kills the back-and-forth. A sharper brief means fewer questions coming back at you.">M3 teaches the brief shape that kills the back-and-forth.</li>
+      <li data-vo="Hands-on 01 has you read a real session on the gym repo, beat by beat. You run it on your own machine, so the transcript is yours.">Hands-on 01 has you read a real session on the gym repo, beat by beat.</li>
     </ul>
-    <details class="fold plain"><summary>In plain words · one lap of the loop, concretely</summary><div class="fbody">
+    <details class="fold plain" data-vo="Here is one lap of the loop, made concrete. You tell Claude Code that the weekly report lists a task twice, and you ask it to fix that. It opens the report code and reads it, and that is the gather beat. It spots the duplicate counting and edits one function, and that is the act beat. It runs your test command and reads the output, and that is verify. The tests pass, so it stops and shows you the diff. If a test had failed, it would have read the failure and gone round again, without you touching anything. That whole cycle, run by the model instead of by you, is the agentic loop. Everything else this week is plumbing, built to make that loop reach further and stay safe."><summary>In plain words · one lap of the loop, concretely</summary><div class="fbody">
       <p>You tell Claude Code: "the weekly report lists a task twice; fix it." It opens the report code
       and reads it (<b>gather</b>). It spots the duplicate counting and edits one function (<b>act</b>).
       It runs your test command and reads the output (<b>verify</b>). The tests pass, so it stops and
@@ -622,33 +622,33 @@ li.vohl{margin-left:-16px}
       anything. That whole cycle, run by the model instead of by you, is the agentic loop. Everything
       else this week is plumbing to make that loop reach further and safer.</p>
     </div></details>
-    <span class="keep"><b>Keep this</b>This act has one idea: the agent runs gather → act → verify
+    <span class="keep" data-vo="Keep one idea from this act. The agent runs gather, act and verify itself. Every failure you will ever debug is one of those three beats done badly."><b>Keep this</b>This act has one idea: the agent runs gather → act → verify
     itself, and every failure you'll ever debug is one of those beats done badly.</span>
   </div>
 </section>
 
 <!-- 8 · M1 divider -->
-<section class="slide" data-act="Act 1 · The agentic loop" data-mv="Chat vs agent" data-vo="The same model works both ways, and only the loop changes hands. In chat you carry the files and the errors by hand. In an agent session Claude reads, edits and runs the tests itself, so your work shrinks to the brief and the review. Advance both workflows and count who does the carrying.">
+<section class="slide" data-act="Act 1 · The agentic loop" data-mv="Chat vs agent">
   <div class="wrap">
     <div class="kicker">M1 · Chat vs agent</div>
     <h2 class="head">Chat vs agent: the loop changes hands</h2>
-    <div class="goalstrip"><b>Goal</b>Feel the structural difference: the same model, with tools and a loop, stops needing you between every step.</div>
-    <div class="teach"><p>Same task, two workflows: "the weekly report prints a task twice; find it and fix
+    <div class="goalstrip" data-vo="The goal here is to feel the structural difference. The same model, given tools and a loop, stops needing you between every step."><b>Goal</b>Feel the structural difference: the same model, with tools and a loop, stops needing you between every step.</div>
+    <div class="teach"><p data-vo="It is one task run two ways. The weekly report prints a task twice, so find it and fix it. On the left you drive a chat window by hand. On the right a Claude Code session drives itself. You will step both to completion and count who does the carrying.">Same task, two workflows: "the weekly report prints a task twice; find it and fix
     it." On the left, you drive a chat window. On the right, a Claude Code session drives itself. You're
     about to step both to completion and count who does the carrying.</p></div>
     <div class="teach">
-      <p>The task is real; you'll meet this exact bug in the gym repo later this week. What matters here
+      <p data-vo="The task is real. You meet this exact bug in the gym repo later this week. What matters right now is the traffic pattern, not the bug itself.">The task is real; you'll meet this exact bug in the gym repo later this week. What matters here
       is the traffic pattern.</p>
       <ul>
-        <li>In chat, the model can only see what you paste, and can only "do" what you carry out for
+        <li data-vo="In chat, the model only sees what you paste. It can only do what you carry out for it. Paste half a file, and it reasons about half a file.">In chat, the model can only see what you paste, and can only "do" what you carry out for
         it.</li>
-        <li>In an agent session, the model has tools: it reads files itself, edits them itself, and runs
+        <li data-vo="In an agent session the model holds tools. It reads files itself, it edits them itself, and it runs the tests itself.">In an agent session, the model has tools: it reads files itself, edits them itself, and runs
         the tests itself.</li>
-        <li>Your involvement collapses to two points: the brief at the start and the review at the
+        <li data-vo="Your involvement collapses to two points. You write the brief at the start, and you review at the end. The middle stops being your job.">Your involvement collapses to two points: the brief at the start and the review at the
         end.</li>
       </ul>
     </div>
-    <div class="lab" id="wloop">
+    <div class="lab" id="wloop" data-vo="This widget counts hops, and a hop is one move of text made by a human hand. Advance both workflows and watch the two counters separate. The step count stays similar, so the difference is who does the stepping. Then read the tally, and compare it against your own yesterday.">
       <div class="labtitle">Widget · <b>the hop counter</b></div>
       <div class="cuebar"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
@@ -672,7 +672,7 @@ li.vohl{margin-left:-16px}
       <p class="scoreline" id="wloopScore"></p>
       <div class="cueall"></div>
     </div>
-    <details class="fold industry"><summary>How industry does it · every serious coding tool now runs this loop</summary><div class="fbody">
+    <details class="fold industry" data-vo="The loop you just watched is not a Claude Code quirk. The whole industry has landed on the same shape. Claude Code runs it in the terminal. Cursor and Windsurf run it inside an editor. GitHub Copilot's coding agent runs it on GitHub's servers. The interfaces differ, and gather, act and verify is the shared shape underneath. So the skills this week builds carry across. Writing a sharp brief, reviewing an agent's work and reading a session all transfer to whichever tool your next team uses. The loop is the durable skill, and products come and go."><summary>How industry does it · every serious coding tool now runs this loop</summary><div class="fbody">
       <p>The loop you just watched is not a Claude Code quirk; the whole industry has landed on it.
       Claude Code runs it in the terminal. Cursor and Windsurf run the same loop inside an editor. GitHub
       Copilot's coding agent runs it on GitHub's servers.</p>
@@ -680,38 +680,38 @@ li.vohl{margin-left:-16px}
       builds (writing a sharp brief, reviewing an agent's work, reading a session) transfer to whichever
       tool your next team uses. The loop is the durable skill; products come and go.</p>
     </div></details>
-    <span class="keep"><b>Keep this</b>An agent is a model, plus tools, plus a loop. Your job moves to
+    <span class="keep" data-vo="An agent is a model, plus tools, plus a loop. Your job moves to the two ends. Give a sharp brief, then do a real review."><b>Keep this</b>An agent is a model, plus tools, plus a loop. Your job moves to
     the two ends: a sharp brief and a real review.</span>
   </div>
 </section>
 
 <!-- 10 · M2 divider -->
-<section class="slide" data-act="Act 1 · The agentic loop" data-mv="Gather, act, verify" data-vo="Every good agent turn has three beats: gather, act and verify. Gather is reading and grepping, act is editing and running, verify is checking the result against the ask. When a session goes wrong, one beat was missing or done badly. Tag each row of the gym repo transcript with its beat, and watch for the two traps.">
+<section class="slide" data-act="Act 1 · The agentic loop" data-mv="Gather, act, verify">
   <div class="wrap">
     <div class="kicker">M2 · Gather, act, verify</div>
     <h2 class="head">Gather, act, verify: every turn has three beats</h2>
-    <div class="goalstrip"><b>Goal</b>Learn to tag any transcript event as gather, act or verify, fast enough that it becomes automatic.</div>
+    <div class="goalstrip" data-vo="Your goal is to tag any transcript event as gather, act or verify. Do it fast enough that it becomes automatic."><b>Goal</b>Learn to tag any transcript event as gather, act or verify, fast enough that it becomes automatic.</div>
     <div class="teach">
-      <p>A <b>beat</b> here is a stage in the rhythm, like a beat in a bar of music. Open any good agent
+      <p data-vo="A beat here is a stage in a rhythm, like a beat in a bar of music. Open any good agent transcript and the same three keep appearing.">A <b>beat</b> here is a stage in the rhythm, like a beat in a bar of music. Open any good agent
       transcript and the same three appear.</p>
       <ul>
-        <li><b>Gather:</b> the model reads files, greps and lists, learning the territory before
+        <li data-vo="Gather is the reading beat. The model reads files, greps and lists, learning the territory before it touches anything."><b>Gather:</b> the model reads files, greps and lists, learning the territory before
         touching it.</li>
-        <li><b>Act:</b> it edits, writes, and runs the change.</li>
-        <li><b>Verify:</b> it runs the tests, checks the output, and compares the result against what
+        <li data-vo="Act is the changing beat. It edits, it writes, and it runs the change."><b>Act:</b> it edits, writes, and runs the change.</li>
+        <li data-vo="Verify is the checking beat. It runs the tests, checks the output, and compares the result against what you asked for."><b>Verify:</b> it runs the tests, checks the output, and compares the result against what
         was asked.</li>
       </ul>
-      <p>When a session goes wrong, one beat is missing or done badly. Reading sessions by beat is the
+      <p data-vo="When a session goes wrong, one beat is missing or done badly. Reading sessions by beat is the diagnostic skill of the whole programme. It is also the fastest thing you will learn today.">When a session goes wrong, one beat is missing or done badly. Reading sessions by beat is the
       diagnostic skill of the whole programme.</p>
     </div>
     <div class="teach">
-      <p>Below is a condensed transcript of a Claude Code session on the gym repo. The task was: "the
+      <p data-vo="What follows is a condensed transcript of a Claude Code session on the gym repo. The task was to fix a weekly report that shows a task twice. Each row is one tool call, meaning one use of one tool. Reading a file is one. Running a command is one. They appear in the order they happened.">Below is a condensed transcript of a Claude Code session on the gym repo. The task was: "the
       weekly report shows a task twice; fix it." Each row is one <b>tool call</b>, meaning one use of
       one tool (read a file, run a command), in order.</p>
-      <p>Tag every row with its beat. Two rows are traps: one looks like action but is gathering, and
+      <p data-vo="Tag every row with its beat. Two rows are traps. One looks like action but is really gathering. The other is the beat that most sessions quietly skip.">Tag every row with its beat. Two rows are traps: one looks like action but is gathering, and
       the other is the beat most sessions skip.</p>
     </div>
-    <details class="fold hood"><summary>Under the hood · what a "tool call" actually is</summary><div class="fbody">
+    <details class="fold hood" data-vo="Here is what a tool call actually is, under the hood. The model can only produce text, so reading a file really happens in three moves. The model writes a structured request, such as call the Read tool on src/report.js. The Claude Code program executes that request. The file contents come back as text into the conversation. Running a command works the same way. The model requests the Bash tool, your machine runs the command, and the output flows back in. Errors come back by the same route. A session transcript is that exchange repeated: request, result, request, result. That is why you can read any session as a sequence of tool calls. It literally is one."><summary>Under the hood · what a "tool call" actually is</summary><div class="fbody">
       <p>The model can only produce text. So "reading a file" really happens in three moves. The
       model writes a structured request, such as "call the Read tool on src/report.js". The Claude
       Code program executes it. The file's contents come back as text into the conversation.</p>
@@ -720,44 +720,44 @@ li.vohl{margin-left:-16px}
       exchange repeated: request, result, request, result. That's why you can read any session as a
       sequence of tool calls; it literally is one.</p>
     </div></details>
-    <div class="lab" id="wtrace">
+    <div class="lab" id="wtrace" data-vo="The tracer holds that transcript, one row at a time. Choose a beat for each row and it tells you straight away whether you were right. Slow down on the two traps, and say out loud why you chose what you chose. The score at the end is your calibration, not a grade.">
       <div class="labtitle">Widget · <b>the session tracer</b></div>
       <div class="cuebar"></div>
       <div id="wtraceRows"></div>
       <p class="scoreline" id="wtraceScore"></p>
       <div class="cueall"></div>
     </div>
-    <span class="read"><b>What you decide:</b> from now on, when a session feels off, you don't say
+    <span class="read" data-vo="From now on, when a session feels off, you do not say Claude was weird. You say which beat failed. It gathered too little, or it acted too wide, or it verified nothing."><b>What you decide:</b> from now on, when a session feels off, you don't say
     "Claude was weird". You say which beat failed: gathered too little, acted too wide, verified
     nothing.</span>
-    <span class="keep"><b>Keep this</b>The same command can be either beat: checks before an edit are
+    <span class="keep" data-vo="The same command can be either beat. A check before an edit is gather, and the same check after an edit is verify. Intent defines the beat."><b>Keep this</b>The same command can be either beat: checks before an edit are
     gather, checks after are verify. Intent defines the beat.</span>
   </div>
 </section>
 
 <!-- 11b · M3 divider -->
-<section class="slide" data-act="Act 1 · The agentic loop" data-mv="The well-formed brief" data-vo="Stop typing requests and start writing briefs. A brief has five parts: role, task, constraints, examples and output. Every part you leave out becomes a question later, and every question re-sends the whole conversation to the model. Advance both runs and count what the vague ask cost in turns.">
+<section class="slide" data-act="Act 1 · The agentic loop" data-mv="The well-formed brief">
   <div class="wrap">
     <div class="kicker">M3 · The well-formed brief</div>
     <h2 class="head">A well-formed brief kills the back-and-forth</h2>
-    <div class="goalstrip"><b>Goal</b>Watch the same task run from a vague ask and from a five-part brief, and count what the vagueness cost in turns and tokens.</div>
+    <div class="goalstrip" data-vo="Your goal is to watch one task run twice. Once from a vague ask, and once from a five-part brief. Then count what the vagueness cost in turns and in tokens."><b>Goal</b>Watch the same task run from a vague ask and from a five-part brief, and count what the vagueness cost in turns and tokens.</div>
     <div class="teach">
-      <p>The most practical mindset shift of the week costs nothing to adopt: stop typing requests,
+      <p data-vo="The most practical mindset shift of the week costs nothing to adopt. Stop typing requests, and start writing briefs. A brief is a prompt with the shape of a spec, and it has five parts.">The most practical mindset shift of the week costs nothing to adopt: stop typing requests,
       start writing briefs. A <b>brief</b> is a prompt with the shape of a spec, and it has five
       parts.</p>
       <ul>
-        <li><b>Role</b> says who Claude should work as.</li>
-        <li><b>Task</b> names the outcome you want, rather than the activity.</li>
-        <li><b>Constraints</b> say what must and must not happen.</li>
-        <li><b>Examples</b> show the shape: one input and output pair beats a paragraph of
+        <li data-vo="Role says who Claude should work as. A release manager and a compiler engineer write very different things."><b>Role</b> says who Claude should work as.</li>
+        <li data-vo="Task names the outcome you want, rather than the activity. Ask for release notes, not for a trawl through the commits."><b>Task</b> names the outcome you want, rather than the activity.</li>
+        <li data-vo="Constraints say what must happen and what must not. They are the fence around the work."><b>Constraints</b> say what must and must not happen.</li>
+        <li data-vo="Examples show the shape you want. One pair of input and output beats a paragraph of description."><b>Examples</b> show the shape: one input and output pair beats a paragraph of
         description.</li>
-        <li><b>Output</b> describes what done looks like, and what proves it.</li>
+        <li data-vo="Output describes what done looks like, and what proves it."><b>Output</b> describes what done looks like, and what proves it.</li>
       </ul>
-      <p>Every part you leave out becomes a <b>round-trip</b> later: Claude asks, you answer. And every
+      <p data-vo="Every part you leave out becomes a round-trip later. Claude asks, and then you answer. Every round-trip re-sends the whole conversation to the model. Act 3 shows you why that costs money.">Every part you leave out becomes a <b>round-trip</b> later: Claude asks, you answer. And every
       round-trip re-sends the whole conversation to the model. <span class="soon">why that costs money:
       Act 3</span></p>
     </div>
-    <details class="fold plain"><summary>In plain words · a full five-part brief, worked</summary><div class="fbody">
+    <details class="fold plain" data-vo="Here is the full five-part brief, worked line by line. The role line says you are the release manager for relay's users. That sets the perspective, because a release manager writes for users rather than for the team. The task line says draft release notes covering changes since the last tag. That names the outcome. Look through the commits would have named an activity instead. The constraints line says user-visible changes only, and no internal refactors. That is the fence. Without it Claude has to guess, and a guess in either direction wastes a turn. The example line gives one sample: fixed, the weekly report no longer lists a task twice. One sample line does more than a paragraph about tone, because Claude copies patterns better than it follows adjectives. The output line asks for markdown bullets, grouped under Fixed and Added, in eighty words or fewer. That is what done looks like, and it is checkable at a glance. Five short lines, and nothing clever in any of them. The power is that nothing is left for Claude to ask about."><summary>In plain words · a full five-part brief, worked</summary><div class="fbody">
       <p>Here is the brief the widget's right-hand run uses, line by line.</p>
       <ul>
         <li><b>Role:</b> "You're the release manager for relay's users." This sets the perspective; a
@@ -776,14 +776,14 @@ li.vohl{margin-left:-16px}
       Claude to ask about.</p>
     </div></details>
     <div class="teach">
-      <p>The task is to get a release-notes draft out of the relay repo's recent commits. The left run
+      <p data-vo="The task is to get a release-notes draft out of the relay repo's recent commits. The left run opens with the ask most developers type. The right run opens with five labelled lines. Neither model is smarter, and only the brief changed.">The task is to get a release-notes draft out of the relay repo's recent commits. The left run
       opens with the ask most developers type. The right run opens with five labelled lines. Neither
       model is smarter; only the brief changed.</p>
-      <p>Vagueness is expensive: each clarifying question costs a full round-trip, and each round-trip
+      <p data-vo="Vagueness is expensive. Each clarifying question costs a full round-trip. Each round-trip re-sends the whole growing conversation to the model. So the vague path literally pays for its own questions.">Vagueness is expensive: each clarifying question costs a full round-trip, and each round-trip
       re-sends the whole growing conversation to the model. The vague path literally pays for its own
       questions.</p>
     </div>
-    <div class="lab" id="wbrief">
+    <div class="lab" id="wbrief" data-vo="The comparator runs both prompts beside each other. Advance them and watch the turn counters drift apart. Try to predict the gap before you press. Then decide what those extra turns would cost you on a busy afternoon.">
       <div class="labtitle">Widget · <b>the brief comparator</b></div>
       <div class="cuebar"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
@@ -807,42 +807,42 @@ li.vohl{margin-left:-16px}
       <p class="scoreline" id="wbriefScore"></p>
       <div class="cueall"></div>
     </div>
-    <span class="read"><b>What you decide:</b> your default brief skeleton. Write it once in your notes:
+    <span class="read" data-vo="Decide your default brief skeleton now. Write it once in your notes as role, task, constraints, example, and output with proof. Use it on every non-trivial prompt this week. Log a line in the friction log each time skipping it cost you a round-trip."><b>What you decide:</b> your default brief skeleton. Write it once in your notes:
     role · task · constraints · example · output-with-proof. Use it on every non-trivial prompt this
     week, and log in the friction log each time skipping it cost you a round-trip.</span>
-    <span class="keep"><b>Keep this</b>The five parts are role, task, constraints, examples and output;
+    <span class="keep" data-vo="The five parts are role, task, constraints, examples and output. Every missing part becomes a question. Every question re-sends the conversation that you pay for."><b>Keep this</b>The five parts are role, task, constraints, examples and output;
     every missing part becomes a question, and every question re-sends the conversation you pay for.</span>
   </div>
 </section>
 
 <!-- 12 · H-O 01 divider -->
-<section class="slide" data-act="Act 1 · The agentic loop" data-mv="Read a live session" data-vo="Now produce a real transcript instead of tagging a canned one. You copy the gym repo, called relay, into your home directory and start Claude Code there. Give it the one task, then take your hands off the keyboard. Log which files it reads, what it runs, and whether it verifies without being asked.">
+<section class="slide" data-act="Act 1 · The agentic loop" data-mv="Read a live session">
   <div class="wrap">
     <div class="hobadge">Hands-on · 01</div><span class="ho">~20 min</span>
     <h2 class="head">Read a live session</h2>
-    <div class="goalstrip"><b>Goal</b>Watch a real gather → act → verify cycle on your own machine, and log the beats as they happen.</div>
-    <div class="teach"><p>You've tagged a canned transcript. Now produce a real one. You'll point Claude
+    <div class="goalstrip" data-vo="The goal is to watch a real gather, act and verify cycle on your own machine. Log the beats as they happen, rather than afterwards from memory."><b>Goal</b>Watch a real gather → act → verify cycle on your own machine, and log the beats as they happen.</div>
+    <div class="teach"><p data-vo="You have tagged a canned transcript, so now you produce a real one. You point Claude Code at the gym repo, which is a small task tracker with problems it does not know about yet. Give it one task, then watch the loop run with your own eyes. Watch which files it reads, what it changes, and whether it verifies without being asked.">You've tagged a canned transcript. Now produce a real one. You'll point Claude
     Code at the gym repo, which is a small task tracker with problems it doesn't know about yet. Give it
     one task, then watch the loop run with your own eyes. Watch which files it reads, what it changes,
     and whether it verifies without being asked.</p></div>
     <div class="teach">
-      <p>The gym repo is <b>relay</b>: a tiny task-tracker CLI, no dependencies, node 20+. It works,
+      <p data-vo="The gym repo is called relay. It is a tiny task-tracker command-line tool, with no dependencies, running on node 20 or newer. It works, mostly. Do not study it yourself yet, because the point is watching Claude study it.">The gym repo is <b>relay</b>: a tiny task-tracker CLI, no dependencies, node 20+. It works,
       mostly. Don't study it yourself yet; the point is watching Claude study it.</p>
     </div>
-    <div class="hostep">Step 1 — copy the gym out of the course folder and open a session</div>
+    <div class="hostep" data-vo="Step one copies the gym out of the course folder and opens a session. You copy the folder into your home directory, start a git repository there, then launch claude. Working on a copy means you can break it freely.">Step 1 — copy the gym out of the course folder and open a session</div>
     <div class="promptblock"><pre>cp -R weeks/week-1/data/gym ~/relay-gym && cd ~/relay-gym && git init -q && claude</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
-    <div class="hostep">Step 2 — give it one task, then take your hands off the keyboard</div>
+    <div class="hostep" data-vo="Step two gives it one task, and then you take your hands off the keyboard. The urge to help is strong, and helping ruins the observation.">Step 2 — give it one task, then take your hands off the keyboard</div>
     <div class="promptblock"><pre>Get to know this repo, then: add a task via the CLI called "write release notes"
 owned by me, mark task 2 done, and show me this week's report. Tell me what you
 ran and what you noticed.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
-    <div class="hostep">Step 3 — log the beats in your notes as they scroll past</div>
+    <div class="hostep" data-vo="Step three logs the beats in your notes as they scroll past. Four questions guide what you write down.">Step 3 — log the beats in your notes as they scroll past</div>
     <ul class="checks">
-      <li>Gather: which files did it read first? Did it read the README, and did the README mislead it?</li>
-      <li>Act: what did it run? Note the exact commands.</li>
-      <li>Verify: after acting, did it check anything unprompted? What kind of check?</li>
-      <li>Did it flag anything odd about the repo on its own (the report, the numbering)?</li>
+      <li data-vo="For gather, note which files it read first. Did it read the README, and did the README mislead it?">Gather: which files did it read first? Did it read the README, and did the README mislead it?</li>
+      <li data-vo="For act, note what it ran. Write down the exact commands, rather than a summary of them.">Act: what did it run? Note the exact commands.</li>
+      <li data-vo="For verify, note whether it checked anything unprompted after acting, and what kind of check that was.">Verify: after acting, did it check anything unprompted? What kind of check?</li>
+      <li data-vo="Also note whether it flagged anything odd about the repo on its own, such as the report or the numbering.">Did it flag anything odd about the repo on its own (the report, the numbering)?</li>
     </ul>
-    <details class="fold trouble"><summary>Stuck? · install, silent runs, odd output</summary><div class="fbody">
+    <details class="fold trouble" data-vo="Three things can go wrong here. If Claude is not installed, install it globally with npm, then run claude --version to confirm. If it finishes in one shot with no visible reading, ask it to walk you back through what it read before acting, in order. That recap is your transcript, so tag the beats from it. If the report output looks wrong, that is good news. Note it and leave it alone, because it is Thursday's material."><summary>Stuck? · install, silent runs, odd output</summary><div class="fbody">
       <p><b>If Claude isn't installed:</b> <code>npm install -g @anthropic-ai/claude-code</code>, then
       <code>claude --version</code> to confirm.</p>
       <p><b>If it finishes in one shot without visible reading:</b> ask "walk me back through what you
@@ -850,14 +850,14 @@ ran and what you noticed.</pre><button class="copy">Copy</button><span class="pb
       <p><b>If the report output looks wrong:</b> good. Note it and leave it; it's Thursday's
       material.</p>
     </div></details>
-    <div class="notice"><b>Check your read:</b> a good session reads before it runs (cli.js at
+    <div class="notice" data-vo="Check your read against this. A good session reads before it runs, and it reads cli.js at minimum. It acts through the actual command-line tool, rather than editing data files by hand. It shows you real command output. The report will list one task twice. If Claude noticed that unprompted, you watched a gather beat pay off. If it did not, you just learnt that agents verify what they are pointed at, and nothing else."><b>Check your read:</b> a good session reads before it runs (cli.js at
     minimum), acts with the actual CLI rather than editing data files by hand, and shows you real command
     output. The report will list one task twice. If Claude noticed that unprompted, you watched a gather
     beat pay off. If it didn't, you just learnt that agents verify what they're pointed at, and nothing
     else.</div>
-    <span class="read"><b>What you decide:</b> did the session earn trust? Write one line: what
+    <span class="read" data-vo="Decide whether the session earned your trust. Write one line naming the machine-produced evidence that closed the loop. If nothing did, name what would have, had you asked for it."><b>What you decide:</b> did the session earn trust? Write one line: what
     machine-produced evidence closed the loop, or what would have, if it had been asked for.</span>
-    <span class="keep"><b>Keep this</b>Agents verify what they're pointed at. Name no check, and the
+    <span class="keep" data-vo="Agents verify what they are pointed at. Name no check, and the loop closes on a feeling. Week 5 automates the pointing. Now open your terminal, copy the gym repo across, and give Claude that one task."><b>Keep this</b>Agents verify what they're pointed at. Name no check, and the
     loop closes on a feeling. Week 5 automates the pointing.</span>
   </div>
 </section>
@@ -865,63 +865,63 @@ ran and what you noticed.</pre><button class="copy">Copy</button><span class="pb
 <!-- ═══════════════ ACT 2 · WIRING DAY ═══════════════ -->
 
 <!-- 14 · Act 2 divider -->
-<section class="slide act" data-act="Act 2 · Wiring day" data-mv="Act opener" data-vo="Wiring day connects Claude to the systems you work in, so it stops going through your clipboard. You wire gh, then MCP servers, then a permission baseline, and the exit bar is zero copy-paste.">
+<section class="slide act" data-act="Act 2 · Wiring day" data-mv="Act opener">
   <div class="wrap">
     <div class="kicker">Act 2 · Day 2 · ~45 min</div>
     <h1 class="big">Wiring day</h1>
-    <p class="lead mt14"><b>Wiring</b> means connecting Claude to the systems you work in, so it can act
+    <p class="lead mt14" data-vo="Wiring means connecting Claude to the systems you work in. It then acts on them directly, instead of going through your clipboard. Copy-paste is the first inefficiency this programme removes. It goes on day two rather than in week six, because everything later leans on it."><b>Wiring</b> means connecting Claude to the systems you work in, so it can act
     on them directly instead of through your clipboard. Copy-paste is the first inefficiency this
     programme removes, and it goes on day two rather than week six.</p>
-    <p class="lead mt14">The act wires three pieces. <b>gh</b>, GitHub's command-line tool, puts GitHub
+    <p class="lead mt14" data-vo="The act wires three pieces. gh, GitHub's command-line tool, puts GitHub in the loop. MCP puts your team's other systems in the loop. A permission baseline decides what runs without asking you. The exit bar has a name, and the name is zero copy-paste.">The act wires three pieces. <b>gh</b>, GitHub's command-line tool, puts GitHub
     in the loop. <b>MCP</b> puts your team's other systems in the loop. A <b>permission baseline</b>
     decides what runs without asking. The exit bar has a name: zero copy-paste.</p>
     <ul class="sub mt14">
-      <li>Hands-on 02 wires gh, and you drive it from inside a session.</li>
-      <li>M5 explains MCP's shape.</li>
-      <li>Hands-on 03 connects your first two servers.</li>
-      <li>Hands-on 04 sets the permission baseline.</li>
+      <li data-vo="Hands-on 02 wires gh, and you drive it from inside a session.">Hands-on 02 wires gh, and you drive it from inside a session.</li>
+      <li data-vo="M5 explains the shape of MCP, so that the commands later make sense.">M5 explains MCP's shape.</li>
+      <li data-vo="Hands-on 03 connects your first two servers.">Hands-on 03 connects your first two servers.</li>
+      <li data-vo="Hands-on 04 sets the permission baseline.">Hands-on 04 sets the permission baseline.</li>
     </ul>
-    <span class="keep"><b>Keep this</b>The bar is testable. This week another learner asks one question on
+    <span class="keep" data-vo="The bar is testable, and that is the point. This week another learner asks one question on your machine. Can Claude reach every system it needs while you touch nothing?"><b>Keep this</b>The bar is testable. This week another learner asks one question on
     your machine. Can Claude reach every system it needs while you touch nothing?</span>
   </div>
 </section>
 
 <!-- 15 · M4 / H-O 02 divider -->
-<section class="slide" data-act="Act 2 · Wiring day" data-mv="gh CLI wired" data-vo="Claude Code runs any command-line tool you can, so gh is the fastest wiring win. Once gh is authenticated, issues, pull requests and milestones become commands the agent runs itself. Install gh, run gh auth login, and check that gh auth status shows your account. Then have Claude read the cohort board and round-trip a test issue itself.">
+<section class="slide" data-act="Act 2 · Wiring day" data-mv="gh CLI wired">
   <div class="wrap">
     <div class="hobadge">Hands-on · 02</div><span class="ho">~15 min</span>
     <h2 class="head">gh: GitHub becomes a tool call</h2>
-    <div class="goalstrip"><b>Goal</b>Authenticate gh, then watch Claude use it unprompted: reading real issues on the cohort repo, creating and closing a test issue.</div>
-    <div class="teach"><p>Claude Code can run any CLI you can. So the fastest wiring win is the official
+    <div class="goalstrip" data-vo="The goal is to authenticate gh, then watch Claude use it unprompted. It reads real issues on the cohort repo, and it creates and closes a test issue."><b>Goal</b>Authenticate gh, then watch Claude use it unprompted: reading real issues on the cohort repo, creating and closing a test issue.</div>
+    <div class="teach"><p data-vo="Claude Code can run any command-line tool that you can run. So the fastest wiring win is the official GitHub tool. Once gh is authenticated, issues, pull requests, milestones and releases stop being a browser tab you retype from. They become commands the agent runs itself. This entire programme is tracked in GitHub issues, so from today Claude reads yours directly.">Claude Code can run any CLI you can. So the fastest wiring win is the official
     GitHub CLI. Once <b>gh</b> is authenticated, issues, PRs, milestones and releases stop being a
     browser tab you retype from. They become commands the agent runs itself. This entire programme is tracked in
     GitHub issues; from today, Claude reads yours directly.</p></div>
-    <div class="hostep">Step 1 — install and authenticate (skip what you already have)</div>
+    <div class="hostep" data-vo="Step one installs gh and authenticates it. Skip whatever you already have.">Step 1 — install and authenticate (skip what you already have)</div>
     <div class="promptblock"><pre>brew install gh
 gh auth login
 gh auth status</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
-    <div class="hodo">Pick github.com → HTTPS → login with a web browser. <b>gh auth status</b> must show
+    <div class="hodo" data-vo="Pick github.com, then HTTPS, then log in with a web browser. gh auth status must show your account before you continue. On Linux, use your package manager instead of brew.">Pick github.com → HTTPS → login with a web browser. <b>gh auth status</b> must show
     your account before you continue. Linux: use your package manager instead of brew.</div>
-    <div class="hostep">Step 2 — from inside a Claude session, make it read the cohort's real board</div>
+    <div class="hostep" data-vo="Step two runs from inside a Claude session. You make it read the cohort's real board.">Step 2 — from inside a Claude session, make it read the cohort's real board</div>
     <div class="promptblock"><pre>Using the gh CLI, list the open issues on techcirkle-ctrl/ai-dev-roadmap and
 summarise what week 1 asks of me in three lines.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
-    <div class="hostep">Step 3 — round-trip: create, verify, close</div>
+    <div class="hostep" data-vo="Step three is the round-trip. Claude creates an issue, then you verify it, then Claude closes it.">Step 3 — round-trip: create, verify, close</div>
     <div class="promptblock"><pre>Create an issue titled "wiring test — [your name]" on techcirkle-ctrl/ai-dev-roadmap
 with body "gh wired via Claude Code", show me its URL, then close it with a comment
 "round-trip complete".</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
     <ul class="checks">
-      <li>Claude ran gh itself; you typed no gh command in steps 2–3</li>
-      <li>The summary matches what's actually on the board (spot-check one issue on github.com)</li>
-      <li>The test issue exists, then reads closed, on github.com</li>
+      <li data-vo="Check that Claude ran gh itself. You typed no gh command in steps two and three.">Claude ran gh itself; you typed no gh command in steps 2–3</li>
+      <li data-vo="Check that the summary matches what is actually on the board. Spot-check one issue on github.com.">The summary matches what's actually on the board (spot-check one issue on github.com)</li>
+      <li data-vo="Check that the test issue exists, and then reads as closed, on github.com.">The test issue exists, then reads closed, on github.com</li>
     </ul>
-    <details class="fold btw"><summary>By the way · gh and git are different tools</summary><div class="fbody">
+    <details class="fold btw" data-vo="It is easy to blur gh and git, and worth separating them. git moves code. It handles commits, branches and pushes, and it works against any host. gh talks to GitHub the service. That means issues, pull requests, milestones and releases, the things you normally click through in a browser tab. Claude already had git through your terminal. What you just wired is the service half. Together they cover everything on the GitHub side without a browser."><summary>By the way · gh and git are different tools</summary><div class="fbody">
       <p>Easy to blur, worth separating: <b>git</b> moves code (commits, branches, pushes) and works
       against any host. <b>gh</b> talks to GitHub the service: issues, pull requests, milestones,
       releases, the things you normally click through in a browser tab. Claude already had git through
       your terminal; what you just wired is the service half. Together they cover everything GitHub-side
       without a browser.</p>
     </div></details>
-    <details class="fold trouble"><summary>Stuck? · permission prompts, SSO, no brew</summary><div class="fbody">
+    <details class="fold trouble" data-vo="Three things trip people up here. Permission prompts on every gh call are expected today, and that is tomorrow's movement, so approve them for now. If org repos are blocked by single sign-on, which is your company's central login, refresh your gh authorisation with the repo scope and authorise the org. You can also run steps two and three against any personal repo instead. If you have no brew, the GitHub CLI installation page lists every installer."><summary>Stuck? · permission prompts, SSO, no brew</summary><div class="fbody">
       <p><b>Permission prompts on every gh call?</b> Expected today; that's tomorrow's movement. Approve
       them for now.</p>
       <p><b>Org repos blocked by SSO?</b> (SSO: single sign-on, your company's central login.) Run
@@ -929,37 +929,37 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
       repo.</p>
       <p><b>No brew?</b> github.com/cli/cli#installation lists every installer.</p>
     </div></details>
-    <div class="notice"><b>Check your read:</b> Claude composed gh commands you never taught it, read
+    <div class="notice" data-vo="Check your read on what just happened. Claude composed gh commands you never taught it, read the results, and chained them together. That is the loop from Act 1 wearing real infrastructure. Gather was the issue list, act was the create, and verify was re-reading the state before claiming done."><b>Check your read:</b> Claude composed gh commands you never taught it, read
     the results, and chained them. That's the loop from Act 1 wearing real infrastructure: gather (issue
     list) → act (create) → verify (re-read state before claiming done).</div>
-    <span class="read"><b>What you decide:</b> the retype habit dies today. Any time you catch yourself
+    <span class="read" data-vo="The retype habit dies today. Any time you catch yourself copying issue text into a prompt this week, that is a friction-log line."><b>What you decide:</b> the retype habit dies today. Any time you catch yourself
     copying issue text into a prompt this week, that's a friction-log line.</span>
-    <span class="keep"><b>Keep this</b>gh is the template: authenticate once, then the agent has hands.
+    <span class="keep" data-vo="gh is the template. Authenticate once, and the agent has hands. Next come the systems that have no command-line tool. Go and run the three steps in your terminal now."><b>Keep this</b>gh is the template: authenticate once, then the agent has hands.
     Next come the systems that don't have a CLI.</span>
   </div>
 </section>
 
 <!-- 17 · M5 divider -->
-<section class="slide" data-act="Act 2 · Wiring day" data-mv="MCP: every system" data-vo="Your team's knowledge lives in Notion, Jira, Postgres and Sentry, not in your files. The Model Context Protocol, MCP, is the standard plug for reaching all of it. An MCP server is a small program that speaks for one system and tells Claude which operations it offers. Toggle each connector on the wiring board and watch the hop count fall.">
+<section class="slide" data-act="Act 2 · Wiring day" data-mv="MCP: every system">
   <div class="wrap">
     <div class="kicker">M6 · MCP: every system</div>
     <h2 class="head">MCP: one protocol reaches every system</h2>
-    <div class="goalstrip"><b>Goal</b>See the clipboard-hop diagram change shape as each connector lands, until the hop count reads zero.</div>
+    <div class="goalstrip" data-vo="The goal is to watch the clipboard-hop diagram change shape as each connector lands, until the hop count reads zero."><b>Goal</b>See the clipboard-hop diagram change shape as each connector lands, until the hop count reads zero.</div>
     <div class="teach">
-      <p>Your team's knowledge doesn't live in files. It lives in Notion or Confluence, in Jira or
+      <p data-vo="Your team's knowledge does not live in files. It lives in Notion or Confluence, in Jira or Linear, in a Postgres somewhere, and in Sentry. The Model Context Protocol, MCP for short, is the standard plug for reaching all of it.">Your team's knowledge doesn't live in files. It lives in Notion or Confluence, in Jira or
       Linear, in a Postgres somewhere, in Sentry. The <b>Model Context Protocol (MCP)</b> is the
       standard plug for reaching all of it.</p>
       <ul>
-        <li>An <b>MCP server</b> is a small program that speaks for one system.</li>
-        <li>It tells Claude "here are the operations I offer": search pages, create a ticket, run a
+        <li data-vo="An MCP server is a small program that speaks for one system. Think of it as an adapter, with a fixed shape on the Claude side.">An <b>MCP server</b> is a small program that speaks for one system.</li>
+        <li data-vo="It tells Claude which operations it offers, such as search pages, create a ticket, or run a query.">It tells Claude "here are the operations I offer": search pages, create a ticket, run a
         query.</li>
-        <li>Claude can call those operations mid-task, exactly like the file and terminal tools it
+        <li data-vo="Claude can call those operations mid-task. They work exactly like the file and terminal tools it already has.">Claude can call those operations mid-task, exactly like the file and terminal tools it
         already has.</li>
-        <li>You connect a server once; every session after that can use it.</li>
+        <li data-vo="You connect a server once, and every session after that can use it.">You connect a server once; every session after that can use it.</li>
       </ul>
-      <p>Without a server, <b>you</b> are the integration, ferrying answers by hand.</p>
+      <p data-vo="Without a server, you are the integration. You ferry the answers across by hand, every single time.">Without a server, <b>you</b> are the integration, ferrying answers by hand.</p>
     </div>
-    <details class="fold hood"><summary>Under the hood · client, server, and the sign-in</summary><div class="fbody">
+    <details class="fold hood" data-vo="Here is the shape under the hood. Claude Code is the client. Each connected system runs a server, usually hosted by the vendor. Notion runs one at mcp.notion.com, and you install nothing yourself. When a session starts, Claude Code asks each server which tools it offers. Those answers join Claude's toolbox for that session. When Claude uses one, the request goes to the server. The server does the real work in the real system, and the result comes back as text. Access is granted through OAuth, which is the sign-in-with-your-browser dance you know from logging in with Google. You approve once in the browser, and the server remembers your session from then on. Your password never passes through Claude. Revoking access works the same as it does for any connected app. Some servers run locally on your machine instead, started as a background process, and those are called stdio servers. They are useful for databases and internal tools that have no hosted option."><summary>Under the hood · client, server, and the sign-in</summary><div class="fbody">
       <p>Claude Code is the <b>client</b>. Each connected system runs a <b>server</b>, usually hosted by
       the vendor (Notion runs mcp.notion.com; you install nothing). When a session starts, Claude Code
       asks each server "what tools do you offer?" and the answers join Claude's toolbox for that session.
@@ -973,24 +973,24 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
       <b>stdio</b> servers). They're useful for databases and internal tools that have no hosted
       option.</p>
     </div></details>
-    <details class="fold dyk"><summary>Did you know · MCP went from Anthropic project to industry standard in a year</summary><div class="fbody">
+    <details class="fold dyk" data-vo="Anthropic open-sourced MCP in November 2024. Within a year, OpenAI and Google's Gemini tooling had adopted it too, and the ecosystem passed thousands of community-built servers. That is why it is worth learning as a concept, rather than as one product's feature. The connector you configure this week is the same mechanism your next employer's stack will speak, whichever model vendor they use."><summary>Did you know · MCP went from Anthropic project to industry standard in a year</summary><div class="fbody">
       <p>Anthropic open-sourced MCP in November 2024. Within a year OpenAI and Google's Gemini tooling
       had adopted it too, and the ecosystem passed thousands of community-built servers. That's why it's
       worth learning as a concept rather than a product feature. The connector you configure this week
       is the same mechanism your next employer's stack will speak, whichever model vendor they use.</p>
     </div></details>
     <div class="teach">
-      <p>The board below is your working day drawn as a wiring diagram.</p>
+      <p data-vo="The board is your working day, drawn as a wiring diagram.">The board below is your working day drawn as a wiring diagram.</p>
       <ul>
-        <li>The left column lists five systems a feature touches.</li>
-        <li>The right column lists the routes text currently travels; every one passes through your
+        <li data-vo="The left column lists five systems that one feature touches.">The left column lists five systems a feature touches.</li>
+        <li data-vo="The right column lists the routes text currently travels, and every one passes through your clipboard.">The right column lists the routes text currently travels; every one passes through your
         clipboard.</li>
-        <li>Toggling a connector moves that system inside the loop: Claude reaches it directly, and the
+        <li data-vo="Toggling a connector moves that system inside the loop. Claude then reaches it directly, and the route through you is struck out.">Toggling a connector moves that system inside the loop: Claude reaches it directly, and the
         route through you is struck out.</li>
-        <li>The meter counts the hops that remain.</li>
+        <li data-vo="The meter counts the hops that remain.">The meter counts the hops that remain.</li>
       </ul>
     </div>
-    <div class="lab" id="wwire">
+    <div class="lab" id="wwire" data-vo="Drive the wiring board yourself. Toggle the connectors one at a time, and watch the hop count fall with each one. Before you toggle a system, guess how many hops it removes. Then settle on the order you would actually wire them in on Monday morning.">
       <div class="labtitle">Widget · <b>the wiring board</b></div>
       <div class="cuebar"></div>
       <div class="wiregrid">
@@ -1003,24 +1003,24 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
       <p class="scoreline" id="wwireScore"></p>
       <div class="cueall"></div>
     </div>
-    <span class="keep"><b>Keep this</b>Count hops, wire the worst two first. The meter is the audit
+    <span class="keep" data-vo="Count hops, and wire the worst two first. The meter is the audit another learner runs on your machine this weekend."><b>Keep this</b>Count hops, wire the worst two first. The meter is the audit
     another learner runs on your machine this weekend.</span>
   </div>
 </section>
 
 <!-- 19 · H-O 03 divider -->
-<section class="slide" data-act="Act 2 · Wiring day" data-mv="Connect two servers" data-vo="You have seen enough diagrams, so now you connect two servers for real. Add GitHub's official server first, then one system your team actually uses. The judgement sits in the scope flag, where user scope means yours everywhere and project scope means everyone here. Run claude mcp add, then /mcp to authenticate, and prove each server with a question only it can answer.">
+<section class="slide" data-act="Act 2 · Wiring day" data-mv="Connect two servers">
   <div class="wrap">
     <div class="hobadge">Hands-on · 03</div><span class="ho">~20 min</span>
     <h2 class="head">Connect your first two MCP servers</h2>
-    <div class="goalstrip"><b>Goal</b>Get two servers connected and green in /mcp, and one question answered that only a connected system could answer.</div>
-    <div class="teach"><p>Enough diagrams. You'll connect GitHub's official MCP server, then one system your team
+    <div class="goalstrip" data-vo="The goal is two servers connected and green in /mcp. Then one question answered that only a connected system could have answered."><b>Goal</b>Get two servers connected and green in /mcp, and one question answered that only a connected system could answer.</div>
+    <div class="teach"><p data-vo="Enough diagrams. You connect GitHub's official MCP server, then one system your team actually uses. The GitHub server is richer than gh for some reads, and it gives you a clean first OAuth flow. OAuth is the browser sign-in that grants access once.">Enough diagrams. You'll connect GitHub's official MCP server, then one system your team
     actually uses. The GitHub server is richer than gh for some reads, and it gives you a clean first
     OAuth flow. OAuth is the browser sign-in that grants access once.</p>
-    <p>The commands are two lines. The judgement is in the <b>scope flag</b>, the part of the command
+    <p data-vo="The commands are two lines. The judgement sits in the scope flag, the part of the command that decides who the connection belongs to. It previews a doctrine this programme returns to constantly.">The commands are two lines. The judgement is in the <b>scope flag</b>, the part of the command
     that decides who the connection belongs to. It previews a doctrine this programme returns to
     constantly.</p></div>
-    <details class="fold plain"><summary>In plain words · user scope vs project scope</summary><div class="fbody">
+    <details class="fold plain" data-vo="Here is user scope against project scope, in plain words. Every artifact you add lives at a scope, meaning a level that decides where it applies and who inherits it. That includes an MCP server, a settings file, and later your hooks and commands. User scope means mine, everywhere. The config lands in your home directory. The server is then available in every project on your machine, and only to you. That is right for personal reach, such as your notes or your GitHub identity. Project scope means everyone, here. The config lands in a file inside the repo, called .mcp.json, and that file gets committed. Every teammate who clones the repo then inherits the connection automatically. That is right for a team's shared systems, such as the project's tracker or its docs. The question to ask each time is always the same. Who needs this, me everywhere, or everyone here? Today both servers go to user scope, and week 2 gives scoping a full treatment."><summary>In plain words · user scope vs project scope</summary><div class="fbody">
       <p>Every artifact you add lives at a <b>scope</b>, meaning a level that decides where it applies
       and who inherits it. That includes an MCP server, a settings file, and later your hooks and
       commands.</p>
@@ -1033,24 +1033,24 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
       <p>The question to ask each time is always the same: <b>who needs this, me everywhere or everyone
       here?</b> Today both servers go to user scope; week 2 gives scoping a full treatment.</p>
     </div></details>
-    <div class="hostep">Step 1 — add GitHub's MCP server at user scope, then authenticate</div>
+    <div class="hostep" data-vo="Step one adds GitHub's MCP server at user scope, and then authenticates it.">Step 1 — add GitHub's MCP server at user scope, then authenticate</div>
     <div class="promptblock"><pre>claude mcp add --transport http --scope user github https://api.githubcopilot.com/mcp/</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
-    <div class="hodo">Open a session, run <b>/mcp</b>, select github, and complete the OAuth flow in the
+    <div class="hodo" data-vo="Open a session and run /mcp. Select github, then complete the OAuth flow in the browser. Re-run /mcp until it shows connected.">Open a session, run <b>/mcp</b>, select github, and complete the OAuth flow in the
     browser. Re-run <b>/mcp</b> until it shows connected.</div>
-    <div class="hostep">Step 2 — add one system your team actually uses</div>
+    <div class="hostep" data-vo="Step two adds one system your team actually uses. Pick one only, and pick the one you open most.">Step 2 — add one system your team actually uses</div>
     <div class="promptblock"><pre># pick ONE that matches your team, or find yours at modelcontextprotocol.io/examples
 claude mcp add --transport http --scope user notion https://mcp.notion.com/mcp
 claude mcp add --transport http --scope user linear https://mcp.linear.app/mcp
 claude mcp add --transport http --scope user sentry https://mcp.sentry.dev/mcp</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
-    <div class="hostep">Step 3 — prove each connection with a question only it can answer</div>
+    <div class="hostep" data-vo="Step three proves each connection with a question only that system can answer.">Step 3 — prove each connection with a question only it can answer</div>
     <div class="promptblock"><pre>From our docs/tracker, what is the current status of [a task you know is live],
 and who touched it last? Name the tool you used to find out.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
     <ul class="checks">
-      <li>/mcp shows both servers connected (green), not just configured</li>
-      <li>The answer contains a fact you can verify in the source system</li>
-      <li>You know where each server's config landed: ~/.claude.json (user scope) vs .mcp.json (project scope)</li>
+      <li data-vo="Check that /mcp shows both servers connected in green, and not merely configured.">/mcp shows both servers connected (green), not just configured</li>
+      <li data-vo="Check that the answer contains a fact you can verify in the source system.">The answer contains a fact you can verify in the source system</li>
+      <li data-vo="Check that you know where each server's config landed. User scope sits in your home directory, and project scope sits in the repo.">You know where each server's config landed: ~/.claude.json (user scope) vs .mcp.json (project scope)</li>
     </ul>
-    <details class="fold trouble"><summary>Stuck? · SSO walls, no hosted server, flaky answers</summary><div class="fbody">
+    <details class="fold trouble" data-vo="Three walls come up here. If corporate single sign-on refuses the OAuth, log it in the friction log and move on, because gh already covers GitHub. An unwired system is a finding for the audit, not a blocker for the programme. If your team's system has no hosted server, check the protocol's examples page for a local server you can run on your own machine. If a server connects but the answers are flaky, ask the question again and name the tool, as in using the linear tools. Discovery improves once you name the server."><summary>Stuck? · SSO walls, no hosted server, flaky answers</summary><div class="fbody">
       <p><b>Corporate SSO refuses the OAuth?</b> Log it in the friction log and move on. gh already
       covers GitHub. An unwired system is a finding for the audit rather than a programme blocker.</p>
       <p><b>Your team's system has no hosted server?</b> Check modelcontextprotocol.io/examples for a
@@ -1058,51 +1058,51 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
       <p><b>Connected but flaky answers?</b> Ask the question again naming the tool: "using the linear
       tools, …". Discovery improves once you name the server.</p>
     </div></details>
-    <div class="notice"><b>Check your read:</b> you do the OAuth dance once, then never again. From here,
+    <div class="notice" data-vo="Check your read on the shape of this. You do the OAuth dance once, and then never again. From here, check the tracker is something Claude does mid-task, rather than something you do between prompts. The scope flag you chose is the first entry in a classification you refine all programme. User scope is for your personal reach. Project scope, a checked-in .mcp.json, is for a team's shared wiring."><b>Check your read:</b> you do the OAuth dance once, then never again. From here,
     "check the tracker" is something Claude does mid-task, not something you do between prompts. The
     scope flag you chose is the first entry in a classification you'll refine all programme: user scope
     for your personal reach, project scope (a checked-in .mcp.json) for a team's shared wiring.</div>
-    <span class="read"><b>What you decide:</b> which system stays unwired this week, deliberately, and
+    <span class="read" data-vo="Decide which system stays unwired this week, deliberately, and what that costs you daily. Write the hop in your friction log. Week 3 may turn it into harness."><b>What you decide:</b> which system stays unwired this week, deliberately, and
     what that costs you daily. Write the hop in your friction log; week 3 may turn it into harness.</span>
-    <span class="keep"><b>Keep this</b>claude mcp add --transport http --scope user &lt;name&gt; &lt;url&gt;,
+    <span class="keep" data-vo="The pattern is claude mcp add, with the http transport and user scope, then a name and a URL. Then /mcp to authenticate and check health. Two commands run your whole wiring day. Go and run them now."><b>Keep this</b>claude mcp add --transport http --scope user &lt;name&gt; &lt;url&gt;,
     then /mcp to authenticate and check health. Two commands run your whole wiring day.</span>
   </div>
 </section>
 
 <!-- 21 · H-O 04 divider -->
-<section class="slide" data-act="Act 2 · Wiring day" data-mv="Permission baseline" data-vo="A wired agent that can run anything must not run everything. Claude Code answers with an allowlist in your settings: what runs, what asks, what is refused. Sort by blast radius if wrong, so reads are free and anything that leaves the machine asks. Sort the calls, check the result with /permissions, and write your baseline into ~/.claude/settings.json.">
+<section class="slide" data-act="Act 2 · Wiring day" data-mv="Permission baseline">
   <div class="wrap">
     <div class="hobadge">Hands-on · 04</div><span class="ho">~15 min</span>
     <h2 class="head">Permissions: autonomy is a written allowlist</h2>
-    <div class="goalstrip"><b>Goal</b>Sort real tool calls into allow, ask and deny, then encode the result as your settings baseline.</div>
+    <div class="goalstrip" data-vo="The goal is to sort real tool calls into allow, ask and deny. Then you encode the result as your settings baseline."><b>Goal</b>Sort real tool calls into allow, ask and deny, then encode the result as your settings baseline.</div>
     <div class="teach">
-      <p>Wired tools raise the stakes: an agent that can run anything must not run everything. Claude
+      <p data-vo="Wired tools raise the stakes. An agent that can run anything must not run everything. Claude Code's answer is a permission system built on an allowlist. An allowlist is an explicit written list, kept in settings files. It names which commands may run without asking you, which must ask, and which are refused outright.">Wired tools raise the stakes: an agent that can run anything must not run everything. Claude
       Code's answer is a permission system built on an <b>allowlist</b>. An allowlist is an explicit
       written list, kept in settings files. It names which commands may run without asking you, which
       must ask, and which are refused outright.</p>
-      <p>The lazy failure modes are both bad. Approve-everything fatigue means you stop reading what you
+      <p data-vo="The two lazy failure modes are both bad. Approve-everything fatigue means you stop reading what you approve. Ask-me-everything friction means autonomy dies. So the baseline gets engineered once, in a file. Your mood at each prompt then stops being the policy.">The lazy failure modes are both bad. Approve-everything fatigue means you stop reading what you
       approve; ask-me-everything friction means autonomy dies. So the baseline gets engineered once, in
       a file, and your mood at each prompt stops being the policy.</p>
     </div>
     <div class="teach">
-      <p>First calibrate your instincts on the sorter; then encode them. One rule makes sorting fast. Judge
+      <p data-vo="First you calibrate your instincts on the sorter, and then you encode them. One rule makes sorting fast. Judge the blast radius if the call is wrong, meaning how much damage the worst case does. Ignore how likely the worst case is.">First calibrate your instincts on the sorter; then encode them. One rule makes sorting fast. Judge
       the <b>blast radius if wrong</b>, meaning how much damage the worst case does. Ignore how likely
       the worst case is.</p>
       <ul>
-        <li>Reads can't damage anything, so they're free.</li>
-        <li>Writes inside a git repo are cheap to undo; that's what version control is for.</li>
-        <li>Anything that leaves the machine or destroys state is where "ask" and "deny" live, because
+        <li data-vo="Reads cannot damage anything, so they are free.">Reads can't damage anything, so they're free.</li>
+        <li data-vo="Writes inside a git repository are cheap to undo, and that is what version control is for.">Writes inside a git repo are cheap to undo; that's what version control is for.</li>
+        <li data-vo="Anything that leaves the machine or destroys state is where ask and deny live, because there is no undo out there.">Anything that leaves the machine or destroys state is where "ask" and "deny" live, because
         there's no undo out there.</li>
       </ul>
     </div>
-    <div class="lab" id="wperm">
+    <div class="lab" id="wperm" data-vo="The sorter hands you real tool calls, one at a time. Put each one in allow, ask or deny, and say the blast radius out loud before you choose. Where you disagree with the answer, that gap is the interesting part. Carry it into the settings file you write next.">
       <div class="labtitle">Widget · <b>the permission sorter</b></div>
       <div class="cuebar"></div>
       <div class="qgrid" id="wpermGrid"></div>
       <p class="scoreline" id="wpermScore"></p>
       <div class="cueall"></div>
     </div>
-    <div class="hostep">Encode it — open your user settings and add the baseline</div>
+    <div class="hostep" data-vo="Now encode it. Open your user settings and add the baseline. The allow list covers safe reads and test runs. The deny list holds two red lines, a force-push and a recursive delete.">Encode it — open your user settings and add the baseline</div>
     <div class="promptblock"><pre>Open ~/.claude/settings.json (create it if missing) and merge in:
 {
   "permissions": {
@@ -1116,14 +1116,14 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
     ]
   }
 }</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
-    <div class="hodo">Then run <b>/permissions</b> in a session to see the merged result, and test both
+    <div class="hodo" data-vo="Then run /permissions in a session to see the merged result. Test both edges. Ask for git status, which must run silently. Then ask it to force-push, which must refuse.">Then run <b>/permissions</b> in a session to see the merged result, and test both
     edges: ask for <b>git status</b> (must run silently) and ask it to force-push (must refuse).</div>
     <ul class="checks">
-      <li>Safe reads and test runs execute with no prompt</li>
-      <li>Force-push is refused even when you ask for it directly</li>
-      <li>You can say where project settings would live (.claude/settings.json, checked in) vs your personal ones</li>
+      <li data-vo="Check that safe reads and test runs execute with no prompt at all.">Safe reads and test runs execute with no prompt</li>
+      <li data-vo="Check that a force-push is refused, even when you ask for it directly.">Force-push is refused even when you ask for it directly</li>
+      <li data-vo="Check that you can say where project settings would live, checked into the repo, against where your personal ones live.">You can say where project settings would live (.claude/settings.json, checked in) vs your personal ones</li>
     </ul>
-    <details class="fold hood"><summary>Under the hood · where the rules live and how they merge</summary><div class="fbody">
+    <details class="fold hood" data-vo="Here is where the rules live, and how they merge. Three layers come together at session start. Your user settings sit in your home directory and carry your personal baseline everywhere, and that is the file you just wrote. Project settings sit inside a repo and are checked in, carrying a team's shared rules for that repo. Where the two overlap, deny always beats allow. A personal allow can never override a team's red line. Anything no rule covers falls through to the approval dialogue, and that is exactly what the dialogue is for. It should handle the genuinely undecided middle, and never every single call."><summary>Under the hood · where the rules live and how they merge</summary><div class="fbody">
       <p>Three layers merge at session start. Your <b>user settings</b>
       (<code>~/.claude/settings.json</code>) carry your personal baseline everywhere; that's the file
       you just wrote. <b>Project settings</b> (<code>.claude/settings.json</code> inside a repo, checked
@@ -1133,7 +1133,7 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
       what the dialogue is for. It should handle the genuinely undecided middle, never every single
       call.</p>
     </div></details>
-    <details class="fold industry"><summary>How industry does it · you already trust this pattern on GitHub</summary><div class="fbody">
+    <details class="fold industry" data-vo="This is the same safety design your team already uses. Branch protection stops force-pushes to main, no matter who asks. CODEOWNERS forces a review on sensitive paths. CI must pass before a merge. The rules live in files and get enforced by machinery, instead of everyone promising to be careful. A permission baseline is that same instinct applied to an agent. Security teams call the underlying principle least privilege. Grant what is needed, and deny by default at the edges."><summary>How industry does it · you already trust this pattern on GitHub</summary><div class="fbody">
       <p>This is the same safety design your team already uses. Branch protection stops force-pushes to
       main, no matter who asks. CODEOWNERS forces a review on sensitive paths. CI must pass before
       merge.
@@ -1142,15 +1142,15 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
       <p>A permission baseline is that instinct applied to an agent. Security teams call the underlying
       principle "least privilege": grant what's needed, deny by default at the edges.</p>
     </div></details>
-    <details class="fold trouble"><summary>Stuck? · prompt fatigue, team rules</summary><div class="fbody">
+    <details class="fold trouble" data-vo="Two problems show up mid-week. If prompt fatigue sets in, add the specific command to allow, rather than widening a pattern. Wide patterns are how dangerous commands slip onto the allowlist without you noticing. If your team repo needs shared rules, that is a settings file checked into the repo, and it is week 3's material. Today is your user baseline only."><summary>Stuck? · prompt fatigue, team rules</summary><div class="fbody">
       <p><b>Prompt fatigue mid-week?</b> Add the specific command to allow rather than widening a
       pattern. Wide patterns are how dangerous commands slip onto the allowlist without you noticing.</p>
       <p><b>Team repo with shared rules?</b> That's .claude/settings.json checked into the repo, which
       is week 3's material. Today is your user baseline only.</p>
     </div></details>
-    <span class="read"><b>What you decide:</b> your red lines. Write them as deny rules now, while
+    <span class="read" data-vo="Decide your red lines now, while they are obvious. Write them as deny rules. A red line you configure once beats one you have to remember nightly."><b>What you decide:</b> your red lines. Write them as deny rules now, while
     they're obvious. A red line you configure once beats one you must remember nightly.</span>
-    <span class="keep"><b>Keep this</b>Allow by blast radius, deny your red lines, and let the middle
+    <span class="keep" data-vo="Allow by blast radius, deny your red lines, and let the middle ask. Revisit the allowlist weekly as trust grows, because that is healthy calibration. Open your settings file now and write it."><b>Keep this</b>Allow by blast radius, deny your red lines, and let the middle
     ask. Revisit the allowlist weekly as trust grows; that's healthy calibration.</span>
   </div>
 </section>
@@ -1158,7 +1158,7 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
 <!-- ═══════════════ ACT 3 · TOKEN ECONOMICS ═══════════════ -->
 
 <!-- 23 · Act 3 divider -->
-<section class="slide act" data-act="Act 3 · Token economics" data-mv="Act opener" data-vo="A token is the unit models read and write text in, and the context window is one session's working memory. The whole window is re-sent every turn, so this act teaches you to budget the Max 5x plan.">
+<section class="slide act" data-act="Act 3 · Token economics" data-mv="Act opener" data-vo-audio="audio/17-01.m4a" data-vo="A token is the unit models read and write text in, and the context window is one session's working memory. The whole window is re-sent every turn, so this act teaches you to budget the Max 5x plan.">
   <div class="wrap">
     <div class="kicker">Act 3 · Day 3 · ~40 min</div>
     <h1 class="big">Token economics</h1>
@@ -1201,7 +1201,7 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
 </section>
 
 <!-- 24 · M8 divider -->
-<section class="slide" data-act="Act 3 · Token economics" data-mv="Max 5x has physics" data-vo="Three fixed limits shape your week on Max 5x. Usage accrues in rolling 5-hour windows, a weekly cap sits above that, and your model mix is the lever. Opus burns roughly five times Sonnet for the same conversation. Drive the budget meter until you can predict which pattern hits the window and which hits the cap.">
+<section class="slide" data-act="Act 3 · Token economics" data-mv="Max 5x has physics" data-vo-audio="audio/18-01.m4a" data-vo="Three fixed limits shape your week on Max 5x. Usage accrues in rolling 5-hour windows, a weekly cap sits above that, and your model mix is the lever. Opus burns roughly five times Sonnet for the same conversation. Drive the budget meter until you can predict which pattern hits the window and which hits the cap.">
   <div class="wrap">
     <div class="kicker">M9 · Max 5x has physics</div>
     <h2 class="head">Max 5x has physics: three fixed limits shape your week</h2>
@@ -1260,7 +1260,7 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
 </section>
 
 <!-- 26 · H-O 05 divider -->
-<section class="slide" data-act="Act 3 · Token economics" data-mv="Read your own meters" data-vo="A subscription shows no prices, so read the three meters instead. /usage shows the 5-hour window and the week as percentages, with reset times. /context shows what is filling the window, and /model shows which model you burn. Take all three readings on a real session, then fill today's row in usage-log.md.">
+<section class="slide" data-act="Act 3 · Token economics" data-mv="Read your own meters" data-vo-audio="audio/19-01.m4a" data-vo="A subscription shows no prices, so read the three meters instead. /usage shows the 5-hour window and the week as percentages, with reset times. /context shows what is filling the window, and /model shows which model you burn. Take all three readings on a real session, then fill today's row in usage-log.md.">
   <div class="wrap">
     <div class="hobadge">Hands-on · 05</div><span class="ho">~10 min</span>
     <h2 class="head">Read your own meters</h2>
@@ -1315,7 +1315,7 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
 </section>
 
 <!-- 27b · M11 divider -->
-<section class="slide" data-act="Act 3 · Token economics" data-mv="Session triage" data-vo="A heavy session has three exits, and the tell is what the history still owes you. /clear empties the window, /compact summarises in place, and a handoff file carries state to a fresh session. Never compact a derailed session, because a summary of poisoned context is still poisoned. Sort the six moments into clear, compact or hand off.">
+<section class="slide" data-act="Act 3 · Token economics" data-mv="Session triage" data-vo-audio="audio/20-01.m4a" data-vo="A heavy session has three exits, and the tell is what the history still owes you. /clear empties the window, /compact summarises in place, and a handoff file carries state to a fresh session. Never compact a derailed session, because a summary of poisoned context is still poisoned. Sort the six moments into clear, compact or hand off.">
   <div class="wrap">
     <div class="kicker">M11 · Session triage</div>
     <h2 class="head">A heavy session has three exits</h2>
@@ -1372,7 +1372,7 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
 <!-- ═══════════════ ACT 4 · THE FOUR DISCIPLINES ═══════════════ -->
 
 <!-- 28 · Act 4 divider -->
-<section class="slide act" data-act="Act 4 · The four disciplines" data-mv="Act opener" data-vo="Everything this programme teaches lives in four named disciplines: context, harness, loop and graph. Weeks 2 to 7 deepen them one at a time, and today you run all four as mini-reps on the gym repo.">
+<section class="slide act" data-act="Act 4 · The four disciplines" data-mv="Act opener" data-vo-audio="audio/21-01.m4a" data-vo="Everything this programme teaches lives in four named disciplines: context, harness, loop and graph. Weeks 2 to 7 deepen them one at a time, and today you run all four as mini-reps on the gym repo.">
   <div class="wrap">
     <div class="kicker">Act 4 · Days 3–4 · ~1.5 h</div>
     <h1 class="big">The four disciplines, once each</h1>
@@ -1415,7 +1415,7 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
 </section>
 
 <!-- 29 · M10 divider -->
-<section class="slide" data-act="Act 4 · The four disciplines" data-mv="The map" data-vo="Name the discipline before you reach for a fix. Context failures are about what the model saw, and harness failures are about what you keep repeating. Loop failures are about what closed the turn, and graph failures are about the shape of the work. Classify the eight failures, and treat your misses as the discipline you cannot yet see.">
+<section class="slide" data-act="Act 4 · The four disciplines" data-mv="The map" data-vo-audio="audio/22-01.m4a" data-vo="Name the discipline before you reach for a fix. Context failures are about what the model saw, and harness failures are about what you keep repeating. Loop failures are about what closed the turn, and graph failures are about the shape of the work. Classify the eight failures, and treat your misses as the discipline you cannot yet see.">
   <div class="wrap">
     <div class="kicker">M12 · The map</div>
     <h2 class="head">Name the discipline before you reach for a fix</h2>
@@ -1450,7 +1450,7 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
 </section>
 
 <!-- 31 · H-O 06 divider -->
-<section class="slide" data-act="Act 4 · The four disciplines" data-mv="Context mini-rep" data-vo="This is context engineering in its smallest dose. CLAUDE.md is a plain markdown file at the repo root, and Claude Code reads it at the start of every session. The gym repo has none, so every session guesses your conventions. Run the same task cold, write four lines of CLAUDE.md, then run it again and compare.">
+<section class="slide" data-act="Act 4 · The four disciplines" data-mv="Context mini-rep" data-vo-audio="audio/23-01.m4a" data-vo="This is context engineering in its smallest dose. CLAUDE.md is a plain markdown file at the repo root, and Claude Code reads it at the start of every session. The gym repo has none, so every session guesses your conventions. Run the same task cold, write four lines of CLAUDE.md, then run it again and compare.">
   <div class="wrap">
     <div class="hobadge">Hands-on · 06</div><span class="ho">~15 min</span>
     <h2 class="head">Context: one file changes behaviour</h2>
@@ -1507,7 +1507,7 @@ without archiving it. Match the existing style.</pre><button class="copy">Copy</
 </section>
 
 <!-- 33 · H-O 07 divider -->
-<section class="slide" data-act="Act 4 · The four disciplines" data-mv="Harness mini-rep" data-vo="Harness engineering moves your repeated rules into equipment the model cannot skip. A PreToolUse hook is a small script Claude Code runs automatically just before every tool call. Exit 2 blocks the call and exit 0 lets it through. Install the hook at project scope, then ask for a force-push and see it blocked.">
+<section class="slide" data-act="Act 4 · The four disciplines" data-mv="Harness mini-rep" data-vo-audio="audio/24-01.m4a" data-vo="Harness engineering moves your repeated rules into equipment the model cannot skip. A PreToolUse hook is a small script Claude Code runs automatically just before every tool call. Exit 2 blocks the call and exit 0 lets it through. Install the hook at project scope, then ask for a force-push and see it blocked.">
   <div class="wrap">
     <div class="hobadge">Hands-on · 07</div><span class="ho">~15 min</span>
     <h2 class="head">Harness: a hook is a guarantee</h2>
@@ -1597,7 +1597,7 @@ without archiving it. Match the existing style.</pre><button class="copy">Copy</
 </section>
 
 <!-- 35 · H-O 08 divider -->
-<section class="slide" data-act="Act 4 · The four disciplines" data-mv="Loop mini-rep" data-vo="Loop engineering never lets done rest on the model's word. src/report.js has two real bugs: a task completed this week is listed twice, and a Sunday run comes back empty. You demand the failing tests first, so red proves both bugs before any fix. Then fix the source, and believe it only when node --test passes everything.">
+<section class="slide" data-act="Act 4 · The four disciplines" data-mv="Loop mini-rep" data-vo-audio="audio/25-01.m4a" data-vo="Loop engineering never lets done rest on the model's word. src/report.js has two real bugs: a task completed this week is listed twice, and a Sunday run comes back empty. You demand the failing tests first, so red proves both bugs before any fix. Then fix the source, and believe it only when node --test passes everything.">
   <div class="wrap">
     <div class="hobadge">Hands-on · 08</div><span class="ho">~20 min</span>
     <h2 class="head">Loop: never trust "done"</h2>
@@ -1662,7 +1662,7 @@ and paste the final test output.</pre><button class="copy">Copy</button><span cl
 </section>
 
 <!-- 37 · H-O 09 divider -->
-<section class="slide" data-act="Act 4 · The four disciplines" data-mv="Graph mini-rep" data-vo="Graph engineering runs independent tasks at the same time instead of queueing them. Today's pair, the README rewrite and the utils audit, share nothing, so they run together. claude -p runs one prompt to completion and exits, so the audit runs headless into a file. Launch the audit in terminal B, run the rewrite in terminal A, then merge them.">
+<section class="slide" data-act="Act 4 · The four disciplines" data-mv="Graph mini-rep" data-vo-audio="audio/26-01.m4a" data-vo="Graph engineering runs independent tasks at the same time instead of queueing them. Today's pair, the README rewrite and the utils audit, share nothing, so they run together. claude -p runs one prompt to completion and exits, so the audit runs headless into a file. Launch the audit in terminal B, run the rewrite in terminal A, then merge them.">
   <div class="wrap">
     <div class="hobadge">Hands-on · 09</div><span class="ho">~15 min</span>
     <h2 class="head">Graph: two sessions can run at once without colliding</h2>
@@ -1730,7 +1730,7 @@ by running it first.</pre><button class="copy">Copy</button><span class="pbtag">
 <!-- ═══════════════ CAPSTONE · WIRE IT, SHIP IT, AUTOPSY IT ═══════════════ -->
 
 <!-- 39 · Capstone opener -->
-<section class="slide act" data-act="Capstone · Wire, ship, autopsy" data-mv="Capstone opener" data-vo="Everything so far was parts, and the capstone assembles them in five steps. You audit your wiring, ship one real automation through it, autopsy the loop that did the work, and export one markdown report.">
+<section class="slide act" data-act="Capstone · Wire, ship, autopsy" data-mv="Capstone opener" data-vo-audio="audio/27-01.m4a" data-vo="Everything so far was parts, and the capstone assembles them in five steps. You audit your wiring, ship one real automation through it, autopsy the loop that did the work, and export one markdown report.">
   <div class="wrap">
     <div class="kicker">Capstone · Day 5 · ~1.5 h</div>
     <h1 class="big">Wire it, ship it, autopsy it</h1>
@@ -1753,7 +1753,7 @@ by running it first.</pre><button class="copy">Copy</button><span class="pbtag">
 </section>
 
 <!-- 40 · Step 1 divider -->
-<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 1 · Audit" data-vo="Prove what your environment is with commands rather than memory. Every system is wired, prompting or missing, and a command decides which. Run claude --version, then gh auth status, then check /mcp and run the reach test. Test permissions at both edges, fill the wiring scorecard and keep the gap list.">
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 1 · Audit" data-vo-audio="audio/28-01.m4a" data-vo="Prove what your environment is with commands rather than memory. Every system is wired, prompting or missing, and a command decides which. Run claude --version, then gh auth status, then check /mcp and run the reach test. Test permissions at both edges, fill the wiring scorecard and keep the gap list.">
   <div class="wrap">
     <div class="kicker">Capstone · Step 1 · Audit</div>
     <h2 class="head">Audit the wiring</h2>
@@ -1784,7 +1784,7 @@ you used.</pre><button class="copy">Copy</button><span class="pbtag">claude</spa
 </section>
 
 <!-- 42 · Step 2 divider -->
-<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 2 · Pick" data-vo="Pick one boring chore from your own week, small enough to ship in an hour. The clever pipeline you demo once and never run again is the wrong pick. The spec is four sentences, naming the trigger, the action, the wired systems it touches, and the proof it worked. Draft yours now, and borrow one of the three examples if your friction log is thin.">
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 2 · Pick" data-vo-audio="audio/29-01.m4a" data-vo="Pick one boring chore from your own week, small enough to ship in an hour. The clever pipeline you demo once and never run again is the wrong pick. The spec is four sentences, naming the trigger, the action, the wired systems it touches, and the proof it worked. Draft yours now, and borrow one of the three examples if your friction log is thin.">
   <div class="wrap">
     <div class="kicker">Capstone · Step 2 · Pick</div>
     <h2 class="head">Pick the automation</h2>
@@ -1815,7 +1815,7 @@ you used.</pre><button class="copy">Copy</button><span class="pbtag">claude</spa
 </section>
 
 <!-- 44 · Step 3 divider -->
-<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 3 · Ship" data-vo="First you hand your step-two spec to Claude Code as the build prompt, packaged as a script or a slash command. Then you run it on real input and check the proof your spec named. Last you run it again untouched. Only that second clean run counts as shipped.">
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 3 · Ship" data-vo-audio="audio/30-01.m4a" data-vo="First you hand your step-two spec to Claude Code as the build prompt, packaged as a script or a slash command. Then you run it on real input and check the proof your spec named. Last you run it again untouched. Only that second clean run counts as shipped.">
   <div class="wrap">
     <div class="kicker">Capstone · Step 3 · Ship — three moves</div>
     <h2 class="head">Ship it</h2>
@@ -1862,7 +1862,7 @@ tell me exactly how to run it.</pre><button class="copy">Copy</button><span clas
 </section>
 
 <!-- 46 · Step 4 divider -->
-<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 4 · Autopsy" data-vo="This time the session itself is the specimen. Give Claude a bug you have not touched, where relay done 2 marks a different task than relay list showed as number 2. Keep your hands off, and write one line per tool call, naming its beat as gather, act or verify. Then judge whether it reproduced before fixing, and what signal closed the loop.">
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 4 · Autopsy" data-vo-audio="audio/31-01.m4a" data-vo="This time the session itself is the specimen. Give Claude a bug you have not touched, where relay done 2 marks a different task than relay list showed as number 2. Keep your hands off, and write one line per tool call, naming its beat as gather, act or verify. Then judge whether it reproduced before fixing, and what signal closed the loop.">
   <div class="wrap">
     <div class="kicker">Capstone · Step 4 · Autopsy</div>
     <h2 class="head">Loop autopsy</h2>
@@ -1906,7 +1906,7 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
 </section>
 
 <!-- 48 · Step 5 divider -->
-<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 5 · Verdict" data-vo="Data is not judgement, so close the week with two ruthless lines. Name the next wiring gap you will close, and the one workflow rule you now hold. Be specific or it did not happen, because a vague rule like be more careful with context cannot be checked. Write both, copy your capstone report, and paste it on your Week 1 Knowledge issue.">
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 5 · Verdict" data-vo-audio="audio/32-01.m4a" data-vo="Data is not judgement, so close the week with two ruthless lines. Name the next wiring gap you will close, and the one workflow rule you now hold. Be specific or it did not happen, because a vague rule like be more careful with context cannot be checked. Write both, copy your capstone report, and paste it on your Week 1 Knowledge issue.">
   <div class="wrap">
     <div class="kicker">Capstone · Step 5 · Verdict &amp; export</div>
     <h2 class="head">Verdict</h2>
@@ -1934,7 +1934,7 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
 <!-- ═══════════════ BACK MATTER ═══════════════ -->
 
 <!-- 50 · Stuck or curious -->
-<section class="slide isnow" data-act="Close" data-mv="Stuck or curious?" data-vo="Ask in the open, by commenting on your Week 1 Knowledge issue with the transcript or the failing command. A blocked connector or a hook that will not fire is a finding, not a blocker, so log it and move on. If you lost your captures, a paper skeleton in this week's data folder gets you back in ten minutes. If you want more, re-drive the widgets with your own numbers and reopen any fold.">
+<section class="slide isnow" data-act="Close" data-mv="Stuck or curious?" data-vo-audio="audio/33-01.m4a" data-vo="Ask in the open, by commenting on your Week 1 Knowledge issue with the transcript or the failing command. A blocked connector or a hook that will not fire is a finding, not a blocker, so log it and move on. If you lost your captures, a paper skeleton in this week's data folder gets you back in ten minutes. If you want more, re-drive the widgets with your own numbers and reopen any fold.">
   <div class="wrap">
     <div class="kicker">Support</div>
     <h2 class="head">Stuck or curious?</h2>
@@ -1970,7 +1970,7 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
 </section>
 
 <!-- 51 · Close -->
-<section class="slide isnow" id="close" data-act="Close" data-mv="Close the loop" data-vo="Rate yourself again on the Day 1 question, and let it be evidence rather than enthusiasm. A number that went down is calibration, because you now know what wired actually means. Write your one-sentence rule, then take the four Application issues on the Week 1 milestone, and run /guide-me when you get stuck. Start the friction log today, and see you in week 2.">
+<section class="slide isnow" id="close" data-act="Close" data-mv="Close the loop" data-vo-audio="audio/34-01.m4a" data-vo="Rate yourself again on the Day 1 question, and let it be evidence rather than enthusiasm. A number that went down is calibration, because you now know what wired actually means. Write your one-sentence rule, then take the four Application issues on the Week 1 milestone, and run /guide-me when you get stuck. Start the friction log today, and see you in week 2.">
   <div class="wrap">
     <div class="kicker">Close the loop</div>
     <h2 class="head">Re-read your number.</h2>

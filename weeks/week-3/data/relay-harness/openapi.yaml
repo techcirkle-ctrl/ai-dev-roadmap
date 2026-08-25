@@ -1,0 +1,17 @@
+openapi: 3.0.0
+info:
+  title: relay
+  version: 0.3.0
+paths:
+  /tasks:
+    get:
+      summary: List tasks
+      responses:
+        "200":
+          description: The open tasks, newest first
+  /tasks/{id}/done:
+    post:
+      summary: Mark a task done
+      responses:
+        "204":
+          description: Done

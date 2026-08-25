@@ -72,13 +72,19 @@ if (dup.length) bad("duplicate ids: " + dup.join(", "));
 else console.log("duplicate ids: none");
 
 // voice-over: data-vo is plain, non-empty narration text when present
-const vos = [...html.matchAll(/data-vo="([^"]*)"/g)].map(m => m[1]);
-vos.forEach((v, i) => {
+const voMatches = [...html.matchAll(/data-vo="([^"]*)"/g)];
+const vos = voMatches.map(m => m[1]);
+voMatches.forEach((m, i) => {
+  const v = m[1];
+  const after = html[m.index + m[0].length];
+  if (after !== undefined && !/[\s>/]/.test(after))
+    bad(`data-vo ${i + 1}: stray double quote inside the value (attribute closed early — everything after the quote, including any markup, is invisible to this check)`);
   if (!v.trim()) bad(`data-vo ${i + 1}: empty (drop the attribute instead)`);
   if (/<[a-z/!]/i.test(v)) bad(`data-vo ${i + 1}: contains markup (plain text only)`);
 });
 if (!vos.length) console.log("voice-over: no slides scripted");
 else if (vos.length === secOpen) console.log(`voice-over: all ${vos.length} slides scripted`);
+else if (vos.length > secOpen) console.log(`voice-over: ${vos.length} data-vo attributes across ${secOpen} sections (some sections carry more than one — check for duplicates)`);
 else console.log(`voice-over: ${vos.length}/${secOpen} slides scripted (partial — autoplay stops on the rest)`);
 
 // steppers: within each slide, snode count must equal steppanel count

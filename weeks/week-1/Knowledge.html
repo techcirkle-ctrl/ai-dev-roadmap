@@ -1730,75 +1730,75 @@ by running it first.</pre><button class="copy">Copy</button><span class="pbtag">
 <!-- ═══════════════ CAPSTONE · WIRE IT, SHIP IT, AUTOPSY IT ═══════════════ -->
 
 <!-- 39 · Capstone opener -->
-<section class="slide act" data-act="Capstone · Wire, ship, autopsy" data-mv="Capstone opener" data-vo-audio="audio/27-01.m4a" data-vo="Everything so far was parts, and the capstone assembles them in five steps. You audit your wiring, ship one real automation through it, autopsy the loop that did the work, and export one markdown report.">
+<section class="slide act" data-act="Capstone · Wire, ship, autopsy" data-mv="Capstone opener">
   <div class="wrap">
     <div class="kicker">Capstone · Day 5 · ~1.5 h</div>
     <h1 class="big">Wire it, ship it, autopsy it</h1>
-    <p class="lead mt14">Everything so far was parts. The capstone assembles them. You audit your wiring
+    <p class="lead mt14" data-vo="Everything so far was parts, and the capstone assembles them. You audit your wiring against the zero-copy-paste bar. You ship one real automation through that wired environment. Then you autopsy the loop that did the work. An autopsy here means walking back through the finished session, tool call by tool call. You judge how the work actually happened rather than how it felt. You leave with the week's proof artifact. You also leave with the habit this whole programme is built on, which is evidence before claims.">Everything so far was parts. The capstone assembles them. You audit your wiring
     against the zero-copy-paste bar. You ship one real automation through the wired environment. Then
     you autopsy the loop that did the work. An <b>autopsy</b> here means walking back through the finished
     session, tool call by tool call, to judge how the work actually happened. You leave with the week's
     proof artifact and the habit the programme is built on: evidence before claims.</p>
     <div class="goalrow mt28">
-      <div class="gb"><div class="t">The shape</div><p>The five steps are audit, pick, ship, autopsy,
+      <div class="gb"><div class="t">The shape</div><p data-vo="The five steps are audit, pick, ship, autopsy, then verdict and export. The capture boxes fill as you go. The last step assembles them into one markdown report for your Knowledge issue. So write as you go, because the report is only as good as the boxes you filled.">The five steps are audit, pick, ship, autopsy,
       then verdict and export. Capture boxes fill as you go; the last step assembles them into one
       markdown report for your Knowledge issue.</p></div>
-      <div class="gb"><div class="t">You'll carry forward</div><p>The capstone report: Knowledge-issue
+      <div class="gb"><div class="t">You'll carry forward</div><p data-vo="That report earns three things at once. It is the proof on your Knowledge issue. It is your rehearsal for the weekend's Application projects. And it is your first before-and-after story for the week nine retrospective.">The capstone report: Knowledge-issue
       proof, your rehearsal for the weekend's Application projects, and your first before/after
       story for week 9's retrospective.</p></div>
     </div>
-    <span class="keep"><b>Keep this</b>Captures save to this browser only; use the same browser
+    <span class="keep" data-vo="Captures save to this browser only, so use the same browser all week. If you would rather work on paper, the same skeleton lives in this week's data folder."><b>Keep this</b>Captures save to this browser only; use the same browser
     throughout. Prefer paper? The same skeleton lives at weeks/week-1/data/capstone-report-template.md.</span>
   </div>
 </section>
 
 <!-- 40 · Step 1 divider -->
-<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 1 · Audit" data-vo-audio="audio/28-01.m4a" data-vo="Prove what your environment is with commands rather than memory. Every system is wired, prompting or missing, and a command decides which. Run claude --version, then gh auth status, then check /mcp and run the reach test. Test permissions at both edges, fill the wiring scorecard and keep the gap list.">
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 1 · Audit">
   <div class="wrap">
     <div class="kicker">Capstone · Step 1 · Audit</div>
     <h2 class="head">Audit the wiring</h2>
-    <div class="goalstrip"><b>Goal</b>Fill the scorecard: what's wired, what prompts, what's missing, each backed by a command you ran.</div>
-    <div class="teach"><p>Before shipping anything through the environment, establish what the environment
+    <div class="goalstrip" data-vo="The goal is to fill the scorecard. You name what is wired, what prompts you, and what is missing. Every answer is backed by a command you actually ran."><b>Goal</b>Fill the scorecard: what's wired, what prompts, what's missing, each backed by a command you ran.</div>
+    <div class="teach"><p data-vo="Before you ship anything through this environment, establish what the environment actually is. Use commands, not memory. Memory tells you gh is fine, and then you find the token expired in June. This is the same audit another learner runs on your machine cold this weekend. Run it on yourself first, so their pass finds refinements rather than embarrassments.">Before shipping anything through the environment, establish what the environment
     actually is, with commands, not memory. This is the same audit another learner will run on your
     machine cold this weekend. Run it on yourself first, so their pass finds refinements rather than
     embarrassments.</p></div>
-    <div class="hostep">Check 1 — identity and reach</div>
+    <div class="hostep" data-vo="Check one covers identity and reach, and it is two commands on one line.">Check 1 — identity and reach</div>
     <div class="promptblock"><pre>claude --version && gh auth status</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
-    <div class="hostep">Check 2 — servers</div>
-    <div class="hodo">In a session: <b>/mcp</b>. Every server green? Which are configured but not
+    <div class="hostep" data-vo="Check two looks at your servers.">Check 2 — servers</div>
+    <div class="hodo" data-vo="In a session, type /mcp. Ask whether every server shows green. Then ask which ones are configured but never authenticated, because that is the usual gap.">In a session: <b>/mcp</b>. Every server green? Which are configured but not
     authenticated?</div>
-    <div class="hostep">Check 3 — permissions, both edges</div>
-    <div class="hodo">Ask for <b>git status</b> (should run silently), then ask it to force-push (should
+    <div class="hostep" data-vo="Check three tests permissions at both edges, the safe one and the dangerous one.">Check 3 — permissions, both edges</div>
+    <div class="hodo" data-vo="Ask for git status, and it should run silently. Then ask it to force-push, and it should refuse or prompt you. Count what interrupted you.">Ask for <b>git status</b> (should run silently), then ask it to force-push (should
     refuse or prompt). Count what interrupted you.</div>
-    <div class="hostep">Check 4 — the reach test</div>
+    <div class="hostep" data-vo="Check four is the reach test, and it is the one that proves the wiring is real.">Check 4 — the reach test</div>
     <div class="promptblock"><pre>Without me pasting anything: what's the newest open issue on our cohort repo, and
 what does our tracker/docs say about [something you know is current]? Name each tool
 you used.</pre><button class="copy">Copy</button><span class="pbtag">claude</span></div>
     <div class="caplbl">Capture — wiring scorecard (saves in this browser)</div>
     <textarea class="cap" id="cap-audit" data-persist="cap-audit" placeholder="gh: … · MCP servers green: … · permissions: safe ran silently? dangerous stopped? · reach test: what it fetched without a paste · gaps: …"></textarea>
-    <span class="read"><b>You carry forward:</b> the gap list. Each gap is either a fix before Sunday's
+    <span class="read" data-vo="You carry forward the gap list. Each gap is either a fix before Sunday's peer audit, or a named exception with a reason you can defend."><b>You carry forward:</b> the gap list. Each gap is either a fix before Sunday's
     peer audit or a named, deliberate exception with a reason.</span>
-    <span class="keep"><b>Keep this</b>Every system sits in one of three states, wired, prompting or
+    <span class="keep" data-vo="Every system sits in one of three states. It is wired, prompting or missing, and a command proves which. That is what set up means from now on."><b>Keep this</b>Every system sits in one of three states, wired, prompting or
     missing, and a command proves which; that's what "set up" means from now on.</span>
   </div>
 </section>
 
 <!-- 42 · Step 2 divider -->
-<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 2 · Pick" data-vo-audio="audio/29-01.m4a" data-vo="Pick one boring chore from your own week, small enough to ship in an hour. The clever pipeline you demo once and never run again is the wrong pick. The spec is four sentences, naming the trigger, the action, the wired systems it touches, and the proof it worked. Draft yours now, and borrow one of the three examples if your friction log is thin.">
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 2 · Pick">
   <div class="wrap">
     <div class="kicker">Capstone · Step 2 · Pick</div>
     <h2 class="head">Pick the automation</h2>
-    <div class="goalstrip"><b>Goal</b>Choose one chore from real friction, specify it in a paragraph, and name its verify signal before any building starts.</div>
-    <div class="teach"><p>One real automation, shipped today, used all week. The right pick is boring: a
+    <div class="goalstrip" data-vo="The goal is to choose one chore that comes from real friction. You specify it in a paragraph, and you name its verify signal before you build anything."><b>Goal</b>Choose one chore from real friction, specify it in a paragraph, and name its verify signal before any building starts.</div>
+    <div class="teach"><p data-vo="One real automation, shipped today, used all week. The right pick is boring. It is a hand-run chore from your actual week, small enough to ship in an hour and frequent enough to feel daily. Writing the same standup note every morning qualifies. The wrong pick is impressive: a clever pipeline you demo once and never run again.">One real automation, shipped today, used all week. The right pick is boring: a
     hand-run chore from your actual week, small enough to ship in an hour, frequent enough to feel daily.
     The wrong pick is impressive: a clever agent pipeline you'll demo once and never run again.</p></div>
     <div class="teach">
-      <p>The source is your friction log and the hops you caught yourself doing this week. The spec is one
+      <p data-vo="The source is your friction log and the hops you caught yourself doing this week. The spec is one paragraph of four sentences. Say what triggers it. Say what it does. Say which wired systems it touches. Then say what proves it worked. That last sentence is the loop discipline arriving in your planning three weeks early.">The source is your friction log and the hops you caught yourself doing this week. The spec is one
       paragraph with four sentences: what triggers it, what it does, what it touches (which wired
       systems), and <b>what proves it worked</b>. That last sentence is the loop discipline showing up in
       your planning, three weeks early.</p>
     </div>
-    <div class="hodo"><b>Borrow one if the log is thin:</b><br>
+    <div class="hodo" data-vo="Borrow one of three if your log is thin. The standup writer reads yesterday's commits and PR activity through git and gh, then writes a three-line note into your notes file. The PR describer takes the current branch diff and posts a description with a summary, risk notes and a test plan. The issue triager labels new issues on a repo you own by area, and leaves a one-line summary comment."><b>Borrow one if the log is thin:</b><br>
     · <b>Standup writer:</b> yesterday's commits and PR activity (git log + gh) → three-line standup note
     in your notes file.<br>
     · <b>PR describer:</b> current branch diff → PR description with summary, risk notes and test plan,
@@ -1807,20 +1807,20 @@ you used.</pre><button class="copy">Copy</button><span class="pbtag">claude</spa
     via gh.</div>
     <div class="caplbl">Capture — the pick + the spec paragraph</div>
     <textarea class="cap" id="cap-pick" data-persist="cap-pick" placeholder="The chore: … · Trigger: … · It does: … · Systems it touches: … · Proof it worked: …"></textarea>
-    <span class="read"><b>You carry forward:</b> a spec whose last sentence names the verify signal.
+    <span class="read" data-vo="You carry forward a spec whose last sentence names the verify signal. You paste that same paragraph as the build prompt in step three, nearly word for word. Good specs are prompts."><b>You carry forward:</b> a spec whose last sentence names the verify signal.
     You'll paste this paragraph as the build prompt in step 3, nearly verbatim: good specs are prompts.</span>
-    <span class="keep"><b>Keep this</b>The spec is four sentences, trigger, action, systems and proof;
+    <span class="keep" data-vo="The spec is four sentences: trigger, action, systems and proof. If the proof sentence is hard to write, pick a different chore."><b>Keep this</b>The spec is four sentences, trigger, action, systems and proof;
     if the proof sentence is hard to write, pick a different chore.</span>
   </div>
 </section>
 
 <!-- 44 · Step 3 divider -->
-<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 3 · Ship" data-vo-audio="audio/30-01.m4a" data-vo="First you hand your step-two spec to Claude Code as the build prompt, packaged as a script or a slash command. Then you run it on real input and check the proof your spec named. Last you run it again untouched. Only that second clean run counts as shipped.">
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 3 · Ship">
   <div class="wrap">
     <div class="kicker">Capstone · Step 3 · Ship — three moves</div>
     <h2 class="head">Ship it</h2>
-    <div class="goalstrip"><b>Goal</b>Make the automation a runnable thing (a script or a slash command) that has run twice and produced its named proof both times.</div>
-    <div class="teach"><p>Build the automation through the wired environment, in three moves. Hand the spec
+    <div class="goalstrip" data-vo="The goal is to make the automation a real runnable thing, either a script or a slash command. It must have run twice, and produced its named proof both times. This slide has three moves, and I will walk you through all three."><b>Goal</b>Make the automation a runnable thing (a script or a slash command) that has run twice and produced its named proof both times.</div>
+    <div class="teach"><p data-vo="You build the automation through the wired environment, in three moves. First you hand the spec to Claude Code. Then you make the first run produce its proof. Then you run it again untouched. Twice-run is the bar, because anything runs once while you hover over it. The second clean run is what makes it an automation rather than a transcript.">Build the automation through the wired environment, in three moves. Hand the spec
     to Claude Code. Make the first run produce its proof. Then run it again untouched. Twice-run is the
     bar because anything runs once with you hovering; the second clean run is what makes it an automation
     rather than a transcript.</p></div>
@@ -1829,7 +1829,7 @@ you used.</pre><button class="copy">Copy</button><span class="pbtag">claude</spa
       <button class="snode">2 · First run + proof</button>
       <button class="snode">3 · Second run, untouched</button>
     </div>
-    <div class="steppanel on">
+    <div class="steppanel on" data-vo="Move one uses your step-two paragraph as the prompt, and you add only the packaging instruction. You ask for a shell script or a slash command. You ask it to stay under a page. You tell it to use the tools you wired, such as gh, MCP and git, rather than asking you for input. And you ask it to tell you exactly how to run the thing. If you chose slash-command packaging, the prompt gets saved in your Claude commands folder, and it then runs by name in any session. That file is a harness artifact at user scope. Note the classification now, because week three formalises it.">
       <p class="sub"><b>Move 1:</b> your step-2 paragraph is the prompt. Add only the packaging
       instruction.</p>
       <div class="promptblock"><pre>[paste your spec paragraph from step 2]
@@ -1841,12 +1841,12 @@ tell me exactly how to run it.</pre><button class="copy">Copy</button><span clas
       ~/.claude/commands/NAME.md, then it runs as /NAME in any session. That file is a harness artifact
       at user scope; note the classification, week 3 formalises it.</p>
     </div>
-    <div class="steppanel">
+    <div class="steppanel" data-vo="Move two runs it for real, on today's real inputs. Then you check the proof your spec named. The standup note exists, and it is true. The PR description is on the PR. The labels are on the issues. Fix whatever the proof exposes, because that is the loop doing its job.">
       <p class="sub"><b>Move 2:</b> run it for real, on today's real inputs. Then check the proof your
       spec named. The standup note exists and is true. The PR description is on the PR. The labels are
       on the issues. Fix what the proof exposes; that's the loop working.</p>
     </div>
-    <div class="steppanel">
+    <div class="steppanel" data-vo="Move three runs it again on fresh input, and you touch nothing in between. That second clean run is what makes it shipped. A weekend Application issue asks you to ship a second automation on your own, so keep the friction log warm.">
       <p class="sub"><b>Move 3:</b> run it again on fresh input, touching nothing in between. The second
       clean run is what makes it shipped. A weekend Application issue asks you to ship a second
       automation, solo, so keep the friction log warm.</p>
@@ -1854,64 +1854,64 @@ tell me exactly how to run it.</pre><button class="copy">Copy</button><span clas
     <p class="stepcue">→ advances through the moves, then to the next slide · click a chip to jump</p>
     <div class="caplbl">Capture — shipping evidence</div>
     <textarea class="cap" id="cap-ship" data-persist="cap-ship" placeholder="What I shipped and where it lives: … · Run 1 proof: … · Run 2 proof: … · What run 1 exposed that I fixed: …"></textarea>
-    <span class="read"><b>You carry forward:</b> a thing that works while you don't watch it. Note what
+    <span class="read" data-vo="You carry forward a thing that works while you are not watching it. Note what the build consumed from your wiring, such as gh calls and MCP reads. None of that was possible on Monday."><b>You carry forward:</b> a thing that works while you don't watch it. Note what
     the build consumed from your wiring: gh calls, MCP reads. None of them were possible on Monday.</span>
-    <span class="keep"><b>Keep this</b>The path runs spec, build, proof, then proof again; the second
+    <span class="keep" data-vo="The path runs spec, build, proof, then proof again. The second untouched run is what shipped means this week. Work through the three moves now."><b>Keep this</b>The path runs spec, build, proof, then proof again; the second
     untouched run is what "shipped" means this week.</span>
   </div>
 </section>
 
 <!-- 46 · Step 4 divider -->
-<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 4 · Autopsy" data-vo-audio="audio/31-01.m4a" data-vo="This time the session itself is the specimen. Give Claude a bug you have not touched, where relay done 2 marks a different task than relay list showed as number 2. Keep your hands off, and write one line per tool call, naming its beat as gather, act or verify. Then judge whether it reproduced before fixing, and what signal closed the loop.">
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 4 · Autopsy">
   <div class="wrap">
     <div class="kicker">Capstone · Step 4 · Autopsy</div>
     <h2 class="head">Loop autopsy</h2>
-    <div class="goalstrip"><b>Goal</b>Annotate a transcript beat by beat, naming the verify signal that closed the loop (or the vibe that didn't).</div>
-    <div class="teach"><p>One more session on the gym repo, but this time the session itself is the
+    <div class="goalstrip" data-vo="The goal is to annotate a transcript beat by beat. You name the verify signal that closed the loop, or the vibe that did not."><b>Goal</b>Annotate a transcript beat by beat, naming the verify signal that closed the loop (or the vibe that didn't).</div>
+    <div class="teach"><p data-vo="One more session on the gym repo, and this time the session itself is the specimen. You give Claude a fresh bug and let it work. Then you annotate the transcript beat by beat, as gather, act and verify. Add a note on what each beat earned you. This autopsy habit is how you debug every misbehaving session for the rest of the programme.">One more session on the gym repo, but this time the session itself is the
     specimen. You'll give Claude a fresh bug and let it work. Then annotate the transcript beat by
     beat: gather, act, verify. Add a note on what each beat earned. The autopsy habit is how you'll debug
     every misbehaving session for the rest of the programme.</p></div>
     <div class="teach">
-      <p>The specimen task is a bug you haven't touched yet: <b>relay done 2</b> completes a different
+      <p data-vo="The specimen is a bug you have not touched yet. relay done 2 completes a different task than the one relay list showed as number 2. Two causes conspire here, which is what makes the gather beat worth watching. Give the task, keep your hands off, and take notes for every tool call as it runs.">The specimen task is a bug you haven't touched yet: <b>relay done 2</b> completes a different
       task than the one <b>relay list</b> showed as 2. (Two causes conspire; that's what makes the gather
       beat worth watching.) Give the task, keep your hands off, and take notes per tool call as it
       runs.</p>
     </div>
-    <div class="hostep">Step 1 — the specimen task</div>
+    <div class="hostep" data-vo="Step one hands over the specimen task.">Step 1 — the specimen task</div>
     <div class="promptblock"><pre>Users report that "relay done 2" marks a different task than the one "relay list"
 showed as number 2. Reproduce it first, explain the cause, fix it, and prove the fix
 with a test. Only claim done when node --test passes.</pre><button class="copy">Copy</button><span class="pbtag">claude · in ~/relay-gym · fresh session</span></div>
-    <div class="hostep">Step 2 — annotate while it works</div>
-    <div class="hodo">One line per tool call: the call, its beat (gather / act / verify), and what it
+    <div class="hostep" data-vo="Step two is annotating while it works.">Step 2 — annotate while it works</div>
+    <div class="hodo" data-vo="Write one line per tool call. Name the call, name its beat as gather, act or verify, and say what it earned. Mark the moment it reproduces the bug, which is verify used as gathering, because it establishes the broken baseline. Then mark the moment the loop closes.">One line per tool call: the call, its beat (gather / act / verify), and what it
     earned. Mark the moment it reproduces the bug (that's verify used as gathering: establishing the
     broken baseline) and the moment the loop closes.</div>
-    <div class="hostep">Step 3 — judge the session</div>
+    <div class="hostep" data-vo="Step three is where you judge the session.">Step 3 — judge the session</div>
     <ul class="checks">
-      <li>Did it reproduce before fixing, or fix on faith?</li>
-      <li>Did the fix stay inside the files the cause lived in?</li>
-      <li>What was the closing signal, and would it catch a regression next month?</li>
+      <li data-vo="Ask whether it reproduced the bug before fixing, or fixed on faith.">Did it reproduce before fixing, or fix on faith?</li>
+      <li data-vo="Ask whether the fix stayed inside the files the cause actually lived in.">Did the fix stay inside the files the cause lived in?</li>
+      <li data-vo="Ask what the closing signal was, and whether it would catch a regression next month.">What was the closing signal, and would it catch a regression next month?</li>
     </ul>
-    <details class="fold trouble"><summary>Stuck? · it fixed the symptom but missed a cause</summary><div class="fbody">
+    <details class="fold trouble" data-vo="If it fixed the symptom but missed a cause, that is a finding rather than a failure. The numbering and the save order both contribute here. Note which gather beat was missing. Then ask whether there is a second cause, and watch it re-enter the loop."><summary>Stuck? · it fixed the symptom but missed a cause</summary><div class="fbody">
       <p><b>It fixed the symptom but missed a cause?</b> (The numbering and the save-order both
       contribute.) That's a finding, not a failure: note which gather beat was missing, then ask "is
       there a second cause?" and watch it re-enter the loop.</p>
     </div></details>
     <div class="caplbl">Capture — the autopsy</div>
     <textarea class="cap" id="cap-autopsy" data-persist="cap-autopsy" placeholder="Task: done-2 bug · Gather: what it read, what it missed … · Act: … · Verify: reproduced first? closing signal? … · Where I'd have trusted a wrong done: …"></textarea>
-    <span class="read"><b>You carry forward:</b> the autopsy instinct. A session that can't survive this
+    <span class="read" data-vo="You carry forward the autopsy instinct. A session that cannot survive this annotation did not earn its done, however confident it sounded."><b>You carry forward:</b> the autopsy instinct. A session that can't survive this
     annotation didn't earn its "done", however confident it sounded.</span>
-    <span class="keep"><b>Keep this</b>Reproduce, find the cause, fix, then add a regression test; that
+    <span class="keep" data-vo="Reproduce, find the cause, fix, then add a regression test. You meet that debugging loop in miniature here, and week five makes it the centrepiece."><b>Keep this</b>Reproduce, find the cause, fix, then add a regression test; that
     debugging loop, met here in miniature, is week 5's centrepiece.</span>
   </div>
 </section>
 
 <!-- 48 · Step 5 divider -->
-<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 5 · Verdict" data-vo-audio="audio/32-01.m4a" data-vo="Data is not judgement, so close the week with two ruthless lines. Name the next wiring gap you will close, and the one workflow rule you now hold. Be specific or it did not happen, because a vague rule like be more careful with context cannot be checked. Write both, copy your capstone report, and paste it on your Week 1 Knowledge issue.">
+<section class="slide" data-act="Capstone · Wire, ship, autopsy" data-mv="Step 5 · Verdict">
   <div class="wrap">
     <div class="kicker">Capstone · Step 5 · Verdict &amp; export</div>
     <h2 class="head">Verdict</h2>
-    <div class="goalstrip"><b>Goal</b>Distil the week into two committed lines, then export the whole report.</div>
-    <div class="teach"><p>Data isn't judgement. Two ruthless lines close the week: the next wiring gap
+    <div class="goalstrip" data-vo="The goal is to distil the week into two committed lines, then export the whole report."><b>Goal</b>Distil the week into two committed lines, then export the whole report.</div>
+    <div class="teach"><p data-vo="Data is not judgement. Two ruthless lines close the week. Name the next wiring gap you would close, and the one workflow rule you now hold. Be specific or it did not happen. Be more careful with context fails that test, because nobody can check you against it. No repo of mine goes a day without a CLAUDE.md and a runnable test command clears it easily.">Data isn't judgement. Two ruthless lines close the week: the next wiring gap
     you'd close, and the one workflow rule you now hold. Be specific or it didn't happen. "Be more careful with
     context" fails. "No repo of mine goes a day without a CLAUDE.md and a runnable test command"
     clears.</p></div>
@@ -1923,10 +1923,10 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
       <button class="btn" id="capCopy">Copy my capstone report</button>
       <span class="sub" id="capCopyMsg">Assembles every capture on this deck into one markdown report.</span>
     </div>
-    <span class="read"><b>This report is the capstone:</b> paste it on your Week 1 Knowledge issue now,
+    <span class="read" data-vo="This report is the capstone, so paste it on your Week 1 Knowledge issue now, while it is warm. Its audit seeds the peer audit. Its shipping evidence feeds the second automation. Its autopsy rehearses the weekend's solo bug. Zero copy-paste is your bar now, so defend it."><b>This report is the capstone:</b> paste it on your Week 1 Knowledge issue now,
     while it's warm. Its audit seeds the peer audit, its shipping evidence feeds the second automation,
     and its autopsy rehearses the weekend's solo bug. Zero copy-paste is your bar now: defend it.</span>
-    <span class="keep"><b>Keep this</b>Export the report and paste it on the Knowledge issue; the deck's
+    <span class="keep" data-vo="Export the report and paste it on the Knowledge issue. The deck's loop closes on GitHub, not in this browser."><b>Keep this</b>Export the report and paste it on the Knowledge issue; the deck's
     loop closes on GitHub rather than in the browser.</span>
   </div>
 </section>
@@ -1934,72 +1934,72 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
 <!-- ═══════════════ BACK MATTER ═══════════════ -->
 
 <!-- 50 · Stuck or curious -->
-<section class="slide isnow" data-act="Close" data-mv="Stuck or curious?" data-vo-audio="audio/33-01.m4a" data-vo="Ask in the open, by commenting on your Week 1 Knowledge issue with the transcript or the failing command. A blocked connector or a hook that will not fire is a finding, not a blocker, so log it and move on. If you lost your captures, a paper skeleton in this week's data folder gets you back in ten minutes. If you want more, re-drive the widgets with your own numbers and reopen any fold.">
+<section class="slide isnow" data-act="Close" data-mv="Stuck or curious?">
   <div class="wrap">
     <div class="kicker">Support</div>
     <h2 class="head">Stuck or curious?</h2>
     <div class="cards">
       <div class="ucard"><h3>Stuck</h3>
         <ul>
-          <li><b>Comment on your Week 1 Knowledge issue</b> with the transcript or the failing command.
+          <li data-vo="Comment on your Week 1 Knowledge issue, with the transcript or the failing command attached. That thread is the classroom. Questions asked in the open compound for everyone who comes after you."><b>Comment on your Week 1 Knowledge issue</b> with the transcript or the failing command.
           That thread is the classroom; questions asked in the open compound for everyone after you.</li>
-          <li>A connector your company blocks, a hook that won't fire, a session that behaved oddly:
+          <li data-vo="A connector your company blocks, a hook that will not fire, a session that behaved oddly: those are all findings rather than blockers. Log them, post them, and move on.">A connector your company blocks, a hook that won't fire, a session that behaved oddly:
           all <b>findings, not blockers</b>. Log them, post them, move on.</li>
-          <li>Lost your captures (different browser, cleared storage)? The paper skeleton at
+          <li data-vo="If you lost your captures to a different browser or cleared storage, the paper skeleton in this week's data folder is a ten-minute re-entry. It is not a redo.">Lost your captures (different browser, cleared storage)? The paper skeleton at
           <span style="font-family:ui-monospace,Menlo,monospace;font-size:.9em">weeks/week-1/data/capstone-report-template.md</span>
           is a 10-minute re-entry, not a redo.</li>
         </ul>
       </div>
       <div class="ucard"><h3>Curious</h3>
         <ul>
-          <li>Re-drive the budget meter and the discipline sorter with your own week's numbers and your
+          <li data-vo="Re-drive the budget meter and the discipline sorter with your own week's numbers and your own incidents in mind. The widgets are local and unbreakable, so nothing you do to them matters.">Re-drive the budget meter and the discipline sorter with your own week's numbers and your
           own incidents in mind; the widgets are local and unbreakable.</li>
-          <li>The <b>Keep this</b> bands, read top to bottom, are the week's summary. The colour-coded folds
+          <li data-vo="The Keep this bands, read top to bottom, are the week's summary. The colour-coded folds are the depth layer. They are In plain words, Under the hood, How industry does it, and the rest. Reopen any of them at any time, including from print.">The <b>Keep this</b> bands, read top to bottom, are the week's summary. The colour-coded folds
           are the depth layer. They are In plain words, Under the hood, How industry does it, and the
           rest. Reopen any of them, any time, including from print.</li>
-          <li><b>Optional deeper dives</b> (search by name): Anthropic's "Claude Code best practices" and
+          <li data-vo="Two optional deeper dives are worth searching by name. Anthropic's Claude Code best practices, and Building effective agents. Both are weekend-grade, and neither is required."><b>Optional deeper dives</b> (search by name): Anthropic's "Claude Code best practices" and
           "Building effective agents". Weekend-grade, not required.</li>
         </ul>
       </div>
     </div>
-    <span class="read"><b>Being stuck on wiring is the week working.</b> An SSO wall examined in the open
+    <span class="read" data-vo="Being stuck on wiring is the week working. An SSO wall examined in the open beats a quiet workaround that nobody else learns from."><b>Being stuck on wiring is the week working.</b> An SSO wall examined in the open
     beats a quiet workaround nobody else learns from.</span>
-    <span class="keep"><b>Keep this</b>Support lives on the issue thread. Public questions compound;
+    <span class="keep" data-vo="Support lives on the issue thread. Public questions compound, and private ones evaporate."><b>Keep this</b>Support lives on the issue thread. Public questions compound;
     private ones evaporate.</span>
   </div>
 </section>
 
 <!-- 51 · Close -->
-<section class="slide isnow" id="close" data-act="Close" data-mv="Close the loop" data-vo-audio="audio/34-01.m4a" data-vo="Rate yourself again on the Day 1 question, and let it be evidence rather than enthusiasm. A number that went down is calibration, because you now know what wired actually means. Write your one-sentence rule, then take the four Application issues on the Week 1 milestone, and run /guide-me when you get stuck. Start the friction log today, and see you in week 2.">
+<section class="slide isnow" id="close" data-act="Close" data-mv="Close the loop">
   <div class="wrap">
     <div class="kicker">Close the loop</div>
     <h2 class="head">Re-read your number.</h2>
     <div class="confbox">
       <span class="confecho" id="confEcho">—</span>
-      <p class="q">That's what you wrote on Day 1: <em>could you hand Claude a task touching GitHub, your
+      <p class="q" data-vo="That is what you wrote on Day 1. Could you hand Claude a task touching GitHub, your codebase and your terminal, without becoming the clipboard? Rate yourself again, and be honest.">That's what you wrote on Day 1: <em>could you hand Claude a task touching GitHub, your
       codebase and your terminal without becoming the clipboard?</em> Rate yourself again, honestly.</p>
     </div>
     <div class="teach">
-      <p>If the number moved, notice why. It should be evidence rather than enthusiasm. You counted your
+      <p data-vo="If the number moved, notice why. It should be evidence rather than enthusiasm. You counted your own hops. You wired gh and MCP, and you set a permission baseline. You read real meters, ran all four disciplines once, and shipped an automation that ran twice without you. If the number moved down, that is calibration. You now know what wired actually means, and that is the more useful number improving.">If the number moved, notice why. It should be evidence rather than enthusiasm. You counted your
       own hops, wired gh and MCP, and set a permission baseline. You read real meters, ran all four
       disciplines once, and shipped an automation that ran twice without you. If it moved <b>down</b>, that's calibration: you now know
       what wired actually means, and that's the more useful number improving.</p>
     </div>
     <div class="caplbl mt14">Commit — one sentence</div>
     <textarea class="cap" data-persist="close-commit" id="closeCommit" placeholder="One workflow rule I now hold, in one sentence…"></textarea>
-    <div class="hostep mt14">The hand-off</div>
-    <div class="hodo"><b>This weekend:</b> four Application issues on the Week 1 milestone. Book the peer
+    <div class="hostep mt14" data-vo="Here is the hand-off.">The hand-off</div>
+    <div class="hodo" data-vo="This weekend there are four Application issues on the Week 1 milestone. Book the peer audit first, because it needs another learner's diary. Each issue is a ticket: a fresh problem of a class the capstone rehearsed, and yours to navigate solo. Being stuck is allowed. Run /guide-me, a skill in the cohort repo. Give it the issue link and it coaches you step by step, and it never solves the issue for you."><b>This weekend:</b> four Application issues on the Week 1 milestone. Book the peer
     audit first (it needs another learner's diary). Each issue is a ticket: a fresh problem of a class
     the capstone rehearsed, yours to navigate solo. Stuck is allowed: run <b>/guide-me</b> (a skill in
     the cohort repo: give it the issue link and it coaches you step by step; it never solves).</div>
-    <div class="hodo"><b>Starting today, forever:</b> the friction log, two minutes a day. Every repeated
+    <div class="hodo" data-vo="Starting today and forever, keep the friction log, two minutes a day. Every repeated instruction, every hop, every wrong done is one line. Week three turns your top entries into harness."><b>Starting today, forever:</b> the friction log, two minutes a day. Every repeated
     instruction, every hop, every wrong "done" is one line. Week 3 turns the top entries into
     harness.</div>
-    <div class="hodo"><b>Next week:</b> context engineering. What the model sees, at the right scope:
+    <div class="hodo" data-vo="Next week is context engineering, which is what the model sees, at the right scope. CLAUDE.md grows into a documentation layer, and the gym repo gets the full treatment."><b>Next week:</b> context engineering. What the model sees, at the right scope:
     CLAUDE.md grows into a documentation layer, and the gym repo gets the full treatment.</div>
-    <span class="read"><b>You fired yourself from the clipboard job.</b> You can name the four
+    <span class="read" data-vo="You fired yourself from the clipboard job. You can name the four disciplines, read a session by its beats, and prove your environment cold. See you in week two."><b>You fired yourself from the clipboard job.</b> You can name the four
     disciplines, read a session by its beats, and prove your environment cold. See you in week 2.</span>
-    <span class="keep"><b>Keep this</b>Finishing the deck doesn't finish the week: the milestone closes
+    <span class="keep" data-vo="Finishing the deck does not finish the week. The milestone closes when all six issues close, on Sunday evening. The friction log starts today, and it does not stop. You arrived as the clipboard between Claude and everything else. You are leaving with that job wired away. Go and use it."><b>Keep this</b>Finishing the deck doesn't finish the week: the milestone closes
     when all six issues close, Sunday EOD, and the friction-log habit starts today.</span>
   </div>
 </section>

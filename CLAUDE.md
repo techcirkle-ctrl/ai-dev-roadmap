@@ -67,6 +67,12 @@ file is the repo's ideology in brief; the full operating contract is
   coach lives inside the widget (.cuebar, no Drive-it box), every widget self-checks
   and debriefs via its score line, "Check your read" survives on hands-on panels
   only, keeps one line. Full rules: DECK-PLAYBOOK §1 + §3.
+- **Every deck teaches aloud.** Narration lives per element in `data-vo`, and the voice
+  covers the slide before it adds to it — a teacher, never a summariser (verifier gate:
+  90% of the slide's prose words). While a block plays the deck highlights it and scrolls
+  it into view, so the eye follows the voice. Audio renders free via
+  `render-voice.sh N` (edge-tts) into `weeks/week-N/audio/`; the browser's own speech
+  engine is the fallback wherever a file is missing.
 - **GitHub Issues + Milestones are the source of truth** for all tracking; `setup/`
   copies are fallback only.
 

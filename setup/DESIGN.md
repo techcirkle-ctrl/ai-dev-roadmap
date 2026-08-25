@@ -95,3 +95,17 @@ The palette is shared; the layout is not. Pick by artifact:
    readable static document.
 3. **Local only** — any persisted state goes to `localStorage` on the device; nothing is
    sent anywhere.
+
+## Voice-over chrome
+
+Two elements, both token-only, both hidden in print.
+
+`.vobar` pins top right at `z-index:45` and holds three pill buttons — speaker, `AUTO`,
+and the speed cycle — plus a live-region counter. It uses `--paper`, `--line` and
+`--muted`, switching to `--accent` and `--accent-soft` when a control is on. It hides
+itself entirely on a deck that carries no narration.
+
+`.vohl` marks the block currently being narrated: `--accent-soft` fill, a 3px `--accent`
+left rule, padding, and a negative left margin so the rule sits in the margin rather than
+shifting the line. On `.slide.act` and `.slide.dark` the fill becomes a white 10% wash so
+it reads against the dark register.

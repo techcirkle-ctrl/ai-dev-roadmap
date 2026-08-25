@@ -80,10 +80,22 @@ question you may ask before going dark.
 
 1. Build `weeks/week-N/Knowledge.html` per `DECK-PLAYBOOK.md`, plus `weeks/week-N/data/`
    files (templates the capstone/issues need, sample repos/briefs, fallback forms).
-2. Verify structurally: `node .claude/skills/content-builder/check-deck.js weeks/week-N/Knowledge.html`
+2. Write the **voice-over** into the deck. Narration lives on the elements, not the
+   section — see DECK-PLAYBOOK §1, "Voice-over is a teacher, not a reader". Every `.lead`,
+   every `li`, the `.keep`, each `details.fold`, the `.goalstrip`, any `.notice` and any
+   `.read` carries its own `data-vo`; a `.lab` carries one script framing the widget. The
+   voice covers the slide and then teaches it, so the verifier fails any slide under 90%
+   of its prose words.
+3. Render the audio, which needs no key and no account:
+   `.claude/skills/content-builder/render-voice.sh N`
+   It renders every block through edge-tts, writes `weeks/week-N/audio/SS-BB.m4a`, and
+   stamps `data-vo-audio` onto each block. Re-runs only re-render blocks whose script
+   changed. If the engine mispronounces a word, add one line to
+   `.claude/skills/content-builder/pronounce.tsv` and re-run — never respell it in the deck.
+4. Verify structurally: `node .claude/skills/content-builder/check-deck.js weeks/week-N/Knowledge.html`
    — fix until clean. Do NOT drive browser preview yourself (user preference: they check
    UI once themselves).
-3. STOP. Ask the user to open the deck and review. Iterate until confirmed.
+5. STOP. Ask the user to open the deck and review. Iterate until confirmed.
 
 ### Phase 3 — Issues plan → HARD GATE 3
 

@@ -65,7 +65,10 @@ learner navigates alone, so the deck must say everything, on the glass:
     in speakable form. It is spoken by the browser's own speech engine, so it costs no
     bytes and works offline. It must never carry teaching the eye does not get — a
     learner who never switches the speaker on loses nothing. No markup and no double
-    quotes inside the attribute. A slide without `data-vo` is silent, and autoplay
+    quotes inside the attribute. Speak a file path, a flag or a command name exactly as
+    written, unless the literal string reads as noise aloud — a long path, or a chain of
+    four commands. Then say it in shortened form, and only where the exact string is on
+    the glass for the eye to read. A slide without `data-vo` is silent, and autoplay
     stops there rather than advancing past it. Autoplay also stops on any slide holding
     a `.hobadge`, a `.lab` or a `.steppanel`, because the learner is working in a
     terminal the deck cannot see, or stepping through a panel by hand where step
@@ -202,8 +205,13 @@ numbers (M1…) appear only beside their titles (agenda, kickers) — reference 
   cohort promptblocks carry shell commands and Claude Code invocations as often as
   prompts — mark which is which.
 - **Persistence:** every capture field has `data-persist`; state goes to `localStorage`
-  only (key prefix `wN.`). Say so on the glass, and name the paper fallback template in
-  `weeks/week-N/data/`.
+  only (key prefix `dwN.`, and `dwN.vo.` for the voice-over). Say so on the glass, and
+  name the paper fallback template in `weeks/week-N/data/`.
+- **Voice-over:** every deck carries the engine, whether or not it is scripted yet. It
+  needs four things: the `.vobar` control markup after the progress bar, the `VO` engine
+  block in the script, the `VO.onSlide()` call inside `show()`, and a `VOPFX` equal to
+  that deck's `PFX` plus `vo.` (so `dw4.` gives `dw4.vo.`). Port the block from the newest
+  shipped deck, never from a plan file, and change only the `VOPFX` line.
 - Self-contained (inline CSS + vanilla JS, no network), `@media print` flattens registers
   to white, expands steppers, drops chrome/copy; widgets in defensive IIFEs
   (`if(!el)return;`), state derived from the DOM.

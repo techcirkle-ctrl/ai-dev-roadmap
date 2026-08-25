@@ -91,6 +91,24 @@ if (!voScripted) console.log("voice-over: no slides scripted");
 else if (voScripted === sections.length) console.log(`voice-over: all ${voScripted} slides scripted`);
 else console.log(`voice-over: ${voScripted}/${sections.length} slides scripted (partial — autoplay stops on the rest)`);
 
+// voice-over engine: all four edits present, or none — a half-ported deck is a defect
+const VO_PARTS = [
+  [/var VO=\(function\(\)\{/, "the VO engine block"],
+  [/\n\s*VO\.onSlide\(\);/, "the VO.onSlide() call in show()"],
+  [/class="vobar"/, "the .vobar control markup"],
+  [/\.chrome,[^\n{]*\.vobar[^\n{]*\{display:none!important\}/, ".vobar in the print hide rule"],
+];
+const voPresent = VO_PARTS.filter(p => p[0].test(html));
+if (voPresent.length && voPresent.length < VO_PARTS.length) {
+  VO_PARTS.forEach(([re, what]) => { if (!re.test(html)) bad("voice-over engine half-ported: missing " + what); });
+} else if (voPresent.length === VO_PARTS.length) {
+  const pfx = (html.match(/var PFX="([^"]*)"/) || [])[1];
+  const vpfx = (html.match(/var VOPFX="([^"]*)"/) || [])[1];
+  if (!pfx || !vpfx) bad("voice-over: a PFX or VOPFX literal is missing");
+  else if (vpfx !== pfx + "vo.") bad(`voice-over: VOPFX is "${vpfx}" but PFX is "${pfx}" — expected "${pfx}vo."`);
+  console.log("voice-over engine: present");
+} else console.log("voice-over engine: absent");
+
 // steppers: within each slide, snode count must equal steppanel count
 sections.forEach((body, i) => {
   const sn = (body.match(/class="snode/g) || []).length;

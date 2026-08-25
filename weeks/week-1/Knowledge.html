@@ -308,7 +308,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 <div class="vobar">
   <button class="vobtn" id="voToggle" type="button" aria-pressed="false" aria-label="Voice-over on or off"><span class="glyph" id="voGlyph">&#128263;</span><span id="voLabel">Voice off</span></button>
   <button class="vobtn" id="voAuto" type="button" aria-pressed="false" aria-label="Autoplay on or off" disabled>Auto</button>
-  <span class="vocount" id="voCount"></span>
+  <span class="vocount" id="voCount" aria-live="polite"></span>
 </div>
 <div class="deck" id="deck">
 
@@ -2024,6 +2024,11 @@ var VO=(function(){
   var bar=document.querySelector(".vobar");
   if(!bar)return {onSlide:function(){},cancel:function(){}};
   if(!synth||typeof window.SpeechSynthesisUtterance!=="function"){
+    bar.style.display="none";
+    return {onSlide:function(){},cancel:function(){}};
+  }
+  /* a deck with no narration shows no controls */
+  if(!document.querySelector("[data-vo]")){
     bar.style.display="none";
     return {onSlide:function(){},cancel:function(){}};
   }

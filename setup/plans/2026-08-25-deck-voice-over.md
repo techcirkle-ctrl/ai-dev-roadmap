@@ -170,7 +170,7 @@ Insert directly after it:
 <div class="vobar">
   <button class="vobtn" id="voToggle" type="button" aria-pressed="false" aria-label="Voice-over on or off"><span class="glyph" id="voGlyph">&#128263;</span><span id="voLabel">Voice off</span></button>
   <button class="vobtn" id="voAuto" type="button" aria-pressed="false" aria-label="Autoplay on or off" disabled>Auto</button>
-  <span class="vocount" id="voCount"></span>
+  <span class="vocount" id="voCount" aria-live="polite"></span>
 </div>
 ```
 
@@ -192,6 +192,11 @@ var VO=(function(){
   var bar=document.querySelector(".vobar");
   if(!bar)return {onSlide:function(){},cancel:function(){}};
   if(!synth||typeof window.SpeechSynthesisUtterance!=="function"){
+    bar.style.display="none";
+    return {onSlide:function(){},cancel:function(){}};
+  }
+  /* a deck with no narration shows no controls */
+  if(!document.querySelector("[data-vo]")){
     bar.style.display="none";
     return {onSlide:function(){},cancel:function(){}};
   }
@@ -481,6 +486,8 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 ---
 
 ### Task 4: Port the silent engine to weeks 2 and 3
+
+> Porting to a later week: the newest shipped deck is the reference copy, not this file. The code below is as of 25 August 2026 and may have drifted since.
 
 **Files:**
 - Modify: `weeks/week-2/Knowledge.html`

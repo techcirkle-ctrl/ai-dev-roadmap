@@ -71,6 +71,16 @@ const dup = [...new Set(ids.filter((v, i) => ids.indexOf(v) !== i))];
 if (dup.length) bad("duplicate ids: " + dup.join(", "));
 else console.log("duplicate ids: none");
 
+// voice-over: data-vo is plain, non-empty narration text when present
+const vos = [...html.matchAll(/data-vo="([^"]*)"/g)].map(m => m[1]);
+vos.forEach((v, i) => {
+  if (!v.trim()) bad(`data-vo ${i + 1}: empty (drop the attribute instead)`);
+  if (/<[a-z/!]/i.test(v)) bad(`data-vo ${i + 1}: contains markup (plain text only)`);
+});
+if (!vos.length) console.log("voice-over: no slides scripted");
+else if (vos.length === secOpen) console.log(`voice-over: all ${vos.length} slides scripted`);
+else console.log(`voice-over: ${vos.length}/${secOpen} slides scripted (partial — autoplay stops on the rest)`);
+
 // steppers: within each slide, snode count must equal steppanel count
 sections.forEach((body, i) => {
   const sn = (body.match(/class="snode/g) || []).length;

@@ -60,6 +60,15 @@ learner navigates alone, so the deck must say everything, on the glass:
   - `.soon` — the **taught-later chip**: inline grey chip ("taught in Act 4") on any
     term used before its act teaches it, so a learner never mistakes a forward
     reference for assumed knowledge.
+  - **Voice-over is a reading of the glass.** Every slide may carry a `data-vo`
+    attribute: two to four plain-text sentences that say what the slide already says,
+    in speakable form. It is spoken by the browser's own speech engine, so it costs no
+    bytes and works offline. It must never carry teaching the eye does not get — a
+    learner who never switches the speaker on loses nothing. No markup and no double
+    quotes inside the attribute. A slide without `data-vo` is silent, and autoplay
+    stops there rather than advancing past it. Autoplay also stops on any slide holding
+    a `.hobadge` or a `.lab`, because the learner is working in a terminal the deck
+    cannot see.
 
 ## 2. Doctrine (adapted for the dev cohort)
 

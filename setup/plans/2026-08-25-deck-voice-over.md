@@ -287,9 +287,15 @@ var VO=(function(){
   /* Chrome refuses to speak before the first gesture, so a saved "on" only arms.
      A keydown arms silently, because it is nearly always navigation and the slide
      change speaks a moment later anyway. */
-  function armQuiet(){armed=true;}
-  function armAndSpeak(){
+  function armQuiet(){
     if(armed)return;
+    armed=true;
+    var c0=cur;
+    setTimeout(function(){if(cur===c0)speakCurrent();},0);
+  }
+  function armAndSpeak(e){
+    if(armed)return;
+    if(e&&e.target&&e.target.closest&&e.target.closest(".vobar"))return;
     armed=true;
     if(on)speakCurrent();
   }
@@ -302,7 +308,7 @@ var VO=(function(){
   });
   bAuto.addEventListener("click",function(){
     auto=!auto;save("auto",auto);paint();
-    if(!auto)stopTimer();
+    if(!auto){stopTimer();clearCount();}
   });
   /* any deliberate action outside the bar cancels a pending advance */
   document.addEventListener("click",function(e){

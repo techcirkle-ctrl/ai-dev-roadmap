@@ -67,8 +67,9 @@ learner navigates alone, so the deck must say everything, on the glass:
     learner who never switches the speaker on loses nothing. No markup and no double
     quotes inside the attribute. A slide without `data-vo` is silent, and autoplay
     stops there rather than advancing past it. Autoplay also stops on any slide holding
-    a `.hobadge` or a `.lab`, because the learner is working in a terminal the deck
-    cannot see.
+    a `.hobadge`, a `.lab` or a `.steppanel`, because the learner is working in a
+    terminal the deck cannot see, or stepping through a panel by hand where step
+    changes never call `show()`.
 
 ## 2. Doctrine (adapted for the dev cohort)
 

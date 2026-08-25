@@ -291,7 +291,7 @@ var VO=(function(){
     if(armed)return;
     armed=true;
     var c0=cur;
-    setTimeout(function(){if(cur===c0)speakCurrent();},0);
+    setTimeout(function(){if(cur===c0&&!queue.length)speakCurrent();},0);
   }
   function armAndSpeak(e){
     if(armed)return;
@@ -307,6 +307,7 @@ var VO=(function(){
     if(on)speakCurrent();else cancel();
   });
   bAuto.addEventListener("click",function(){
+    if(!armed){armed=true;if(on)speakCurrent();}
     auto=!auto;save("auto",auto);paint();
     if(!auto){stopTimer();clearCount();}
   });

@@ -1913,7 +1913,7 @@ var VO=(function(){
     return {onSlide:function(){},cancel:function(){}};
   }
   /* a deck with no narration shows no controls */
-  if(!document.querySelector("[data-vo]")){
+  if(!document.querySelector("[data-vo],[data-vo-audio]")){
     bar.style.display="none";
     return {onSlide:function(){},cancel:function(){}};
   }
@@ -1924,7 +1924,7 @@ var VO=(function(){
   var elGlyph=document.getElementById("voGlyph");
   var elLabel=document.getElementById("voLabel");
   var elCount=document.getElementById("voCount");
-  var on=false,auto=false,armed=false,timer=null,left=0,voice=null,queue=[],qi=0,gen=0;
+  var on=false,auto=false,armed=false,timer=null,left=0,voice=null,queue=[],qi=0,gen=0,au=null;
 
   function save(k,v){try{localStorage.setItem(VOPFX+k,v?"1":"0");}catch(_){}}
   function load(k){try{return localStorage.getItem(VOPFX+k)==="1";}catch(_){return false;}}
@@ -1964,6 +1964,7 @@ var VO=(function(){
   /* the generation bump fences off any utterance callback still in flight */
   function cancel(){
     gen++;stopTimer();clearCount();queue=[];qi=0;
+    if(au){au.onended=null;au.onerror=null;try{au.pause();}catch(_){}au=null;}
     try{synth.cancel();}catch(_){}
   }
   function paint(){
@@ -1997,13 +1998,24 @@ var VO=(function(){
     u.onerror=function(){speakNext(g);};
     try{synth.speak(u);}catch(_){}
   }
-  function speakCurrent(){
-    cancel();
-    if(!on||!armed)return;
-    var txt=script(slides[cur]);
+  function speakText(s){
+    var txt=script(s);
     if(!txt)return;
     queue=chunks(txt);qi=0;
     speakNext(gen);
+  }
+  /* a rendered file wins where one exists; the speech engine is the fallback */
+  function speakCurrent(){
+    cancel();
+    if(!on||!armed)return;
+    var s=slides[cur],src=s.getAttribute("data-vo-audio");
+    if(!src){speakText(s);return;}
+    var g=gen;
+    au=new Audio(src);
+    au.onended=function(){if(g===gen)finished();};
+    au.onerror=function(){if(g===gen)speakText(s);};
+    var pr=au.play();
+    if(pr&&pr["catch"])pr["catch"](function(){if(g===gen)speakText(s);});
   }
 
   /* Chrome refuses to speak before the first gesture, so a saved "on" only arms.

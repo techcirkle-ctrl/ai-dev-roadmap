@@ -61,9 +61,10 @@ learner navigates alone, so the deck must say everything, on the glass:
     term used before its act teaches it, so a learner never mistakes a forward
     reference for assumed knowledge.
   - **Voice-over is a teacher, not a reader.** (Trainer correction, 25 Aug 2026.) Every
-    slide may carry a `data-vo` attribute holding the narration script: plain text, six
-    to ten sentences, 100 to 160 words. It is not the slide read aloud. It is what a good
-    trainer says while the slide is up — the essence first, then the reasoning, with a
+    slide may carry a `data-vo` attribute holding the narration script: plain text, 100 to 160
+    words. Sentence count follows from the word budget, so expect eight to fourteen — the
+    word count is the constraint, never the sentence count.
+    It is not the slide read aloud. It is what a good trainer says while the slide is up — the essence first, then the reasoning, with a
     concrete example wherever one makes the idea land. Reach for an example even when the
     slide itself did not need to print one. A learner who hears it should feel taught,
     not recited to.
@@ -74,7 +75,7 @@ learner navigates alone, so the deck must say everything, on the glass:
       a different syllabus, so a silent learner loses richness and never loses the
       curriculum.
     - Sentence rules from `~/.claude/VOICE.md` still bind: one idea per sentence, average
-      under 15 words, never over 25. Longer narration means more sentences, never longer ones.
+      under 15 words, never over 25. A longer script means more sentences, never longer ones.
     - No markup and no double quotes inside the attribute. Speak a file path, a flag or a
       command name exactly as written, unless the literal string reads as noise aloud — a
       long path, or a chain of four commands. Then say it in shortened form, and only where

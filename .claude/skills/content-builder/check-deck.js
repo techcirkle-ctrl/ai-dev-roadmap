@@ -115,6 +115,17 @@ if (thin.length) {
     .forEach(t => console.log(`    section ${t.i}: ${t.said} narrated vs ${t.shown} prose words (${Math.round(t.ratio * 100)}%, want 90%+)`));
 } else if (voScripted) console.log("narration coverage: every scripted slide at 90%+");
 
+// stamped audio must actually exist — a dead pointer silently drops the deck
+// back to the browser voice, which is the thing the files were rendered to avoid
+const path = require("path");
+const deckDir = path.dirname(path.resolve(file));
+const stamps = [...html.matchAll(/data-vo-audio="([^"]*)"/g)].map(m => m[1]);
+const dead = stamps.filter(rel => !fs.existsSync(path.join(deckDir, rel)));
+if (dead.length) {
+  bad(`data-vo-audio pointing at files that do not exist: ${dead.length} of ${stamps.length} — re-run render-voice.sh`);
+  dead.slice(0, 5).forEach(d => console.log(`    missing: ${d}`));
+} else if (stamps.length) console.log(`voice-over audio: all ${stamps.length} files present`);
+
 if (!voScripted) console.log("voice-over: no slides scripted");
 else if (voScripted === sections.length) console.log(`voice-over: all ${voScripted} slides scripted`);
 else console.log(`voice-over: ${voScripted}/${sections.length} slides scripted (partial — autoplay stops on the rest)`);

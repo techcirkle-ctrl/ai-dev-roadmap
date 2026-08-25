@@ -181,5 +181,36 @@ if (jargonWords.length)
       jargonWords.map(w => `${w} ×${jargonHits[w]}`).join(", "));
 else console.log("jargon banlist: clean");
 
+// (c) sentence cap: no learner-facing sentence over 25 words (~/.claude/VOICE.md)
+// Per-element so a title without a full stop can't run into the paragraph after it.
+const BLOCK = /<(p|li|h1|h2|h3|summary)\b[^>]*>([\s\S]*?)<\/\1>/g;
+const plain = h => h.replace(/<[^>]+>/g, " ")
+                    .replace(/&nbsp;/gi, " ")
+                    .replace(/&[a-z]+;|&#x?[0-9a-f]+;/gi, "")
+                    .replace(/\s+/g, " ").trim();
+const wordsIn = t => t.split(/\s+/).filter(w => /[a-z]/i.test(w)).length;
+const sentencesIn = t => t.split(/[.!?]+(?:[\s"')\]]|$)/).filter(Boolean);
+const longSents = [];
+for (const m of proseHtml.matchAll(BLOCK))
+  for (const sent of sentencesIn(plain(m[2]))) {
+    const n = wordsIn(sent);
+    if (n > 25) longSents.push({ n, sent });
+  }
+if (longSents.length) {
+  bad(`sentences over 25 words: ${longSents.length} — split them (VOICE.md hard cap)`);
+  longSents.sort((a, b) => b.n - a.n).slice(0, 8)
+    .forEach(s => console.log(`    ${s.n} words: "${s.sent.trim().slice(0, 90)}…"`));
+} else console.log("sentence cap (≤ 25 words): clean");
+
+// (d) keep band cap: one thought, ≤ 25 words (DECK-PLAYBOOK §1)
+const fatKeeps = [...proseHtml.matchAll(/<span class="keep">([\s\S]*?)<\/span>/g)]
+  .map(m => plain(m[1]).replace(/^Keep this\s*/i, ""))
+  .map(t => ({ t, n: wordsIn(t) }))
+  .filter(k => k.n > 25);
+if (fatKeeps.length) {
+  bad(`keep bands over 25 words: ${fatKeeps.length} — one thought per keep`);
+  fatKeeps.slice(0, 8).forEach(k => console.log(`    ${k.n} words: "${k.t.slice(0, 90)}…"`));
+} else console.log("keep band cap (≤ 25 words): clean");
+
 console.log(fail ? "RESULT: FAIL" : "RESULT: CLEAN");
 process.exit(fail ? 1 : 0);

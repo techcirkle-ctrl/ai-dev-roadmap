@@ -45,6 +45,8 @@ h1.big{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:
 h2.head{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:clamp(1.4rem,2.8vw,2.15rem);line-height:1.12;margin-bottom:10px}
 .lead{font-size:clamp(1.02rem,1.5vw,1.22rem);max-width:66ch}
 .sub{font-family:ui-sans-serif,system-ui,sans-serif;color:var(--muted);font-size:clamp(.95rem,1.2vw,1.05rem);max-width:72ch}
+ul.sub{margin:14px 0 0 22px}
+ul.sub li{margin:5px 0}
 .mt8{margin-top:8px}.mt14{margin-top:14px}.mt20{margin-top:20px}.mt28{margin-top:28px}
 /* teaching prose */
 .teach{max-width:76ch;margin-top:8px}
@@ -303,9 +305,9 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
   <div class="wrap">
     <div class="kicker">AI Dev Roadmap · Week 1 of 9 · Self-paced</div>
     <h1 class="big">Stop being the clipboard.<br>Start running the loop.</h1>
-    <p class="lead mt14">You already use Claude every day. This week rebuilds <b>how</b>: one wired
-    environment where Claude reaches GitHub, your systems and your terminal directly, plus the map of the
-    four disciplines, the four named skills that the next eight weeks deepen.
+    <p class="lead mt14">You already use Claude every day. This week rebuilds <b>how</b>. You get one wired
+    environment, where Claude reaches GitHub, your systems and your terminal directly. You also get the
+    map of the four disciplines, the four named skills that the next eight weeks deepen.
     <span class="soon">taught in Act 4</span></p>
     <div class="teach">
       <p><b>How this deck works:</b> it's a guided lab you walk through alone, and most days it takes
@@ -341,8 +343,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       </ul>
     </div>
     <details class="fold plain"><summary>In plain words · "the clipboard" and "the loop"</summary><div class="fbody">
-      <p><b>The clipboard job.</b> Today you copy code out of Claude's chat window into your editor, run
-      it, copy the error back into the chat, and paste files in for context. You are the courier carrying
+      <p><b>The clipboard job.</b> Today you copy code out of Claude's chat window into your editor and
+      run it. Then you copy the error back into the chat, and paste files in for context. You are the courier carrying
       text between Claude and your own machine. That courier role is what this deck calls "being the
       clipboard".</p>
       <p><b>The loop.</b> The repeating cycle every coding task runs on: look at the code, make a change,
@@ -405,16 +407,16 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       <p>Three words explain the map.</p>
       <ul>
         <li>An <b>act</b> is one topic.</li>
-        <li>A <b>movement</b> (the M numbers) is one lesson inside an act: usually a short teach,
-        followed by a widget you drive or an exercise you run.</li>
+        <li>A <b>movement</b>, numbered M1 upwards, is one lesson inside an act. It is usually a short
+        teach, then a widget you drive or an exercise you run.</li>
         <li><b>H-O</b> marks a <b>hands-on</b>: a lesson done in a real terminal, outside this deck.</li>
       </ul>
-      <p>Acts 1 to 3 wire the machine and the meter. Act 4 is the programme in miniature: you run all
-      four disciplines once each, as mini-reps, on a small practice repo that ships in this week's
+      <p>Acts 1 to 3 wire the machine and the meter. Act 4 is the programme in miniature. You run all four
+      disciplines once each, as mini-reps, on a small practice repo that ships in this week's
       folder. That repo is called the gym, because it's where you do your reps.</p>
-      <p>Everything funnels into the capstone: audit the wiring, ship one real automation through it,
-      then walk back through the loop that did the work (the deck calls that walk-back the loop
-      autopsy).</p>
+      <p>Everything funnels into the capstone. You audit the wiring, then ship one real automation
+      through it. Then you walk back through the loop that did the work. The deck calls that
+      walk-back the loop autopsy.</p>
     </div>
     <div class="agcols">
       <div class="accol"><h3>Act 1 · The agentic loop</h3>
@@ -470,9 +472,9 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
           Sessions get measured, usage gets read, loops get checked on what they catch.</li>
           <li><b>Do, don't skim.</b> Every hands-on runs in Claude Code, in a terminal, on a repo. If you
           only read this deck, you did not do Week 1.</li>
-          <li><b>Name the discipline.</b> Four words this programme lives by: context (what Claude sees),
-          harness (what you've built around it), loop (how work gets verified), graph (how tasks are
-          arranged). <span class="soon">taught in Act 4</span> From this week you stop saying "Claude was
+          <li><b>Name the discipline.</b> This programme lives by four words. Context is what Claude sees,
+          harness is what you've built around it, loop is how work gets verified, and graph is how
+          tasks are arranged. <span class="soon">taught in Act 4</span> From this week you stop saying "Claude was
           weird" and start saying which discipline failed.</li>
         </ul>
       </div>
@@ -499,8 +501,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       <p><b>Harness engineering</b> works on the harness, which is everything you configure around
       Claude: permission rules, hooks, custom commands. It moves the things you keep saying into that
       equipment, so they happen automatically instead of being retyped.</p>
-      <p><b>Loop engineering</b> makes sure every piece of work ends with a machine check (a test, a
-      command with a pass or fail) rather than Claude's own "done".</p>
+      <p><b>Loop engineering</b> makes sure every piece of work ends with a machine check rather than
+      Claude's own "done". A machine check is a test, or a command with a pass or fail.</p>
       <p><b>Graph engineering</b> spots which tasks don't depend on each other, and runs those at
       the same time instead of one after another.</p>
       <p>You'll run each one once this week as a mini-rep. Weeks 2 to 7 then go deep, one at a time.</p>
@@ -525,8 +527,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       <p>Count the hops. Every one of them was <b>you</b>, carrying text between systems that both sit on
       your machine. The model reasoned; you did the plumbing.</p>
       <p>That workflow has a name: <b>chat-driven development</b>. It treats a coding agent as a very
-      fast colleague you can only reach by post: every message travels by hand, one exchange at a time,
-      and nothing moves between your replies.</p>
+      fast colleague you can only reach by post. Every message travels by hand, one exchange at a
+      time. Nothing moves between your replies.</p>
       <p>The cost goes beyond minutes. Because every hop passes through you, the loop only runs while you
       attend to it. Nothing verifies itself. Nothing compounds. Next week's session starts from zero
       again.</p>
@@ -549,8 +551,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
         <li><b>MCP servers</b> connect your team's other systems. MCP, the Model Context Protocol, is a
         standard plug for giving Claude access to tools like Notion, Jira or your database.
         <span class="soon">both wired in Act 2</span></li>
-        <li>A <b>permission baseline</b>, a saved list of which commands may run without asking you,
-        lets safe commands run freely while dangerous ones still stop for you.</li>
+        <li>A <b>permission baseline</b> is a saved list of which commands may run without asking you.
+        Safe commands run freely, and dangerous ones still stop for you.</li>
         <li>You know what a session draws from your usage, and which Claude model (Opus or Sonnet) to
         spend on which kind of task. <span class="soon">taught in Act 3</span></li>
         <li>You've run all four disciplines once each, so the eight weeks ahead deepen skills instead
@@ -561,9 +563,9 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     </div>
     <div class="confbox">
       <input type="number" min="1" max="10" id="conf" data-persist="conf" aria-label="confidence 1 to 10">
-      <p class="q"><b>Before anything else, write a number, 1 to 10:</b> how confident are you that you
-      could hand Claude a task touching GitHub, your codebase and your terminal, and let it run without
-      you becoming the clipboard? Type it in the box (it saves in this browser). The last slide of the
+      <p class="q"><b>Before anything else, write a number from 1 to 10.</b> Think of a task that touches
+      GitHub, your codebase and your terminal. How confident are you that you could hand it to Claude
+      and let it run, without you becoming the clipboard? Type it in the box (it saves in this browser). The last slide of the
       week shows it back to you.</p>
     </div>
     <span class="keep"><b>Keep this</b>The number is your calibration baseline. The gap between today's
@@ -585,9 +587,12 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     <p class="lead mt14">So it <b>gathers</b> its own context, <b>acts</b> on your system, and
     <b>verifies</b> its own work. The model's intelligence is the same in chat and agent; what changes
     is who runs the loop.</p>
-    <p class="sub mt14">Four movements: watch the two workflows side by side and count your hops (M1) ·
-    learn the three beats every good turn has (M2) · learn the brief shape that kills the back-and-forth
-    (M3) · then read a real session on the gym repo, beat by beat (Hands-on 01).</p>
+    <ul class="sub mt14">
+      <li>M1 puts the two workflows side by side, and you count your hops.</li>
+      <li>M2 teaches the three beats every good turn has.</li>
+      <li>M3 teaches the brief shape that kills the back-and-forth.</li>
+      <li>Hands-on 01 has you read a real session on the gym repo, beat by beat.</li>
+    </ul>
     <details class="fold plain"><summary>In plain words · one lap of the loop, concretely</summary><div class="fbody">
       <p>You tell Claude Code: "the weekly report lists a task twice; fix it." It opens the report code
       and reads it (<b>gather</b>). It spots the duplicate counting and edits one function (<b>act</b>).
@@ -655,8 +660,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       builds (writing a sharp brief, reviewing an agent's work, reading a session) transfer to whichever
       tool your next team uses. The loop is the durable skill; products come and go.</p>
     </div></details>
-    <span class="keep"><b>Keep this</b>An agent is a model plus tools plus a loop; your job moves to the
-    two ends, a sharp brief in and a real review out.</span>
+    <span class="keep"><b>Keep this</b>An agent is a model, plus tools, plus a loop. Your job moves to
+    the two ends: a sharp brief and a real review.</span>
   </div>
 </section>
 
@@ -687,11 +692,11 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       the other is the beat most sessions skip.</p>
     </div>
     <details class="fold hood"><summary>Under the hood · what a "tool call" actually is</summary><div class="fbody">
-      <p>The model can only produce text. So when Claude Code "reads a file", what really happens is
-      this: the model writes a structured request ("call the Read tool on src/report.js"), the Claude
-      Code program executes it, and the file's contents come back as text into the conversation.</p>
-      <p>Running a command works the same way: the model requests the Bash tool, your machine runs the
-      command, and the output (including errors) flows back in. A session transcript is just this
+      <p>The model can only produce text. So "reading a file" really happens in three moves. The
+      model writes a structured request, such as "call the Read tool on src/report.js". The Claude
+      Code program executes it. The file's contents come back as text into the conversation.</p>
+      <p>Running a command works the same way. The model requests the Bash tool, your machine runs
+      the command, and the output flows back in. Errors come back the same way. A session transcript is just this
       exchange repeated: request, result, request, result. That's why you can read any session as a
       sequence of tool calls; it literally is one.</p>
     </div></details>
@@ -797,9 +802,9 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     <h2 class="head">Read a live session</h2>
     <div class="goalstrip"><b>Goal</b>Watch a real gather → act → verify cycle on your own machine, and log the beats as they happen.</div>
     <div class="teach"><p>You've tagged a canned transcript. Now produce a real one. You'll point Claude
-    Code at the gym repo (a small task tracker with problems it doesn't know about yet), give it one task,
-    and watch the loop run with your own eyes: which files it reads, what it changes, whether it verifies
-    without being asked.</p></div>
+    Code at the gym repo, which is a small task tracker with problems it doesn't know about yet. Give it
+    one task, then watch the loop run with your own eyes. Watch which files it reads, what it changes,
+    and whether it verifies without being asked.</p></div>
     <div class="teach">
       <p>The gym repo is <b>relay</b>: a tiny task-tracker CLI, no dependencies, node 20+. It works,
       mostly. Don't study it yourself yet; the point is watching Claude study it.</p>
@@ -832,8 +837,8 @@ ran and what you noticed.</pre><button class="copy">Copy</button><span class="pb
     else.</div>
     <span class="read"><b>What you decide:</b> did the session earn trust? Write one line: what
     machine-produced evidence closed the loop, or what would have, if it had been asked for.</span>
-    <span class="keep"><b>Keep this</b>Agents verify what they're pointed at: if nobody names a check,
-    the loop closes on a vibe instead of evidence. Automating the pointing is week 5's business.</span>
+    <span class="keep"><b>Keep this</b>Agents verify what they're pointed at. Name no check, and the
+    loop closes on a feeling. Week 5 automates the pointing.</span>
   </div>
 </section>
 
@@ -847,14 +852,17 @@ ran and what you noticed.</pre><button class="copy">Copy</button><span class="pb
     <p class="lead mt14"><b>Wiring</b> means connecting Claude to the systems you work in, so it can act
     on them directly instead of through your clipboard. Copy-paste is the first inefficiency this
     programme removes, and it goes on day two rather than week six.</p>
-    <p class="lead mt14">The act wires three pieces: <b>gh</b> (GitHub's command-line tool) puts GitHub
-    in the loop, <b>MCP</b> puts your team's other systems in the loop, and a <b>permission baseline</b>
+    <p class="lead mt14">The act wires three pieces. <b>gh</b>, GitHub's command-line tool, puts GitHub
+    in the loop. <b>MCP</b> puts your team's other systems in the loop. A <b>permission baseline</b>
     decides what runs without asking. The exit bar has a name: zero copy-paste.</p>
-    <p class="sub mt14">Four movements, three of them hands-on: wire gh and drive it from inside a session
-    (Hands-on 02) · understand MCP's shape (M5) · connect your first two servers (Hands-on 03) · set the
-    permission baseline (Hands-on 04).</p>
-    <span class="keep"><b>Keep this</b>The bar is testable, and this week another learner will test it on
-    your machine: can Claude reach every system it needs with you touching nothing?</span>
+    <ul class="sub mt14">
+      <li>Hands-on 02 wires gh, and you drive it from inside a session.</li>
+      <li>M5 explains MCP's shape.</li>
+      <li>Hands-on 03 connects your first two servers.</li>
+      <li>Hands-on 04 sets the permission baseline.</li>
+    </ul>
+    <span class="keep"><b>Keep this</b>The bar is testable. This week another learner asks one question on
+    your machine. Can Claude reach every system it needs while you touch nothing?</span>
   </div>
 </section>
 
@@ -865,8 +873,8 @@ ran and what you noticed.</pre><button class="copy">Copy</button><span class="pb
     <h2 class="head">gh: GitHub becomes a tool call</h2>
     <div class="goalstrip"><b>Goal</b>Authenticate gh, then watch Claude use it unprompted: reading real issues on the cohort repo, creating and closing a test issue.</div>
     <div class="teach"><p>Claude Code can run any CLI you can. So the fastest wiring win is the official
-    GitHub CLI: once <b>gh</b> is authenticated, issues, PRs, milestones and releases stop being a browser
-    tab you retype from and become commands the agent runs itself. This entire programme is tracked in
+    GitHub CLI. Once <b>gh</b> is authenticated, issues, PRs, milestones and releases stop being a
+    browser tab you retype from. They become commands the agent runs itself. This entire programme is tracked in
     GitHub issues; from today, Claude reads yours directly.</p></div>
     <div class="hostep">Step 1 — install and authenticate (skip what you already have)</div>
     <div class="promptblock"><pre>brew install gh
@@ -935,7 +943,7 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
       <p>Claude Code is the <b>client</b>. Each connected system runs a <b>server</b>, usually hosted by
       the vendor (Notion runs mcp.notion.com; you install nothing). When a session starts, Claude Code
       asks each server "what tools do you offer?" and the answers join Claude's toolbox for that session.
-      When Claude uses one, the request goes to the server, the server does the real work in the real
+      When Claude uses one, the request goes to the server. The server does the real work in the real
       system, and the result comes back as text.</p>
       <p>Access is granted through <b>OAuth</b>: the "sign in with your browser" dance you know from
       "Log in with Google". You approve once in the browser; the server remembers your session from then
@@ -948,8 +956,8 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
     <details class="fold dyk"><summary>Did you know · MCP went from Anthropic project to industry standard in a year</summary><div class="fbody">
       <p>Anthropic open-sourced MCP in November 2024. Within a year OpenAI and Google's Gemini tooling
       had adopted it too, and the ecosystem passed thousands of community-built servers. That's why it's
-      worth learning as a concept, not a product feature: the connector you configure this week is the
-      same mechanism your next employer's stack will speak, whichever model vendor they use.</p>
+      worth learning as a concept rather than a product feature. The connector you configure this week
+      is the same mechanism your next employer's stack will speak, whichever model vendor they use.</p>
     </div></details>
     <div class="teach">
       <p>The board below is your working day drawn as a wiring diagram.</p>
@@ -986,19 +994,21 @@ with body "gh wired via Claude Code", show me its URL, then close it with a comm
     <div class="hobadge">Hands-on · 03</div><span class="ho">~20 min</span>
     <h2 class="head">Connect your first two MCP servers</h2>
     <div class="goalstrip"><b>Goal</b>Get two servers connected and green in /mcp, and one question answered that only a connected system could answer.</div>
-    <div class="teach"><p>Enough diagrams. You'll connect GitHub's official MCP server (richer than gh for
-    some reads, and a clean first OAuth flow: the browser sign-in that grants access once), then one
-    system your team actually uses. The commands are two lines. The judgement is in the <b>scope
-    flag</b>, the part of the command that decides who the connection belongs to, and it previews a
-    doctrine this programme returns to constantly.</p></div>
+    <div class="teach"><p>Enough diagrams. You'll connect GitHub's official MCP server, then one system your team
+    actually uses. The GitHub server is richer than gh for some reads, and it gives you a clean first
+    OAuth flow. OAuth is the browser sign-in that grants access once.</p>
+    <p>The commands are two lines. The judgement is in the <b>scope flag</b>, the part of the command
+    that decides who the connection belongs to. It previews a doctrine this programme returns to
+    constantly.</p></div>
     <details class="fold plain"><summary>In plain words · user scope vs project scope</summary><div class="fbody">
-      <p>Every artifact you add (an MCP server, a settings file, later hooks and commands) lives at a
-      <b>scope</b>: a level that decides where it applies and who inherits it.</p>
-      <p><b>User scope</b> means "mine, everywhere": the config lands in your home directory
-      (<code>~/.claude.json</code>), so the server is available in every project on your machine, and
+      <p>Every artifact you add lives at a <b>scope</b>, meaning a level that decides where it applies
+      and who inherits it. That includes an MCP server, a settings file, and later your hooks and
+      commands.</p>
+      <p><b>User scope</b> means "mine, everywhere". The config lands in your home directory
+      (<code>~/.claude.json</code>). The server is then available in every project on your machine, and
       only to you. Right for personal reach: your notes, your GitHub identity.</p>
-      <p><b>Project scope</b> means "everyone, here": the config lands in a file inside the repo
-      (<code>.mcp.json</code>) and gets committed, so every teammate who clones the repo inherits the
+      <p><b>Project scope</b> means "everyone, here". The config lands in a file inside the repo
+      (<code>.mcp.json</code>) and gets committed. Every teammate who clones the repo then inherits the
       connection automatically. Right for a team's shared systems: the project's tracker, its docs.</p>
       <p>The question to ask each time is always the same: <b>who needs this, me everywhere or everyone
       here?</b> Today both servers go to user scope; week 2 gives scoping a full treatment.</p>
@@ -1021,8 +1031,8 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
       <li>You know where each server's config landed: ~/.claude.json (user scope) vs .mcp.json (project scope)</li>
     </ul>
     <details class="fold trouble"><summary>Stuck? · SSO walls, no hosted server, flaky answers</summary><div class="fbody">
-      <p><b>Corporate SSO refuses the OAuth?</b> Log it in the friction log and move on; gh already
-      covers GitHub, and an unwired system is a finding for the audit, not a programme blocker.</p>
+      <p><b>Corporate SSO refuses the OAuth?</b> Log it in the friction log and move on. gh already
+      covers GitHub. An unwired system is a finding for the audit rather than a programme blocker.</p>
       <p><b>Your team's system has no hosted server?</b> Check modelcontextprotocol.io/examples for a
       local (stdio) server you can run on your own machine.</p>
       <p><b>Connected but flaky answers?</b> Ask the question again naming the tool: "using the linear
@@ -1047,17 +1057,17 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
     <div class="goalstrip"><b>Goal</b>Sort real tool calls into allow, ask and deny, then encode the result as your settings baseline.</div>
     <div class="teach">
       <p>Wired tools raise the stakes: an agent that can run anything must not run everything. Claude
-      Code's answer is a permission system built on an <b>allowlist</b>: an explicit, written list, kept
-      in settings files, of which commands may run without asking you, which must ask, and which are
-      refused outright.</p>
+      Code's answer is a permission system built on an <b>allowlist</b>. An allowlist is an explicit
+      written list, kept in settings files. It names which commands may run without asking you, which
+      must ask, and which are refused outright.</p>
       <p>The lazy failure modes are both bad. Approve-everything fatigue means you stop reading what you
       approve; ask-me-everything friction means autonomy dies. So the baseline gets engineered once, in
       a file, and your mood at each prompt stops being the policy.</p>
     </div>
     <div class="teach">
-      <p>First calibrate your instincts on the sorter; then encode them. The rule that makes sorting
-      fast: judge the <b>blast radius if wrong</b>, meaning how much damage the worst case does, and
-      ignore how likely the worst case is.</p>
+      <p>First calibrate your instincts on the sorter; then encode them. One rule makes sorting fast. Judge
+      the <b>blast radius if wrong</b>, meaning how much damage the worst case does. Ignore how likely
+      the worst case is.</p>
       <ul>
         <li>Reads can't damage anything, so they're free.</li>
         <li>Writes inside a git repo are cheap to undo; that's what version control is for.</li>
@@ -1099,12 +1109,14 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
       you just wrote. <b>Project settings</b> (<code>.claude/settings.json</code> inside a repo, checked
       in) carry a team's shared rules for that repo.</p>
       <p>Where they overlap, <b>deny always beats allow</b>: a personal allow can never override a
-      team's red line. Anything no rule covers falls through to the approval dialogue, which is exactly
-      what the dialogue is for: the genuinely undecided middle, never every single call.</p>
+      team's red line. Anything no rule covers falls through to the approval dialogue. That is exactly
+      what the dialogue is for. It should handle the genuinely undecided middle, never every single
+      call.</p>
     </div></details>
     <details class="fold industry"><summary>How industry does it · you already trust this pattern on GitHub</summary><div class="fbody">
-      <p>This is the same safety design your team already uses: branch protection stops force-pushes to
-      main no matter who asks; CODEOWNERS forces a review on sensitive paths; CI must pass before merge.
+      <p>This is the same safety design your team already uses. Branch protection stops force-pushes to
+      main, no matter who asks. CODEOWNERS forces a review on sensitive paths. CI must pass before
+      merge.
       The rules live in files and get enforced by machinery, instead of everyone promising to be
       careful.</p>
       <p>A permission baseline is that instinct applied to an agent. Security teams call the underlying
@@ -1138,7 +1150,7 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
         tokens, from every file it reads to every reply it writes.</li>
         <li>The <b>context window</b> is the model's working memory for one session: your messages, the
         files it read, and its own replies, all held together.</li>
-        <li>Here is the surprise that makes this an economics act: the model itself remembers nothing
+        <li>Here is the surprise that makes this an economics act. The model itself remembers nothing
         between turns, so <b>the whole window is re-sent on every turn</b>. A fat window makes every
         turn dearer.</li>
         <li>Last, Claude comes in <b>models</b> you pick between: Opus (most capable, heaviest burn) and
@@ -1149,16 +1161,19 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
     its limits will bite. The curriculum treats budgeting as part of the craft.</p>
     <p class="sub mt14">One honesty up front: a subscription has no price meter. Anthropic shows no
     dollar figures and no token counts, only usage percentages.</p>
-    <p class="sub mt14">Three movements follow: the mechanics you can't see directly, the meters you can
-    actually read (Hands-on 05), then the three exits from a session that runs heavy. The register is
-    the same as everywhere: measure, don't trust. "It feels like I have plenty left" is a vibe; /usage
-    and /context are readings.</p>
+    <ul class="sub mt14">
+      <li>The first movement covers the mechanics you can't see directly.</li>
+      <li>Hands-on 05 has you read the meters you can actually read.</li>
+      <li>The last movement covers the three exits from a session that runs heavy.</li>
+    </ul>
+    <p class="sub mt8">The register is the same as everywhere: measure, don't trust. "It feels like I
+    have plenty left" is a feeling. /usage and /context are readings.</p>
     <details class="fold dyk"><summary>Did you know · the window holds a long novel</summary><div class="fbody">
-      <p>Claude's standard context window is 200,000 tokens: roughly 150,000 words, the length of a long
-      novel. Sounds infinite; isn't. A handful of large source files, a chatty transcript and some test
-      output eat it faster than you'd guess, and everything in it is re-sent every turn, so a full
-      window is a running cost as well as a limit. That's why the craft of keeping the window lean
-      (week 2) exists at all.</p>
+      <p>Claude's standard context window is 200,000 tokens. That is roughly 150,000 words, the length
+      of a long novel. That sounds infinite. It isn't.</p>
+      <p>A handful of large source files, a chatty transcript and some test output eat it faster than
+      you'd guess. Everything in it is re-sent every turn. So a full window is a running cost as well
+      as a limit. That's why the craft of keeping the window lean (week 2) exists at all.</p>
     </div></details>
     <span class="keep"><b>Keep this</b>Context is spend: the window is re-sent every turn, and every
     file read and Opus turn draws from the budget your Friday afternoon needs.</span>
@@ -1178,16 +1193,17 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
         <li>Usage accrues in <b>rolling 5-hour windows</b>: burn hard and the window throttles you
         (slows or pauses your access) until it resets.</li>
         <li>A <b>weekly cap</b> sits above that, and heavy Opus use is what reaches it.</li>
-        <li>The <b>model mix</b>, meaning how much of your work runs on Opus against Sonnet, is your
-        main lever: Opus burns roughly five times Sonnet for the same conversation, so what you route
-        to Opus decides your week.</li>
+        <li>The <b>model mix</b> is your main lever, meaning how much of your work runs on Opus against
+        Sonnet. Opus burns roughly five times Sonnet for the same conversation. So what you route to
+        Opus decides your week.</li>
       </ul>
     </div>
     <div class="teach">
-      <p>The simulator below models a Max 5x week in illustrative units calibrated to Anthropic's
-      published guidance ranges; your real numbers differ by codebase and session style, which is why
-      Hands-on 05 reads the real meters. Two gauges: pressure on a single 5-hour window at your working
-      intensity, and the share of the weekly cap your pattern consumes.</p>
+      <p>The simulator below models a Max 5x week in illustrative units, calibrated to Anthropic's
+      published guidance ranges. Your real numbers differ by codebase and session style, which is why
+      Hands-on 05 reads the real meters.</p>
+      <p>There are two gauges. One shows pressure on a single 5-hour window at your working intensity.
+      The other shows the share of the weekly cap your pattern consumes.</p>
     </div>
     <div class="lab" id="wbudget">
       <div class="labtitle">Widget · <b>the budget meter</b> — illustrative units, real shape</div>
@@ -1215,8 +1231,8 @@ and who touched it last? Name the tool you used to find out.</pre><button class=
       <p>Anthropic's plan pages describe Max 5x as roughly five times Pro's usage, with limits stated as
       rolling windows and weekly caps. But they publish no exact token budgets, and the numbers get
       tuned over time. That's why this widget runs on illustrative units rather than pretending to know
-      the real ones, and why Hands-on 05 matters more than any simulator: your own /usage readings are
-      the only numbers that are true for you.</p>
+      the real ones. It is also why Hands-on 05 matters more than any simulator. Your own /usage
+      readings are the only numbers that are true for you.</p>
     </div></details>
     <span class="keep"><b>Keep this</b>Opus burns about five times Sonnet, so route by task value and
     pace heavy sessions; ignoring the mix buys a Thursday with no Claude.</span>
@@ -1273,8 +1289,8 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
     taken consistently, are all the budgeting signal you get, and all you need.</div>
     <span class="read"><b>What you decide:</b> your checking rhythm. End of every session goes in the
     log; /context whenever heavy. Meters you don't read are decoration.</span>
-    <span class="keep"><b>Keep this</b>/usage shows the window, the week and reset times, /context shows
-    what's loaded, and /model shows what you burn; run all three every session this week.</span>
+    <span class="keep"><b>Keep this</b>/usage shows the window and reset times, /context shows what's
+    loaded, and /model shows what you burn. Run all three every session.</span>
   </div>
 </section>
 
@@ -1295,8 +1311,8 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
         <li><b>Hand off</b> writes the state to a file that a fresh session reads. It's right when the
         work continues but this session shouldn't.</li>
       </ul>
-      <p>The tell is what the history still owes you: if it's done with, clear; if it's needed but
-      bloated, compact; if someone else needs it, including tomorrow's you, hand off.</p>
+      <p>The tell is what the history still owes you. If it's done with, clear. If it's needed but
+      bloated, compact. If someone else needs it, including tomorrow's you, hand off.</p>
     </div>
     <div class="teach">
       <p>Two sharp edges.</p>
@@ -1328,8 +1344,8 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
     <span class="read"><b>What you decide:</b> your triage habit, written as one line in your notes:
     "task done → /clear · long task at a breakpoint → focused /compact · day ends mid-work → handoff
     file." Log every time you break it this week.</span>
-    <span class="keep"><b>Keep this</b>Clear when the history is done, compact with a focus when it's
-    heavy but needed, and hand off when the work outlives the session; never compact poison.</span>
+    <span class="keep"><b>Keep this</b>Clear when the history is done, compact when it's heavy but
+    needed, and hand off when the work outlives the session. Never compact poison.</span>
   </div>
 </section>
 
@@ -1348,8 +1364,8 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
         <li><b>Harness engineering</b> works on the harness, meaning everything you configure around
         Claude (settings, permission rules, hooks, custom commands). The discipline moves what you
         repeatedly say into that equipment, so it happens automatically.</li>
-        <li><b>Loop engineering</b> never lets "done" rest on the model's word: you design the work so
-        a machine check (a test, a command with a pass or fail) closes every loop.</li>
+        <li><b>Loop engineering</b> never lets "done" rest on the model's word. You design the work so a
+        machine check closes every loop. That check is a test, or a command with a pass or fail.</li>
         <li><b>Graph engineering</b> spots which tasks genuinely depend on each other, and runs the
         independent ones at the same time instead of in a queue.</li>
       </ul>
@@ -1409,7 +1425,7 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
     <span class="read"><b>What you decide:</b> your weakest discipline, named, from your own last month.
     Most chat-driven developers pick loop, and most are right.</span>
     <span class="keep"><b>Keep this</b>Context is what it sees, harness is what you encode, loop is what
-    closes the turn, and graph is how work is shaped; four reps come next.</span>
+    closes the turn, and graph is how work is shaped.</span>
   </div>
 </section>
 
@@ -1420,11 +1436,12 @@ and one annotation.</pre><button class="copy">Copy</button><span class="pbtag">t
     <h2 class="head">Context: one file changes behaviour</h2>
     <div class="goalstrip"><b>Goal</b>Produce a before/after pair where a four-line file visibly changed what the agent did.</div>
     <div class="teach">
-      <p><b>CLAUDE.md</b> is a plain markdown file at a repo's root that Claude Code reads
-      automatically at the start of every session: your standing instructions, always in the window.
+      <p><b>CLAUDE.md</b> is a plain markdown file at a repo's root. Claude Code reads it automatically
+      at the start of every session. It holds your standing instructions, always in the window.
       The gym repo doesn't have one, which means every session guesses your conventions.</p>
-      <p>The rep runs the same task twice: first cold (no CLAUDE.md, no setup) while you catalogue the
-      guesses, then again, identically, after you write four lines of CLAUDE.md. Same model, same
+      <p>The rep runs the same task twice. The first run is cold, with no CLAUDE.md and no setup, and
+      you catalogue the guesses. The second run is identical, after you write four lines of
+      CLAUDE.md. Same model, same
       prompt, different behaviour. That's context engineering in its smallest possible dose.</p>
     </div>
     <div class="hostep">Step 1 — cold run (no CLAUDE.md exists yet)</div>
@@ -1447,10 +1464,11 @@ without archiving it. Match the existing style.</pre><button class="copy">Copy</
     </ul>
     <details class="fold industry"><summary>How industry does it · agent files are becoming repo furniture</summary><div class="fbody">
       <p>Instruction files for agents are turning into standard repo furniture, the way CONTRIBUTING.md
-      and .editorconfig did for humans and editors. CLAUDE.md is Claude Code's; AGENTS.md is an emerging
-      cross-tool convention several vendors read; many teams symlink one to the other so every agent
-      sees the same rules. When you join a repo that has one, read it first; it's the team telling
-      every agent (and you) how work is done here.</p>
+      and .editorconfig did for humans and editors. CLAUDE.md belongs to Claude Code. AGENTS.md is an
+      emerging cross-tool convention that several vendors read.</p>
+      <p>Many teams symlink one to the other, so every agent sees the same rules. When you join a repo
+      that has one, read it first. It's the team telling every agent, and you, how work is done
+      here.</p>
     </div></details>
     <details class="fold trouble"><summary>Stuck? · the cold run guessed right</summary><div class="fbody">
       <p><b>Cold run already did everything right?</b> Lucky guesses happen. Tighten the contrast: add a
@@ -1475,7 +1493,7 @@ without archiving it. Match the existing style.</pre><button class="copy">Copy</
     <h2 class="head">Harness: a hook is a guarantee</h2>
     <div class="goalstrip"><b>Goal</b>Ship one working PreToolUse hook and see it block a command you asked for yourself.</div>
     <div class="teach">
-      <p>Your permission baseline asks or denies. A <b>hook</b> goes further: it's a small script Claude
+      <p>Your permission baseline asks or denies. A <b>hook</b> goes further. It's a small script Claude
       Code runs automatically at a fixed moment in the loop, for example just before any tool call. The
       model cannot skip, forget or talk its way past it, because the harness runs it rather than the
       model.</p>
@@ -1487,15 +1505,16 @@ without archiving it. Match the existing style.</pre><button class="copy">Copy</
       <p>The hook lives at <b>project scope</b> (.claude/settings.json inside the gym repo) because it
       guards this repo, and anyone who clones it should inherit the guard. That's the scope question from
       wiring day, answered a second way.</p>
-      <p>The command below looks dense; the fold under it decodes every piece. The short version: before
-      any terminal command runs, this script inspects it, and a forbidden pattern gets the call blocked
-      with an explanation Claude can read.</p>
+      <p>The command below looks dense; the fold under it decodes every piece. Here is the short version.
+      Before any terminal command runs, this script inspects it. A forbidden pattern gets the call
+      blocked, with an explanation Claude can read.</p>
     </div>
     <details class="fold hood"><summary>Under the hood · reading the hook line, piece by piece</summary><div class="fbody">
       <p><b>"PreToolUse"</b> is the moment: this hook runs just before every tool call.
       <b>"matcher": "Bash"</b> narrows it to one tool: terminal commands only.</p>
-      <p>When the moment arrives, Claude Code runs your command and pipes the pending tool call into it
-      as JSON on <b>stdin</b> (standard input: the stream a program reads when data is piped to it).</p>
+      <p>When the moment arrives, Claude Code runs your command. It pipes the pending tool call into it
+      as JSON on <b>stdin</b>. Standard input is the stream a program reads when data is piped to
+      it.</p>
       <p><b>jq</b> is a widely used command-line tool for reading JSON. Here it pulls out
       <code>.tool_input.command</code>, the actual shell command Claude wants to run, and
       <code>test("push +--force|…")</code> checks it against a pattern of forbidden commands.</p>
@@ -1528,11 +1547,12 @@ without archiving it. Match the existing style.</pre><button class="copy">Copy</
       <li>You can say why this beats the same rule written in CLAUDE.md</li>
     </ul>
     <details class="fold industry"><summary>How industry does it · you've met hooks before, under other names</summary><div class="fbody">
-      <p>The pattern is older than agents: git's pre-commit hooks run linters before a commit is allowed;
-      branch protection refuses force-pushes to main whoever asks; CI gates block a merge until checks
-      pass. In every case a machine enforces a rule people would otherwise have to remember. A PreToolUse
-      hook is the same design applied to an agent's tool calls, which is why teams that already trust
-      CI gates adopt agent hooks without blinking.</p>
+      <p>The pattern is older than agents. Git's pre-commit hooks run linters before a commit is
+      allowed. Branch protection refuses force-pushes to main, whoever asks. CI gates block a merge
+      until checks pass.</p>
+      <p>In every case a machine enforces a rule people would otherwise have to remember. A PreToolUse
+      hook is the same design, applied to an agent's tool calls. Teams that already trust CI gates
+      adopt agent hooks without blinking.</p>
     </div></details>
     <details class="fold trouble"><summary>Stuck? · hook not firing, no jq, no remote</summary><div class="fbody">
       <p><b>Hook didn't fire?</b> Hooks load at session start: exit and rerun claude. Then check /hooks
@@ -1595,9 +1615,10 @@ and paste the final test output.</pre><button class="copy">Copy</button><span cl
       <li>The dedupe and the Sunday boundary are both covered by a test that would catch a regression</li>
     </ul>
     <details class="fold industry"><summary>How industry does it · this is TDD, made enforceable</summary><div class="fbody">
-      <p>Test-driven development (write the failing test first, then the code that passes it) has been
-      industry practice for over twenty years, and honoured in the breach for most of them: under
-      deadline, humans skip the failing-test step. Agents change the economics. Writing the test costs
+      <p>Test-driven development means writing the failing test first, then the code that passes it. It
+      has been industry practice for over twenty years, and ignored for most of them. Under deadline,
+      humans skip the failing-test step.</p>
+      <p>Agents change the economics. Writing the test costs
       you one sentence in the brief, and weeks 5 and 6 make the sequence enforceable rather than
       aspirational. The old discipline didn't get easier; it got cheap enough to actually do.</p>
     </div></details>
@@ -1605,8 +1626,8 @@ and paste the final test output.</pre><button class="copy">Copy</button><span cl
       <p><b>Claude fixed the code before writing tests?</b> It happens; revert
       (<code>git checkout -- src</code>) and re-run step 1 with "do not modify src yet" added. Getting an
       agent to hold red is itself a skill.</p>
-      <p><b>Tests use today's date?</b> Reject them: a test tied to the wall clock passes six days a week
-      and fails on Sundays, which is the exact bug it's meant to prove. Fixed dates or it isn't proof.</p>
+      <p><b>Tests use today's date?</b> Reject them. A test tied to the wall clock passes six days a week
+      and fails on Sundays. That is the exact bug it's meant to prove. Fixed dates or it isn't proof.</p>
     </div></details>
     <div class="notice"><b>Check your read:</b> a suite that failed for the right reasons, then
     passed, with the diff staying inside report.js. Notice what changed in you: at no point did you read
@@ -1631,25 +1652,25 @@ and paste the final test output.</pre><button class="copy">Copy</button><span cl
       order, and you do tasks one after another out of habit rather than necessity. A <b>dependency
       graph</b> is the honest picture: which task truly needs which done first. Tasks with no arrow
       between them can run at the same time.</p>
-      <p>Today's pair, the README rewrite and the utils audit, don't depend on each other, so you'll run
-      them together: one interactive session and one <b>headless</b> session (no chat: one command in,
-      results straight to a file; the next paragraph teaches it), same repo, same time, touching
-      different files.</p>
+      <p>Today's pair is the README rewrite and the utils audit. They don't depend on each other, so
+      you'll run them together. One session is interactive. The other is <b>headless</b>, meaning no
+      chat: one command in, results straight to a file. The next paragraph teaches it. Both run on the
+      same repo, at the same time, touching different files.</p>
     </div>
     <div class="teach">
       <p>Meet the second instrument first: <b>claude -p</b> (p for print) runs one prompt to completion
-      and exits. No conversation, no questions back; the result prints to stdout (the terminal's
-      standard output stream), which is why the command below can catch it in a file with
+      and exits. There is no conversation and nothing asked back. The result prints to stdout,
+      the terminal's standard output stream. That is why the command below can catch it in a file with
       <code>&gt;</code>. It's Claude as a Unix tool, and it's how week 6 builds overnight jobs. Today
       it's simply your second pair of hands.</p>
     </div>
     <details class="fold industry"><summary>How industry does it · the Unix philosophy absorbs the agent</summary><div class="fbody">
       <p>Fifty years of Unix practice built on small tools that do one job, read text in, write text
       out, and compose through pipes and files.</p>
-      <p><code>claude -p</code> makes an agent one of those tools, so everything that already
-      orchestrates commands can now orchestrate Claude: cron can schedule it, CI can call it, a Makefile
-      can depend on it, a script can chain it. Week 6 builds on exactly this. No new infrastructure was
-      invented; the agent joined the oldest one there is.</p>
+      <p><code>claude -p</code> makes an agent one of those tools. So everything that already
+      orchestrates commands can now orchestrate Claude. Cron can schedule it, CI can call it, a
+      Makefile can depend on it, and a script can chain it. Week 6 builds on exactly this. Nobody
+      invented new infrastructure. The agent joined the oldest one there is.</p>
     </div></details>
     <div class="hostep">Step 1 — terminal B: launch the headless audit</div>
     <div class="promptblock"><pre>cd ~/relay-gym && claude -p "Audit src/utils.js: list every function that is dead
@@ -1693,9 +1714,9 @@ by running it first.</pre><button class="copy">Copy</button><span class="pbtag">
   <div class="wrap">
     <div class="kicker">Capstone · Day 5 · ~1.5 h</div>
     <h1 class="big">Wire it, ship it, autopsy it</h1>
-    <p class="lead mt14">Everything so far was parts. The capstone assembles them: audit your wiring
-    against the zero-copy-paste bar, ship one real automation through the wired environment, then
-    autopsy the loop that did the work. An <b>autopsy</b> here means walking back through the finished
+    <p class="lead mt14">Everything so far was parts. The capstone assembles them. You audit your wiring
+    against the zero-copy-paste bar. You ship one real automation through the wired environment. Then
+    you autopsy the loop that did the work. An <b>autopsy</b> here means walking back through the finished
     session, tool call by tool call, to judge how the work actually happened. You leave with the week's
     proof artifact and the habit the programme is built on: evidence before claims.</p>
     <div class="goalrow mt28">
@@ -1719,7 +1740,7 @@ by running it first.</pre><button class="copy">Copy</button><span class="pbtag">
     <div class="goalstrip"><b>Goal</b>Fill the scorecard: what's wired, what prompts, what's missing, each backed by a command you ran.</div>
     <div class="teach"><p>Before shipping anything through the environment, establish what the environment
     actually is, with commands, not memory. This is the same audit another learner will run on your
-    machine cold this weekend; running it on yourself first means their pass finds refinements, not
+    machine cold this weekend. Run it on yourself first, so their pass finds refinements rather than
     embarrassments.</p></div>
     <div class="hostep">Check 1 — identity and reach</div>
     <div class="promptblock"><pre>claude --version && gh auth status</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
@@ -1779,8 +1800,8 @@ you used.</pre><button class="copy">Copy</button><span class="pbtag">claude</spa
     <div class="kicker">Capstone · Step 3 · Ship — three moves</div>
     <h2 class="head">Ship it</h2>
     <div class="goalstrip"><b>Goal</b>Make the automation a runnable thing (a script or a slash command) that has run twice and produced its named proof both times.</div>
-    <div class="teach"><p>Build the automation through the wired environment, in three moves: hand the spec
-    to Claude Code, make the first run produce its proof, then run it again untouched. Twice-run is the
+    <div class="teach"><p>Build the automation through the wired environment, in three moves. Hand the spec
+    to Claude Code. Make the first run produce its proof. Then run it again untouched. Twice-run is the
     bar because anything runs once with you hovering; the second clean run is what makes it an automation
     rather than a transcript.</p></div>
     <div class="stepper" id="shipStepper">
@@ -1802,8 +1823,8 @@ tell me exactly how to run it.</pre><button class="copy">Copy</button><span clas
     </div>
     <div class="steppanel">
       <p class="sub"><b>Move 2:</b> run it for real, on today's real inputs. Then check the proof your
-      spec named: the standup note exists and is true, the PR description is on the PR, the labels are on
-      the issues. Fix what the proof exposes; that's the loop working.</p>
+      spec named. The standup note exists and is true. The PR description is on the PR. The labels are
+      on the issues. Fix what the proof exposes; that's the loop working.</p>
     </div>
     <div class="steppanel">
       <p class="sub"><b>Move 3:</b> run it again on fresh input, touching nothing in between. The second
@@ -1827,8 +1848,8 @@ tell me exactly how to run it.</pre><button class="copy">Copy</button><span clas
     <h2 class="head">Loop autopsy</h2>
     <div class="goalstrip"><b>Goal</b>Annotate a transcript beat by beat, naming the verify signal that closed the loop (or the vibe that didn't).</div>
     <div class="teach"><p>One more session on the gym repo, but this time the session itself is the
-    specimen. You'll give Claude a fresh bug, let it work, then annotate the transcript beat by beat:
-    gather, act, verify, with a note on what each beat earned. The autopsy habit is how you'll debug
+    specimen. You'll give Claude a fresh bug and let it work. Then annotate the transcript beat by
+    beat: gather, act, verify. Add a note on what each beat earned. The autopsy habit is how you'll debug
     every misbehaving session for the rest of the programme.</p></div>
     <div class="teach">
       <p>The specimen task is a bug you haven't touched yet: <b>relay done 2</b> completes a different
@@ -1871,8 +1892,8 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
     <h2 class="head">Verdict</h2>
     <div class="goalstrip"><b>Goal</b>Distil the week into two committed lines, then export the whole report.</div>
     <div class="teach"><p>Data isn't judgement. Two ruthless lines close the week: the next wiring gap
-    you'd close, and the one workflow rule you now hold. Specific or it didn't happen: "be more careful
-    with context" fails; "no repo of mine goes a day without a CLAUDE.md and a runnable test command"
+    you'd close, and the one workflow rule you now hold. Be specific or it didn't happen. "Be more careful with
+    context" fails. "No repo of mine goes a day without a CLAUDE.md and a runnable test command"
     clears.</p></div>
     <div class="caplbl">The next wiring gap I'll close</div>
     <textarea class="cap" id="cap-next" data-persist="cap-next" placeholder="The system still outside the loop, what it costs me daily, and when it gets wired…"></textarea>
@@ -1913,9 +1934,9 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
         <ul>
           <li>Re-drive the budget meter and the discipline sorter with your own week's numbers and your
           own incidents in mind; the widgets are local and unbreakable.</li>
-          <li>The <b>Keep this</b> bands, read top to bottom, are the week's summary. The colour-coded
-          folds (In plain words, Under the hood, How industry does it…) are the depth layer; reopen any
-          of them, any time, including from print.</li>
+          <li>The <b>Keep this</b> bands, read top to bottom, are the week's summary. The colour-coded folds
+          are the depth layer. They are In plain words, Under the hood, How industry does it, and the
+          rest. Reopen any of them, any time, including from print.</li>
           <li><b>Optional deeper dives</b> (search by name): Anthropic's "Claude Code best practices" and
           "Building effective agents". Weekend-grade, not required.</li>
         </ul>
@@ -1939,9 +1960,9 @@ with a test. Only claim done when node --test passes.</pre><button class="copy">
       codebase and your terminal without becoming the clipboard?</em> Rate yourself again, honestly.</p>
     </div>
     <div class="teach">
-      <p>If the number moved, notice why: evidence, not enthusiasm. You counted your own hops, wired gh
-      and MCP, set a permission baseline, read real meters, ran all four disciplines once, and shipped an
-      automation that ran twice without you. If it moved <b>down</b>, that's calibration: you now know
+      <p>If the number moved, notice why. It should be evidence rather than enthusiasm. You counted your
+      own hops, wired gh and MCP, and set a permission baseline. You read real meters, ran all four
+      disciplines once, and shipped an automation that ran twice without you. If it moved <b>down</b>, that's calibration: you now know
       what wired actually means, and that's the more useful number improving.</p>
     </div>
     <div class="caplbl mt14">Commit — one sentence</div>

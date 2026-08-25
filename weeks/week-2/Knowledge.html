@@ -39,6 +39,8 @@ h1.big{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:
 h2.head{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:clamp(1.4rem,2.8vw,2.15rem);line-height:1.12;margin-bottom:10px}
 .lead{font-size:clamp(1.02rem,1.5vw,1.22rem);max-width:66ch}
 .sub{font-family:ui-sans-serif,system-ui,sans-serif;color:var(--muted);font-size:clamp(.95rem,1.2vw,1.05rem);max-width:72ch}
+ul.sub{margin:14px 0 0 22px}
+ul.sub li{margin:5px 0}
 .mt8{margin-top:8px}.mt14{margin-top:14px}.mt20{margin-top:20px}.mt28{margin-top:28px}
 /* goal strip — one line naming the movement's goal (v2: replaces divider slides) */
 .goalstrip{background:var(--wash);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:7px 14px;margin:0 0 14px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;color:var(--muted);max-width:900px}
@@ -302,11 +304,13 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       The mouse never changes slides. Anything you type saves to this browser only.</p>
     </div>
     <details class="fold plain"><summary>In plain words · "context" and "the window"</summary><div class="fbody">
-      <p><b>Context</b> is everything the model can read while producing its next reply: your messages,
-      its own replies, file contents it has opened, command output, and the standing instructions loaded
-      at start-up. Not your repo, not its training data, not yesterday's session: just this text.</p>
-      <p><b>The window</b> is the hard limit on how much of that text fits: a fixed budget of
-      <b>tokens</b> (word-pieces, roughly three-quarters of an English word each; code runs denser).
+      <p><b>Context</b> is everything the model can read while producing its next reply. That means
+      your messages, its own replies, file contents it has opened, command output, and the standing
+      instructions loaded at start-up. It does not mean your repo, its training data or yesterday's
+      session. It is just this text.</p>
+      <p><b>The window</b> is the hard limit on how much of that text fits. It is a fixed budget of
+      <b>tokens</b>. A token is a word-piece, roughly three-quarters of an English word, and code runs
+      denser.
       When the window is full, something must be dropped or squashed before anything new fits. Every
       session you'll ever run lives inside that budget.</p>
     </div></details>
@@ -326,8 +330,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
         the Application projects.</li>
         <li>Drills run on the gym repo and on two new gym variants shipped in this week's data
         folder.</li>
-        <li>The capstone leaves the gym: you author a docs layer for a repo you actually work in, then
-        run the same five tasks with and without it and measure the difference.</li>
+        <li>The capstone leaves the gym. You author a docs layer for a repo you actually work in. Then
+        you run the same five tasks with and without it, and measure the difference.</li>
         <li>Evidence beats vibes here, as it did last week.</li>
       </ul>
     </div>
@@ -352,8 +356,9 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     <div class="kicker">The map · press Home anytime to come back here</div>
     <h2 class="head">Five acts, six hands-ons, one measured capstone</h2>
     <div class="teach">
-      <p>The grammar is the same as week 1: an <b>act</b> is one topic, a <b>movement</b> (the M
-      numbers) is one lesson on one slide, and <b>H-O</b> is a hands-on in a real terminal.</p>
+      <p>The grammar is the same as week 1. An <b>act</b> is one topic. A <b>movement</b>, numbered M1
+      upwards, is one lesson on one slide. <b>H-O</b> marks a hands-on you run in a real
+      terminal.</p>
       <ul>
         <li>Act 1 shows you the window itself.</li>
         <li>Acts 2 to 4 build the standing context: the always-on spec, the scoping doctrine, and the
@@ -489,8 +494,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     <div class="teach">
       <p>Here is the engineered version of the same week.</p>
       <ul>
-        <li>Every session on your repo opens already knowing the test command, the conventions, and
-        the red lines, because a short <b>CLAUDE.md</b> rides along at exactly the right scope. That's
+        <li>Every session on your repo opens already knowing the test command, the conventions and the
+        red lines. A short <b>CLAUDE.md</b> rides along at exactly the right scope. That's
         a standing-orders file the tool loads at start-up, taught in Act 2.</li>
         <li>Cold questions land, because the repo carries a documentation layer written for a reader
         with no memory.</li>
@@ -503,8 +508,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     </div>
     <div class="confbox">
       <input id="conf" data-persist="conf" maxlength="2" inputmode="numeric" placeholder="?">
-      <p class="q"><b>Before we start, rate yourself 1–10:</b> for a repo you own, could you state
-      exactly what Claude sees at turn one of a fresh session, and change it deliberately? Type the
+      <p class="q"><b>Before we start, rate yourself 1 to 10.</b> Take a repo you own. Could you
+      state exactly what Claude sees at turn one of a fresh session, and change it deliberately? Type the
       honest number. You'll meet it again at the close.</p>
     </div>
     <span class="keep"><b>Keep this</b>The week's promise is control: you decide what the model sees, at
@@ -521,15 +526,19 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     <h1 class="big">The window: what the model actually sees</h1>
     <p class="lead mt14">Act 1 has one idea: the model's entire world is a single block of text with a
     hard size limit, and you are that block's editor.</p>
-    <p class="lead mt8">Everything competes for the space: the tool's own instructions, your wiring
-    from week 1, your standing rules, your questions, every file it reads, every paste you drop in.</p>
+    <p class="lead mt8">Everything competes for the space. That includes the tool's own instructions,
+    your wiring from week 1, and your standing rules. It also includes your questions, every file it
+    reads, and every paste you drop in.</p>
     <p class="lead mt8">Three costs follow. Space is the first: the block fills. Attention is the
     second: the fuller the window, the worse the model uses any one part of it. Spend is the third,
     the meter from week 1: every token in the window is work the system does again on every turn, all
     session long.</p>
-    <p class="sub mt14">Four movements follow: see the window's parts and their sizes (M1) · learn
-    where attention goes as it fills (M2) · connect window discipline to your Max limits (M3) · then
-    open /context on your own machine and read your real numbers (Hands-on 01).</p>
+    <ul class="sub mt14">
+      <li>M1 shows the window's parts and their sizes.</li>
+      <li>M2 shows where attention goes as the window fills.</li>
+      <li>M3 connects window discipline to your Max limits.</li>
+      <li>Hands-on 01 has you open /context on your own machine and read your real numbers.</li>
+    </ul>
     <details class="fold plain"><summary>In plain words · "attention" without the maths</summary><div class="fbody">
       <p>When the model answers, it doesn't read the window the way you read a page, start to finish
       with equal care. It weighs every piece of text against every other piece and decides what matters
@@ -552,10 +561,15 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     full window is a diagnosis, never a mystery.</div>
     <div class="teach">
       <p>A fresh Claude Code session looks blank. It isn't. Before your first word, the window already
-      carries the system prompt (the tool's own standing instructions), the definitions of every
-      built-in tool, the schemas of every MCP server you wired last week, and every CLAUDE.md your
-      scopes load. These occupants cost window space in every session, and until now you've never
-      itemised that cost.</p>
+      carries four things.</p>
+      <ul>
+        <li>It carries the system prompt, which is the tool's own standing instructions.</li>
+        <li>It carries the definitions of every built-in tool.</li>
+        <li>It carries the schemas of every MCP server you wired last week.</li>
+        <li>It carries every CLAUDE.md your scopes load.</li>
+      </ul>
+      <p>These occupants cost window space in every session, and until now you've never itemised that
+      cost.</p>
       <p>The meter below is a 200,000-token window, the standard size you work in. The sizes are
       <b>illustrative shapes</b>, rounded from real sessions; Hands-on 01 replaces them with your
       machine's true numbers.</p>
@@ -599,8 +613,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     </div>
     <details class="fold hood"><summary>Under the hood · why connected servers cost tokens while idle</summary><div class="fbody">
       <p>The model can only call a tool it can see. So every session, Claude Code writes the full
-      catalogue of available tools into the window as text: name, description and parameters, for
-      every tool of every connected MCP server. A server with 30 tools ships 30 schemas, every
+      catalogue of available tools into the window as text. That means the name, description and
+      parameters, for every tool of every connected MCP server. A server with 30 tools ships 30 schemas, every
       session, whether you call one of them or none. That's why the meter charges you at "connected",
       not at "used".</p>
       <p>Don't unwire your week 1 work; move it to the right scope instead. A server used by one
@@ -628,17 +642,18 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     <div class="teach">
       <p>200k tokens of capacity does not mean 200k tokens of equal recall.</p>
       <ul>
-        <li>Research on long-context models keeps finding the same shape: content at the start and
-        the end of the window is used well, and content buried in the middle is used worst.</li>
+        <li>Research on long-context models keeps finding the same shape. Content at the start and the
+        end of the window is used well. Content buried in the middle is used worst.</li>
         <li>As a session grows, everything you said two hours ago migrates toward that middle.</li>
         <li>The slow decay you feel in hour four has a name: <b>context rot</b>. The window still
         contains the fact; the model just weights it less than the 40,000 fresher tokens sitting on
         top of it.</li>
       </ul>
-      <p>The test below places one real rule from this week's gym, <b>"the archive is append-only;
-      never dedupe it in place"</b>, at three positions in a long, busy session. It's a model of the
-      published long-context results, not a live model call; the point is the shape, and you'll feel
-      the real thing the first time a four-hour session ignores something you said at 9am.</p>
+      <p>The test below places one real rule at three positions in a long, busy session. The rule comes
+      from this week's gym: <b>"the archive is append-only; never dedupe it in place"</b>. It's a model
+      of the published long-context results rather than a live model call. The point is the shape.
+      You'll feel the real thing the first time a four-hour session ignores something you said at
+      9am.</p>
     </div>
     <div class="lab" id="wpos">
       <div class="labtitle">Widget · <b>the position test</b> · one rule, three placements</div>
@@ -659,14 +674,14 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       <p>The middle sag isn't cohort folklore. Liu et al. published "Lost in the Middle: How Language
       Models Use Long Contexts" in 2023. It showed retrieval accuracy dropping sharply for facts
       placed mid-context across several long-context models, with the ends holding up.</p>
-      <p>Model vendors have chipped at it since, and newer models sag less. The operational advice
-      hasn't changed: put load-bearing constraints where position is guaranteed, and keep the window
-      lean so there is less middle to get lost in.</p>
+      <p>Model vendors have chipped at it since, and newer models sag less. The practical advice hasn't
+      changed. Put load-bearing constraints where position is guaranteed. Keep the window lean, so
+      there is less middle to get lost in.</p>
     </div></details>
     <details class="fold btw"><summary>By the way · headroom: don't start big work at 80%</summary><div class="fbody">
-      <p>A corollary worth a habit: check the window before starting anything substantial. Kicking off
-      a refactor at 80% full means the plan, the diffs and the test output all land in the wobbliest
-      part of a nearly full window, and an automatic squeeze is coming mid-task.</p>
+      <p>One habit follows from this. Check the window before starting anything substantial. Start a
+      refactor at 80% full, and the plan, the diffs and the test output all land in the weakest part
+      of the window. An automatic squeeze is coming mid-task too.</p>
       <p>Big work starts in fresh or freshly compacted sessions. The /context command you meet in
       Hands-on 01 is how you check; "start heavy work above 60%? no" is a rule worth writing down.</p>
     </div></details>
@@ -798,14 +813,16 @@ from "add" to the weekly report. Two paragraphs.</pre><button class="copy">Copy<
     <h1 class="big">CLAUDE.md: the always-on spec</h1>
     <p class="lead mt14">One file changes the physics of Act 1. <b>CLAUDE.md</b> is a markdown file
     Claude Code loads into the window at the start of every session, before your first word.</p>
-    <p class="lead mt8">Put a rule in it and the rule holds tomorrow, next week, and in the session a
-    teammate opens on their machine from the same repo. It's the only place where "I told it once" is
+    <p class="lead mt8">Put a rule in it and the rule holds tomorrow, and next week. It holds in the
+    session a teammate opens from the same repo. It's the only place where "I told it once" is
     actually true.</p>
     <p class="lead mt8">The catch is the rent: every line rides every session forever, at the window's
     privileged start. So this act is about earning that position: rules that change behaviour, stated
     so a machine can follow them, and nothing else.</p>
-    <p class="sub mt14">Two movements: learn to tell a rule that works from a rule that's decoration
-    (M5) · then author the gym repo's CLAUDE.md and prove one rule with an A/B (Hands-on 02).</p>
+    <ul class="sub mt14">
+      <li>M5 teaches you to tell a rule that works from a rule that's decoration.</li>
+      <li>Hands-on 02 has you author the gym repo's CLAUDE.md and prove one rule with an A/B.</li>
+    </ul>
     <span class="keep"><b>Keep this</b>CLAUDE.md gives you standing orders that load every session
     with guaranteed position. It's also always-on rent. Both halves discipline what goes in.</span>
   </div>
@@ -824,9 +841,9 @@ from "add" to the weekly report. Two paragraphs.</pre><button class="copy">Copy<
         <li>Aspirational prose ("write clean code") spends attention and changes nothing.</li>
         <li>Stale rules are worse: one instruction that contradicts the code teaches the model to
         distrust the whole file.</li>
-        <li>A rule that works has three parts: a <b>trigger</b> (when it applies), an
-        <b>imperative</b> (do this, never that), and a <b>check</b> (a way to tell it was
-        followed).</li>
+        <li>A rule that works has three parts. The <b>trigger</b> says when it applies, the
+        <b>imperative</b> says do this or never that, and the <b>check</b> is a way to tell it was
+        followed.</li>
         <li>"Run node --test before claiming done" has all three parts. "Prioritise quality" has
         none.</li>
       </ul>
@@ -842,18 +859,19 @@ from "add" to the weekly report. Two paragraphs.</pre><button class="copy">Copy<
     </div>
     <details class="fold industry"><summary>How industry does it · Anthropic's own guidance is "short"</summary><div class="fbody">
       <p>Anthropic's Claude Code best-practices guidance says to keep CLAUDE.md concise and
-      human-readable: document the commands, the style points that differ from defaults, the things
-      the model gets wrong without help, and refine it like any prompt rather than accreting a wiki.
-      Teams that treat the file as an onboarding doc for a very fast, very literal new hire get the
-      behaviour; teams that treat it as a policy archive get the rent.</p>
+      human-readable. Document the commands, the style points that differ from defaults, and the
+      things the model gets wrong without help. Refine it like any prompt, rather than letting it grow
+      into a wiki.</p>
+      <p>Treat the file as an onboarding doc for a very fast, very literal new hire, and you get the
+      behaviour. Treat it as a policy archive, and you just pay the cost.</p>
     </div></details>
     <details class="fold hood"><summary>Under the hood · @imports: depth on demand from the standing layer</summary><div class="fbody">
       <p>CLAUDE.md supports imports: a line like <code>@docs/testing.md</code> pulls that file into
       the standing context too. Used well, it keeps the spine file short while wiring in depth that
       genuinely belongs everywhere.</p>
-      <p>Used badly, it's how a 30-line file secretly becomes a 3,000-token one: everything imported
-      rides every session, same as if pasted. Price an import exactly like a rule: does the whole
-      file earn always-on placement, or should Claude just read it when the task touches that
+      <p>Used badly, it's how a 30-line file secretly becomes a 3,000-token one. Everything imported
+      rides every session, exactly as if you had pasted it. Price an import like a rule. Does the
+      whole file earn always-on placement? Or should Claude just read it when the task touches that
       area?</p>
     </div></details>
     <span class="read"><b>What you decide:</b> your cut line. When in doubt, cut: a lean file that's
@@ -873,8 +891,8 @@ from "add" to the weekly report. Two paragraphs.</pre><button class="copy">Copy<
     <div class="teach">
       <p>The gym repo has no CLAUDE.md. You'll run one task against that blank slate and watch the
       guesses it forces. Then you'll write the file and run the same task again, fresh session, same
-      words. The change in behaviour is your first measured context difference: the week's whole
-      method in miniature, and exactly what the capstone scales to five tasks on your real repo.</p>
+      words. The change in behaviour is your first measured context difference. It is the week's
+      whole method in miniature. The capstone scales it to five tasks on your real repo.</p>
     </div>
     <div class="hostep">Step 0 — make the gym resettable</div>
     <div class="promptblock"><pre>cd ~/relay-gym && git init -q 2>/dev/null; git add -A && git commit -q -m "baseline" 2>/dev/null; git status</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
@@ -927,9 +945,12 @@ repo's conventions. Tell me when you consider it done.</pre><button class="copy"
     low, and it starves the sessions that needed it. The scoping doctrine gives every fact one address
     at one of five levels: global, workspace, project, directory, local. Wrong scope is the quiet
     failure mode; nothing errors, everything slowly degrades.</p>
-    <p class="sub mt14">Four movements: how the five scopes load, mechanically (M7) · classify eight
-    real artifacts (M8) · build the monorepo and microservices cases on the gym variants (Hands-on 03)
-    · make it all agent-portable with one symlink (Hands-on 04).</p>
+    <ul class="sub mt14">
+      <li>M7 shows how the five scopes load, mechanically.</li>
+      <li>M8 has you classify eight real artifacts.</li>
+      <li>Hands-on 03 builds the monorepo and microservices cases on the gym variants.</li>
+      <li>Hands-on 04 makes it all agent-portable with one symlink.</li>
+    </ul>
     <details class="fold plain"><summary>In plain words · the five scopes in one breath</summary><div class="fbody">
       <ul>
         <li><b>Global</b> (~/.claude/) is you, everywhere: your style and your reinforcement
@@ -1007,8 +1028,8 @@ repo's conventions. Tell me when you consider it done.</pre><button class="copy"
     </div></details>
     <details class="fold btw"><summary>By the way · this is why you copied the variants to ~</summary><div class="fbody">
       <p>If relay-mono still sat inside your roadmap repo clone, the roadmap's own CLAUDE.md would be
-      a parent on the walk and would leak into every drill session. That's not a gotcha invented for
-      the deck; it's the doctrine's first real lesson: you are always standing somewhere in a tree,
+      a parent on the walk. It would leak into every drill session. That is the doctrine's first real
+      lesson rather than a trick invented for the deck. You are always standing somewhere in a tree,
       and everything above you is in the room.</p>
     </div></details>
     <span class="keep"><b>Keep this</b>The walk goes up-tree at launch and down-tree on demand. A
@@ -1058,8 +1079,9 @@ repo's conventions. Tell me when you consider it done.</pre><button class="copy"
     transcripts that prove the loading behaviour.</div>
     <div class="teach">
       <p>Theory ends here. You'll author the scoped files for both gym variants, then prove the walk
-      with transcripts: a package rule that fires inside its package and stays silent outside it, and
-      a workspace fact that surfaces inside a repo containing no CLAUDE.md at all. This pair of
+      with transcripts. One transcript shows a package rule firing inside its package and staying
+      silent outside it. The other shows a workspace fact surfacing inside a repo that contains no
+      CLAUDE.md at all. This pair of
       proofs is the week's core rep; the weekend re-runs it on messier ground.</p>
     </div>
     <div class="hostep">Step 1 — author the monorepo's three files (root, cli, report)</div>
@@ -1089,9 +1111,9 @@ directly? Answer from what you already know before opening files.</pre><button c
       <li>Nothing is stated twice across your four files: each fact has exactly one address</li>
     </ul>
     <details class="fold trouble"><summary>Stuck? · the workspace file doesn't load, or answers cite nothing</summary><div class="fbody">
-      <p><b>Workspace fact not surfacing?</b> Check geography with <code>ls ~/relay-ws/CLAUDE.md</code>:
-      the file must be in the parent of the repo you launched from, and you must have launched inside
-      relay-cli, not in ~/relay-ws itself.</p>
+      <p><b>Workspace fact not surfacing?</b> Check the geography with
+      <code>ls ~/relay-ws/CLAUDE.md</code>. The file must be in the parent of the repo you launched
+      from. You must also have launched inside relay-cli, rather than in ~/relay-ws itself.</p>
       <p><b>Answers vague, quoting nothing?</b> Ask harder: "quote the standing instructions you have
       about X, verbatim". If the quote isn't there, the file didn't load; re-check where you launched
       from.</p>
@@ -1116,8 +1138,8 @@ directly? Answer from what you already know before opening files.</pre><button c
     drift-proof property rather than assuming it.</div>
     <div class="teach">
       <p>Your repos will outlive your tooling choices. <b>AGENTS.md</b> is the emerging cross-agent
-      convention: the file Codex-class tools, Cursor and a growing list of others look for, the way
-      Claude Code looks for CLAUDE.md.</p>
+      convention. Codex-class tools, Cursor and a growing list of others look for it, the way Claude
+      Code looks for CLAUDE.md.</p>
       <p>The wrong move is maintaining two files that drift apart. The right move is one source of
       truth and a <b>symlink</b>: a filesystem alias that makes AGENTS.md and CLAUDE.md the same
       bytes forever. It costs thirty seconds per repo, and your context layer stops being
@@ -1164,14 +1186,18 @@ tail -1 ~/relay-mono/AGENTS.md && readlink ~/relay-mono/AGENTS.md</pre><button c
     <p class="lead mt14">CLAUDE.md rides every session, so it must stay lean. But a repo knows more
     than rules: what the system is, how it's shaped, what must never happen, why it's built this
     way.</p>
-    <p class="lead mt8">That knowledge belongs in a <b>documentation layer</b>: a small set of files
-    written for a reader with no memory and no context, sitting on disk until a session actually
-    needs them. Claude reaches them the same way it reaches code: by reading files mid-task.</p>
+    <p class="lead mt8">That knowledge belongs in a <b>documentation layer</b>. That is a small set of
+    files written for a reader with no memory and no context. They sit on disk until a session
+    actually needs them. Claude reaches them the same way it reaches code: by reading files mid-task.</p>
     <p class="lead mt8">The layer is cheap when unused and decisive when used: the opposite trade to
     the always-on spec. The two designs work as a pair.</p>
-    <p class="sub mt14">Three movements: how to write docs an agent can actually use, and which doc
-    answers which question (M11) · ADRs, the memory that survives every /clear (M12) · then author the
-    layer for the workspace and catch it changing a destructive decision (Hands-on 05).</p>
+    <ul class="sub mt14">
+      <li>M11 covers how to write docs an agent can actually use, and which doc answers which
+      question.</li>
+      <li>M12 covers ADRs, the memory that survives every /clear.</li>
+      <li>Hands-on 05 has you author the layer for the workspace, and catch it changing a destructive
+      decision.</li>
+    </ul>
     <span class="keep"><b>Keep this</b>The two context designs work as a pair: CLAUDE.md is always-on
     and lean, the docs layer is on-disk and deep. Rules ride; knowledge waits.</span>
   </div>
@@ -1217,16 +1243,17 @@ tail -1 ~/relay-mono/AGENTS.md && readlink ~/relay-mono/AGENTS.md</pre><button c
     <details class="fold industry"><summary>How industry does it · this layer is convergent, not invented here</summary><div class="fbody">
       <p>Agent-facing repo docs are converging fast across the industry: a what-is file for cold
       starts, a current-architecture file, an explicit constraints file, and per-decision records.
-      Names vary by team; the split doesn't, because it mirrors how agents fail: wrong mental model
-      (CONTEXT), wrong ownership guess (DESIGN), forbidden action (guardrails), relitigated decision
-      (ADR). You'll meet the same split, differently dressed, in week 8's named methodologies.</p>
+      Names vary by team, and the split does not.</p>
+      <p>The split mirrors how agents fail. They get the mental model wrong (CONTEXT), guess ownership
+      wrong (DESIGN), take a forbidden action (guardrails), or relitigate a decision (ADR). You'll
+      meet the same split, differently dressed, in week 8's named methodologies.</p>
     </div></details>
     <details class="fold btw"><summary>By the way · how sessions find these files at all</summary><div class="fbody">
-      <p>Two routes. Agentic search: the filenames are self-describing, so a gathering agent lists
-      the repo and reads the obvious candidate. And the pointer: one CLAUDE.md line such as "Before
-      changing data files or shared schemas, read guardrails.md" buys routing for a dozen tokens of
-      always-on rent. Keep the pointer in the spine file and the weight on the disk: that's the
-      pattern.</p>
+      <p>There are two routes. The first is agentic search. The filenames are self-describing, so a
+      gathering agent lists the repo and reads the obvious candidate. The second is the pointer. One
+      CLAUDE.md line, such as "Before changing data files or shared schemas, read guardrails.md", buys
+      routing for a dozen tokens of always-on cost. Keep the pointer in the spine file and the weight
+      on the disk.</p>
     </div></details>
     <span class="read"><b>What you decide:</b> the three questions your real repo gets asked most.
     Friday you write the files that answer them; everything else can wait.</span>
@@ -1248,12 +1275,12 @@ tail -1 ~/relay-mono/AGENTS.md && readlink ~/relay-mono/AGENTS.md</pre><button c
       <ul>
         <li>An <b>architecture decision record</b> is one small file, written once at decision time:
         the context, the decision, the consequences.</li>
-        <li>It costs ten minutes when the reasons are fresh, then pays out for years: every future
-        session (and every future teammate) can read <b>why</b>, instead of guessing, relitigating,
-        or quietly undoing it.</li>
-        <li>This week you read and obey ADRs; week 4 drills writing them
-        <span class="soon">taught in week 4</span>, and week 5's review harness checks changes
-        against them <span class="soon">taught in week 5</span>.</li>
+        <li>It costs ten minutes when the reasons are fresh, then pays out for years. Every future
+        session, and every future teammate, can read <b>why</b>. Nobody has to guess, relitigate, or
+        quietly undo it.</li>
+        <li>This week you read and obey ADRs. Week 4 drills writing them
+        <span class="soon">taught in week 4</span>. Week 5's review harness checks changes against
+        them <span class="soon">taught in week 5</span>.</li>
       </ul>
       <p>This file ships in the workspace variant at
       <b>relay-api/docs/adr/0001-append-only-archive.md</b>, and it's load-bearing for Hands-on 05:</p>
@@ -1286,8 +1313,8 @@ tail -1 ~/relay-mono/AGENTS.md && readlink ~/relay-mono/AGENTS.md</pre><button c
     <details class="fold dyk"><summary>Did you know · ADRs predate agents by over a decade</summary><div class="fbody">
       <p>Michael Nygard's 2011 blog post "Documenting Architecture Decisions" popularised the format,
       and teams adopted it for entirely human reasons: onboarding, audits, ending relitigation.
-      Agents didn't create the need; they raised the price of ignoring it, because an agent
-      relitigates a decision at machine speed unless the record is on disk where it gathers.</p>
+      Agents didn't create the need. They raised the price of ignoring it. An agent
+      relitigates a decision at machine speed, unless the record is on disk where it gathers.</p>
     </div></details>
     <span class="read"><b>What you decide:</b> the one decision in your real repo that most needs a
     record before someone undoes it. Don't write it yet (week 4 drills the writing); name it in your
@@ -1375,9 +1402,12 @@ lives. Keep the draft under a page; a cold session should get the shape in one r
     tomorrow's session starts brilliant instead of archaeological.</p>
     <p class="lead mt8">Week 1 promised you'd learn why day boundaries need discipline; this act pays
     that promise.</p>
-    <p class="sub mt14">Four movements: the three-way decision at every session juncture (M14) · when
-    pasting beats searching and mostly doesn't (M15) · the handoff document (M16) · then poison a
-    session on purpose and repair it (Hands-on 06).</p>
+    <ul class="sub mt14">
+      <li>M14 covers the three-way decision at every session juncture.</li>
+      <li>M15 covers when pasting beats searching, and why it mostly doesn't.</li>
+      <li>M16 covers the handoff document.</li>
+      <li>Hands-on 06 has you poison a session on purpose and repair it.</li>
+    </ul>
     <span class="keep"><b>Keep this</b>Standing context is the architecture; session craft is the
     driving. This act is the driving lesson: you clear, compact, search and hand off on purpose.</span>
   </div>
@@ -1400,8 +1430,8 @@ lives. Keep the draft under a page; a cold session should get the shape in one r
         <li>The <b>handoff</b> ends the session entirely and leaves an authored file for the next
         one.</li>
       </ul>
-      <p>Wait too long and the choice is made for you: near the limit, auto-compact fires at a moment
-      it picks, and it summarises whatever happens to be there, junk included.</p>
+      <p>Wait too long and the choice is made for you. Near the limit, auto-compact fires at a moment
+      it picks. It summarises whatever happens to be there, junk included.</p>
       <p>The timeline below is a realistic day on a real repo. Grey rows are events; at each tinted
       juncture, pick the move you'd make. Verdicts argue from what the window holds at that moment:
       that's always the argument, never habit or superstition.</p>
@@ -1414,12 +1444,12 @@ lives. Keep the draft under a page; a cold session should get the shape in one r
       <div class="cueall"></div>
     </div>
     <details class="fold hood"><summary>Under the hood · what /compact keeps, mechanically</summary><div class="fbody">
-      <p>Compact asks the model to write a structured summary of the conversation so far, then starts
-      a fresh window seeded with that summary (plus your standing layers, which reload as always).
+      <p>Compact asks the model to write a structured summary of the conversation so far. It then
+      starts a fresh window seeded with that summary. Your standing layers reload as always.
       Anything not in the summary is gone: exact code hunks, precise error text, the verbatim
       wording of an instruction.</p>
-      <p>That's why the focus argument matters: <code>/compact keep the decisions, open bugs and
-      file list</code> makes the keep-list explicit instead of leaving triage to a summariser
+      <p>That's why the focus argument matters. <code>/compact keep the decisions, open bugs and
+      file list</code> makes the keep-list explicit. It stops a summariser doing the triage
       mid-squeeze. And it's why a rule that must survive compaction belongs in CLAUDE.md, which
       never depends on the summary at all.</p>
     </div></details>
@@ -1444,11 +1474,11 @@ lives. Keep the draft under a page; a cold session should get the shape in one r
         <li><b>Paste</b> means you choose the text, and it stays in the window forever.</li>
         <li><b>@-ref</b> means typing @ and a path in your prompt; Claude Code injects that file's
         current bytes. It's precise, current, and free of copy drift.</li>
-        <li><b>Search</b> means you name the goal and the agent greps, lists and reads only what it
-        needs: the gather beat from week 1 doing context selection for you.</li>
+        <li><b>Search</b> means you name the goal, and the agent greps, lists and reads only what it
+        needs. That is the gather beat from week 1, doing context selection for you.</li>
       </ul>
       <p>Chat habits made pasting your default. In an agent session it's usually the worst of the
-      three: you pay for your guess of what's relevant, at full window prices, whether you guessed
+      three. You pay for your guess of what's relevant, at full window prices, whether you guessed
       right or not. Four situations from your actual week are below; pick the verb for each.</p>
     </div>
     <div class="lab" id="wpaste">
@@ -1503,10 +1533,11 @@ lives. Keep the draft under a page; a cold session should get the shape in one r
       ADR. The handoff holds the working set; the ADRs hold the archive.</p>
     </div>
     <details class="fold btw"><summary>By the way · handoffs compound beyond day boundaries</summary><div class="fbody">
-      <p>The same file works whenever a window must die mid-stream: before a risky /clear, when
-      switching machines, when a session has degraded past compacting, or when handing work to an
-      actual colleague and their session. Once the habit exists, "this session is past saving"
-      stops being a loss: two minutes of handoff and the work continues elsewhere, clean.</p>
+      <p>The same file works whenever a window must die mid-stream. That covers a risky /clear,
+      switching machines, and a session that has degraded past compacting. It also covers handing work
+      to an actual colleague and their session.</p>
+      <p>Once the habit exists, "this session is past saving" stops being a loss. Two minutes of
+      handoff, and the work continues elsewhere, clean.</p>
     </div></details>
     <span class="read"><b>What you decide:</b> your 6pm ritual. The programme's: handoff written by
     the session, corrected by you, committed if the repo is yours: then /clear or close without
@@ -1524,11 +1555,11 @@ lives. Keep the draft under a page; a cold session should get the shape in one r
     <div class="goalstrip"><b>Goal</b>Reproduce one derailment, recover it with reasoning, and write
     one handoff that a fresh session continues correctly.</div>
     <div class="teach">
-      <p>You've watched sessions degrade by accident for months. This time you'll do it deliberately:
-      start a clean task, inject the poison yourself, watch the work wobble, then repair it with
-      hygiene alone: no new docs, no rule edits, just the M14 decision made well. This is inoculation
-      by controlled exposure: after today, you'll recognise the start of the wobble from the
-      inside.</p>
+      <p>You've watched sessions degrade by accident for months. This time you'll do it deliberately.
+      Start a clean task, inject the poison yourself, and watch the work wobble. Then repair it with
+      hygiene alone. You add no new docs and no rule edits, just the M14 decision made well.</p>
+      <p>This is inoculation by controlled exposure. After today, you'll recognise the start of the
+      wobble from the inside.</p>
     </div>
     <div class="hostep">Step 1 — clean start, real task</div>
     <div class="promptblock"><pre>cd ~/relay-gym && claude</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
@@ -1589,18 +1620,18 @@ half-done. I'll correct it before we stop.</pre><button class="copy">Copy</butto
     <p class="lead mt14">Everything this week was parts: the window, the spec, the scopes, the layer,
     the craft. The capstone assembles them on ground that matters: a repo or workspace you actually
     work in.</p>
-    <p class="lead mt8">You'll define a five-task suite from your real backlog, run it cold, author
-    the full layer at argued scopes, run the same suite again, and write down what moved. This is one
-    guided rep of every problem class this week owns; the weekend's issues re-run those classes
-    solo.</p>
+    <p class="lead mt8">You'll define a five-task suite from your real backlog and run it cold. Then
+    you author the full layer at argued scopes, run the same suite again, and write down what moved.
+    This is one guided rep of every problem class this week owns. The weekend's issues re-run those
+    classes solo.</p>
     <div class="goalrow mt28">
       <div class="gb"><div class="t">The shape</div><p>The five steps run in order: target and suite,
       baseline, author the layer, A/B reruns, verdict and export. Each step takes one slide. Fill the
       capture boxes as you go, and step 5 assembles them into the markdown report for your Knowledge
       issue.</p></div>
       <div class="gb"><div class="t">You'll carry forward</div><p>You'll leave with a docs layer
-      living in your real repo, the measured differences that justify it, and your strongest
-      before/after story yet for week 9's retrospective.</p></div>
+      living in your real repo, and the measured differences that justify it. That is your strongest
+      before-and-after story yet for week 9's retrospective.</p></div>
     </div>
     <span class="keep"><b>Keep this</b>Captures save to this browser only, so use the same browser
     throughout. The paper fallback is weeks/week-2/data/capstone-report-template.md.</span>
@@ -1621,8 +1652,9 @@ half-done. I'll correct it before we stop.</pre><button class="copy">Copy</butto
         because half the value is that the layer stays.</li>
         <li>The <b>suite</b> is five tasks from your actual backlog, each small enough to run in
         minutes.</li>
-        <li>A good spread looks like: "explain how X flows", "add small feature Y", "write the
-        missing test for Z", "why does W fail when…", "where is the code that owns V".</li>
+        <li>A good spread looks like this. Ask "explain how X flows", "add small feature Y" and "write
+        the missing test for Z". Then ask "why does W fail when…" and "where is the code that owns
+        V".</li>
         <li>If your world is multi-repo, pick tasks that cross repo lines: that's where the workspace
         file will earn or fail.</li>
         <li>Fill the table in <b>weeks/week-2/data/task-suite-template.md</b> with exact prompts,
@@ -1715,10 +1747,10 @@ half-done. I'll correct it before we stop.</pre><button class="copy">Copy</butto
       <p>Rerun the suite exactly as in step 2: fresh sessions, verbatim prompts, "decide and
       proceed", the ten-minute cap, and the four fields plus /context per run. The only variable that
       changed is the standing context: that's the whole design.</p>
-      <p>Write each pair's difference as a sentence with numbers where they exist ("baseline asked 4
-      questions and edited data by hand; with layer asked 0 and used the store"). Mark each
-      prediction: right, wrong, or half-right. Expect texture rather than a clean sweep: typically
-      two tasks transform, two improve at the margin, and one doesn't move.</p>
+      <p>Write each pair's difference as a sentence, with numbers where they exist. For example:
+      "baseline asked 4 questions and edited data by hand; with layer asked 0 and used the store".
+      Mark each prediction right, wrong, or half-right. Expect texture rather than a clean sweep.
+      Typically two tasks transform, two improve at the margin, and one doesn't move.</p>
     </div>
     <div class="hostep">Interrogate the flat one</div>
     <div class="hodo">For any task that didn't move: was the baseline already clean (task too easy
@@ -1813,11 +1845,11 @@ half-done. I'll correct it before we stop.</pre><button class="copy">Copy</butto
       what Claude sees at turn one, and change it deliberately?</em> Rate yourself again, honestly.</p>
     </div>
     <div class="teach">
-      <p>If the number moved, it moved on evidence: you itemised your own window with /context, wrote
-      rules that killed observed guesses, proved a package file fires only in its package, watched a
-      workspace file reach a bare repo, saw prose you wrote refuse a destructive edit, and measured
-      the whole layer on five real tasks. If it moved down, same as last week: calibration counts as
-      learning.</p>
+      <p>If the number moved, it moved on evidence. You itemised your own window with /context, and
+      wrote rules that killed observed guesses. You proved a package file fires only in its package,
+      and watched a workspace file reach a bare repo. You saw prose you wrote refuse a destructive
+      edit, and measured the whole layer on five real tasks.</p>
+      <p>If it moved down, that's the same as last week. Calibration counts as learning.</p>
     </div>
     <div class="caplbl mt14">Commit — one sentence</div>
     <textarea class="cap" data-persist="close-commit" id="closeCommit" placeholder="One context rule I now hold, in one sentence…"></textarea>

@@ -6,7 +6,10 @@ Knowledge pedagogy. **Reference implementation: the sister repo's
 then on, the newest shipped deck here. When this file and the reference disagree, open
 the file and copy how it does the thing, then record the correction here. Visual canon
 defers to `setup/DESIGN.md`; operating mechanics to `setup/METHODOLOGY.md`; the
-curriculum (acts, capstone, tags per week) to `roadmap.html`.
+curriculum (acts, capstone, tags per week) to `roadmap.html`. **Prose style defers to
+`~/.claude/registers/learner.md`**, which overlays `~/.claude/VOICE.md`. Rules 8b and
+8c below are the structural half of the same doctrine; where the register and this
+file disagree on how a sentence is written, the register wins.
 
 ---
 
@@ -127,6 +130,9 @@ learner navigates alone, so the deck must say everything, on the glass:
      sentences: one idea per sentence, average under 20 words, active voice,
      contractions welcome, the shorter commoner word (use not utilise, help not
      facilitate).
+   - **No sentence over 25 words** in learner-facing prose, and no `.keep` band over
+     25 words. Both are verifier-gated per element. A sentence that needs a comma-spliced
+     list or a colon-led tail to fit is two sentences.
    - **Answer first.** Slide titles and `.keep` bands are full assertions, never
      topics: "Hooks make guarantees the model can't skip", never "Hooks overview".
    - **Banned in prose:** puffery and significance inflation (stands as, serves as,
@@ -272,6 +278,15 @@ bar only goes up), and the newest shipped deck becomes the reference implementat
   paragraph cap and a jargon banlist; weeks 1–2 decks rewritten under it. The lesson:
   Flesch and defined keywords are not sufficient — the prose must read like a colleague
   explaining aloud, point-wise, in everyday words.
+- 2026-08-25 · Trainer correction (voice mandate): prose style now defers to
+  `~/.claude/registers/learner.md` over `~/.claude/VOICE.md`, and week 3 was rewritten
+  under it. The rules 8b/8c decks still carried three habits the mandate forbids.
+  Sentences ran to 49 words, act openers packed their movement list into one middot-joined
+  paragraph, and `.keep` bands drifted past the 25-word cap into aphorism. Now canon: no
+  sentence over 25 words in learner-facing prose, an act opener's movement list is a
+  bulleted `ul.sub`, and a keep band is checked against the cap. `check-deck.js` gates
+  both caps per element, and weeks 1 and 2 were rewritten under them the same day.
+
 - 2026-08-14 · Trainer correction (rep parity): the capstone is the programme's only
   hand-held rep — deliberately over-guided, because every Application issue re-runs its
   problem classes solo at the same difficulty. Author each capstone step as the worked

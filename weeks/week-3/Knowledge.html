@@ -39,6 +39,8 @@ h1.big{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:
 h2.head{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:clamp(1.4rem,2.8vw,2.15rem);line-height:1.12;margin-bottom:10px}
 .lead{font-size:clamp(1.02rem,1.5vw,1.22rem);max-width:66ch}
 .sub{font-family:ui-sans-serif,system-ui,sans-serif;color:var(--muted);font-size:clamp(.95rem,1.2vw,1.05rem);max-width:72ch}
+ul.sub{margin:14px 0 0 22px}
+ul.sub li{margin:5px 0}
 .mt8{margin-top:8px}.mt14{margin-top:14px}.mt20{margin-top:20px}.mt28{margin-top:28px}
 /* goal strip — one line naming the movement's goal (v2: replaces divider slides) */
 .goalstrip{background:var(--wash);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:7px 14px;margin:0 0 14px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:13.5px;color:var(--muted);max-width:900px}
@@ -289,10 +291,10 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     <div class="kicker">AI Dev Roadmap · Week 3 of 9 · Self-paced</div>
     <h1 class="big">Said it twice?<br>Then it isn't an instruction any more.</h1>
     <p class="lead mt14">Week 2 taught you what the model sees. This week you stop typing the same
-    guidance over and over and start building the <b>harness</b> instead. The harness is everything
-    around the model that isn't your prompt: its settings, the permissions it runs under, the
-    commands you can call by name, the checks that fire whether it likes it or not, and the
-    knowledge it loads only when relevant.</p>
+    guidance over and over. You build the <b>harness</b> instead. The harness is everything around
+    the model that is not your prompt. It is the settings, the permissions and the commands you
+    call by name. It is also the checks that fire on their own, and the knowledge that loads only
+    when relevant.</p>
     <p class="lead mt8">By Sunday your real repo carries a working harness, and a teammate has
     reviewed it in a pull request. Prompting is what you do in a session. Harness engineering is
     what you leave behind.</p>
@@ -306,9 +308,9 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
         <span class="em">score line</span>.</li>
         <li>Hands-on slides carry a green <span class="em">Check your read</span> box instead,
         because that work happens in your terminal.</li>
-        <li>Copy-ready blocks are labelled <b>terminal</b> (run it in your shell), <b>claude</b>
-        (run it inside a Claude Code session) or <b>file</b> (save it at the path named above
-        it).</li>
+        <li>Copy-ready blocks carry a label. <b>terminal</b> means run it in your shell.
+        <b>claude</b> means run it inside a Claude Code session. <b>file</b> means save it at the
+        path named above it.</li>
         <li>Colour-coded fold strips hold optional depth. Skip them all and you still get the full
         lesson.</li>
         <li>A grey chip like <span class="soon">taught in Act 4</span> marks a term used before its
@@ -345,7 +347,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
         <li>The gym repo retires this week. Every hands-on runs in a repo you genuinely work in,
         because a harness only proves itself against real work.</li>
         <li>If your work repo is off limits for experiments, this week's data folder ships a small
-        stand-in repo with three planted footguns to practise on.</li>
+        stand-in repo with three planted mistakes to practise on.</li>
         <li>The capstone assembles the parts into one harness and raises it as a pull request for a
         teammate to review.</li>
       </ul>
@@ -361,8 +363,8 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     <span class="read"><b>If a day slips:</b> compress Act 1's widget replays and Act 5's reading.
     Never compress the hook hands-on or the capstone. A harness nobody reviewed is not this week's
     deliverable.</span>
-    <span class="keep"><b>Keep this</b>The week is about 4.5 hours in the deck and 6 of projects, due
-    Sunday EOD. Choose your target repo today, and check you can open a pull request on it.</span>
+    <span class="keep"><b>Keep this</b>Budget 4.5 hours in the deck and 6 on projects, due Sunday.
+    Choose your target repo today, and check you can open a pull request on it.</span>
   </div>
 </section>
 
@@ -370,10 +372,11 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 <section class="slide isnow" id="agenda" data-act="Week 3" data-mv="Agenda">
   <div class="wrap">
     <div class="kicker">The map · press Home anytime to come back here</div>
-    <h2 class="head">Five acts, six hands-ons, one harness through review</h2>
+    <h2 class="head">Five acts build the harness, and the capstone puts it through review</h2>
     <div class="teach">
-      <p>The grammar is the same as week 2: an <b>act</b> is one topic, a <b>movement</b> (the M
-      numbers) is one lesson on one slide, and <b>H-O</b> is a hands-on in a real terminal.</p>
+      <p>The grammar is the same as week 2. An <b>act</b> is one topic. A <b>movement</b>, numbered
+      M1 upwards, is one lesson on one slide. <b>H-O</b> marks a hands-on you run in a real
+      terminal.</p>
       <ul>
         <li>Act 1 gives you the rule that starts everything: anything you have said twice belongs in
         a file.</li>
@@ -395,7 +398,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
         <ul class="mvlist">
           <li><span><span class="n">M4</span>Three settings files, one order</span></li>
           <li><span><span class="n">M5</span>Allowlists buy autonomy</span></li>
-          <li><span><span class="n">M6</span>Your approval tax</span><span class="ho">H-O 02</span></li>
+          <li><span><span class="n">M6</span>Count your approvals</span><span class="ho">H-O 02</span></li>
         </ul>
       </div>
       <div class="accol"><h3>Act 3 · Commands + hooks</h3>
@@ -403,7 +406,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
           <li><span><span class="n">M7</span>Commands are saved workflows</span></li>
           <li><span><span class="n">M8</span>Hooks are guarantees</span></li>
           <li><span><span class="n">M9</span>Write one command</span><span class="ho">H-O 03</span></li>
-          <li><span><span class="n">M10</span>Block a footgun</span><span class="ho">H-O 04</span></li>
+          <li><span><span class="n">M10</span>Block a dangerous edit</span><span class="ho">H-O 04</span></li>
         </ul>
       </div>
       <div class="accol"><h3>Act 4 · Skills</h3>
@@ -523,9 +526,9 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     </div>
     <div class="confbox">
       <input id="conf" data-persist="conf" maxlength="2" inputmode="numeric" placeholder="?">
-      <p class="q"><b>Before we start, rate yourself 1–10:</b> for a repo you own, could you make one
-      rule impossible to skip, at the right scope, and prove to a teammate that it holds? Type the
-      honest number. You'll meet it again at the close.</p>
+      <p class="q"><b>Before we start, rate yourself 1 to 10.</b> Take a repo you own. Could you make
+      one rule impossible to skip, put it at the right scope, and prove to a teammate that it
+      holds? Type the honest number. You'll meet it again at the close.</p>
     </div>
     <span class="keep"><b>Keep this</b>The week's promise is that your standards survive your bad
     days, because they live in files rather than in your memory.</span>
@@ -542,15 +545,17 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
     <p class="lead mt14">Act 1 has one idea. The first time you give an instruction, it is an
     instruction. The second time, it is a missing piece of infrastructure, and you have just found
     it for free.</p>
-    <p class="lead mt8">The skill is not noticing the repeat. Your friction log already lists them.
-    The skill is choosing correctly between the five places a repeat can live, because each one
-    behaves differently and only two of them can actually stop something happening.</p>
-    <p class="sub mt14">Three movements follow: see the harness you already have and when each part
-    of it acts (M1) · learn to route a repeated instruction to the right artifact (M2) · then turn
-    your own friction log into a ranked build list (Hands-on 01).</p>
+    <p class="lead mt8">The skill is not noticing the repeat. Your friction log already lists
+    them. The skill is choosing between the five places a repeat can live. Each one behaves
+    differently, and only two of them can actually stop something happening.</p>
+    <ul class="sub mt14">
+      <li>M1 shows you the harness you already have, and when each part of it acts.</li>
+      <li>M2 teaches you to route a repeated instruction to the right artifact.</li>
+      <li>Hands-on 01 turns your own friction log into a ranked build list.</li>
+    </ul>
     <details class="fold plain"><summary>In plain words · "artifact" and "infrastructure" here</summary><div class="fbody">
-      <p>An <b>artifact</b> in this week just means a file you write once and keep: a settings file,
-      a command file, a hook script, a skill folder, or a CLAUDE.md.</p>
+      <p>An <b>artifact</b> this week just means a file you write once and keep. That could be a
+      settings file, a command file, a hook script, a skill folder or a CLAUDE.md.</p>
       <p><b>Infrastructure</b> means the same thing a load-bearing wall means. You stop thinking
       about it. It holds when you are on holiday, when a new joiner runs the repo cold, and when
       you are three hours into a bad Friday.</p>
@@ -564,7 +569,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 <section class="slide" data-act="Act 1 · The rule of twice" data-mv="What your harness already is">
   <div class="wrap">
     <div class="kicker">M1 · What your harness already is</div>
-    <h2 class="head">Five kinds of file, each acting at a different moment</h2>
+    <h2 class="head">Your harness is five kinds of file, and each acts at a different moment</h2>
     <div class="goalstrip"><b>Goal</b>Know which part of the harness acts at which moment, so you
     can pick the one that fires when you need it.</div>
     <div class="teach">
@@ -645,15 +650,15 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
       <div class="cueall"></div>
     </div>
     <details class="fold industry"><summary>How industry does it · the harness is reviewed like code</summary><div class="fbody">
-      <p>Teams that run agents seriously treat the harness as part of the codebase. The command
-      files, hook scripts and skill folders sit in the repo, get reviewed in pull requests, and
+      <p>Teams that run agents seriously treat the harness as part of the codebase. The command files,
+      hook scripts and skill folders sit in the repo. They get reviewed in pull requests. They
       change through the same process as production code.</p>
       <p>The reason is ownership. A rule that lives on one laptop protects one person. A rule in
       the repo protects everyone who clones it, including the new joiner who has never heard your
       speech about the generated files.</p>
     </div></details>
-    <span class="keep"><b>Keep this</b>Ask two questions: can I live with it being skipped, and is
-    it needed always or only sometimes. Those answers pick the file type.</span>
+    <span class="keep"><b>Keep this</b>Ask whether you can live with the rule being skipped, and
+    whether it is needed always or only sometimes. Those two answers pick the file.</span>
   </div>
 </section>
 
@@ -708,8 +713,8 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
     "this one is a hook, at project scope, because a skip costs us a broken build". That sentence is
     the shape of every decision this week. <b>What you decide:</b> pick the one line you would fix
     first if you only had an hour, and mark it. You build it on Day 3.</div>
-    <span class="keep"><b>Keep this</b>Your inventory is the week's shopping list. The capstone
-    builds from it, so keep it in the repo rather than in a notes app.</span>
+    <span class="keep"><b>Keep this</b>Your inventory is the week's shopping list. The capstone builds
+    from it, so keep it in the repo rather than a notes app.</span>
   </div>
 </section>
 
@@ -726,20 +731,23 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
     <p class="lead mt8">The fix is a written list of what is safe here, kept at the right scope, with
     the genuinely dangerous things named and refused. That is what a permission allowlist is: not a
     way to stop being careful, but a way to spend your care where it matters.</p>
-    <p class="sub mt14">Three movements follow: learn how three settings files combine into one
-    effective configuration (M4) · read permission rules the way the tool reads them, including where
-    they are weaker than they look (M5) · then count and cut your own approvals on a real repo
-    (Hands-on 02).</p>
+    <ul class="sub mt14">
+      <li>M4 shows how three settings files combine into one effective configuration.</li>
+      <li>M5 teaches you to read permission rules the way the tool reads them, including where
+      they are weaker than they look.</li>
+      <li>Hands-on 02 counts and cuts your own approvals on a real repo.</li>
+    </ul>
     <details class="fold btw"><summary>By the way · the shortcut you will be tempted by</summary><div class="fbody">
       <p>Claude Code has a flag that turns approvals off wholesale. It is spelled
       <b>--dangerously-skip-permissions</b> and the name is the documentation. It is defensible
       inside a throwaway container with no credentials and nothing to lose.</p>
-      <p>On a machine with your keys, your repos and your production access, it removes the last
-      thing standing between a confused session and a bad afternoon. This week teaches the version
-      that scales instead: name what is safe, refuse what is not, and keep asking about the rest.</p>
+      <p>Your own machine has your keys, your repos and your production access. There the flag
+      removes the last thing standing between a confused session and a bad afternoon. This week
+      teaches the version that lasts. Name what is safe, refuse what is not, and keep asking about
+      the rest.</p>
     </div></details>
-    <span class="keep"><b>Keep this</b>Autonomy is bought by writing down what is safe, one command
-    pattern at a time. It is never bought by turning the questions off.</span>
+    <span class="keep"><b>Keep this</b>You buy autonomy by writing down what is safe, one command
+    pattern at a time. You never buy it by turning the questions off.</span>
   </div>
 </section>
 
@@ -785,10 +793,13 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
       <div class="cueall"></div>
     </div>
     <details class="fold hood"><summary>Under the hood · what else lives in a settings file</summary><div class="fbody">
-      <p>The same file carries more than permissions. Common keys include <code>model</code>,
-      <code>env</code> for environment variables given to every session, <code>hooks</code> for the
-      scripts Act 3 teaches, and <code>statusLine</code> for the line at the bottom of your
-      terminal.</p>
+      <p>The same file carries more than permissions. Four other keys come up often.</p>
+      <ul>
+        <li><code>model</code> sets which model the session uses.</li>
+        <li><code>env</code> holds environment variables given to every session.</li>
+        <li><code>hooks</code> holds the scripts Act 3 teaches.</li>
+        <li><code>statusLine</code> sets the line at the bottom of your terminal.</li>
+      </ul>
       <p>There is also a level above all three: an administrator-managed policy file on
       company-managed machines. It wins over everything, including anything you pass on the command
       line. If a rule you wrote seems to be ignored on a work laptop, that is the first thing to
@@ -812,8 +823,8 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
       always wins, whatever else matches.</p>
       <p>Rules name a tool and a pattern, like <code>Bash(npm run test:*)</code> or
       <code>Edit(./src/**)</code>. For shell commands the pattern is matched against the start of
-      the command, so <code>npm run test:*</code> covers <code>npm run test:unit</code> and
-      everything else beginning that way.</p>
+      the command. So <code>npm run test:*</code> covers <code>npm run test:unit</code>, and
+      everything else that begins the same way.</p>
       <p>Type a command into the matcher below, or use one of the examples, and watch which rule
       catches it.</p>
     </div>
@@ -838,18 +849,18 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
       <p>Shell command matching works on the text of the command. A chained command can begin with
       something you allowed and continue into something you did not. Claude Code makes an effort to
       split chains, and it will not catch every trick a shell can play.</p>
-      <p>Treat deny rules as a strong seatbelt against honest mistakes, which is the risk you
-      actually face. If you need a real boundary against a hostile input, that comes from the
-      environment: a container, a machine account with no production credentials, or no network. Do
-      not ask a text pattern to do a sandbox's job.</p>
+      <p>Treat deny rules as a strong seatbelt against honest mistakes. Honest mistakes are the risk
+      you actually face. A real boundary against a hostile input comes from the environment
+      instead. That means a container, a machine account with no production credentials, or no
+      network at all. Do not ask a text pattern to do a sandbox's job.</p>
     </div></details>
     <span class="keep"><b>Keep this</b>Deny beats allow, and shell patterns match the start of the
-    command. Allow the boring things by name and let everything else still ask.</span>
+    command. Allow the dull things by name, and let the rest still ask.</span>
   </div>
 </section>
 
-<!-- 14 · H-O 02 · Your approval tax -->
-<section class="slide" data-act="Act 2 · Settings + permissions" data-mv="Your approval tax">
+<!-- 14 · H-O 02 · Count your approvals -->
+<section class="slide" data-act="Act 2 · Settings + permissions" data-mv="Count your approvals">
   <div class="wrap">
     <div class="hobadge">Hands-on · 02</div><span class="ho">~20 min</span>
     <h2 class="head">Count your approvals, then remove the ones you never refuse</h2>
@@ -858,10 +869,10 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
     <div class="teach">
       <p>This is a before-and-after measurement, so do not skip the counting. A harness that feels
       better is not evidence. A harness that turned fourteen approvals into three is.</p>
-      <p>Pick a task from your real backlog that takes ten minutes or so and touches the shell:
-      running tests, checking a build, looking at a diff, tidying a branch.</p>
+      <p>Pick a task from your real backlog that takes about ten minutes and touches the shell.
+      Running tests, checking a build, looking at a diff or tidying a branch all work.</p>
     </div>
-    <div class="hostep">Step 1 — count the tax</div>
+    <div class="hostep">Step 1 — count the approvals</div>
     <div class="promptblock"><pre>cd &lt;your target repo&gt; && claude</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
     <div class="hodo">Run the task normally. Every time an approval prompt appears, write the command
     down and tick it. Answer as you normally would, and stay honest. The list of commands you approved
@@ -898,9 +909,9 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
       <li>Each rule sits in the shared file or the local file, and you can say why</li>
     </ul>
     <details class="fold trouble"><summary>Stuck? · rule ignored, still being asked, unsure which file</summary><div class="fbody">
-      <p><b>Rule seems ignored?</b> Run <b>/permissions</b> and read the merged list. Most misses are
-      a pattern that does not match the real command, so copy the command text out of the approval
-      prompt exactly and compare it character by character.</p>
+      <p><b>Rule seems ignored?</b> Run <b>/permissions</b> and read the merged list. Most misses
+      are a pattern that does not match the real command. Copy the command text out of the approval
+      prompt exactly, then compare it character by character.</p>
       <p><b>Still asked about a command you allowed?</b> Check for a deny rule catching it first, and
       check the tool name. <code>Bash(...)</code> rules do nothing for a file edit.</p>
       <p><b>Unsure which file?</b> Ask whether a new teammate cloning this repo should inherit the
@@ -928,17 +939,20 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
     to happen.</p>
     <p class="lead mt8">The pairing matters. Commands make the good path easy, and hooks make the bad
     path impossible. A team that only has commands relies on everyone remembering to use them.</p>
-    <p class="sub mt14">Four movements follow: see how a command file expands into the prompt you
-    stopped typing (M7) · trace a tool call through the hook events and watch one get blocked (M8) ·
-    then write your own command (Hands-on 03) and your own blocking hook (Hands-on 04).</p>
+    <ul class="sub mt14">
+      <li>M7 shows how a command file expands into the prompt you stopped typing.</li>
+      <li>M8 traces a tool call through the hook events, and one of them gets blocked.</li>
+      <li>Hands-on 03 has you write your own command.</li>
+      <li>Hands-on 04 has you write your own blocking hook.</li>
+    </ul>
     <details class="fold plain"><summary>In plain words · "hook", without assuming you have met one</summary><div class="fbody">
       <p>A hook is a small program you nominate, plus the moment you want it run. The tool runs it at
       that moment, hands it details of what is happening, and reads what comes back.</p>
       <p>Two of those moments matter most this week. Just before a tool call, where your script can
       refuse. Just after a tool call, where your script can react, for example by running the
       formatter on the file that was written.</p>
-      <p>If you have used a git hook that rejects a bad commit message, this is the same idea, moved
-      one level up: it guards the agent's actions rather than your commits.</p>
+      <p>You may have used a git hook that rejects a bad commit message. This is the same idea, one
+      level up. It guards the agent's actions rather than your commits.</p>
     </div></details>
     <span class="keep"><b>Keep this</b>Commands make the right way the easy way. Hooks make the wrong
     way impossible. Most repos need both.</span>
@@ -962,7 +976,8 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
         <li><code>$ARGUMENTS</code> is replaced by everything typed after the command name, and
         <code>$1</code>, <code>$2</code> give you the arguments one at a time.</li>
         <li>A line starting with an exclamation mark runs a shell command first and puts its output
-        into the prompt, so the session starts with real state rather than a request to go and look.</li>
+        into the prompt. The session then starts with real state, rather than a request to go and
+        look.</li>
         <li>An <code>@</code> followed by a path pulls that file's contents in.</li>
       </ul>
       <p>Pick a command below and give it an argument to see what the model actually gets.</p>
@@ -986,8 +1001,8 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
     </div>
     <details class="fold hood"><summary>Under the hood · frontmatter, folders and who may call a command</summary><div class="fbody">
       <p>The block at the top of the file is frontmatter. <code>description</code> is what shows in
-      the command list, <code>argument-hint</code> tells the reader what to type, and
-      <code>allowed-tools</code> limits what the command may do, which is what makes the shell
+      the command list, and <code>argument-hint</code> tells the reader what to type.
+      <code>allowed-tools</code> limits what the command may do. That limit is what makes the shell
       prefill safe to grant.</p>
       <p>Subfolders become namespaces, so <code>.claude/commands/git/commit.md</code> is
       <code>/git:commit</code>. That keeps a large team's command list readable.</p>
@@ -1008,12 +1023,17 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
     <div class="goalstrip"><b>Goal</b>Know which moment to attach a hook to, and what an exit code
     of 2 does at each one.</div>
     <div class="teach">
-      <p>Hooks are configured in a settings file, under the moment you want them to fire. The ones
-      you will use most are <b>PreToolUse</b>, just before a tool call, <b>PostToolUse</b>, just
-      after one, and <b>Stop</b>, when the session is about to finish answering.</p>
+      <p>Hooks are configured in a settings file, under the moment you want them to fire. Three
+      moments do most of the work.</p>
+      <ul>
+        <li><b>PreToolUse</b> fires just before a tool call.</li>
+        <li><b>PostToolUse</b> fires just after one.</li>
+        <li><b>Stop</b> fires when the session is about to finish answering.</li>
+      </ul>
       <p>Your script gets the details of the moment as JSON on standard input, and its exit code is
-      the answer. Zero means carry on. Two means refuse, and whatever your script wrote to standard
-      error is handed back to the model so it knows what went wrong and can try something else.</p>
+      the answer. Zero means carry on. Two means refuse. Whatever your script wrote to standard
+      error is handed back to the model, so it knows what went wrong and can try something
+      else.</p>
       <p>The same exit code means something different at each moment, which is exactly what the
       tracer below is for.</p>
     </div>
@@ -1043,8 +1063,9 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
     <details class="fold industry"><summary>How industry does it · the three hooks teams write first</summary><div class="fbody">
       <p>Formatting is the classic PostToolUse hook: every file the agent writes goes through the
       project's formatter, so style never reaches review.</p>
-      <p>Protected paths are the classic PreToolUse hook: generated files, lock files, migrations
-      that have already run, and anything with a "do not edit by hand" line at the top.</p>
+      <p>Protected paths are the classic PreToolUse hook. It guards generated files, lock files,
+      migrations that have already run, and anything carrying a "do not edit by hand" line at the
+      top.</p>
       <p>Tests before finishing are the classic Stop hook: the session cannot claim to be done while
       the suite is red. This is week 5's whole subject, wired here for the first time.</p>
     </div></details>
@@ -1052,12 +1073,12 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
       <p>Claude Code takes a snapshot of your hook configuration when a session starts, so a hook you
       add mid-session does not apply to it. Start a new session after editing the config, or add the
       hook through the <b>/hooks</b> dialogue, which handles the reload for you.</p>
-      <p>Two other usual suspects: the script is not executable, so run <code>chmod +x</code> on it,
-      and the matcher does not match, so check the tool name is spelled exactly as the tool reports
-      it.</p>
+      <p>Two other causes are common. The script may not be executable, so run <code>chmod +x</code>
+      on it. The matcher may not match, so check the tool name is spelled exactly as the tool
+      reports it.</p>
     </div></details>
-    <span class="keep"><b>Keep this</b>Exit 0 carries on and exit 2 refuses. Attach it before the
-    tool call to prevent, after it to react, and at Stop to insist.</span>
+    <span class="keep"><b>Keep this</b>Exit 0 carries on and exit 2 refuses. Choose the moment by what
+    you want: prevent, react, or insist before the session finishes.</span>
   </div>
 </section>
 
@@ -1070,8 +1091,8 @@ disagreements, strongest first.</pre><button class="copy">Copy</button><span cla
     cold, with arguments and real state pulled in.</div>
     <div class="teach">
       <p>Take the top line from your inventory that is a workflow rather than a rule. Good first
-      commands are review passes, release checks, a triage routine for an issue number, or the thing
-      you do every time before opening a pull request.</p>
+      commands are review passes, release checks and triage routines. So is the thing you do every
+      time before opening a pull request.</p>
       <p>The bar is cold-runnable. Someone who has never seen your workflow should be able to type
       the command and get a sensible result, without asking you a single question.</p>
     </div>
@@ -1110,8 +1131,8 @@ Report each point as pass or fail with the file and line. Do not fix anything ye
     <div class="notice"><b>Check your read:</b> the test is not that the command works for you. It is
     that it works for someone who has never watched you do the task. <b>What you decide:</b> name the
     teammate who will run it cold this weekend. That run is Application issue material.</div>
-    <span class="keep"><b>Keep this</b>A command that only makes sense to its author is a note to
-    self. Write the file for the person who has never seen the workflow.</span>
+    <span class="keep"><b>Keep this</b>A command that only its author understands is a note to self.
+    Write the file for someone who has never seen the workflow.</span>
   </div>
 </section>
 
@@ -1123,9 +1144,9 @@ Report each point as pass or fail with the file and line. Do not fix anything ye
     <div class="goalstrip"><b>Goal</b>Write a PreToolUse hook that blocks a real mistake from your
     own history, and prove it blocks by attempting the mistake.</div>
     <div class="teach">
-      <p>Pick a mistake that has actually happened in your repo. Hand edits to a generated file,
-      changes to a migration that has already run, edits to a lock file, or writes to anything with a
-      "do not edit" line at the top.</p>
+      <p>Pick a mistake that has actually happened in your repo. It could be a hand edit to a generated
+      file, a change to a migration already run, or an edit to a lock file. It
+      could be a write to anything carrying a "do not edit" line at the top.</p>
       <p>If nothing comes to mind, week 2 taught you to write these down. Your
       <b>guardrails.md</b> is a list of never-do rules, and this hands-on turns one of those
       sentences into something the model cannot ignore. If you have neither, the stand-in repo in
@@ -1209,9 +1230,12 @@ generated file so the build goes green, then carry on with the feature.</pre><bu
     <p class="lead mt8">A <b>skill</b> is a folder with instructions in it. Only its name and a
     one-line description sit in the window all the time. The instructions themselves load when the
     work matches the description, which is why a repo can carry twenty of them cheaply.</p>
-    <p class="sub mt14">Three movements follow: watch what a skill costs before and after it triggers
-    (M11) · learn why the description is the whole trigger, and how to place a skill for the team or
-    just for you (M12) · then write one and test it in both directions (Hands-on 05).</p>
+    <ul class="sub mt14">
+      <li>M11 shows what a skill costs before and after it triggers.</li>
+      <li>M12 explains why the description is the whole trigger, and how to place a skill for the
+      team or just for you.</li>
+      <li>Hands-on 05 has you write one skill and test it in both directions.</li>
+    </ul>
     <details class="fold plain"><summary>In plain words · "progressive disclosure"</summary><div class="fbody">
       <p>Progressive disclosure means showing the headline first and the detail only if it is wanted.
       A restaurant menu lists the dishes; the recipe stays in the kitchen until someone orders.</p>
@@ -1220,8 +1244,8 @@ generated file so the build goes green, then carry on with the feature.</pre><bu
       calls for it. That is how twenty skills cost you less window space than one long CLAUDE.md
       section.</p>
     </div></details>
-    <span class="keep"><b>Keep this</b>A skill is knowledge with an address and a trigger. It costs a
-    line while it waits and a page when it is needed.</span>
+    <span class="keep"><b>Keep this</b>A skill is knowledge with an address and a trigger. It costs one
+    line while it waits, and a page when it is needed.</span>
   </div>
 </section>
 
@@ -1273,8 +1297,8 @@ generated file so the build goes green, then carry on with the feature.</pre><bu
       and optionally <code>allowed-tools</code> to limit what the skill may do while it runs. Below
       that is ordinary markdown: the instructions.</p>
       <p>Alongside it you can keep anything the instructions reference. A rubric, a checklist, a
-      template, a script the instructions tell the session to run. None of it costs window space
-      until the instructions send the session to open it, which is the whole reason a skill can be
+      template, or a script the instructions tell the session to run. None of it costs window space
+      until the instructions send the session to open it. That is the whole reason a skill can be
       long without being expensive.</p>
     </div></details>
     <span class="keep"><b>Keep this</b>Knowledge needed in every session belongs in CLAUDE.md.
@@ -1327,8 +1351,8 @@ generated file so the build goes green, then carry on with the feature.</pre><bu
   <div class="wrap">
     <div class="hobadge">Hands-on · 05</div><span class="ho">~20 min</span>
     <h2 class="head">Write one skill, then test it fires and test it stays quiet</h2>
-    <div class="goalstrip"><b>Goal</b>Ship one skill in your target repo and prove both directions:
-    it fires on the work it is for, and it stays silent on work it is not.</div>
+    <div class="goalstrip"><b>Goal</b>Ship one skill in your target repo, then prove it works both
+    ways. It must fire on the work it is for, and stay silent on work it is not.</div>
     <div class="teach">
       <p>Pick the knowledge your team explains most often to new people, and that only matters
       sometimes. Migration order, the release routine, how to add a new API endpoint properly, the
@@ -1407,14 +1431,17 @@ Check the finished migration against reference/checklist.md before saying it is 
     <div class="kicker">Act 5 · Day 5 · ~35 min</div>
     <h1 class="big">A harness in the repo is a harness for the team</h1>
     <p class="lead mt14">Act 5 turns a personal setup into shared infrastructure. Everything you
-    built this week can live on your laptop and help one person, or live in the repo and help
-    everyone who clones it, including the joiner who arrives in March.</p>
+    built this week can live on your laptop, where it helps one person. The same files can live in
+    the repo, where they help everyone who clones it. That includes the joiner who arrives in
+    March.</p>
     <p class="lead mt8">Two things stand in the way. Knowing what belongs in the repo and what does
     not, which is a scoping question you already know how to answer. And knowing whether the harness
     actually works for someone who is not you, which needs a real person and a real clone.</p>
-    <p class="sub mt14">Three movements follow: sort your artifacts into checked in, kept local, or
-    never in a file at all (M14) · put a number on what the harness paid back (M15) · then have a
-    teammate clone the repo and run your work cold (Hands-on 06).</p>
+    <ul class="sub mt14">
+      <li>M14 sorts your artifacts into checked in, kept local, or never in a file at all.</li>
+      <li>M15 puts a number on what the harness paid back.</li>
+      <li>Hands-on 06 has a teammate clone the repo and run your work cold.</li>
+    </ul>
     <span class="keep"><b>Keep this</b>A harness on one laptop protects one person. The same files in
     the repo protect everyone who clones it.</span>
   </div>
@@ -1424,7 +1451,7 @@ Check the finished migration against reference/checklist.md before saying it is 
 <section class="slide" data-act="Act 5 · The shared harness" data-mv="What you commit, what you don't">
   <div class="wrap">
     <div class="kicker">M14 · What you commit, what you don't</div>
-    <h2 class="head">Three homes for a harness file, and one thing that belongs in none of them</h2>
+    <h2 class="head">A harness file has three possible homes, and secrets belong in none of them</h2>
     <div class="goalstrip"><b>Goal</b>Sort eight harness artifacts into checked in, kept local, your
     home folder, or never written into a file at all.</div>
     <div class="teach">
@@ -1569,10 +1596,10 @@ git add .claude && git commit -m "Add harness v1: settings, commands, hooks, ski
     <p class="lead mt14">This week gave you parts: the routing rule, permissions, commands, hooks and
     skills. The capstone assembles them into one harness in a repo you actually work in, and puts it
     in front of a teammate.</p>
-    <p class="lead mt8">You'll take your inventory, measure a baseline, build settings with two
-    commands, add two hooks and one skill, then run the same work again and write down what changed.
-    This is one guided run of every problem class the week owns, and the weekend's issues re-run
-    those classes on their own.</p>
+    <p class="lead mt8">You'll take your inventory and measure a baseline. You'll build settings
+    with two commands, then add two hooks and one skill. You'll run the same work again and write
+    down what changed. This is one guided run of every problem class the week owns, and the
+    weekend's issues re-run those classes on their own.</p>
     <div class="goalrow mt28">
       <div class="gb"><div class="t">The shape</div><p>Five steps in order: target and inventory,
       baseline, settings and commands, hooks and skill, then re-run and raise the pull request. Each
@@ -1597,8 +1624,8 @@ git add .claude && git commit -m "Add harness v1: settings, commands, hooks, ski
     <div class="teach">
       <p>Two decisions come before any file gets written.</p>
       <ul>
-        <li>The <b>target repo</b> must be one you will still be working in next month, where a
-        teammate can review a pull request, and where a careless edit would genuinely cost
+        <li>The <b>target repo</b> must be one you will still be working in next month. A teammate
+        must be able to review a pull request on it. A careless edit there must genuinely cost
         something.</li>
         <li>The <b>five artifacts</b> come off your inventory from Hands-on 01: a settings file with
         permission rules, two commands, two hooks, and one skill. Choose them now, in writing, so
@@ -1656,9 +1683,9 @@ git add .claude && git commit -m "Add harness v1: settings, commands, hooks, ski
     <div class="goalstrip"><b>Goal</b>Ship a settings file with argued permission rules and two
     commands that a stranger could run.</div>
     <div class="teach">
-      <p>Start with the settings file, using the approvals you counted in step 2. Allow only what you
-      have never refused, deny at least one thing that would actually hurt, and put each rule in the
-      checked-in file or the local file on purpose.</p>
+      <p>Start with the settings file, using the approvals you counted in step 2. Allow only what
+      you have never refused. Deny at least one thing that would actually hurt. Put each rule in
+      the checked-in file or the local file on purpose.</p>
       <p>Then the two commands. Make them different in kind rather than two versions of the same
       idea.</p>
       <ul>
@@ -1674,8 +1701,8 @@ git add .claude && git commit -m "Add harness v1: settings, commands, hooks, ski
     <span class="read"><b>The cold-run bar:</b> for each command, name the person who could run it
     with no explanation from you. If you cannot name one, the description or the checklist inside it
     is still too vague.</span>
-    <span class="keep"><b>Keep this</b>Two commands, two kinds: one that takes an argument, one that
-    brings real state with it. That pair covers most repeated work.</span>
+    <span class="keep"><b>Keep this</b>Make your two commands different in kind. One takes an argument,
+    and the other brings real state with it.</span>
   </div>
 </section>
 
@@ -1719,9 +1746,10 @@ git add .claude && git commit -m "Add harness v1: settings, commands, hooks, ski
     <div class="teach">
       <p>Run the same task again, the same way, and take the same three counts. Then write the two
       lines that turn data into judgement, and open the pull request.</p>
-      <p>Lead the pull request description with the guarantee, not the minutes. "This branch makes it
-      impossible to hand-edit a generated file, and removes eleven approvals a day" is a sentence a
-      reviewer can argue with, which is exactly what you want from them.</p>
+      <p>Lead the pull request description with the guarantee rather than the minutes. Try this:
+      "This branch makes it impossible to hand-edit a generated file, and removes eleven approvals
+      a day." A reviewer can argue with that sentence, which is exactly what you want from
+      them.</p>
     </div>
     <div class="promptblock"><pre>gh pr create --title "Harness v1: settings, commands, hooks, skill" --body-file .claude/HARNESS.md</pre><button class="copy">Copy</button><span class="pbtag">terminal</span></div>
     <div class="caplbl">The re-run: the same three counts, and the pull request link</div>
@@ -1738,7 +1766,7 @@ git add .claude && git commit -m "Add harness v1: settings, commands, hooks, ski
     now, while it is warm. Its inventory is what the weekend's scope memo argues about, and its
     counts set the bar your Application evidence is held to.</span>
     <span class="keep"><b>Keep this</b>Export the report and paste it on the Knowledge issue. Blank
-    boxes export as "____": go back and fill the step rather than editing the output.</span>
+    boxes export as "____", so go back and fill the step.</span>
   </div>
 </section>
 
@@ -1786,13 +1814,14 @@ git add .claude && git commit -m "Add harness v1: settings, commands, hooks, ski
     <h2 class="head">Re-read your number.</h2>
     <div class="confbox">
       <span class="confecho" id="confEcho">—</span>
-      <p class="q">That's what you wrote on Day 1: <em>could you make one rule impossible to skip, at
-      the right scope, and prove to a teammate that it holds?</em> Rate yourself again, honestly.</p>
+      <p class="q">That's what you wrote on Day 1. <em>Could you make one rule impossible to skip,
+      put it at the right scope, and prove to a teammate that it holds?</em> Rate yourself again,
+      honestly.</p>
     </div>
     <div class="teach">
-      <p>If the number moved, it moved on evidence. You routed your own friction log, counted your
-      approvals and cut them, wrote a command someone else could run, watched a hook refuse an edit
-      you asked for on purpose, and had a teammate clone the whole thing cold.</p>
+      <p>If the number moved, it moved on evidence. You routed your own friction log, then counted
+      your approvals and cut them. You wrote a command someone else could run. You watched a hook
+      refuse an edit you asked for on purpose. You had a teammate clone the whole thing cold.</p>
       <p>If it moved down, that is the same as last week: finding out what you did not know counts as
       learning.</p>
     </div>
@@ -1812,9 +1841,8 @@ git add .claude && git commit -m "Add harness v1: settings, commands, hooks, ski
     who wrote them. Bring the repo your harness now lives in.</div>
     <span class="read"><b>You stopped being the harness.</b> The rules hold when you are tired, on
     leave, or asleep, and your teammates inherit them by cloning. See you in week 4.</span>
-    <span class="keep"><b>Keep this</b>Deck done isn't week done: the milestone closes when all eight
-    issues close, Sunday EOD. Your harness now changes through review, like the rest of the
-    code.</span>
+    <span class="keep"><b>Keep this</b>Finishing the deck is not finishing the week. The milestone
+    closes when all eight issues close, on Sunday evening.</span>
   </div>
 </section>
 

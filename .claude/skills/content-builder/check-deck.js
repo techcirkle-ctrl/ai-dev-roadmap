@@ -49,7 +49,7 @@ if (darkCount) bad(`movement/step divider slides present: ${darkCount} × 'slide
 
 // fold layer: every fold declares a known type and carries a summary + .fbody; print expander wired
 const FOLD_TYPES = ["plain", "hood", "industry", "btw", "dyk", "trouble"];
-const foldTypes = [...html.matchAll(/<details class="fold ([a-z]+)">/g)].map(m => m[1]);
+const foldTypes = [...html.matchAll(/<details class="fold ([a-z]+)"[^>]*>/g)].map(m => m[1]);
 const badFold = [...new Set(foldTypes.filter(t => !FOLD_TYPES.includes(t)))];
 if (badFold.length) bad("fold with unknown type: " + badFold.join(", "));
 const detOpen = (html.match(/<details\b/g) || []).length;

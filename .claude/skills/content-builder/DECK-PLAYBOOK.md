@@ -231,10 +231,15 @@ numbers (M1…) appear only beside their titles (agenda, kickers) — reference 
   only (key prefix `dwN.`, and `dwN.vo.` for the voice-over). Say so on the glass, and
   name the paper fallback template in `weeks/week-N/data/`.
 - **Voice-over:** every deck carries the engine, whether or not it is scripted yet. It
-  needs four things: the `.vobar` control markup after the progress bar, the `VO` engine
-  block in the script, the `VO.onSlide()` call inside `show()`, and a `VOPFX` equal to
-  that deck's `PFX` plus `vo.` (so `dw4.` gives `dw4.vo.`). Port the block from the newest
-  shipped deck, never from a plan file, and change only the `VOPFX` line.
+  needs five things: the `.vobar` control markup after the progress bar, the `VO` engine
+  block in the script, the `VO.onSlide()` call inside `show()`, the `.vohl` highlight CSS,
+  and a `VOPFX` equal to that deck's `PFX` plus `vo.` (so `dw4.` gives `dw4.vo.`). Port the
+  block from the newest shipped deck, never from a plan file, and change only the `VOPFX`
+  line.
+- **Resume:** `show()` writes `cur` to `PFX + "slide"`, and the script restores it after
+  the persistence loop, where `PFX` is in scope. A refresh returns the learner to the slide
+  they were on rather than the title. Slide 0 is never restored, so a first open still
+  starts at the top.
 - Self-contained (inline CSS + vanilla JS, no network), `@media print` flattens registers
   to white, expands steppers, drops chrome/copy; widgets in defensive IIFEs
   (`if(!el)return;`), state derived from the DOM.

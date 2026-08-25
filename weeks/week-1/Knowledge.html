@@ -2239,6 +2239,8 @@ function show(i){
   chromeCount.textContent=(cur+1)+" / "+slides.length;
   refreshConf();
   VO.onSlide();
+  /* remember where the learner got to, so a refresh does not send them back to slide 1 */
+  try{localStorage.setItem(PFX+"slide",String(cur));}catch(_){}
   s.scrollTop=0;
 }
 function next(){
@@ -2306,6 +2308,12 @@ var PFX="dw1.";
     if(el.id==="conf")refreshConf();
   });
 });
+
+/* resume where they left off */
+try{
+  var saved=parseInt(localStorage.getItem(PFX+"slide"),10);
+  if(saved>0&&saved<slides.length)show(saved);
+}catch(_){}
 
 /* capstone report export */
 var capBtn=document.getElementById("capCopy");

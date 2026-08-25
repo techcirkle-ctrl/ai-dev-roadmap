@@ -71,21 +71,25 @@ const dup = [...new Set(ids.filter((v, i) => ids.indexOf(v) !== i))];
 if (dup.length) bad("duplicate ids: " + dup.join(", "));
 else console.log("duplicate ids: none");
 
-// voice-over: data-vo is plain, non-empty narration text when present
-const voMatches = [...html.matchAll(/data-vo="([^"]*)"/g)];
-const vos = voMatches.map(m => m[1]);
-voMatches.forEach((m, i) => {
-  const v = m[1];
-  const after = html[m.index + m[0].length];
-  if (after !== undefined && !/[\s>/]/.test(after))
-    bad(`data-vo ${i + 1}: stray double quote inside the value (attribute closed early — everything after the quote, including any markup, is invisible to this check)`);
-  if (!v.trim()) bad(`data-vo ${i + 1}: empty (drop the attribute instead)`);
-  if (/<[a-z/!]/i.test(v)) bad(`data-vo ${i + 1}: contains markup (plain text only)`);
+// voice-over: data-vo is plain, non-empty narration, one per slide (DECK-PLAYBOOK §1)
+// Checked per section, and the character after the closing quote must be another
+// attribute or the end of the tag — that is what catches a stray quote in the value.
+const VO_TAIL = /^\s*(?:[a-zA-Z_:][\w:.\-]*\s*=\s*"|\/?>)/;
+let voScripted = 0;
+sections.forEach((body, i) => {
+  const hits = [...body.matchAll(/\sdata-vo="([^"]*)"/g)];
+  if (!hits.length) return;
+  if (hits.length > 1) bad(`section ${i + 1}: ${hits.length} data-vo attributes (one per slide)`);
+  voScripted++;
+  const v = hits[0][1];
+  const tail = body.slice(hits[0].index + hits[0][0].length);
+  if (!VO_TAIL.test(tail)) bad(`section ${i + 1}: data-vo holds a stray double quote (the value must not contain one)`);
+  else if (!v.trim()) bad(`section ${i + 1}: data-vo is empty (drop the attribute instead)`);
+  else if (/<[a-z/!]/i.test(v)) bad(`section ${i + 1}: data-vo contains markup (plain text only)`);
 });
-if (!vos.length) console.log("voice-over: no slides scripted");
-else if (vos.length === secOpen) console.log(`voice-over: all ${vos.length} slides scripted`);
-else if (vos.length > secOpen) console.log(`voice-over: ${vos.length} data-vo attributes across ${secOpen} sections (some sections carry more than one — check for duplicates)`);
-else console.log(`voice-over: ${vos.length}/${secOpen} slides scripted (partial — autoplay stops on the rest)`);
+if (!voScripted) console.log("voice-over: no slides scripted");
+else if (voScripted === sections.length) console.log(`voice-over: all ${voScripted} slides scripted`);
+else console.log(`voice-over: ${voScripted}/${sections.length} slides scripted (partial — autoplay stops on the rest)`);
 
 // steppers: within each slide, snode count must equal steppanel count
 sections.forEach((body, i) => {

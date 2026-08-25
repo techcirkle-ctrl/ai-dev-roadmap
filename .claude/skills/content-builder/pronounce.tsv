@@ -1,0 +1,4 @@
+# Respellings applied to narration text at render time only.
+# The deck keeps the real spelling; only the audio engine sees the right column.
+# One rule per line: word<TAB>respelling. Whole words, case-sensitive.
+git	ghit

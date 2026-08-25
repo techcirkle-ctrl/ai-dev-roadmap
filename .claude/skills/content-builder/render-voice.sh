@@ -37,6 +37,19 @@ mkdir -p "$OUT" "$TMP"
 python3 - "$DECK" "$TMP" <<'PY'
 import re,sys,pathlib,html
 deck,tmp=pathlib.Path(sys.argv[1]),pathlib.Path(sys.argv[2])
+
+# the speech engine mispronounces some words; respell them for audio only
+RULES=[]
+d=pathlib.Path(".claude/skills/content-builder/pronounce.tsv")
+if d.exists():
+    for line in d.read_text().splitlines():
+        line=line.strip()
+        if not line or line.startswith("#") or "\t" not in line: continue
+        a,b=line.split("\t",1)
+        RULES.append((re.compile(r"\b"+re.escape(a)+r"\b"),b))
+def respell(t):
+    for rx,rep in RULES: t=rx.sub(rep,t)
+    return t
 for f in tmp.glob("*.txt"): f.unlink()
 h=deck.read_text()
 secs=re.findall(r'<section class="slide.*?</section>',h,re.S)
@@ -45,7 +58,7 @@ for si,body in enumerate(secs,1):
     for bi,vo in enumerate(re.findall(r'\sdata-vo="([^"]*)"',body),1):
         vo=html.unescape(vo).strip()
         if not vo: continue
-        (tmp/f"{si:02d}-{bi:02d}.txt").write_text(vo); n+=1
+        (tmp/f"{si:02d}-{bi:02d}.txt").write_text(respell(vo)); n+=1
 print(f"{n} blocks across {len(secs)} slides")
 PY
 

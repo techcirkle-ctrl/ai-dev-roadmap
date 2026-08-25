@@ -237,8 +237,9 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 .confbox .q{font-size:.98rem}
 .confecho{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;font-family:ui-sans-serif,system-ui,sans-serif;color:var(--accent)}
 /* voice-over: the block being narrated */
-.vohl{background:var(--accent-soft);box-shadow:-3px 0 0 var(--accent);border-radius:4px;transition:background .3s ease}
-.slide.act .vohl,.slide.dark .vohl{background:rgba(255,255,255,.10);box-shadow:-3px 0 0 var(--accent)}
+.vohl{background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:6px 12px 6px 13px;margin-left:-16px;transition:background .3s ease}
+li.vohl{margin-left:-16px}
+.slide.act .vohl,.slide.dark .vohl{background:rgba(255,255,255,.10);border-left-color:var(--accent)}
 /* voice-over bar */
 .vobar{position:fixed;top:14px;right:20px;z-index:45;display:flex;align-items:center;gap:8px;font-family:ui-sans-serif,system-ui,sans-serif}
 .vobtn{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);color:var(--muted);border-radius:999px;padding:6px 12px;font-family:inherit;font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
@@ -282,6 +283,7 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 <div class="vobar">
   <button class="vobtn" id="voToggle" type="button" aria-pressed="false" aria-label="Voice-over on or off"><span class="glyph" id="voGlyph">&#128263;</span><span id="voLabel">Voice off</span></button>
   <button class="vobtn" id="voAuto" type="button" aria-pressed="false" aria-label="Autoplay on or off" disabled>Auto</button>
+  <button class="vobtn" id="voRate" type="button" aria-label="Playback speed" disabled>1&times;</button>
   <span class="vocount" id="voCount" aria-live="polite"></span>
 </div>
 <div class="deck" id="deck">
@@ -1922,14 +1924,16 @@ var VO=(function(){
     return {onSlide:function(){},cancel:function(){}};
   }
   var VOPFX="dw2.vo.";            /* per deck: dw1. / dw2. / dw3. */
-  var GRACE=10;                   /* seconds the learner gets before the deck moves */
+  var GRACE=4;                    /* seconds the learner gets before the deck moves */
   var bToggle=document.getElementById("voToggle");
   var bAuto=document.getElementById("voAuto");
   var elGlyph=document.getElementById("voGlyph");
   var elLabel=document.getElementById("voLabel");
   var elCount=document.getElementById("voCount");
+  var bRate=document.getElementById("voRate");
   var on=false,auto=false,armed=false,timer=null,left=0,voice=null,queue=[],qi=0,gen=0,au=null;
   var units=[],ui=0,hl=null;
+  var RATES=[1,1.25,1.5,1.75],ri=0;
 
   function save(k,v){try{localStorage.setItem(VOPFX+k,v?"1":"0");}catch(_){}}
   function load(k){try{return localStorage.getItem(VOPFX+k)==="1";}catch(_){return false;}}
@@ -1979,6 +1983,7 @@ var VO=(function(){
     elLabel.textContent=on?"Voice on":"Voice off";
     bAuto.setAttribute("aria-pressed",(on&&auto)?"true":"false");
     bAuto.disabled=!on;
+    if(bRate){bRate.textContent=RATES[ri]+"\u00d7";bRate.disabled=!on;}
   }
 
   function finished(){
@@ -1999,7 +2004,7 @@ var VO=(function(){
     if(qi>=queue.length){playUnit();return;}
     var u=new SpeechSynthesisUtterance(queue[qi++]);
     if(voice)u.voice=voice;
-    u.rate=0.95;u.pitch=1;
+    u.rate=0.95*RATES[ri];u.pitch=1;
     u.onend=function(){speakNext(g);};
     u.onerror=function(){speakNext(g);};
     try{synth.speak(u);}catch(_){}
@@ -2016,6 +2021,9 @@ var VO=(function(){
   function mark(el){
     unmark();
     if(!el||el===slides[cur])return;
+    /* a closed fold cannot be read along with, so open it and leave it open */
+    var d=el.tagName==="DETAILS"?el:(el.closest?el.closest("details"):null);
+    if(d&&!d.open)d.open=true;
     el.classList.add("vohl");hl=el;
     if(!el.scrollIntoView)return;
     try{el.scrollIntoView({block:"center",behavior:"smooth"});}
@@ -2035,6 +2043,7 @@ var VO=(function(){
     mark(el);
     if(!src){speakUnit(el,g);return;}
     au=new Audio(src);
+    au.playbackRate=RATES[ri];
     au.onended=function(){if(g===gen)playUnit();};
     au.onerror=function(){if(g===gen)speakUnit(el,g);};
     var pr=au.play();
@@ -2070,6 +2079,10 @@ var VO=(function(){
     on=!on;armed=true;save("on",on);paint();
     if(on)speakCurrent();else cancel();
   });
+  if(bRate)bRate.addEventListener("click",function(){
+    ri=(ri+1)%RATES.length;save("rate",ri);paint();
+    if(au)au.playbackRate=RATES[ri];
+  });
   bAuto.addEventListener("click",function(){
     if(!armed){armed=true;if(on)speakCurrent();}
     auto=!auto;save("auto",auto);paint();
@@ -2083,7 +2096,9 @@ var VO=(function(){
   document.addEventListener("keydown",function(){stopTimer();});
   window.addEventListener("beforeprint",function(){cancel();});
 
-  on=load("on");auto=load("auto");paint();
+  on=load("on");auto=load("auto");
+  try{var r=parseInt(localStorage.getItem(VOPFX+"rate"),10);if(r>=0&&r<RATES.length)ri=r;}catch(_){}
+  paint();
   return {onSlide:speakCurrent,cancel:cancel};
 })();
 

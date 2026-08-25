@@ -73,8 +73,13 @@ for f in "$TMP"/*.txt; do
   if [ -f "$OUT/$n.m4a" ] && [ "$(cat "$OUT/.$n.sha" 2>/dev/null)" = "$sum" ]; then
     kept=$((kept+1)); continue
   fi
-  uvx edge-tts --voice "$VOICE" --file "$f" --write-media "$TMP/$n.mp3" >/dev/null 2>&1 \
-    || { echo "  $n FAILED"; fail=1; continue; }
+  # the endpoint drops a connection now and then, so give each block three goes
+  ok=0
+  for try in 1 2 3; do
+    uvx edge-tts --voice "$VOICE" --file "$f" --write-media "$TMP/$n.mp3" >/dev/null 2>&1 \
+      && [ -s "$TMP/$n.mp3" ] && { ok=1; break; }
+  done
+  [ "$ok" = 1 ] || { echo "  $n FAILED after 3 tries"; fail=1; continue; }
   afconvert -f m4af -d aach -b "$BITRATE" "$TMP/$n.mp3" "$OUT/$n.m4a" 2>/dev/null \
     || afconvert -f m4af -d aac -s 3 -b "$BITRATE" "$TMP/$n.mp3" "$OUT/$n.m4a" 2>/dev/null \
     || { echo "  $n ENCODE FAILED"; fail=1; continue; }

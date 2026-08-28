@@ -265,6 +265,20 @@ After each week ships, corrections become one-line rules here (replace vaguer on
 bar only goes up), and the newest shipped deck becomes the reference implementation.
 
 **Log:**
+- 2026-08-28 · Week 4 correction (every taught class needs a rep): the drift detector taught
+  DESIGN.md going stale in an act whose capstone never rehearsed it, so the matching
+  Application issue had no guided rep to be parity with. Now canon: before writing the
+  issue set, check every concept widget against the capstone steps — a class the deck
+  teaches and the capstone never runs is either added to a capstone step or dropped from
+  the issues. Cheapest fix is usually one line inside an existing step, not a sixth step.
+- 2026-08-28 · Week 4 correction (verify tool claims before teaching them): the deck was
+  about to teach the "think / think hard / think harder" keyword ladder, which Claude Code
+  does not recognise — only `ultrathink` is a real keyword, and plan mode blocks edits
+  rather than being read-only. Now canon: any claim about how the tool behaves gets checked
+  against current documentation before it reaches a slide, and version-sensitive claims
+  carry a thirty-second verification the learner runs themselves (rule 5's "demonstrable on
+  their own machine that day"). A widely believed myth, once confirmed false, is better
+  teaching material than the correct fact alone.
 - 2026-08-25 · Trainer correction (retire the keep band): the `.keep` band is removed from
   every deck and from this playbook. Closing each slide with a one-line restatement said
   again what the slide had just taught, and the deck already ends a movement with its own

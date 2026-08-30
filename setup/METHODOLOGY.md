@@ -49,8 +49,9 @@ across the repo — one week, one folder.
 ## Week = milestone
 
 - One week of the curriculum = **one GitHub milestone**.
-- Milestone due date = **end of day Sunday** of that week. Every issue in the milestone
-  inherits that due date.
+- Milestones carry **no due date**. The programme is self-paced: a handful of learners
+  moving at the speed their real work allows, not a taught cohort on a shared clock. The
+  milestone is a bucket that groups a week's issues, nothing more.
 - The week's issues all belong to its milestone; the milestone closes when all issues close.
 
 ## The deck — shipped on `main`
@@ -157,7 +158,7 @@ so the learner's own CLAUDE.md becomes a worked example of week 2's craft.
 roadmap.html agreed (once, up front)
 └─ Week N opens
    1. Trainer ships deck to main            (acts + hands-ons + capstone)
-   2. Milestone "Week N" created            (due Sunday EOD)
+   2. Milestone "Week N" created            (no due date — a bucket, not a deadline)
    3. Issue #1 Knowledge opened             (read acts → hands-ons → capstone)
    4. Learner completes #1
    5. Issues #2–#k Application opened       (4–6 fresh problems, evidence uploaded)
@@ -193,7 +194,7 @@ completion, due dates, and evidence. The repo folders are **fallback copies only
 - `setup/milestones/` — fallback milestone definitions.
 - `setup/learner-progress/` — fallback per-learner tracking + metrics across weeks.
 
-Every issue carries: milestone, **due date (Sunday EOD)**, per-learner labels — on GitHub.
+Every issue carries: milestone and per-learner labels — on GitHub. No due dates anywhere.
 
 ### Multiple learners share one issue
 

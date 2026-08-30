@@ -1,6 +1,6 @@
 # [Week 4] Application — Another learner's session has to build from your spec, with no access to you
 
-**Pedagogy:** Application · **Milestone:** Week 4 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 4
 **Prerequisite:** Week 4 Knowledge issue complete.
 **Capstone class:** cold-executability (capstone step 2, run without the ability to patch mid-flight)
 

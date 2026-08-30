@@ -1,6 +1,6 @@
 # [Week 3] Application — The same mistake has reached review twice, and you caught it both times
 
-**Pedagogy:** Application · **Milestone:** Week 3 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 3
 **Prerequisite:** Week 3 Knowledge issue complete.
 **Capstone class:** guarantees (capstone step 4, built from your own history rather than a chosen example)
 

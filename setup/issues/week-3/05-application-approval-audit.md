@@ -1,6 +1,6 @@
 # [Week 3] Application — You have answered the same permission prompt ninety times this month
 
-**Pedagogy:** Application · **Milestone:** Week 3 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 3
 **Prerequisite:** Week 3 Knowledge issue complete.
 **Capstone class:** buying autonomy at the right scope (capstone step 3, from measured data rather than a chosen list)
 

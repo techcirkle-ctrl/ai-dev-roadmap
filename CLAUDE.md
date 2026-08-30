@@ -59,7 +59,8 @@ file is the repo's ideology in brief; the full operating contract is
   opt-in, in the skill, never in issue text.
 - **Two things never compressed:** verification loops (wk 5–6) and real-repo reps
   (wk 3 onward).
-- **Week = GitHub milestone**, due Sunday EOD. All the week's issues belong to it.
+- **Week = GitHub milestone**, with no due date. The milestone is a bucket, not a deadline:
+  the programme is self-paced, and a week goes live when its deck lands on `main`.
 - **Deck ideology:** one self-contained HTML deck per week on `main`; acts (one act =
   one topic) with embedded hands-on exercises run in Claude Code on real repos; a
   capstone project after the final act. Slide furniture is the v2 self-serve grammar:

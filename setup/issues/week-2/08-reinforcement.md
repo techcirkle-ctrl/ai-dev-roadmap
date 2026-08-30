@@ -1,6 +1,6 @@
 # [Week 2] Reinforcement — Context is spend, and every document has a scope
 
-**Pedagogy:** Reinforcement · **Milestone:** Week 2 · **Due:** Sunday EOD
+**Pedagogy:** Reinforcement · **Milestone:** Week 2
 **Prerequisite:** Week 2 Knowledge issue complete.
 
 ## Why

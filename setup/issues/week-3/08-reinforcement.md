@@ -1,6 +1,6 @@
 # [Week 3] Reinforcement — Said it twice? Then it belongs in a file
 
-**Pedagogy:** Reinforcement · **Milestone:** Week 3 · **Due:** Sunday EOD
+**Pedagogy:** Reinforcement · **Milestone:** Week 3
 **Prerequisite:** Week 3 Knowledge issue complete.
 
 ## Why

@@ -1,6 +1,6 @@
 # [Week 2] Application — Your context layer only works for one tool, and your team uses three
 
-**Pedagogy:** Application · **Milestone:** Week 2 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 2
 **Prerequisite:** Week 2 Knowledge issue complete.
 **Capstone class:** portability of the layer (Hands-on 04's class, run against a real second reader)
 

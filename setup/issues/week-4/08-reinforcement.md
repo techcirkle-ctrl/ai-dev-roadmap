@@ -1,6 +1,6 @@
 # [Week 4] Reinforcement — No code before the spec is executable
 
-**Pedagogy:** Reinforcement · **Milestone:** Week 4 · **Due:** Sunday EOD
+**Pedagogy:** Reinforcement · **Milestone:** Week 4
 **Prerequisite:** Week 4 Knowledge issue complete.
 
 ## Why

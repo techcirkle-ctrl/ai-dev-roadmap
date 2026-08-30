@@ -1,6 +1,6 @@
 # [Week 3] Application — Half the harness on your laptop should be in the repo, and some of it should not
 
-**Pedagogy:** Application · **Milestone:** Week 3 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 3
 **Prerequisite:** Week 3 Knowledge issue complete.
 **Capstone class:** routing and scope (capstone step 1, on an accumulated pile rather than five artifacts you chose)
 

@@ -1,6 +1,6 @@
 # [Week 1] Application — A second chore leaves your week
 
-**Pedagogy:** Application · **Milestone:** Week 1 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 1
 **Prerequisite:** Week 1 Knowledge issue complete.
 **Capstone class:** build — capstone steps 2–3 (pick + ship), fresh chore, solo.
 

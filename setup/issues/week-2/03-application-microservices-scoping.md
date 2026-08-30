@@ -1,6 +1,6 @@
 # [Week 2] Application — Six repos, one team, and the same context pasted into every session
 
-**Pedagogy:** Application · **Milestone:** Week 2 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 2
 **Prerequisite:** Week 2 Knowledge issue complete.
 **Capstone class:** scope placement (capstone step 3, on a workspace rather than one repo)
 

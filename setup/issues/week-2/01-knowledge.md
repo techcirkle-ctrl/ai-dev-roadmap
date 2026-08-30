@@ -1,6 +1,6 @@
 # [Week 2] Knowledge — Context engineering: what the model sees, at the right scope
 
-**Pedagogy:** Knowledge · **Milestone:** Week 2 · **Due:** Sunday EOD
+**Pedagogy:** Knowledge · **Milestone:** Week 2
 
 ## Deck
 

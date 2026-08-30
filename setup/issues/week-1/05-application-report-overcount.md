@@ -1,6 +1,6 @@
 # [Week 1] Application — relay's weekly report claims work nobody shipped
 
-**Pedagogy:** Application · **Milestone:** Week 1 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 1
 **Prerequisite:** Week 1 Knowledge issue complete.
 **Capstone class:** debug — capstone step 4 (the done-2 bug was the guided rep; this bug is yours).
 

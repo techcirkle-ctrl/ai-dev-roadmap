@@ -1,12 +1,12 @@
 # [Week 1] Application — The verdict: what Claude Code takes off your plate
 
-**Pedagogy:** Application · **Milestone:** Week 1 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 1
 **Prerequisite:** Week 1 Knowledge issue complete.
 **Capstone class:** verdict — capstone step 5 (two committed lines from data), scaled to a week of evidence.
 
 ## The Problem
 
-By Sunday you owe yourself a decision, on evidence: which parts of your real work
+By the end of this week you owe yourself a decision, on evidence: which parts of your real work
 Claude Code handles reliably, which need review, which aren't worth delegating yet —
 and the model mix you'll run in week 2. Opinions don't count; runs do.
 

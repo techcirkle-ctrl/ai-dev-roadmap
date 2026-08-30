@@ -45,8 +45,13 @@ guidance with a prerequisite checklist you can tick off.
 
 ## How a week runs
 
-The week is one GitHub milestone, due end of day Sunday. Every issue in it shares that
-date. Work the issues in number order — they are built to be done in sequence.
+The week is one GitHub milestone. There is no due date and no deadline. This programme is
+self-paced, so you move at whatever speed your real work allows. The milestone is one place
+holding every issue for that week. Work the issues in number order, because they are built
+to be done in sequence.
+
+When you finish a week, say so. The next one gets built and pushed to `main`, and you pick
+it up from there.
 
 **Issue #1 is Knowledge.** Work through the deck: read each act, do the hands-on exercise
 inside it on your own machine, then build the capstone at the end. Nothing else in the
@@ -97,15 +102,15 @@ repo.
 
 ## The nine weeks
 
-Full detail is in `roadmap.html`. A week is live once its milestone is open on GitHub;
-until then the folder may not exist yet.
+Full detail is in `roadmap.html`. A week is live once its deck is on `main`; until then
+the folder may not exist yet.
 
 | Week | Topic | Status |
 | --- | --- | --- |
 | 1 | Setup + the map: wire everything | Live |
-| 2 | Context engineering: what the model sees, at the right scope | Not open yet |
-| 3 | Harness engineering: encode it, don't repeat it | Not open yet |
-| 4 | Planning: spec-driven development | Not open yet |
+| 2 | Context engineering: what the model sees, at the right scope | Live |
+| 3 | Harness engineering: encode it, don't repeat it | Live |
+| 4 | Planning: spec-driven development | Live |
 | 5 | Loop engineering I: the verified loop | Not open yet |
 | 6 | Loop engineering II: autonomy | Not open yet |
 | 7 | Graph engineering + tracking | Not open yet |
@@ -121,6 +126,6 @@ the names now; you will use them every week.
 - Confused about what an issue wants? Comment on the issue. That is the channel.
 - Deck won't open or a hands-on fails on your machine? Comment on the Knowledge issue
   with the error.
-- Behind on the Sunday date? Say so in the issue before Sunday, not after.
+- Stuck for more than 20 minutes? Say so in the issue rather than going quiet.
 - Something in the repo contradicts something else? `roadmap.html` and
   `setup/METHODOLOGY.md` win. Flag the contradiction.

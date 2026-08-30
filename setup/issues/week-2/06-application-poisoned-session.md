@@ -1,6 +1,6 @@
 # [Week 2] Application — A session went wrong an hour ago and has been confidently wrong since
 
-**Pedagogy:** Application · **Milestone:** Week 2 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 2
 **Prerequisite:** Week 2 Knowledge issue complete.
 **Capstone class:** session hygiene under pressure (Act 5's class, on a derailment you cause deliberately)
 

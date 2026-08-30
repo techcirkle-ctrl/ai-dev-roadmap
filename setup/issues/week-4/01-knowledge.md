@@ -1,6 +1,6 @@
 # [Week 4] Knowledge — Planning: spec-driven development
 
-**Pedagogy:** Knowledge · **Milestone:** Week 4 · **Due:** Sunday EOD
+**Pedagogy:** Knowledge · **Milestone:** Week 4
 
 ## Deck
 

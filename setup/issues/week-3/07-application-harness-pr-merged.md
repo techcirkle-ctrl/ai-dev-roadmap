@@ -1,6 +1,6 @@
 # [Week 3] Application — Ask a colleague to accept your rules into a repo they also work in
 
-**Pedagogy:** Application · **Milestone:** Week 3 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 3
 **Prerequisite:** Week 3 Knowledge issue complete.
 **Capstone class:** the shared harness (capstone step 5, taken past raising the PR to getting it merged)
 

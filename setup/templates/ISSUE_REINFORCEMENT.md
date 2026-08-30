@@ -1,6 +1,6 @@
 # [Week N] Reinforcement — Add this week's ideology to your global CLAUDE.md
 
-**Pedagogy:** Reinforcement · **Milestone:** Week N · **Due:** Sunday EOD
+**Pedagogy:** Reinforcement · **Milestone:** Week N
 **Prerequisite:** All Week N Application issues complete.
 
 ## Instructions

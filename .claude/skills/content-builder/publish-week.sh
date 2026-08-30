@@ -1,11 +1,11 @@
 #!/bin/bash
-# Publish a week to GitHub: milestone (due Sunday EOD) + issues, idempotently.
-# Usage: bash publish-week.sh <week-number> <due-date YYYY-MM-DD>
+# Publish a week to GitHub: milestone (no due date) + issues, idempotently.
+# Usage: bash publish-week.sh <week-number>
+# Milestones carry no due date: the programme is self-paced (setup/METHODOLOGY.md).
 # Reads: setup/milestones/week-N.md (title = line after "## Name"; body = description)
 #        setup/issues/week-N/*.md   (first line "# <title>" = issue title; rest = body)
 set -euo pipefail
 N="${1:?week number required}"
-DUE="${2:?due date YYYY-MM-DD required}"
 R=$(gh repo view --json nameWithOwner --jq .nameWithOwner)
 MSFILE="setup/milestones/week-$N.md"
 ISSUEDIR="setup/issues/week-$N"
@@ -20,7 +20,6 @@ if gh api "repos/$R/milestones?state=all" --paginate --jq '.[].title' | grep -Fx
 else
   gh api "repos/$R/milestones" \
     -f title="$MS" \
-    -f due_on="${DUE}T23:59:59Z" \
     -f description="$(cat "$MSFILE")" \
     --jq '"milestone created: \(.html_url)"'
 fi

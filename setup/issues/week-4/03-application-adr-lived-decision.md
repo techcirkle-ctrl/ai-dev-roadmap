@@ -1,6 +1,6 @@
 # [Week 4] Application — Somebody is about to undo a decision you made months ago
 
-**Pedagogy:** Application · **Milestone:** Week 4 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 4
 **Prerequisite:** Week 4 Knowledge issue complete.
 **Capstone class:** decision record (capstone step 4, reconstructed rather than recorded live)
 

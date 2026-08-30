@@ -1,6 +1,6 @@
 # [Week 1] Knowledge — Work through the learning deck
 
-**Pedagogy:** Knowledge · **Milestone:** Week 1 · **Due:** Sunday EOD
+**Pedagogy:** Knowledge · **Milestone:** Week 1
 
 ## Deck
 

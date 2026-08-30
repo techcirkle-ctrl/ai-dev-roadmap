@@ -1,6 +1,6 @@
 # [Week 3] Knowledge — Harness engineering: encode it, don't repeat it
 
-**Pedagogy:** Knowledge · **Milestone:** Week 3 · **Due:** Sunday EOD
+**Pedagogy:** Knowledge · **Milestone:** Week 3
 
 ## Deck
 

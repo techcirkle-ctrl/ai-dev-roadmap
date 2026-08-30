@@ -1,6 +1,6 @@
 # [Week 2] Application — One repo, eight packages, and rules that fire in the wrong ones
 
-**Pedagogy:** Application · **Milestone:** Week 2 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 2
 **Prerequisite:** Week 2 Knowledge issue complete.
 **Capstone class:** scope placement (capstone step 3, on the monorepo case)
 

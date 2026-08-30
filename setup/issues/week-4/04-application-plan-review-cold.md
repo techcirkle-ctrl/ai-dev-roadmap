@@ -1,6 +1,6 @@
 # [Week 4] Application — Approve or reject a plan for work somebody else scoped
 
-**Pedagogy:** Application · **Milestone:** Week 4 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 4
 **Prerequisite:** Week 4 Knowledge issue complete.
 **Capstone class:** plan review (capstone step 3, without the author's context)
 

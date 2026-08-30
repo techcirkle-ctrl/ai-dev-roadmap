@@ -1,6 +1,6 @@
 # [Week 4] Application — Your architecture document has been quietly wrong for a month
 
-**Pedagogy:** Application · **Milestone:** Week 4 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 4
 **Prerequisite:** Week 4 Knowledge issue complete.
 **Capstone class:** keeping DESIGN.md honest (Act 4's drift habit, capstone step 5 run across a month of accumulated change)
 

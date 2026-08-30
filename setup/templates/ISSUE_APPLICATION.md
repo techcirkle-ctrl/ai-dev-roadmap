@@ -1,6 +1,6 @@
 # [Week N] Application — [Problem title: the symptom or the goal, never the activity]
 
-**Pedagogy:** Application · **Milestone:** Week N · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week N
 **Prerequisite:** Week N Knowledge issue complete.
 **Capstone class:** [which capstone step this is a fresh rep of — audit / build / debug / judge / …]
 

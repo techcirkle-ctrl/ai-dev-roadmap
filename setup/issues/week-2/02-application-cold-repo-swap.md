@@ -1,6 +1,6 @@
 # [Week 2] Application — Write the standing rules for a repo you have never worked in
 
-**Pedagogy:** Application · **Milestone:** Week 2 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 2
 **Prerequisite:** Week 2 Knowledge issue complete.
 **Capstone class:** authoring a scoped layer and measuring it (capstone steps 3 and 4, on a codebase you do not know)
 

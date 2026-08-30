@@ -1,6 +1,6 @@
 # [Week 3] Application — A skill that never fires and a skill that fires constantly are the same bug
 
-**Pedagogy:** Application · **Milestone:** Week 3 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 3
 **Prerequisite:** Week 3 Knowledge issue complete.
 **Capstone class:** relevance-loaded knowledge (capstone step 4, evaluated in both directions)
 

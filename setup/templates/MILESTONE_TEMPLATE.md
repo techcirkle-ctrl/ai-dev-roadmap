@@ -4,9 +4,10 @@
 
 Week N — [theme]
 
-## Duration
+## Pace
 
-One week. **Due: end of day Sunday** (all issues inherit this date).
+Self-paced. There is no due date. Work through it at whatever speed real work allows,
+and ask for the next week when you are done with this one.
 
 ## Learning Objectives
 

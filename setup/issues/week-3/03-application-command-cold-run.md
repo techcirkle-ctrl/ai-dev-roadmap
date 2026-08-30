@@ -1,6 +1,6 @@
 # [Week 3] Application — Your workflow only works when you are the one running it
 
-**Pedagogy:** Application · **Milestone:** Week 3 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 3
 **Prerequisite:** Week 3 Knowledge issue complete.
 **Capstone class:** saved workflows (capstone step 3, tested by somebody who does not know what you meant)
 

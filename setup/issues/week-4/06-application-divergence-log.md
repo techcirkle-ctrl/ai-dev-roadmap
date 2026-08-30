@@ -1,6 +1,6 @@
 # [Week 4] Application — Work out where your planning was wrong on something you already shipped
 
-**Pedagogy:** Application · **Milestone:** Week 4 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 4
 **Prerequisite:** Week 4 Knowledge issue complete.
 **Capstone class:** divergence analysis (capstone step 5, run backwards on work that had no plan)
 

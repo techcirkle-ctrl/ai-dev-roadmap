@@ -1,6 +1,6 @@
 # [Week 2] Application — You run out of window at 6pm and somebody else finishes the work
 
-**Pedagogy:** Application · **Milestone:** Week 2 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 2
 **Prerequisite:** Week 2 Knowledge issue complete.
 **Capstone class:** writing for a reader with no context (capstone steps 1 and 3, compressed into one artifact)
 

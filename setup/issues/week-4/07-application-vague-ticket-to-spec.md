@@ -1,6 +1,6 @@
 # [Week 4] Application — Turn the worst-written ticket you own into something buildable
 
-**Pedagogy:** Application · **Milestone:** Week 4 · **Due:** Sunday EOD
+**Pedagogy:** Application · **Milestone:** Week 4
 **Prerequisite:** Week 4 Knowledge issue complete.
 **Capstone class:** scoping into cold-executability (capstone steps 1 and 2, starting from somebody else's ambiguity)
 

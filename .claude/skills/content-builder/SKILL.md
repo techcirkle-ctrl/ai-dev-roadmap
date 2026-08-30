@@ -129,10 +129,12 @@ question you may ask before going dark.
    `setup/issues/week-N/`, `README.md`, `START-HERE.html`, and any other doc updates. (If the user prefers to push
    themselves, stage and say so — follow whatever they did last week.)
 2. Publish to GitHub:
-   `bash .claude/skills/content-builder/publish-week.sh <N> <YYYY-MM-DD>`
-   — due date = the upcoming Sunday (EOD). The script is idempotent (skips existing
-   milestone/issue titles), creates issues in file order, no assignee — per-learner
-   state is `<name>:done` labels per `setup/METHODOLOGY.md`.
+   `bash .claude/skills/content-builder/publish-week.sh <N>`
+   — no due date: the programme is self-paced and milestones are buckets, not deadlines.
+   The script is idempotent (skips existing milestone/issue titles), creates issues in
+   file order, no assignee — per-learner state is `<name>:done` labels per
+   `setup/METHODOLOGY.md`. A week is live once its deck is on `main`, so flip its row in
+   `README.md` and `START-HERE.html` in the same push.
 3. Report the milestone + issue links.
 
 ## Working style

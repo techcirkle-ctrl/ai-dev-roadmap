@@ -29,6 +29,21 @@ come out sounding inevitable when it never was.
   chose it.
 - It must be reviewed by a human who was there. Book their time early.
 
+## If nobody is available right now
+
+The reviewer's job is to check your account against what was actually known at the time,
+so if the person is unreachable, reconstruct that from the record instead:
+
+- Read the pull request thread, the commit messages, and any issue or chat around the
+  decision.
+- Quote at least one line from that record that either supports or contradicts your
+  account.
+- Write down explicitly what you could **not** verify without them, and mark the record
+  `Status: proposed` rather than `accepted` until somebody confirms it.
+
+That last step matters. An ADR nobody has checked is a draft, and saying so is more useful
+than pretending it is settled.
+
 ## Evidence Required
 
 Upload on this issue before closing:
@@ -58,7 +73,8 @@ your evidence comment — using the net is fine, hiding it isn't.
 
 ## Time Estimate
 
-~60 minutes, plus your reviewer's time.
+**At the keyboard:** ~60 minutes.
+**Elapsed:** depends on your reviewer; the record-only route runs in one sitting.
 
 ## Status
 

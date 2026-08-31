@@ -52,7 +52,8 @@ your evidence comment — using the net is fine, hiding it isn't.
 
 ## Time Estimate
 
-~2 hours of grading and annotation; the tasks themselves are your normal work.
+**At the keyboard:** ~2 hours of grading and annotation.
+**Elapsed:** a week. The 6–8 tasks are your normal work, run as it arrives.
 
 ## Status
 

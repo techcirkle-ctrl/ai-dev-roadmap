@@ -45,7 +45,8 @@ your evidence comment — using the net is fine, hiding it isn't.
 
 ## Time Estimate
 
-~1.5 hours to spec and ship; the uses ride your real work.
+**At the keyboard:** ~1.5 hours to spec and ship.
+**Elapsed:** at least three separate days, because the three uses must be real ones.
 
 ## Status
 

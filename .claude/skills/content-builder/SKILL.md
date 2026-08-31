@@ -102,11 +102,16 @@ question you may ask before going dark.
 1. Present the issue set in detail (still no files): for each of the ~6–8 issues —
    pedagogy, title, capstone class, the ticket-shaped problem statement, evidence
    required, success criteria; the milestone's learning objectives + success metrics.
-2. Self-test every Application issue against rep parity before presenting: fresh
+2. Any issue needing a second person carries an **If nobody is available right now**
+   section with a solo route (a fresh session is a genuine cold reader), and points at the
+   cold-read swap board. The cohort is self-paced and therefore asynchronous: never author
+   an issue that blocks on somebody else reaching the same week. Time estimates split into
+   **At the keyboard** and **Elapsed** whenever the two differ.
+3. Self-test every Application issue against rep parity before presenting: fresh
    problem? capstone-step class and difficulty? solvable from the body alone, with
    `/guide-me` as the only scaffold? evidence a by-product, never the task? Rewrite
    what fails; drop logging-only issues rather than padding the count.
-3. STOP. Wait for input; iterate.
+4. STOP. Wait for input; iterate.
 
 ### Phase 4 — Local files → HARD GATE 4
 

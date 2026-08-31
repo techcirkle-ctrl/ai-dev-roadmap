@@ -53,6 +53,13 @@ across the repo — one week, one folder.
   moving at the speed their real work allows, not a taught cohort on a shared clock. The
   milestone is a bucket that groups a week's issues, nothing more.
 - The week's issues all belong to its milestone; the milestone closes when all issues close.
+- **Standing issues** sit outside every milestone and never close. There is one today: the
+  cold-read swap board (#34, pinned), where a learner posts an artifact needing a cold read
+  and anybody claims it regardless of which week they are on. Self-pacing makes the cohort
+  asynchronous, so peer exercises cannot assume a partner is at the same point. Every issue
+  that wants a second person therefore also carries an **If nobody is available right now**
+  section with a solo route, usually a fresh session standing in as the cold reader. A
+  learner is never blocked on somebody else's pace.
 
 ## The deck — shipped on `main`
 

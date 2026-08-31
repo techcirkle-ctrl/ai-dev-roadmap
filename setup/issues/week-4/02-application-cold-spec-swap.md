@@ -30,6 +30,21 @@ try again. Here you get one attempt at the version you handed over.
 - Swap both ways: you also run a cold session against their spec and report the result.
 - Book this early in the weekend. It needs another person's time.
 
+## If nobody is available right now
+
+Run it as a **one-shot** against a fresh session, which is the part that makes this harder
+than the capstone:
+
+- Open a session that has never seen your conversation.
+- Give it the spec and the repo, and ask it to list every question and every silent
+  assumption, exactly as `weeks/week-4/data/cold-run-protocol.md` sets out.
+- **One attempt.** No patching and re-running. The whole point of the swap is that you get
+  one version and live with its gaps.
+
+A fresh session is genuinely cold, so this is a fair test of the spec. What you lose is a
+human's willingness to say a sentence was confusing rather than quietly interpreting it.
+Post on the swap board if you want a learner run as well.
+
 ## Evidence Required
 
 Upload on this issue before closing:
@@ -61,7 +76,8 @@ your evidence comment — using the net is fine, hiding it isn't.
 
 ## Time Estimate
 
-~75 minutes, plus your partner's time.
+**At the keyboard:** ~75 minutes.
+**Elapsed:** one sitting solo; a swap depends on your partner.
 
 ## Status
 

@@ -23,6 +23,16 @@ found the cause, (c) what closed the loop.
 - The verify signal is `node --test`.
 - Autopsy per `weeks/week-1/data/loop-autopsy-template.md`, one row per tool call, beat-tagged.
 
+## If nobody is available right now
+
+The three-question test needs a reader who was not there. A **fresh Claude Code session**
+is genuinely one: it has never seen your session, your repo history, or your reasoning.
+
+Start a new session, give it your autopsy write-up and nothing else, and ask it the same
+three questions. Where it answers wrongly or hedges, your write-up has a gap. A human
+partner is still the better test, because a human will tell you when a sentence is
+confusing rather than guessing well. Post on the swap board if you want one.
+
 ## Evidence Required
 
 Upload on this issue before closing:
@@ -46,7 +56,8 @@ your evidence comment — using the net is fine, hiding it isn't.
 
 ## Time Estimate
 
-~1.5 hours, plus the swap with your partner.
+**At the keyboard:** ~1.5 hours.
+**Elapsed:** one sitting solo; longer if you wait for a partner.
 
 ## Status
 

@@ -57,7 +57,8 @@ your evidence comment — using the net is fine, hiding it isn't.
 
 ## Time Estimate
 
-~45 minutes, spread across a week of counting.
+**At the keyboard:** ~45 minutes.
+**Elapsed:** about two weeks. You count for a week, change the rules, then re-count on comparable work.
 
 ## Status
 

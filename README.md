@@ -123,6 +123,10 @@ the names now; you will use them every week.
 
 ## When you are stuck
 
+- Need somebody to read or run something of yours cold? Post it on the
+  [cold-read swap board](https://github.com/techcirkle-ctrl/ai-dev-roadmap/issues/34).
+  Anyone can claim it, whatever week they are on. Do not sit blocked waiting: every issue
+  that wants a second person also carries a solo route.
 - Confused about what an issue wants? Comment on the issue. That is the channel.
 - Deck won't open or a hands-on fails on your machine? Comment on the Knowledge issue
   with the error.

@@ -27,6 +27,20 @@ The grade is not your opinion of the file. It is what their suite does with it.
 - Your file goes at the scope you argue for. Project scope is the obvious answer and it is
   not automatically the right one.
 
+## If nobody is available right now
+
+Use a codebase you have genuinely never worked in. An open-source repo in a language you
+know is ideal, and `weeks/week-2/data/relay-workspace` works too.
+
+- Build the five-task suite yourself from the repo's own issue tracker or its obvious
+  rough edges, **before** you write the CLAUDE.md.
+- Write the file, then A/B it on that suite exactly as the capstone did.
+- Grade it against `weeks/week-2/data/peer-swap-rubric.md` yourself.
+
+What you lose is the owner's verdict, which is the sharpest part. What survives is the
+core skill: working out what a repo needs when nobody briefs you. Post on the swap board
+if you want the real thing later.
+
 ## Evidence Required
 
 Upload on this issue before closing:
@@ -54,7 +68,8 @@ your evidence comment — using the net is fine, hiding it isn't.
 
 ## Time Estimate
 
-~75 minutes, plus your partner's time.
+**At the keyboard:** ~90 minutes.
+**Elapsed:** one sitting solo; a swap depends on your partner.
 
 ## Status
 

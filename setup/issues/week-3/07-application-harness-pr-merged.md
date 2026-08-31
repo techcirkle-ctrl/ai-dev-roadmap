@@ -29,6 +29,20 @@ reasons you can write down.
   evidence.
 - Book their time early.
 
+## If nobody is available right now
+
+The reviewer does not have to be another learner. In order of preference:
+
+1. A teammate on the repo, which is the real thing and what the issue is for.
+2. Any colleague who works in a repo like yours, reviewing it as a favour.
+3. Failing both, open the PR anyway and write the review yourself against the question a
+   reviewer would actually ask: for each artifact, what does this refuse, what does it
+   cost me, and what do I do when it fires wrongly? Then post the PR link on the swap
+   board and leave it open for a real review when someone is free.
+
+Route 3 is the weakest, because the whole point is that somebody else agrees to live with
+your rules. Say which route you took and why.
+
 ## Evidence Required
 
 Upload on this issue before closing:
@@ -55,7 +69,8 @@ your evidence comment — using the net is fine, hiding it isn't.
 
 ## Time Estimate
 
-~45 minutes, plus your reviewer's time.
+**At the keyboard:** ~45 minutes.
+**Elapsed:** depends on your reviewer; route 3 runs in one sitting.
 
 ## Status
 

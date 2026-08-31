@@ -27,6 +27,20 @@ correctly on the first attempt, and a list of everything you had assumed without
 - Swap both ways: you run theirs too, and report the same.
 - Book this early. It needs another person's time.
 
+## If nobody is available right now
+
+Run it cold against yourself, in conditions that remove what you know:
+
+- Clone your repo fresh into a new directory, and open a session that has never run this
+  command.
+- Have the **session** run the command from your written description of it, without you
+  correcting anything.
+- Every place it passes the wrong argument, asks what a flag means, or cannot tell whether
+  the output is right, is a place your command assumed something it never said.
+
+A human partner still finds things a session will not, chiefly the moments where a person
+hesitates without saying so. Post on the swap board for that.
+
 ## Evidence Required
 
 Upload on this issue before closing:
@@ -53,7 +67,8 @@ your evidence comment — using the net is fine, hiding it isn't.
 
 ## Time Estimate
 
-~50 minutes, plus your partner's time.
+**At the keyboard:** ~50 minutes.
+**Elapsed:** one sitting solo; a swap depends on your partner.
 
 ## Status
 

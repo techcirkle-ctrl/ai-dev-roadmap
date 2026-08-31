@@ -27,6 +27,19 @@ and what you would do next, which is a different document and a shorter one.
 - You stay silent while they resume. Every question they ask is a gap in the handoff, and
   you record it rather than answering it.
 
+## If nobody is available right now
+
+A **fresh Claude Code session** resumes cold by definition. Give it your handoff document
+and the repo, nothing else, and ask it to continue the work.
+
+- Every question it asks is a gap, exactly as a human's would be.
+- Every wrong assumption it announces is a gap you would not have heard from a polite
+  colleague.
+
+The difference is that a session will confidently guess where a person would stop and ask,
+so watch for the guesses rather than only the questions. Post on the swap board if you
+want a human resume as well.
+
 ## Evidence Required
 
 Upload on this issue before closing:
@@ -53,7 +66,8 @@ your evidence comment — using the net is fine, hiding it isn't.
 
 ## Time Estimate
 
-~50 minutes, plus the resumer's time.
+**At the keyboard:** ~60 minutes.
+**Elapsed:** one sitting solo.
 
 ## Status
 

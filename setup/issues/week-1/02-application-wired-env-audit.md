@@ -14,10 +14,28 @@ claim someone else verified on your machine, or an honest gap list with fixes ag
 
 ## Constraints
 
-- Pairs: Shubham ↔ Akash ↔ Atishay — arrange so everyone audits once and is audited once.
+- Pair with another learner so that everyone audits once and is audited once. Arrange it
+  on the cold-read swap board rather than assuming who is free.
 - The checklist is `weeks/week-1/data/wiring-audit.md`; the auditor runs all 10 checks.
 - The owner stays silent for the whole run.
 - Failed checks: agree the fix, owner fixes, auditor re-runs them the same day.
+
+## If nobody is available right now
+
+The programme is self-paced, so another learner may not be at this point when you are.
+Post your audit request on the **cold-read swap board** (pinned issue) and carry on; pick
+up someone else's when you have twenty minutes.
+
+To finish without waiting, run the audit against yourself under cold conditions:
+
+- Open a brand-new terminal with no history and no aliases loaded.
+- Work down the ten checks touching **only** what the checklist names.
+- Every time you reach for something the checklist does not mention — a saved path, a
+  remembered flag, a browser tab already logged in — that is a finding. Write it down
+  rather than using it.
+
+This is weaker than a peer run, because you cannot help yourself by accident and you also
+cannot see your own blind spots. Say in your evidence which route you took.
 
 ## Evidence Required
 
@@ -41,7 +59,8 @@ your evidence comment — using the net is fine, hiding it isn't.
 
 ## Time Estimate
 
-45 minutes (both directions).
+**At the keyboard:** ~25 minutes per direction.
+**Elapsed:** depends on your partner. The solo route runs in one sitting.
 
 ## Status
 

@@ -111,7 +111,7 @@ the folder may not exist yet.
 | 2 | Context engineering: what the model sees, at the right scope | Live |
 | 3 | Harness engineering: encode it, don't repeat it | Live |
 | 4 | Planning: spec-driven development | Live |
-| 5 | Loop engineering I: the verified loop | Not open yet |
+| 5 | Loop engineering I: the verified loop | Live |
 | 6 | Loop engineering II: autonomy | Not open yet |
 | 7 | Graph engineering + tracking | Not open yet |
 | 8 | Industry methodologies: run the famous processes | Not open yet |

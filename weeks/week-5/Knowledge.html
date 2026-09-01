@@ -235,14 +235,15 @@ textarea.cap:focus{outline:2px solid var(--accent-soft);border-color:var(--accen
 li.vohl{margin-left:-16px}
 .slide.act .vohl,.slide.dark .vohl{background:rgba(255,255,255,.10);border-left-color:var(--accent)}
 /* voice-over bar */
-.vobar{position:fixed;top:14px;right:20px;z-index:45;display:flex;align-items:center;gap:8px;font-family:ui-sans-serif,system-ui,sans-serif}
-.vobtn{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);color:var(--muted);border-radius:999px;padding:6px 12px;font-family:inherit;font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.vobar{position:fixed;top:14px;right:20px;z-index:45;display:flex;align-items:center;gap:4px;font-family:ui-sans-serif,system-ui,sans-serif}
+.vobtn{display:flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;border:1px solid var(--line);background:var(--paper);color:var(--muted);border-radius:999px;font-family:inherit;font-size:10.5px;font-weight:800;cursor:pointer}
+.vobtn svg{width:15px;height:15px;display:block}
 .vobtn:hover{border-color:var(--accent);color:var(--accent)}
 .vobtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
-.vobtn[disabled]{opacity:.4;cursor:default}
-.vobtn:disabled:hover{border-color:var(--line);color:var(--muted)}
-.vobtn .glyph{font-size:13px;line-height:1}
-.vocount{font-family:ui-sans-serif,system-ui,sans-serif;font-size:11.5px;font-weight:700;color:var(--muted);min-width:86px;text-align:right}
+.vobtn.vorate{width:auto;padding:0 8px;letter-spacing:.04em}
+/* with the voice off the bar is a single speaker, so it costs almost no glass */
+.vobar.off .vohide{display:none}
+.vocount{font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-align:right}
 /* chrome / progress / helpbar */
 .progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:40;background:rgba(255,255,255,.08)}
 .progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}
@@ -288,10 +289,12 @@ li.vohl{margin-left:-16px}
 <body>
 <div class="progress"><i id="pbar"></i></div>
 <div class="vobar">
-  <button class="vobtn" id="voToggle" type="button" aria-pressed="false" aria-label="Voice-over on or off"><span class="glyph" id="voGlyph">&#128263;</span><span id="voLabel">Voice off</span></button>
-  <button class="vobtn" id="voPlay" type="button" aria-label="Pause or resume the voice-over" disabled><span class="glyph" id="voPlayGlyph">&#9208;</span><span id="voPlayLabel">Pause</span></button>
-  <button class="vobtn" id="voAuto" type="button" aria-pressed="false" aria-label="Autoplay on or off" disabled>Auto</button>
-  <button class="vobtn" id="voRate" type="button" aria-label="Playback speed" disabled>1&times;</button>
+  <button class="vobtn" id="voToggle" type="button" aria-pressed="false" aria-label="Voice-over on or off" title="Voice-over on or off"></button>
+  <button class="vobtn vohide" id="voPrev" type="button" aria-label="Previous narration block" title="Previous block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 9 12l9 6V6Z"/><path d="M6 6v12"/></svg></button>
+  <button class="vobtn vohide" id="voPlay" type="button" aria-label="Pause or resume the voice-over" title="Play or pause"></button>
+  <button class="vobtn vohide" id="voNext" type="button" aria-label="Next narration block" title="Next block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l9 6-9 6V6Z"/><path d="M18 6v12"/></svg></button>
+  <button class="vobtn vohide" id="voAuto" type="button" aria-pressed="false" aria-label="Autoplay on or off" title="Autoplay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9a5 5 0 0 1 5-5h9"/><path d="m15 1 3 3-3 3"/><path d="M20 15a5 5 0 0 1-5 5H6"/><path d="m9 23-3-3 3-3"/></svg></button>
+  <button class="vobtn vorate vohide" id="voRate" type="button" aria-label="Playback speed" title="Playback speed">1&times;</button>
   <span class="vocount" id="voCount" aria-live="polite"></span>
 </div>
 <div class="deck" id="deck">
@@ -1546,10 +1549,8 @@ var VO=(function(){
   var bToggle=document.getElementById("voToggle");
   var bAuto=document.getElementById("voAuto");
   var bPlay=document.getElementById("voPlay");
-  var elPlayGlyph=document.getElementById("voPlayGlyph");
-  var elPlayLabel=document.getElementById("voPlayLabel");
-  var elGlyph=document.getElementById("voGlyph");
-  var elLabel=document.getElementById("voLabel");
+  var bPrev=document.getElementById("voPrev");
+  var bNext=document.getElementById("voNext");
   var elCount=document.getElementById("voCount");
   var bRate=document.getElementById("voRate");
   var on=false,auto=false,armed=false,timer=null,left=0,voice=null,queue=[],qi=0,gen=0,au=null;
@@ -1600,18 +1601,21 @@ var VO=(function(){
     units=[];ui=0;unmark();
     try{synth.cancel();synth.resume();}catch(_){}
   }
+  /* plain line icons only, because the bar sits over the slide and must stay small */
+  var ICON={
+    on:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>',
+    off:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m17 9 5 6"/><path d="m22 9-5 6"/></svg>',
+    play:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4.5 19 12 7 19.5v-15Z"/></svg>',
+    pause:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5v14"/><path d="M15 5v14"/></svg>'
+  };
+  /* the bar shows only what the current state can act on, so it stays one icon wide when off */
   function paint(){
     bToggle.setAttribute("aria-pressed",on?"true":"false");
-    elGlyph.innerHTML=on?"&#128266;":"&#128263;";
-    elLabel.textContent=on?"Voice on":"Voice off";
+    bToggle.innerHTML=on?ICON.on:ICON.off;
+    if(bar.classList.toggle)bar.classList.toggle("off",!on);
     bAuto.setAttribute("aria-pressed",(on&&auto)?"true":"false");
-    bAuto.disabled=!on;
-    if(bPlay){
-      bPlay.disabled=!on;
-      elPlayGlyph.innerHTML=paused?"&#9654;":"&#9208;";
-      elPlayLabel.textContent=paused?"Play":"Pause";
-    }
-    if(bRate){bRate.textContent=RATES[ri]+"\u00d7";bRate.disabled=!on;}
+    if(bPlay)bPlay.innerHTML=paused?ICON.play:ICON.pause;
+    if(bRate)bRate.textContent=RATES[ri]+"\u00d7";
   }
 
   function finished(){
@@ -1728,6 +1732,21 @@ var VO=(function(){
     if(!armed){armed=true;paused=false;paint();speakCurrent();return;}
     if(paused)resume();else pause();
   });
+  /* a missed line is one tap away, because prev and next step block by block */
+  function jump(d){
+    if(!on)return;
+    armed=true;
+    var list=units.length?units:collect(slides[cur]);
+    var here=units.length?ui-1:-1;
+    var t=here+d;
+    if(t<0){if(cur>0)prev();return;}
+    if(t>=list.length){next();return;}
+    cancel();
+    units=list;ui=t;
+    playUnit();
+  }
+  if(bPrev)bPrev.addEventListener("click",function(){jump(-1);});
+  if(bNext)bNext.addEventListener("click",function(){jump(1);});
   if(bRate)bRate.addEventListener("click",function(){
     ri=(ri+1)%RATES.length;save("rate",ri);paint();
     if(au)au.playbackRate=RATES[ri];

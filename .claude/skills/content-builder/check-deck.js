@@ -162,12 +162,14 @@ if (!voScripted) console.log("voice-over: no slides scripted");
 else if (voScripted === sections.length) console.log(`voice-over: all ${voScripted} slides scripted`);
 else console.log(`voice-over: ${voScripted}/${sections.length} slides scripted (partial — autoplay stops on the rest)`);
 
-// voice-over engine: all four edits present, or none — a half-ported deck is a defect
+// voice-over engine: every edit present, or none — a half-ported deck is a defect
 const VO_PARTS = [
   [/var VO=\(function\(\)\{/, "the VO engine block"],
   [/\n\s*VO\.onSlide\(\);/, "the VO.onSlide() call in show()"],
   [/class="vobar"/, "the .vobar control markup"],
   [/id="voPlay"/, "the play/pause control in the .vobar"],
+  [/id="voPrev"/, "the previous-block control in the .vobar"],
+  [/id="voNext"/, "the next-block control in the .vobar"],
   [/\.chrome,[^\n{]*\.vobar[^\n{]*\{display:none!important\}/, ".vobar in the print hide rule"],
 ];
 const voPresent = VO_PARTS.filter(p => p[0].test(html));

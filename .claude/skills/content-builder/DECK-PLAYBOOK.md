@@ -227,8 +227,8 @@ numbers (M1…) appear only beside their titles (agenda, kickers) — reference 
   only (key prefix `dwN.`, and `dwN.vo.` for the voice-over). Say so on the glass, and
   name the paper fallback template in `weeks/week-N/data/`.
 - **Voice-over:** every deck carries the engine, whether or not it is scripted yet. It
-  needs six things: the `.vobar` control markup after the progress bar, the play/pause
-  button (`#voPlay`) inside that bar, the `VO` engine block in the script, the
+  needs six things: the `.vobar` control markup after the progress bar, the transport
+  buttons (`#voPlay`, `#voPrev`, `#voNext`) inside that bar, the `VO` engine block in the script, the
   `VO.onSlide()` call inside `show()`, the `.vohl` highlight CSS,
   and a `VOPFX` equal to that deck's `PFX` plus `vo.` (so `dw4.` gives `dw4.vo.`). Port the
   block from the newest shipped deck, never from a plan file, and change only the `VOPFX`
@@ -239,6 +239,10 @@ numbers (M1…) appear only beside their titles (agenda, kickers) — reference 
   step away mid-slide and come back to the same block. It pauses the audio element and the
   speech engine, stops any pending autoplay advance, and flips its glyph between pause and
   play. Changing slide clears the paused state.
+- **Prev and next step the narration, not the deck.** `#voPrev` and `#voNext` move one
+  narrated block at a time, so a learner who missed a line replays it without losing the
+  slide. Past the last block `#voNext` advances the slide, and before the first block
+  `#voPrev` steps back a slide.
 - **Resume:** `show()` writes `cur` to `PFX + "slide"`, and the script restores it after
   the persistence loop, where `PFX` is in scope. A refresh returns the learner to the slide
   they were on rather than the title. Slide 0 is never restored, so a first open still

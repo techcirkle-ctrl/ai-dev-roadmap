@@ -99,10 +99,14 @@ The palette is shared; the layout is not. Pick by artifact:
 
 Two elements, both token-only, both hidden in print.
 
-`.vobar` pins top right at `z-index:45` and holds three pill buttons — speaker, `AUTO`,
-and the speed cycle — plus a live-region counter. It uses `--paper`, `--line` and
-`--muted`, switching to `--accent` and `--accent-soft` when a control is on. It hides
-itself entirely on a deck that carries no narration.
+`.vobar` pins top right at `z-index:45`. It is icon-only, because it sits over the slide
+and must not compete with it. Each control is a 28px round button holding a plain line
+SVG that inherits `currentColor`. With the voice off the bar shows one speaker icon; the
+rest carry `.vohide` and only appear once the voice is on. Turned on it reads: speaker,
+previous block, play or pause, next block, autoplay, and the speed cycle, which is the
+one button with a text label. A live-region counter sits at the end. Colours come from
+`--paper`, `--line` and `--muted`, switching to `--accent` and `--accent-soft` when a
+control is on. The bar hides itself entirely on a deck that carries no narration.
 
 `.vohl` marks the block currently being narrated: `--accent-soft` fill, a 3px `--accent`
 left rule, padding, and a negative left margin so the rule sits in the margin rather than

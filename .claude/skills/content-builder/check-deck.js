@@ -167,6 +167,7 @@ const VO_PARTS = [
   [/var VO=\(function\(\)\{/, "the VO engine block"],
   [/\n\s*VO\.onSlide\(\);/, "the VO.onSlide() call in show()"],
   [/class="vobar"/, "the .vobar control markup"],
+  [/id="voPlay"/, "the play/pause control in the .vobar"],
   [/\.chrome,[^\n{]*\.vobar[^\n{]*\{display:none!important\}/, ".vobar in the print hide rule"],
 ];
 const voPresent = VO_PARTS.filter(p => p[0].test(html));

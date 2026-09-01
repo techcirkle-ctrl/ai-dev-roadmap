@@ -289,6 +289,7 @@ li.vohl{margin-left:-16px}
 <div class="progress"><i id="pbar"></i></div>
 <div class="vobar">
   <button class="vobtn" id="voToggle" type="button" aria-pressed="false" aria-label="Voice-over on or off"><span class="glyph" id="voGlyph">&#128263;</span><span id="voLabel">Voice off</span></button>
+  <button class="vobtn" id="voPlay" type="button" aria-label="Pause or resume the voice-over" disabled><span class="glyph" id="voPlayGlyph">&#9208;</span><span id="voPlayLabel">Pause</span></button>
   <button class="vobtn" id="voAuto" type="button" aria-pressed="false" aria-label="Autoplay on or off" disabled>Auto</button>
   <button class="vobtn" id="voRate" type="button" aria-label="Playback speed" disabled>1&times;</button>
   <span class="vocount" id="voCount" aria-live="polite"></span>
@@ -1820,11 +1821,15 @@ var VO=(function(){
   var GRACE=4;                    /* seconds the learner gets before the deck moves */
   var bToggle=document.getElementById("voToggle");
   var bAuto=document.getElementById("voAuto");
+  var bPlay=document.getElementById("voPlay");
+  var elPlayGlyph=document.getElementById("voPlayGlyph");
+  var elPlayLabel=document.getElementById("voPlayLabel");
   var elGlyph=document.getElementById("voGlyph");
   var elLabel=document.getElementById("voLabel");
   var elCount=document.getElementById("voCount");
   var bRate=document.getElementById("voRate");
   var on=false,auto=false,armed=false,timer=null,left=0,voice=null,queue=[],qi=0,gen=0,au=null;
+  var paused=false;
   var units=[],ui=0,hl=null;
   var RATES=[1,1.25,1.5,1.75],ri=0;
 
@@ -1866,9 +1871,10 @@ var VO=(function(){
   /* the generation bump fences off any utterance callback still in flight */
   function cancel(){
     gen++;stopTimer();clearCount();queue=[];qi=0;
+    if(paused){paused=false;paint();}
     if(au){au.onended=null;au.onerror=null;try{au.pause();}catch(_){}au=null;}
     units=[];ui=0;unmark();
-    try{synth.cancel();}catch(_){}
+    try{synth.cancel();synth.resume();}catch(_){}
   }
   function paint(){
     bToggle.setAttribute("aria-pressed",on?"true":"false");
@@ -1876,6 +1882,11 @@ var VO=(function(){
     elLabel.textContent=on?"Voice on":"Voice off";
     bAuto.setAttribute("aria-pressed",(on&&auto)?"true":"false");
     bAuto.disabled=!on;
+    if(bPlay){
+      bPlay.disabled=!on;
+      elPlayGlyph.innerHTML=paused?"&#9654;":"&#9208;";
+      elPlayLabel.textContent=paused?"Play":"Pause";
+    }
     if(bRate){bRate.textContent=RATES[ri]+"\u00d7";bRate.disabled=!on;}
   }
 
@@ -1971,6 +1982,27 @@ var VO=(function(){
   bToggle.addEventListener("click",function(){
     on=!on;armed=true;save("on",on);paint();
     if(on)speakCurrent();else cancel();
+  });
+  /* pause holds the narration where it is, so the learner can step away and come back */
+  function pause(){
+    if(!on||paused)return;
+    paused=true;stopTimer();clearCount();
+    if(au){try{au.pause();}catch(_){}}
+    try{synth.pause();}catch(_){}
+    paint();
+  }
+  function resume(){
+    if(!on||!paused)return;
+    paused=false;paint();
+    if(au){var pr=au.play();if(pr&&pr["catch"])pr["catch"](function(){});return;}
+    try{synth.resume();}catch(_){}
+    /* nothing was in flight, so start this slide from its first block */
+    if(!synth.speaking&&!synth.pending)speakCurrent();
+  }
+  if(bPlay)bPlay.addEventListener("click",function(){
+    if(!on)return;
+    if(!armed){armed=true;paused=false;paint();speakCurrent();return;}
+    if(paused)resume();else pause();
   });
   if(bRate)bRate.addEventListener("click",function(){
     ri=(ri+1)%RATES.length;save("rate",ri);paint();

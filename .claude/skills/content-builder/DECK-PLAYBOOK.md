@@ -227,11 +227,18 @@ numbers (M1…) appear only beside their titles (agenda, kickers) — reference 
   only (key prefix `dwN.`, and `dwN.vo.` for the voice-over). Say so on the glass, and
   name the paper fallback template in `weeks/week-N/data/`.
 - **Voice-over:** every deck carries the engine, whether or not it is scripted yet. It
-  needs five things: the `.vobar` control markup after the progress bar, the `VO` engine
-  block in the script, the `VO.onSlide()` call inside `show()`, the `.vohl` highlight CSS,
+  needs six things: the `.vobar` control markup after the progress bar, the play/pause
+  button (`#voPlay`) inside that bar, the `VO` engine block in the script, the
+  `VO.onSlide()` call inside `show()`, the `.vohl` highlight CSS,
   and a `VOPFX` equal to that deck's `PFX` plus `vo.` (so `dw4.` gives `dw4.vo.`). Port the
   block from the newest shipped deck, never from a plan file, and change only the `VOPFX`
   line.
+
+- **Play/pause is not the same control as voice on/off.** Voice off cancels the run and
+  loses the learner's place. `#voPlay` holds the narration where it is, so a learner can
+  step away mid-slide and come back to the same block. It pauses the audio element and the
+  speech engine, stops any pending autoplay advance, and flips its glyph between pause and
+  play. Changing slide clears the paused state.
 - **Resume:** `show()` writes `cur` to `PFX + "slide"`, and the script restores it after
   the persistence loop, where `PFX` is in scope. A refresh returns the learner to the slide
   they were on rather than the title. Slide 0 is never restored, so a first open still

@@ -188,9 +188,14 @@ where to look. Same content, two lengths:
   locally after cloning, like every other HTML artifact here.
 
 **Both are updated every time a week goes live**: flip that week's row from *Not open
-yet* to *Live* and point the deck-opening command at the current week. Nothing else in
-either changes week to week — if a week needs the front door rewritten, the week has
-broken the contract.
+yet* to *Live*. Nothing else in either changes week to week — if a week needs the front
+door rewritten, the week has broken the contract.
+
+**The deck-opening command stays at `weeks/week-1/Knowledge.html`.** It is onboarding
+for someone in their first thirty minutes, and their current week is week 1. A
+self-paced cohort has no shared current week: three learners can be on three different
+decks, so pointing the front door at the newest one sends a beginner to the wrong
+place.
 
 ## Tracking — GitHub is the source of truth
 

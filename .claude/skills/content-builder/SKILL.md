@@ -123,9 +123,10 @@ question you may ask before going dark.
 2. Issues quote the deck by act/hands-on **name**, never slide number. The Knowledge
    issue's proof-of-work = the deck's capstone export artifact.
 3. Update the front door — `README.md` **and** `START-HERE.html`: flip week N's row in
-   each status table to **Live** (`<span class="tag good">Live</span>` in the HTML) and
-   point the deck-opening commands at `weeks/week-N/Knowledge.html`. Nothing else in
-   either changes.
+   each status table to **Live** (`<span class="tag good">Live</span>` in the HTML).
+   Nothing else in either changes. Leave the deck-opening commands pointing at
+   `weeks/week-1/Knowledge.html`: they are onboarding, and a self-paced cohort has no
+   shared current week (METHODOLOGY, "The front door").
 4. STOP. Ask the user to review the local files. Iterate until confirmed.
 
 ### Phase 5 — Publish (only after every gate is cleared)
